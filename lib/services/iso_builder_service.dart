@@ -340,10 +340,15 @@ class IsoBuilderService {
       yield '  Configuring WinPE shell launcher...';
       final exeName = p.basename(Platform.resolvedExecutable);
       
-      // We launch cmd.exe to run our script, preventing instant reboot on crash
-      final iniContent = '[LaunchApps]\n%SYSTEMDRIVE%\\Windows\\System32\\cmd.exe, /k %SYSTEMDRIVE%\\JossRedInstaller\\start.cmd\n';
-      await File(p.join(mountDir, 'Windows', 'System32', 'winpeshl.ini'))
-          .writeAsString(iniContent);
+      // We use winpeshl.ini to completely override Windows Setup (setup.exe).
+      // We MUST include wpeinit.exe in it, otherwise USB and Video drivers won't load (black screen)!
+      final iniPath = p.join(mountDir, 'Windows', 'System32', 'winpeshl.ini');
+      final iniContent = '''
+[LaunchApps]
+wpeinit.exe
+%SYSTEMDRIVE%\\Windows\\System32\\cmd.exe, /k %SYSTEMDRIVE%\\JossRedInstaller\\start.cmd
+''';
+      await File(iniPath).writeAsString(iniContent);
           
       // Write the start.cmd script
       final cmdContent = '''
@@ -366,7 +371,7 @@ echo You can run commands here to debug.
 ''';
       await File(p.join(targetAppPath, 'start.cmd')).writeAsString(cmdContent);
       
-      yield '  ✓ winpeshl.ini configured to launch start.cmd (with debug pause)';
+      yield '  ✓ startnet.cmd configured to launch start.cmd (with debug pause)';
 
       // 5d. Copy install.wim to media
       yield '  Copying Windows install image...';
@@ -381,8 +386,60 @@ echo You can run commands here to debug.
       }
       yield '  ✓ Windows image ready.';
 
-      // ── Step 6: Unmount + Commit ────────────────────────────────────────
+      // ── Step 6: Extract Bootloader, Unmount + Commit ───────────────────
       yield 'Step 6/6: Committing and finalizing ISO...';
+      
+      // Extract boot manager and BCD from the mounted WIM to the ISO media
+      yield '  Extracting boot managers and BCD from boot.wim...';
+      try {
+        final winBoot = p.join(mountDir, 'Windows', 'Boot');
+        
+        // Root boot managers
+        final pcatBootmgr = File(p.join(winBoot, 'PCAT', 'bootmgr'));
+        if (pcatBootmgr.existsSync()) {
+          await pcatBootmgr.copy(p.join(mediaDir, 'bootmgr'));
+        }
+        
+        final efiBootmgr = File(p.join(winBoot, 'EFI', 'bootmgr.efi'));
+        if (efiBootmgr.existsSync()) {
+          await efiBootmgr.copy(p.join(mediaDir, 'bootmgr.efi'));
+        }
+        
+        // PCAT (Legacy BIOS) BCD and SDI
+        final bootDir = p.join(mediaDir, 'boot');
+        await Directory(bootDir).create(recursive: true);
+        if (File(p.join(winBoot, 'DVD', 'PCAT', 'BCD')).existsSync()) {
+          await File(p.join(winBoot, 'DVD', 'PCAT', 'BCD')).copy(p.join(bootDir, 'bcd'));
+        }
+        if (File(p.join(winBoot, 'DVD', 'PCAT', 'boot.sdi')).existsSync()) {
+          await File(p.join(winBoot, 'DVD', 'PCAT', 'boot.sdi')).copy(p.join(bootDir, 'boot.sdi'));
+        }
+        if (File(p.join(winBoot, 'DVD', 'PCAT', 'bootfix.bin')).existsSync()) {
+          await File(p.join(winBoot, 'DVD', 'PCAT', 'bootfix.bin')).copy(p.join(bootDir, 'bootfix.bin'));
+        }
+        
+        // EFI BCD and SDI
+        final efiMsBootDir = p.join(mediaDir, 'efi', 'microsoft', 'boot');
+        await Directory(efiMsBootDir).create(recursive: true);
+        if (File(p.join(winBoot, 'DVD', 'EFI', 'BCD')).existsSync()) {
+          await File(p.join(winBoot, 'DVD', 'EFI', 'BCD')).copy(p.join(efiMsBootDir, 'bcd'));
+        }
+        if (File(p.join(winBoot, 'DVD', 'EFI', 'boot.sdi')).existsSync()) {
+          await File(p.join(winBoot, 'DVD', 'EFI', 'boot.sdi')).copy(p.join(efiMsBootDir, 'boot.sdi'));
+        }
+        
+        // EFI Boot app
+        final efiBootDir = p.join(mediaDir, 'efi', 'boot');
+        await Directory(efiBootDir).create(recursive: true);
+        if (File(p.join(winBoot, 'EFI', 'bootmgfw.efi')).existsSync()) {
+          await File(p.join(winBoot, 'EFI', 'bootmgfw.efi')).copy(p.join(efiBootDir, 'bootx64.efi'));
+        }
+        
+        yield '  ✓ Bootloader files extracted to ISO root.';
+      } catch (e) {
+        yield '  ⚠ Warning: Could not extract some boot files. Make sure boot.wim is valid ($e)';
+      }
+
       yield '  Waiting for file handles to release...';
       await Future.delayed(const Duration(seconds: 3));
 
@@ -400,6 +457,12 @@ echo You can run commands here to debug.
         );
       }
       yield '  ✓ Changes committed to boot.wim';
+      
+      // CRITICAL: We must copy the modified boot.wim to the ISO's sources folder!
+      yield '  Injecting modified boot.wim into ISO...';
+      final finalBootWim = File(p.join(_assetsTempDir, 'base_boot.wim'));
+      await finalBootWim.copy(p.join(mediaDir, 'sources', 'boot.wim'));
+      yield '  ✓ boot.wim injected.';
 
       // ── Build ISO with oscdimg ──────────────────────────────────────────
       yield '  Building bootable ISO...';
