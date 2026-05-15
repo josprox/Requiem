@@ -1,0 +1,225 @@
+import 'package:flutter/material.dart';
+import 'disk_selection_screen.dart';
+
+class LandingScreen extends StatefulWidget {
+  const LandingScreen({super.key});
+
+  @override
+  State<LandingScreen> createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..forward();
+    
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _slideAnimation = Tween<Offset>(begin: const Offset(0, 0.05), end: Offset.zero).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Premium Background Gradient
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: const Alignment(-0.8, -0.6),
+                  radius: 1.5,
+                  colors: [
+                    scheme.primary.withValues(alpha: 0.15),
+                    scheme.surface,
+                  ],
+                  stops: const [0.0, 0.8],
+                ),
+              ),
+            ),
+          ),
+          
+          // Subtle Mesh Effect
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.03,
+              child: Image.network(
+                'https://www.transparenttextures.com/patterns/carbon-fibre.png',
+                repeat: ImageRepeat.repeat,
+              ),
+            ),
+          ),
+
+          FadeTransition(
+            opacity: _fadeAnimation,
+            child: SlideTransition(
+              position: _slideAnimation,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Minimalist Branding with Glow
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: scheme.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            color: scheme.primary.withValues(alpha: 0.2),
+                            blurRadius: 40,
+                            spreadRadius: -10,
+                          ),
+                        ],
+                      ),
+                      child: Icon(Icons.rocket_launch_rounded, size: 56, color: scheme.primary),
+                    ),
+                    const SizedBox(height: 64),
+                    
+                    Text(
+                      'JOSS RED',
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        color: Colors.white,
+                        fontSize: 100,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -2,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 2,
+                          width: 40,
+                          color: scheme.primary,
+                        ),
+                        const SizedBox(width: 16),
+                        Text(
+                          'NEXT-GEN OS DEPLOYMENT',
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            color: scheme.primary,
+                            letterSpacing: 10,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    
+                    SizedBox(
+                      width: 650,
+                      child: Text(
+                        'Precision-engineered Windows installer for high-performance environments. '
+                        'Experience rapid deployment with direct DISM orchestration and automated system optimization.',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.6), 
+                          fontSize: 20, 
+                          height: 1.8,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 80),
+                    
+                    Row(
+                      children: [
+                        FilledButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => const DiskSelectionScreen()),
+                            );
+                          },
+                          style: FilledButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 32),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                            backgroundColor: scheme.primary,
+                            foregroundColor: Colors.white,
+                            elevation: 8,
+                            shadowColor: scheme.primary.withValues(alpha: 0.5),
+                          ),
+                          child: const Text('GET STARTED', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(width: 32),
+                        OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 32),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                            side: BorderSide(color: Colors.white.withValues(alpha: 0.2), width: 2),
+                          ),
+                          child: const Text('SYSTEM LOGS', style: TextStyle(fontSize: 20, color: Colors.white70)),
+                        ),
+                      ],
+                    ),
+                    
+                    const Spacer(),
+                    
+                    // Footer
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 64),
+                      child: Row(
+                        children: [
+                          _buildFooterItem(Icons.verified_user_rounded, 'STABLE RELEASE v1.0.0'),
+                          const SizedBox(width: 48),
+                          _buildFooterItem(Icons.security_rounded, 'SECURE BOOT COMPATIBLE'),
+                          const Spacer(),
+                          Text(
+                            'DESIGNED BY JOSS',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.1), 
+                              fontWeight: FontWeight.bold, 
+                              letterSpacing: 4,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooterItem(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: Colors.white.withValues(alpha: 0.2)),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.2), 
+            fontWeight: FontWeight.bold, 
+            letterSpacing: 1.5,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+}
