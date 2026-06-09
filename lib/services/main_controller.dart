@@ -197,7 +197,15 @@ class MainController extends ChangeNotifier {
     currentStatus = 'Configuring bootloader...';
     addLog('Running BCDBoot...');
     notifyListeners();
-    final bcdResult = await _deploymentService.configureBootloader('W:\\Windows', 'S:');
+    
+    final isGpt = partitionMode == PartitionMode.formatGpt;
+    final bootDrive = isGpt ? 'S:' : 'W:';
+    final bcdResult = await _deploymentService.configureBootloader(
+      'W:\\Windows',
+      bootDrive,
+      uefi: isGpt,
+      bios: !isGpt,
+    );
     if (!bcdResult) {
       addLog('ERROR: BCDBoot failed.');
     }

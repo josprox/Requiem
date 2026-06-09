@@ -33,11 +33,11 @@ class ProcessService {
 
     // Stream stdout and stderr interleaved
     final stdoutStream = process.stdout
-        .transform(utf8.decoder)
+        .transform(systemEncoding.decoder)
         .transform(const LineSplitter());
 
     final stderrStream = process.stderr
-        .transform(utf8.decoder)
+        .transform(systemEncoding.decoder)
         .transform(const LineSplitter());
 
     // Merge both streams
