@@ -6,17 +6,9 @@ import '../services/disk_service.dart';
 import '../services/deployment_service.dart';
 import '../services/registry_service.dart';
 import '../services/iso_builder_service.dart';
+import 'package:file_picker/file_picker.dart';
+import '../ui/widgets/custom_file_explorer.dart';
 
-/// How the disk should be prepared before deploying Windows.
-enum PartitionMode {
-  /// Wipe disk and create a clean GPT/UEFI layout (S: + W:)
-  formatGpt,
-  /// Wipe disk and create a legacy MBR layout (W:)
-  formatMbr,
-  /// Use the disk as-is — assumes the user already has the right partitions
-  /// and W: is already mounted/assigned.
-  useExisting,
-}
 
 class MainController extends ChangeNotifier {
   final DiskService _diskService = DiskService();
@@ -32,13 +24,13 @@ class MainController extends ChangeNotifier {
   String currentStatus = 'Ready';
   List<String> logs = [];
 
-  // ISO Builder State
+  // ISO Builder State (Windows-only WinPE builder)
   bool isBuildingIso = false;
   double buildProgress = 0.0;
   String? selectedWimPath;
   String? outputIsoPath;
 
-  // Auto-detected install.wim path (found on ISO drive in WinPE)
+  // Auto-detected install.wim path
   String? detectedWimPath;
   bool isSearchingWim = false;
 
@@ -57,8 +49,7 @@ class MainController extends ChangeNotifier {
   }
 
   // ─── Auto-detect install.wim from ISO drive ────────────────────────────────
-  /// In WinPE the ISO mounts as a drive letter (D:, E:, F:…).
-  /// We scan all available letters for the standard WIM location.
+  /// Scans common live media directories on Linux or drive letters on Windows.
   Future<void> autoDetectInstallWim() async {
     isSearchingWim = true;
     detectedWimPath = null;
@@ -66,28 +57,91 @@ class MainController extends ChangeNotifier {
 
     addLog('Scanning drives for Windows installation image...');
 
-    // Letters the ISO could be mounted as (skip A/B floppy, C usually = RAM/WinPE)
-    const driveLetters = ['D','E','F','G','H','I','J','K','L','M','N','O','P'];
+    if (Platform.isLinux) {
+      // Standard Linux live boot mount points where the WIM could be located
+      final searchPaths = [
+        '/run/live/medium/sources/install.wim',
+        '/run/live/medium/sources/install.swm',
+        '/cdrom/sources/install.wim',
+        '/cdrom/sources/install.swm',
+        '/run/live/medium/install.wim',
+        '/mnt/install.wim',
+      ];
 
-    for (final letter in driveLetters) {
-      // Standard WIM location (matches what buildIso puts in media/sources/)
-      final wim = File('$letter:\\sources\\install.wim');
-      if (wim.existsSync()) {
-        detectedWimPath = wim.path;
-        addLog('  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)');
-        break;
+      for (final path in searchPaths) {
+        final f = File(path);
+        if (f.existsSync()) {
+          detectedWimPath = f.path;
+          addLog('  ✓ Found install image at $path (${_fileSizeMb(f)} MB)');
+          break;
+        }
       }
-      // Split WIM (.swm) — look for install.swm as the first part
-      final swm = File('$letter:\\sources\\install.swm');
-      if (swm.existsSync()) {
-        detectedWimPath = swm.path;
-        addLog('  ✓ Found split WIM (SWM) on drive $letter:');
-        break;
+    } else {
+      // Letters the ISO could be mounted as in WinPE/Windows
+      const driveLetters = ['D','E','F','G','H','I','J','K','L','M','N','O','P'];
+
+      for (final letter in driveLetters) {
+        final wim = File('$letter:\\sources\\install.wim');
+        if (wim.existsSync()) {
+          detectedWimPath = wim.path;
+          addLog('  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)');
+          break;
+        }
+        final swm = File('$letter:\\sources\\install.swm');
+        if (swm.existsSync()) {
+          detectedWimPath = swm.path;
+          addLog('  ✓ Found split WIM (SWM) on drive $letter:');
+          break;
+        }
       }
     }
 
     if (detectedWimPath == null) {
-      addLog('  ⚠ install.wim not found on any drive. Check that the ISO is mounted.');
+      addLog('  ⚠ install.wim not found. Please specify or mount image manually.');
+    }
+
+    isSearchingWim = false;
+    notifyListeners();
+  }
+
+  /// Allows the user to manually select the WIM/SWM image using a GUI File Picker.
+  Future<void> pickWimFile([BuildContext? context]) async {
+    isSearchingWim = true;
+    notifyListeners();
+
+    if (Platform.isLinux) {
+      addLog('Mounting external USB drives to /media/usb-*...');
+      await _diskService.mountExternalDrivesLinux();
+    }
+
+    addLog('Opening file explorer to select Windows image...');
+    try {
+      String? path;
+      if (context != null && context.mounted) {
+        path = await showDialog<String>(
+          context: context,
+          builder: (context) => const CustomFileExplorer(),
+        );
+      } else {
+        final result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['wim', 'swm'],
+          dialogTitle: 'Select Windows Installation WIM or SWM Image',
+        );
+        if (result != null && result.files.single.path != null) {
+          path = result.files.single.path!;
+        }
+      }
+
+      if (path != null) {
+        final file = File(path);
+        detectedWimPath = path;
+        addLog('  ✓ Selected image: $path (${_fileSizeMb(file)} MB)');
+      } else {
+        addLog('  Image selection canceled.');
+      }
+    } catch (e) {
+      addLog('ERROR selecting image: $e');
     }
 
     isSearchingWim = false;
@@ -134,31 +188,97 @@ class MainController extends ChangeNotifier {
     addLog('Image: $resolvedWim');
     addLog('Mode: ${partitionMode.name}');
 
+    final isLinux = Platform.isLinux;
+    
+    // Define target directories depending on OS
+    final String applyDir = isLinux ? '/mnt/windows' : 'W:\\';
+    final String bootDrive = isLinux 
+        ? (partitionMode == PartitionMode.formatGpt ? '/mnt/efi' : '/mnt/windows')
+        : (partitionMode == PartitionMode.formatGpt ? 'S:' : 'W:');
+    final String windowsDir = isLinux ? '/mnt/windows/Windows' : 'W:\\Windows';
+
     // ── Step 1: Prepare Disk ──────────────────────────────────────────────
     if (partitionMode != PartitionMode.useExisting) {
       currentStatus = 'Preparing disk...';
       notifyListeners();
 
       try {
-        addLog('Generating DiskPart script...');
-        final script = partitionMode == PartitionMode.formatGpt
-            ? _diskService.generateGptScript(selectedDisk!.number)
-            : _diskService.generateMbrScript(selectedDisk!.number);
+        if (isLinux) {
+          addLog('Partitioning disk using parted...');
+          final success = await _diskService.prepareDiskLinux(selectedDisk!, partitionMode);
+          if (!success) {
+            addLog('ERROR: Disk partitioning failed on Linux.');
+            currentStatus = 'Disk Error';
+            notifyListeners();
+            return;
+          }
+          addLog('  ✓ Disk partitioned successfully.');
 
-        final tempDir = await getTemporaryDirectory();
-        final scriptFile = File(p.join(tempDir.path, 'dp.txt'));
-        await scriptFile.writeAsString(script);
+          // Mount partitions
+          addLog('Mounting target partitions...');
+          final espPart = selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+              ? '${selectedDisk!.devicePath}p1'
+              : '${selectedDisk!.devicePath}1';
+          final winPart = partitionMode == PartitionMode.formatGpt
+              ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+                  ? '${selectedDisk!.devicePath}p3'
+                  : '${selectedDisk!.devicePath}3')
+              : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+                  ? '${selectedDisk!.devicePath}p1'
+                  : '${selectedDisk!.devicePath}1');
 
-        addLog('Running DiskPart...');
-        final dpResult = await _diskService.processService
-            .run('diskpart.exe', ['/s', scriptFile.path]);
-        if (dpResult.exitCode != 0) {
-          addLog('ERROR: DiskPart failed. ${dpResult.stderr}');
-          currentStatus = 'Disk Error';
-          notifyListeners();
-          return;
+          // Ensure mount dirs exist
+          await _diskService.processService.run('mkdir', ['-p', '/mnt/windows', '/mnt/efi']);
+          
+          // Force unmount first
+          await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
+          await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
+
+          // Mount Windows Partition
+          var mountRes = await _diskService.processService.run('mount', [winPart, '/mnt/windows']);
+          if (mountRes.exitCode != 0) {
+            mountRes = await _diskService.processService.run('mount', ['-t', 'ntfs-3g', winPart, '/mnt/windows']);
+            if (mountRes.exitCode != 0) {
+              addLog('ERROR: Could not mount Windows partition: ${mountRes.stderr}');
+              currentStatus = 'Mount Error';
+              notifyListeners();
+              return;
+            }
+          }
+
+          if (partitionMode == PartitionMode.formatGpt) {
+            // Mount ESP
+            final mountEspRes = await _diskService.processService.run('mount', [espPart, '/mnt/efi']);
+            if (mountEspRes.exitCode != 0) {
+              addLog('ERROR: Could not mount ESP partition: ${mountEspRes.stderr}');
+              currentStatus = 'Mount Error';
+              notifyListeners();
+              return;
+            }
+          }
+          addLog('  ✓ Partitions mounted at /mnt/windows and /mnt/efi.');
+        } else {
+          // Windows diskpart execution
+          addLog('Generating DiskPart script...');
+          final script = partitionMode == PartitionMode.formatGpt
+              ? _diskService.generateGptScript(selectedDisk!.number)
+              : _diskService.generateMbrScript(selectedDisk!.number);
+
+          final tempDir = await getTemporaryDirectory();
+          final scriptFile = File(p.join(tempDir.path, 'dp.txt'));
+          await scriptFile.writeAsString(script);
+
+          addLog('Running DiskPart...');
+          final dpResult = await _diskService.processService
+              .run('diskpart.exe', ['/s', scriptFile.path]);
+          if (dpResult.exitCode != 0) {
+            addLog('ERROR: DiskPart failed. ${dpResult.stderr}');
+            currentStatus = 'Disk Error';
+            notifyListeners();
+            return;
+          }
+          addLog('  ✓ Disk partitioned successfully.');
         }
-        addLog('  ✓ Disk partitioned successfully.');
       } catch (e) {
         addLog('ERROR: Disk setup failed. $e');
         currentStatus = 'System Error';
@@ -167,6 +287,9 @@ class MainController extends ChangeNotifier {
       }
     } else {
       addLog('Using existing partition layout (no format).');
+      if (isLinux) {
+        addLog('Assumes target is already mounted at /mnt/windows (and /mnt/efi for GPT).');
+      }
     }
 
     // ── Step 2: Apply Image ───────────────────────────────────────────────
@@ -175,13 +298,17 @@ class MainController extends ChangeNotifier {
 
     String? swmPattern;
     if (resolvedWim.toLowerCase().endsWith('.swm')) {
-      swmPattern = resolvedWim.replaceAll(RegExp(r'\d*\.swm$'), '*.swm');
+      if (isLinux) {
+        swmPattern = resolvedWim.replaceAll(RegExp(r'\d*\.swm$'), '*.swm');
+      } else {
+        swmPattern = resolvedWim.replaceAll(RegExp(r'\d*\.swm$'), '*.swm');
+      }
       addLog('Detected split WIM. Pattern: $swmPattern');
     }
 
     final progressStream = _deploymentService.applyImage(
       imagePath: resolvedWim,
-      applyDir: 'W:\\',
+      applyDir: applyDir,
       swmPattern: swmPattern,
     );
 
@@ -193,68 +320,93 @@ class MainController extends ChangeNotifier {
       notifyListeners();
     }
 
-    // 3. Bootloader
+    // ── Step 3: Bootloader ────────────────────────────────────────────────
     currentStatus = 'Configuring bootloader...';
-    addLog('Running BCDBoot...');
+    addLog('Running Bootloader setup...');
     notifyListeners();
     
     final isGpt = partitionMode == PartitionMode.formatGpt;
-    final bootDrive = isGpt ? 'S:' : 'W:';
+    
+    final espPart = isLinux ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+        ? '${selectedDisk!.devicePath}p1'
+        : '${selectedDisk!.devicePath}1') : null;
+    final winPart = isLinux ? (partitionMode == PartitionMode.formatGpt
+        ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+            ? '${selectedDisk!.devicePath}p3'
+            : '${selectedDisk!.devicePath}3')
+        : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+            ? '${selectedDisk!.devicePath}p1'
+            : '${selectedDisk!.devicePath}1')) : null;
+
     final bcdResult = await _deploymentService.configureBootloader(
-      'W:\\Windows',
+      windowsDir,
       bootDrive,
       uefi: isGpt,
       bios: !isGpt,
+      espDevice: espPart,
+      windowsDevice: winPart,
     );
     if (!bcdResult) {
-      addLog('ERROR: BCDBoot failed.');
+      addLog('ERROR: Bootloader configuration failed.');
+    } else {
+      addLog('  ✓ Bootloader configured successfully.');
     }
 
-    // 4. Registry Injection (OEM)
+    // ── Step 4: Registry Injection (OEM) ──────────────────────────────────
     currentStatus = 'Injecting OEM configuration...';
     addLog('Modifying offline registry...');
     notifyListeners();
     
     try {
-      // OEM logo: embed it from assets into the installed Windows partition
-      // so it's accessible after installation on any PC (no host-path dependency)
-      final oemLogoTargetDir = Directory('W:\\Windows\\System32');
-      final oemLogoTarget = 'W:\\Windows\\System32\\oemlogo.bmp';
-      if (await oemLogoTargetDir.exists()) {
-        // Copy logo.png as oemlogo.bmp (Windows OEM branding accepts BMP or PNG in modern builds)
-        await File('${p.dirname(Platform.resolvedExecutable)}\\data\\flutter_assets\\assets\\logo.png')
-            .copy(oemLogoTarget);
+      final system32Dir = isLinux ? '/mnt/windows/Windows/System32' : 'W:\\Windows\\System32';
+      final oemLogoTarget = isLinux ? '/mnt/windows/Windows/System32/oemlogo.bmp' : 'W:\\Windows\\System32\\oemlogo.bmp';
+      
+      final logoSourcePath = isLinux 
+          ? '${p.dirname(Platform.resolvedExecutable)}/data/flutter_assets/assets/logo.png'
+          : '${p.dirname(Platform.resolvedExecutable)}\\data\\flutter_assets\\assets\\logo.png';
+
+      if (Directory(system32Dir).existsSync()) {
+        final logoFile = File(logoSourcePath);
+        if (logoFile.existsSync()) {
+          await logoFile.copy(oemLogoTarget);
+          addLog('  ✓ OEM logo copied to system.');
+        } else {
+          addLog('  ⚠ OEM source logo not found at $logoSourcePath.');
+        }
       }
 
       await _registryService.setOemBranding(
-        windowsPath: 'W:\\Windows',
+        windowsPath: windowsDir,
         manufacturer: 'Joss Red Systems',
         model: 'Hyperion v1',
-        logoPath: oemLogoTarget,
+        logoPath: 'C:\\Windows\\System32\\oemlogo.bmp',
       );
       
       addLog('Setting environment variables...');
-      await _registryService.setEnvironmentVariable('W:\\Windows', 'JOSS_RED_VERSION', '1.0');
+      await _registryService.setEnvironmentVariable(windowsDir, 'JOSS_RED_VERSION', '1.0');
+      addLog('  ✓ Registry injection completed.');
     } catch (e) {
       addLog('WARNING: Registry injection failed. $e');
     }
 
-    // 5. Finalizing (Copying assets)
+    // ── Step 5: Finalizing (Copying assets) ────────────────────────────────
     currentStatus = 'Finalizing...';
     addLog('Copying post-install scripts...');
     notifyListeners();
     
     try {
-      final scriptDir = Directory('W:\\Windows\\Setup\\Scripts');
+      final scriptDir = isLinux ? Directory('/mnt/windows/Windows/Setup/Scripts') : Directory('W:\\Windows\\Setup\\Scripts');
       if (!await scriptDir.exists()) await scriptDir.create(recursive: true);
-      
-      // In PE, we might have these in X:\winpe or similar. 
-      // For now we assume they are reachable or we use local placeholders.
-      // File('X:\\winpe\\SetupComplete.cmd').copy('W:\\Windows\\Setup\\Scripts\\SetupComplete.cmd');
       
       addLog('Assets successfully copied.');
     } catch (e) {
       addLog('WARNING: Assets copy failed. $e');
+    }
+
+    if (isLinux) {
+      addLog('Unmounting target file systems...');
+      await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
+      await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
     }
 
     currentStatus = 'Installation Complete!';
@@ -265,14 +417,18 @@ class MainController extends ChangeNotifier {
 
   Future<void> reboot() async {
     addLog('Rebooting system...');
-    await _diskService.processService.run('shutdown.exe', ['/r', '/t', '0']);
+    if (Platform.isLinux) {
+      await _diskService.processService.run('reboot', []);
+    } else {
+      await _diskService.processService.run('shutdown.exe', ['/r', '/t', '0']);
+    }
   }
 
-  // --- ISO Builder Logic ---
+  // --- ISO Builder Logic (Windows WinPE Builder Mode only) ---
 
   Future<void> buildFinalIso() async {
-    if (selectedWimPath == null || outputIsoPath == null) {
-      addLog('ERROR: Missing paths for ISO build.');
+    if (outputIsoPath == null) {
+      addLog('ERROR: Missing output path for ISO build.');
       return;
     }
 
@@ -281,12 +437,10 @@ class MainController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // Get the path to the current executable's build folder
-      // In development, this is build/windows/x64/runner/Release/
       final appPath = p.dirname(Platform.resolvedExecutable);
       
       final buildStream = _isoBuilderService.buildIso(
-        sourceWimPath: selectedWimPath!,
+        sourceWimPath: selectedWimPath,
         appBuildPath: appPath,
         outputIsoPath: outputIsoPath!,
       );

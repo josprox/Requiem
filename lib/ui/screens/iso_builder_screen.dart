@@ -53,7 +53,7 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                 brightness: Brightness.dark,
                 backgroundColor: Colors.transparent,
                 title: Text(
-                  'JOSS RED ISO BUILDER',
+                  'CREADOR DE ISO JOSS RED',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1),
                 ),
               ),
@@ -72,23 +72,23 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Build Your Custom ISO',
+                          'Crea Tu ISO Personalizada',
                           style: Theme.of(context).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w900),
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Automate the creation of a bootable WinPE media with Joss Red Installer pre-injected.',
+                          'Automatiza la creación de un medio WinPE arrancable con Joss Red Installer preinyectado.',
                           style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 18),
                         ),
                         const SizedBox(height: 64),
                         
                         // WIM Selection
-                        _buildSectionHeader(context, 'SOURCE WINDOWS IMAGE', Icons.file_open_rounded),
+                        _buildSectionHeader(context, 'IMAGEN DE WINDOWS DE ORIGEN', Icons.file_open_rounded),
                         const SizedBox(height: 16),
                         _buildPathSelector(
                           context,
                           path: controller.selectedWimPath,
-                          label: 'Select install.wim or install.swm',
+                          label: 'Seleccionar install.wim o install.swm',
                           onTap: () async {
                             FilePickerResult? result = await FilePicker.platform.pickFiles(
                               type: FileType.custom,
@@ -101,12 +101,12 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                         const SizedBox(height: 48),
                         
                         // Output Selection
-                        _buildSectionHeader(context, 'OUTPUT DESTINATION', Icons.save_rounded),
+                        _buildSectionHeader(context, 'DESTINO DE SALIDA', Icons.save_rounded),
                         const SizedBox(height: 16),
                         _buildPathSelector(
                           context,
                           path: controller.outputIsoPath,
-                          label: 'Select where to save the ISO',
+                          label: 'Seleccionar dónde guardar la ISO',
                           onTap: () async {
                             String? result = await FilePicker.platform.saveFile(
                               fileName: 'JossRedInstaller.iso',
@@ -122,13 +122,13 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: FilledButton.icon(
-                            onPressed: controller.isBuildingIso || controller.selectedWimPath == null || controller.outputIsoPath == null
+                            onPressed: controller.isBuildingIso || controller.outputIsoPath == null
                                 ? null
                                 : () => controller.buildFinalIso(),
                             icon: controller.isBuildingIso 
                                 ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                                 : const Icon(Icons.auto_fix_high_rounded),
-                            label: Text(controller.isBuildingIso ? 'CONSTRUCTING...' : 'BUILD ISO NOW'),
+                            label: Text(controller.isBuildingIso ? 'CONSTRUYENDO...' : 'CREAR ISO AHORA'),
                             style: FilledButton.styleFrom(
                               padding: const EdgeInsets.all(24),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -150,17 +150,17 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('BUILD CONSOLE', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
+                            const Text('CONSOLA DE CONSTRUCCIÓN', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
                             IconButton(
                               onPressed: () {
                                 final allLogs = controller.logs.join('\n');
                                 Clipboard.setData(ClipboardData(text: allLogs));
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Logs copied to clipboard!')),
+                                  const SnackBar(content: Text('¡Logs copiados al portapapeles!')),
                                 );
                               },
                               icon: const Icon(Icons.copy_all_rounded, size: 20),
-                              tooltip: 'Copy logs to clipboard',
+                              tooltip: 'Copiar logs al portapapeles',
                               style: IconButton.styleFrom(
                                 backgroundColor: Colors.white.withValues(alpha: 0.05),
                               ),

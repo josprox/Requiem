@@ -39,7 +39,7 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (_) => MainController(),
-      child: JossRedApp(startInBuilderMode: !isWinPE),
+      child: JossRedApp(startInBuilderMode: !isWinPE && !Platform.isLinux),
     ),
   );
 }

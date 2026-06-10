@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Disable screensaver and power management
+xset s off
+xset -dpms
+xset s noblank
+
+# Set a default cursor on the root X window (arrow cursor)
+xsetroot -cursor_name left_ptr
+
+# Start Openbox window manager in the background
+openbox-session &
+
+# Launch the Flutter installer desktop app
+exec /opt/joss_red_installer/joss_red_installer

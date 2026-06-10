@@ -452,7 +452,7 @@ goto :search
 
   // ─── Main Build Pipeline ──────────────────────────────────────────────────
   Stream<String> buildIso({
-    required String sourceWimPath,
+    String? sourceWimPath,
     required String appBuildPath,
     required String outputIsoPath,
   }) async* {
@@ -634,17 +634,21 @@ diagnose.exe
       yield '  ✓ Dependency diagnostic tool created.';
 
       // 5e. Copy install.wim (or split SWMs) to mediaDir/sources/install.wim
-      yield '  Deploying Windows install image...';
-      final targetWimDir = p.join(mediaDir, 'sources');
-      await Directory(targetWimDir).create(recursive: true);
+      if (sourceWimPath != null && sourceWimPath.isNotEmpty) {
+        yield '  Deploying Windows install image...';
+        final targetWimDir = p.join(mediaDir, 'sources');
+        await Directory(targetWimDir).create(recursive: true);
 
-      if (sourceWimPath.toLowerCase().endsWith('.swm')) {
-        final wimDir = p.dirname(sourceWimPath);
-        await _processService.run('xcopy', [p.join(wimDir, '*.swm'), targetWimDir, '/Y', '/Q']);
+        if (sourceWimPath.toLowerCase().endsWith('.swm')) {
+          final wimDir = p.dirname(sourceWimPath);
+          await _processService.run('xcopy', [p.join(wimDir, '*.swm'), targetWimDir, '/Y', '/Q']);
+        } else {
+          await File(sourceWimPath).copy(p.join(targetWimDir, 'install.wim'));
+        }
+        yield '  ✓ Windows image deployed.';
       } else {
-        await File(sourceWimPath).copy(p.join(targetWimDir, 'install.wim'));
+        yield '  ℹ Skipping Windows install image copy (WIM selection will be done at runtime).';
       }
-      yield '  ✓ Windows image deployed.';
 
       // 5f. Copy customized boot.wim directly to mediaDir/sources/boot.wim
       yield '  Injecting customized boot.wim...';

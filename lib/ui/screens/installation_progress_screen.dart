@@ -68,7 +68,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'DEPLOYMENT IN PROGRESS',
+                      'DESPLIEGUE EN CURSO',
                       style: TextStyle(
                         color: scheme.primary,
                         fontWeight: FontWeight.w900,
@@ -192,7 +192,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 Icon(Icons.info_outline_rounded, size: 16, color: Colors.white.withValues(alpha: 0.3)),
                 const SizedBox(width: 8),
                 Text(
-                  'DO NOT DISCONNECT POWER OR REMOVE INSTALLATION MEDIA',
+                  'NO DESCONECTE LA ENERGÍA NI RETIRE EL MEDIO DE INSTALACIÓN',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.3),
                     fontSize: 12,
@@ -205,7 +205,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                   FilledButton.icon(
                     onPressed: () => controller.reboot(),
                     icon: const Icon(Icons.restart_alt_rounded),
-                    label: const Text('RESTART SYSTEM'),
+                    label: const Text('REINICIAR SISTEMA'),
                   ),
               ],
             ),

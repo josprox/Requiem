@@ -1,0 +1,18 @@
+[Unit]
+Description=Joss Red Installer Service
+After=systemd-user-sessions.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root
+ExecStart=/usr/bin/xinit /root/.xinitrc -- -keeptty vt1
+StandardOutput=tty
+StandardError=tty
+TTYPath=/dev/tty1
+StandardInput=tty
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical.target

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/main_controller.dart';
+import '../../services/disk_service.dart';
 import 'installation_progress_screen.dart';
 
 class DiskSelectionScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DISK MANAGEMENT'),
+        title: const Text('ADMINISTRACIÓN DE DISCOS'),
         centerTitle: false,
         actions: [
           Padding(
@@ -41,7 +42,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                 controller.autoDetectInstallWim();
               },
               icon: const Icon(Icons.refresh_rounded, size: 18),
-              label: const Text('REFRESH'),
+              label: const Text('ACTUALIZAR'),
             ),
           ),
         ],
@@ -58,7 +59,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Select Target Disk',
+                    'Seleccionar Disco de Destino',
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium
@@ -66,7 +67,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Choose the physical drive where Windows will be installed.',
+                    'Elija la unidad física donde se instalará Windows.',
                     style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.5),
                         fontSize: 14),
@@ -85,7 +86,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                                         color: scheme.primary
                                             .withValues(alpha: 0.4)),
                                     const SizedBox(height: 16),
-                                    const Text('No physical disks detected',
+                                    const Text('No se detectaron discos físicos',
                                         style: TextStyle(fontSize: 18)),
                                   ],
                                 ),
@@ -196,7 +197,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                                                                           6),
                                                             ),
                                                             child: Text(
-                                                              'SYSTEM',
+                                                              'SISTEMA',
                                                               style: TextStyle(
                                                                   fontSize: 10,
                                                                   color: scheme
@@ -264,7 +265,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
 
                   // Partition mode selection
                   Text(
-                    'Partition Mode',
+                    'Modo de Partición',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -275,8 +276,8 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     mode: PartitionMode.formatGpt,
                     selected: _selectedMode,
                     icon: Icons.auto_awesome_rounded,
-                    title: 'Format GPT (Recommended)',
-                    subtitle: 'Wipes disk & creates UEFI layout\nEFI (S:) + Windows (W:)',
+                    title: 'Formatear GPT (Recomendado)',
+                    subtitle: 'Limpia el disco y crea diseño UEFI\nEFI (S:) + Windows (W:)',
                     onTap: () => setState(() => _selectedMode = PartitionMode.formatGpt),
                   ),
                   const SizedBox(height: 8),
@@ -284,8 +285,8 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     mode: PartitionMode.formatMbr,
                     selected: _selectedMode,
                     icon: Icons.history_rounded,
-                    title: 'Format MBR (Legacy BIOS)',
-                    subtitle: 'Wipes disk & creates legacy layout\nWindows (W:) only',
+                    title: 'Formatear MBR (BIOS Heredado)',
+                    subtitle: 'Limpia el disco y crea diseño heredado\nSolo Windows (W:)',
                     onTap: () => setState(() => _selectedMode = PartitionMode.formatMbr),
                   ),
                   const SizedBox(height: 8),
@@ -293,8 +294,8 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     mode: PartitionMode.useExisting,
                     selected: _selectedMode,
                     icon: Icons.drive_file_move_rounded,
-                    title: 'Use Existing Partitions',
-                    subtitle: 'No format — deploys to W: as-is\nYou manage partitions manually',
+                    title: 'Usar Particiones Existentes',
+                    subtitle: 'Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente',
                     onTap: () => setState(() => _selectedMode = PartitionMode.useExisting),
                   ),
 
@@ -309,7 +310,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                           ? null
                           : () => _showConfirmDialog(context, controller),
                       icon: const Icon(Icons.play_arrow_rounded),
-                      label: const Text('START INSTALLATION'),
+                      label: const Text('INICIAR INSTALACIÓN'),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         textStyle: const TextStyle(
@@ -322,7 +323,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        'Waiting for install.wim detection...',
+                        'Esperando la detección de install.wim...',
                         style: TextStyle(
                             color: scheme.error.withValues(alpha: 0.8),
                             fontSize: 12),
@@ -350,19 +351,19 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
           size: 48,
         ),
         iconColor: willFormat ? scheme.error : scheme.primary,
-        title: Text(willFormat ? 'CONFIRM DATA DESTRUCTION' : 'CONFIRM INSTALLATION'),
+        title: Text(willFormat ? 'CONFIRMAR DESTRUCCIÓN DE DATOS' : 'CONFIRMAR INSTALACIÓN'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (willFormat)
               const Text(
-                'The selected disk will be completely formatted. All data will be lost.',
+                'El disco seleccionado se formateará por completo. Se perderán todos los datos.',
                 textAlign: TextAlign.center,
               )
             else
               const Text(
-                'Windows will be deployed to W:\\ without formatting.',
+                'Windows se desplegará en W:\\ sin formatear.',
                 textAlign: TextAlign.center,
               ),
             const SizedBox(height: 16),
@@ -384,7 +385,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('CANCEL'),
+            child: const Text('CANCELAR'),
           ),
           FilledButton(
             onPressed: () {
@@ -401,7 +402,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     backgroundColor: scheme.error,
                     foregroundColor: scheme.onError)
                 : null,
-            child: const Text('CONFIRM & INSTALL'),
+            child: const Text('CONFIRMAR E INSTALAR'),
           ),
         ],
       ),
@@ -460,10 +461,10 @@ class _WimStatusCard extends StatelessWidget {
               children: [
                 Text(
                   searching
-                      ? 'Scanning for image...'
+                      ? 'Buscando imagen...'
                       : found
-                          ? 'Image detected'
-                          : 'Image not found',
+                          ? 'Imagen detectada'
+                          : 'Imagen no encontrada',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
@@ -485,6 +486,30 @@ class _WimStatusCard extends StatelessWidget {
               ],
             ),
           ),
+          if (!searching) ...[
+            const SizedBox(width: 12),
+            TextButton.icon(
+              onPressed: () => controller.pickWimFile(context),
+              icon: Icon(Icons.folder_open_rounded, size: 16, color: found ? Colors.greenAccent : scheme.error),
+              label: Text(
+                found ? 'CAMBIAR' : 'BUSCAR',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: found ? Colors.greenAccent : scheme.error,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                backgroundColor: found
+                    ? Colors.greenAccent.withValues(alpha: 0.1)
+                    : scheme.error.withValues(alpha: 0.1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

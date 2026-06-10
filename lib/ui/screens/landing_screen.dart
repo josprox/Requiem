@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'disk_selection_screen.dart';
+import 'wim_picker_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -114,7 +116,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                         ),
                         const SizedBox(width: 16),
                         Text(
-                          'NEXT-GEN OS DEPLOYMENT',
+                          'DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN',
                           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                             color: scheme.primary,
                             letterSpacing: 10,
@@ -128,8 +130,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                     SizedBox(
                       width: 650,
                       child: Text(
-                        'Precision-engineered Windows installer for high-performance environments. '
-                        'Experience rapid deployment with direct DISM orchestration and automated system optimization.',
+                        'Instalador de Windows de alta precisión para entornos de alto rendimiento. '
+                        'Experimente un despliegue rápido con orquestación directa de DISM y optimización automatizada del sistema.',
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.6), 
                           fontSize: 20, 
@@ -145,8 +147,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                       children: [
                         FilledButton(
                           onPressed: () {
+                            final Widget next = Platform.isLinux
+                                ? const WimPickerScreen()
+                                : const DiskSelectionScreen();
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => const DiskSelectionScreen()),
+                              MaterialPageRoute(builder: (context) => next),
                             );
                           },
                           style: FilledButton.styleFrom(
@@ -157,7 +162,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                             elevation: 8,
                             shadowColor: scheme.primary.withValues(alpha: 0.5),
                           ),
-                          child: const Text('GET STARTED', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          child: const Text('EMPEZAR', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                         ),
                         const SizedBox(width: 32),
                         OutlinedButton(
@@ -167,7 +172,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                             side: BorderSide(color: Colors.white.withValues(alpha: 0.2), width: 2),
                           ),
-                          child: const Text('SYSTEM LOGS', style: TextStyle(fontSize: 20, color: Colors.white70)),
+                          child: const Text('LOGS DEL SISTEMA', style: TextStyle(fontSize: 20, color: Colors.white70)),
                         ),
                       ],
                     ),
@@ -179,12 +184,12 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                       padding: const EdgeInsets.only(bottom: 64),
                       child: Row(
                         children: [
-                          _buildFooterItem(Icons.verified_user_rounded, 'STABLE RELEASE v1.0.0'),
+                          _buildFooterItem(Icons.verified_user_rounded, 'VERSIÓN ESTABLE v1.0.0'),
                           const SizedBox(width: 48),
-                          _buildFooterItem(Icons.security_rounded, 'SECURE BOOT COMPATIBLE'),
+                          _buildFooterItem(Icons.security_rounded, 'COMPATIBLE CON SECURE BOOT'),
                           const Spacer(),
                           Text(
-                            'DESIGNED BY JOSS',
+                            'DISEÑADO POR JOSS',
                             style: TextStyle(
                               color: Colors.white.withValues(alpha: 0.1), 
                               fontWeight: FontWeight.bold, 
