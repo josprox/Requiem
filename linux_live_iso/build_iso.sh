@@ -156,6 +156,16 @@ sudo chmod +x "$CHROOT_DIR/tmp/setup_chroot.sh"
 sudo chroot "$CHROOT_DIR" /tmp/setup_chroot.sh
 sudo rm -f "$CHROOT_DIR/tmp/setup_chroot.sh"
 
+echo "Step 8.5: Verifying installer runtime dependencies..."
+sudo chroot "$CHROOT_DIR" bash -c '
+    set -e
+    ldd /opt/joss_red_installer/joss_red_installer | tee /tmp/joss_installer_ldd.txt
+    if grep -q "not found" /tmp/joss_installer_ldd.txt; then
+        echo "ERROR: Missing runtime libraries for /opt/joss_red_installer/joss_red_installer"
+        exit 1
+    fi
+'
+
 # 9. Copy Linux Kernel and Initrd outside squashfs for booting
 echo "Step 9: Extracting live kernel and boot images..."
 KERNEL_FILE=$(ls "$CHROOT_DIR/boot"/vmlinuz-* | head -n 1)

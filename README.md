@@ -1,71 +1,150 @@
-# Joss Red Installer & ISO Builder
+# Joss Red Installer
 
-Instalador personalizado de Windows de alto rendimiento con orquestación directa de DISM y optimización automatizada del sistema, diseñado para entornos de recuperación, despliegue rápido y WinPE.
+Instalador live de Windows construido con Flutter para Linux. El proyecto genera una ISO arrancable propia; al iniciar desde esa ISO se abre el instalador, se selecciona un archivo `install.wim` o `install.swm`, se elige el disco de destino y el sistema aplica la imagen de Windows, configura el arranque y reinicia.
 
-## Requisitos Previos
+## Flujo Actual
 
-Antes de compilar, asegúrate de tener instalado en tu sistema:
-1. **Flutter SDK** (versión `^3.11.5`).
-2. **Visual Studio** con la carga de trabajo *Desarrollo para el escritorio con C++* (necesario para compilar aplicaciones nativas de Windows en Flutter).
-3. Conexión a internet para la descarga de dependencias.
+1. Desde Windows se usa WSL/Ubuntu como entorno de compilacion.
+2. WSL instala Flutter Linux Desktop en `/opt/flutter`.
+3. El script `linux_live_iso/build_iso.sh` crea un Debian live con `debootstrap`.
+4. Dentro del chroot se compila el bundle Linux de Flutter.
+5. El bundle queda instalado en `/opt/joss_red_installer` dentro del live ISO.
+6. La ISO arranca con GRUB, `live-boot`, Xorg y Openbox.
+7. `joss-installer.service` lanza automaticamente `/opt/joss_red_installer/joss_red_installer`.
+8. El instalador permite seleccionar el WIM/SWM desde medios montados o unidades USB.
+9. Se particiona/formatea el disco elegido, se aplica la imagen con `wimlib-imagex`, se configura BCD/bootloader y se ofrece reiniciar.
 
----
+## Requisitos
 
-## 🚀 Guía de Compilación desde Cero
+- Windows 10/11 con WSL2.
+- Ubuntu en WSL.
+- Conexion a internet durante la construccion.
+- Espacio libre recomendado: 20 GB o mas.
+- Permisos `sudo` dentro de WSL.
+- El archivo WIM/SWM de Windows en un USB, disco externo o ruta accesible durante la instalacion.
 
-### 1. Descargar Dependencias
-Abre tu consola de comandos en la carpeta raíz del proyecto y ejecuta:
-```powershell
-flutter pub get
+## Preparar WSL
+
+Abre Ubuntu/WSL y ve al proyecto montado desde Windows:
+
+```bash
+cd /mnt/c/Users/joss/Documents/proyectos/JossZilla
 ```
 
-### 2. Compilar la Aplicación Windows
-Compila el binario ejecutable optimizado para producción de la aplicación:
-```powershell
-flutter build windows
+Ejecuta el preparador:
+
+```bash
+chmod +x linux_live_iso/setup_wsl.sh
+./linux_live_iso/setup_wsl.sh
 ```
-Esto generará los binarios compilados en la ruta:
-`build/windows/x64/runner/Release/`
 
----
+Este script instala dependencias de compilacion, clona Flutter `3.44.1` en `/opt/flutter`, habilita Linux Desktop y compila una primera version del app.
 
-## 💿 Cómo Generar la ISO Personalizada de WinPE
+## Generar la ISO
 
-El creador de ISO ya **no requiere copiar el archivo `install.wim` dentro de la ISO** (el selector de WIM integrado a nivel de aplicación permite seleccionarlo al vuelo durante la instalación real desde un USB, disco externo, etc.).
+Desde la raiz del proyecto en WSL:
 
-> [!IMPORTANT]
-> El proceso de creación de ISO utiliza **DISM.exe** para montar el WIM base WinPE, lo cual **requiere obligatoriamente permisos de Administrador**. Asegúrate de iniciar tu consola o aplicación con privilegios elevados.
+```bash
+cd /mnt/c/Users/joss/Documents/proyectos/JossZilla
+chmod +x linux_live_iso/build_iso.sh
+./linux_live_iso/build_iso.sh
+```
 
-### Método A: Desde la interfaz de Flutter (Como Administrador)
-1. Abre tu consola de PowerShell/CMD como **Administrador** y ejecuta:
-   ```powershell
-   flutter run -d windows
-   ```
-2. En la pantalla **Creador de ISO**:
-   * **Imagen de Windows de Origen (Opcional):** Puedes dejarlo en blanco o seleccionar un WIM para embeberlo.
-   * **Destino de Salida:** Selecciona la ruta de destino y nombre donde se guardará la ISO (ej. `joss_installer.iso`).
-3. Haz clic en **CREAR ISO AHORA**.
+El resultado se crea en:
 
-### Método B: Mediante script de consola (Como Administrador)
-Si prefieres no usar la UI para compilar la ISO:
-1. Abre tu consola de PowerShell/CMD como **Administrador**.
-2. Ejecuta el script de automatización Dart:
-   ```powershell
-   dart scratch/build_iso_cli.dart
-   ```
-El script montará la imagen base PE, inyectará los binarios de la aplicación de Flutter compilada, agregará las librerías VC++ DLLs necesarias, configurará el script de arranque (`winpeshl.ini` + `find_installer.cmd`) y generará el archivo `.iso` arrancable sin incluir el WIM pesado.
+```text
+joss_installer.iso
+```
 
----
+Durante este proceso el script:
 
-## 🖥️ Proceso de Instalación en la VM / Equipo de Destino
+- instala dependencias del constructor;
+- crea el chroot Debian Bookworm;
+- compila `ms-sys`;
+- compila `xorriso` desde codigo fuente;
+- copia el proyecto al chroot;
+- compila Flutter Linux release dentro del chroot;
+- instala herramientas de despliegue como `wimtools`, `ntfs-3g`, `parted`, `efibootmgr` y `hivex`;
+- copia `linux_live_iso/tools/patch_bcd.py`;
+- genera `filesystem.squashfs`;
+- empaqueta una ISO hibrida BIOS/UEFI con `grub-mkrescue`.
 
-Una vez generada la ISO, puedes montarla en VMware o grabarla en una unidad USB arrancable.
+## Usar la ISO
 
-1. **Arrancar el Equipo:** Arranca el sistema con la ISO. WinPE iniciará e invocará de manera automática a **Joss Red Installer** en español.
-2. **Buscar la Imagen WIM:** Si el archivo WIM no se detecta de forma automática en los directorios de arranque comunes, haz clic en **BUSCAR**. Esto abrirá nuestro **Explorador de Archivos Integrado** (diseñado especialmente para WinPE) donde podrás navegar libremente por todas tus unidades de almacenamiento y seleccionar el archivo de instalación.
-3. **Seleccionar Disco de Destino:** Selecciona la unidad física limpia para la instalación. El instalador bloqueará los discos de sistema actuales para evitar pérdidas accidentales.
-4. **Elegir Modo de Partición:**
-   * **Formatear GPT (Recomendado):** Ideal para sistemas modernos UEFI.
-   * **Formatear MBR (BIOS Heredado):** Para sistemas antiguos en modo Legacy.
-   * **Usar Particiones Existentes:** Conserva la estructura de la unidad instalando en la ruta `W:` actual.
-5. **Confirmar e Instalar:** Revisa los detalles y pulsa **CONFIRMAR E INSTALAR**. El sistema realizará el formateo, aplicará la imagen con DISM y optimizará el registro de forma 100% automatizada.
+1. Arranca el equipo o VM desde `joss_installer.iso`.
+2. En el menu de GRUB elige `Joss Red Installer (Live RAM Mode - Recommended)`.
+3. Al cargar el escritorio live se abre Joss Red Installer automaticamente.
+4. En la bienvenida pulsa `EMPEZAR`.
+5. Selecciona o busca el archivo `install.wim` o `install.swm`.
+6. Selecciona el disco de destino.
+7. Elige el modo de particion:
+   - `Formatear GPT`: crea ESP FAT32, MSR y particion NTFS para Windows.
+   - `Formatear MBR`: crea una particion NTFS activa para BIOS heredado.
+   - `Usar Particiones Existentes`: asume que ya montaste manualmente `/mnt/windows` y, si aplica, `/mnt/efi`.
+8. Confirma la instalacion.
+9. Al terminar pulsa `REINICIAR SISTEMA`.
+
+## Que Hace el Instalador
+
+En Linux live, el instalador ejecuta este flujo:
+
+- monta unidades externas para facilitar la busqueda del WIM/SWM;
+- lista discos fisicos con `lsblk`;
+- bloquea discos detectados como sistema/live para reducir riesgo de seleccionar el medio de arranque;
+- prepara particiones con `parted`, `mkfs.vfat` y `mkfs.ntfs`;
+- monta destino en `/mnt/windows` y la ESP en `/mnt/efi`;
+- aplica la imagen con `wimlib-imagex apply`;
+- copia archivos de arranque de `Windows/Boot`;
+- parchea BCD con `linux_live_iso/tools/patch_bcd.py`;
+- registra entrada UEFI con `efibootmgr` o escribe arranque legacy con `ms-sys`;
+- inyecta marca OEM y variable `JOSS_RED_VERSION` en el registro offline con `hivexregedit`;
+- desmonta particiones y marca la instalacion como completa.
+
+## Validacion Rapida
+
+Desde Windows o WSL puedes comprobar el estado del proyecto:
+
+```bash
+flutter analyze
+flutter test
+```
+
+Tambien puedes verificar que los archivos criticos existan:
+
+```bash
+test -f linux_live_iso/build_iso.sh
+test -f linux_live_iso/setup_wsl.sh
+test -f linux_live_iso/tools/patch_bcd.py
+test -f linux_live_iso/configs/joss-installer.service
+test -f linux_live_iso/configs/grub.cfg
+```
+
+## Notas Importantes
+
+- La ISO no necesita incluir el WIM. El WIM puede estar en un USB o disco externo.
+- El modo GPT/UEFI es el recomendado para equipos modernos.
+- El modo MBR/BIOS existe para equipos heredados.
+- `Live RAM Mode` carga el live en memoria; despues de cargar, es mas tolerante si el medio de instalacion se desconecta, pero el WIM debe seguir accesible si vive en otro USB.
+- La instalacion destruye datos cuando se usa `Formatear GPT` o `Formatear MBR`.
+- Si el equipo usa Secure Boot estricto, puede requerir desactivarlo o firmar la cadena de arranque.
+
+## Solucion de Problemas
+
+Si WSL no encuentra el proyecto, confirma que Windows este montado en `/mnt/c` y que la ruta exista:
+
+```bash
+ls /mnt/c/Users/joss/Documents/proyectos/JossZilla
+```
+
+Si `build_iso.sh` falla por montajes del chroot, limpia montajes previos y vuelve a ejecutar:
+
+```bash
+sudo umount -lf /tmp/joss_installer_iso_build/chroot/proc 2>/dev/null || true
+sudo umount -lf /tmp/joss_installer_iso_build/chroot/sys 2>/dev/null || true
+sudo umount -lf /tmp/joss_installer_iso_build/chroot/dev/pts 2>/dev/null || true
+sudo umount -lf /tmp/joss_installer_iso_build/chroot/dev 2>/dev/null || true
+```
+
+Si el instalador no ve el WIM, usa `BUSCAR`; el explorador integrado navega por `/`, `/media` y `/mnt` en Linux live.
+
+Si Windows no arranca despues de aplicar el WIM, revisa en los logs del instalador la fase `Configuring bootloader`. Esa fase depende de que el WIM contenga `Windows/Boot/EFI` o `Windows/Boot/DVD` y de que `patch_bcd.py`, `efibootmgr`/`ms-sys` se hayan ejecutado correctamente.

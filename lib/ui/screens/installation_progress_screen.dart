@@ -6,10 +6,12 @@ class InstallationProgressScreen extends StatefulWidget {
   const InstallationProgressScreen({super.key});
 
   @override
-  State<InstallationProgressScreen> createState() => _InstallationProgressScreenState();
+  State<InstallationProgressScreen> createState() =>
+      _InstallationProgressScreenState();
 }
 
-class _InstallationProgressScreenState extends State<InstallationProgressScreen> with SingleTickerProviderStateMixin {
+class _InstallationProgressScreenState extends State<InstallationProgressScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
   final ScrollController _scrollController = ScrollController();
 
@@ -23,9 +25,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final ctrl = context.read<MainController>();
-      ctrl.startInstallation(
-        partitionMode: ctrl.pendingPartitionMode,
-      );
+      ctrl.startInstallation(partitionMode: ctrl.pendingPartitionMode);
     });
   }
 
@@ -50,7 +50,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
   Widget build(BuildContext context) {
     final controller = context.watch<MainController>();
     final scheme = Theme.of(context).colorScheme;
-    
+
     // Auto-scroll logs
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
 
@@ -79,7 +79,9 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                     const SizedBox(height: 8),
                     Text(
                       controller.currentStatus.toUpperCase(),
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w900),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ],
                 ),
@@ -93,9 +95,9 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Progress Bar Stack
             Stack(
               children: [
@@ -110,7 +112,9 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   height: 12,
-                  width: MediaQuery.of(context).size.width * controller.installProgress,
+                  width:
+                      MediaQuery.of(context).size.width *
+                      controller.installProgress,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [scheme.primary, scheme.secondary],
@@ -127,9 +131,9 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 64),
-            
+
             // Log Viewer
             Expanded(
               child: Container(
@@ -137,7 +141,9 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.05),
+                  ),
                 ),
                 child: ListView.builder(
                   controller: _scrollController,
@@ -150,7 +156,8 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                     if (log.contains('ERROR') || log.contains('failed')) {
                       logColor = scheme.error;
                       icon = Icons.error_outline_rounded;
-                    } else if (log.contains('SUCCESS') || log.contains('completed')) {
+                    } else if (log.contains('SUCCESS') ||
+                        log.contains('completed')) {
                       logColor = Colors.greenAccent;
                       icon = Icons.check_circle_outline_rounded;
                     } else if (log.contains('WARNING')) {
@@ -163,7 +170,11 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(icon, size: 18, color: logColor.withValues(alpha: 0.5)),
+                          Icon(
+                            icon,
+                            size: 18,
+                            color: logColor.withValues(alpha: 0.5),
+                          ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
@@ -183,13 +194,17 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Footer Info
             Row(
               children: [
-                Icon(Icons.info_outline_rounded, size: 16, color: Colors.white.withValues(alpha: 0.3)),
+                Icon(
+                  Icons.info_outline_rounded,
+                  size: 16,
+                  color: Colors.white.withValues(alpha: 0.3),
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'NO DESCONECTE LA ENERGÍA NI RETIRE EL MEDIO DE INSTALACIÓN',
@@ -201,7 +216,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                   ),
                 ),
                 const Spacer(),
-                if (controller.installProgress >= 1.0)
+                if (controller.installationComplete)
                   FilledButton.icon(
                     onPressed: () => controller.reboot(),
                     icon: const Icon(Icons.restart_alt_rounded),

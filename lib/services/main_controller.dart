@@ -9,7 +9,6 @@ import '../services/iso_builder_service.dart';
 import 'package:file_picker/file_picker.dart';
 import '../ui/widgets/custom_file_explorer.dart';
 
-
 class MainController extends ChangeNotifier {
   final DiskService _diskService = DiskService();
   final DeploymentService _deploymentService = DeploymentService();
@@ -23,6 +22,9 @@ class MainController extends ChangeNotifier {
   double installProgress = 0.0;
   String currentStatus = 'Ready';
   List<String> logs = [];
+  bool isInstalling = false;
+  bool installationComplete = false;
+  bool installationFailed = false;
 
   // ISO Builder State (Windows-only WinPE builder)
   bool isBuildingIso = false;
@@ -78,13 +80,29 @@ class MainController extends ChangeNotifier {
       }
     } else {
       // Letters the ISO could be mounted as in WinPE/Windows
-      const driveLetters = ['D','E','F','G','H','I','J','K','L','M','N','O','P'];
+      const driveLetters = [
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+      ];
 
       for (final letter in driveLetters) {
         final wim = File('$letter:\\sources\\install.wim');
         if (wim.existsSync()) {
           detectedWimPath = wim.path;
-          addLog('  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)');
+          addLog(
+            '  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)',
+          );
           break;
         }
         final swm = File('$letter:\\sources\\install.swm');
@@ -97,7 +115,9 @@ class MainController extends ChangeNotifier {
     }
 
     if (detectedWimPath == null) {
-      addLog('  ⚠ install.wim not found. Please specify or mount image manually.');
+      addLog(
+        '  ⚠ install.wim not found. Please specify or mount image manually.',
+      );
     }
 
     isSearchingWim = false;
@@ -178,24 +198,47 @@ class MainController extends ChangeNotifier {
     if (resolvedWim == null) {
       addLog('ERROR: No Windows image found. Cannot start installation.');
       currentStatus = 'No Image Found';
+      installationFailed = true;
       notifyListeners();
       return;
     }
 
     installProgress = 0.0;
+    isInstalling = true;
+    installationComplete = false;
+    installationFailed = false;
     logs.clear();
-    addLog('Starting deployment on DISK ${selectedDisk!.number} — ${selectedDisk!.friendlyName}');
+    addLog(
+      'Starting deployment on DISK ${selectedDisk!.number} — ${selectedDisk!.friendlyName}',
+    );
     addLog('Image: $resolvedWim');
     addLog('Mode: ${partitionMode.name}');
 
     final isLinux = Platform.isLinux;
-    
+
     // Define target directories depending on OS
     final String applyDir = isLinux ? '/mnt/windows' : 'W:\\';
-    final String bootDrive = isLinux 
-        ? (partitionMode == PartitionMode.formatGpt ? '/mnt/efi' : '/mnt/windows')
+    final String bootDrive = isLinux
+        ? (partitionMode == PartitionMode.formatGpt
+              ? '/mnt/efi'
+              : '/mnt/windows')
         : (partitionMode == PartitionMode.formatGpt ? 'S:' : 'W:');
     final String windowsDir = isLinux ? '/mnt/windows/Windows' : 'W:\\Windows';
+
+    Future<void> cleanupTargetMounts() async {
+      if (!isLinux) return;
+      await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
+      await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
+    }
+
+    Future<void> failInstallation(String status, String message) async {
+      addLog(message);
+      currentStatus = status;
+      installationFailed = true;
+      isInstalling = false;
+      await cleanupTargetMounts();
+      notifyListeners();
+    }
 
     // ── Step 1: Prepare Disk ──────────────────────────────────────────────
     if (partitionMode != PartitionMode.useExisting) {
@@ -205,11 +248,15 @@ class MainController extends ChangeNotifier {
       try {
         if (isLinux) {
           addLog('Partitioning disk using parted...');
-          final success = await _diskService.prepareDiskLinux(selectedDisk!, partitionMode);
+          final success = await _diskService.prepareDiskLinux(
+            selectedDisk!,
+            partitionMode,
+          );
           if (!success) {
-            addLog('ERROR: Disk partitioning failed on Linux.');
-            currentStatus = 'Disk Error';
-            notifyListeners();
+            await failInstallation(
+              'Disk Error',
+              'ERROR: Disk partitioning failed on Linux.',
+            );
             return;
           }
           addLog('  ✓ Disk partitioned successfully.');
@@ -221,38 +268,58 @@ class MainController extends ChangeNotifier {
               : '${selectedDisk!.devicePath}1';
           final winPart = partitionMode == PartitionMode.formatGpt
               ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-                  ? '${selectedDisk!.devicePath}p3'
-                  : '${selectedDisk!.devicePath}3')
+                    ? '${selectedDisk!.devicePath}p3'
+                    : '${selectedDisk!.devicePath}3')
               : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-                  ? '${selectedDisk!.devicePath}p1'
-                  : '${selectedDisk!.devicePath}1');
+                    ? '${selectedDisk!.devicePath}p1'
+                    : '${selectedDisk!.devicePath}1');
 
           // Ensure mount dirs exist
-          await _diskService.processService.run('mkdir', ['-p', '/mnt/windows', '/mnt/efi']);
-          
+          await _diskService.processService.run('mkdir', [
+            '-p',
+            '/mnt/windows',
+            '/mnt/efi',
+          ]);
+
           // Force unmount first
-          await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
+          await _diskService.processService.run('umount', [
+            '-f',
+            '/mnt/windows',
+          ]);
           await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
 
           // Mount Windows Partition
-          var mountRes = await _diskService.processService.run('mount', [winPart, '/mnt/windows']);
+          var mountRes = await _diskService.processService.run('mount', [
+            winPart,
+            '/mnt/windows',
+          ]);
           if (mountRes.exitCode != 0) {
-            mountRes = await _diskService.processService.run('mount', ['-t', 'ntfs-3g', winPart, '/mnt/windows']);
+            mountRes = await _diskService.processService.run('mount', [
+              '-t',
+              'ntfs-3g',
+              winPart,
+              '/mnt/windows',
+            ]);
             if (mountRes.exitCode != 0) {
-              addLog('ERROR: Could not mount Windows partition: ${mountRes.stderr}');
-              currentStatus = 'Mount Error';
-              notifyListeners();
+              await failInstallation(
+                'Mount Error',
+                'ERROR: Could not mount Windows partition: ${mountRes.stderr}',
+              );
               return;
             }
           }
 
           if (partitionMode == PartitionMode.formatGpt) {
             // Mount ESP
-            final mountEspRes = await _diskService.processService.run('mount', [espPart, '/mnt/efi']);
+            final mountEspRes = await _diskService.processService.run('mount', [
+              espPart,
+              '/mnt/efi',
+            ]);
             if (mountEspRes.exitCode != 0) {
-              addLog('ERROR: Could not mount ESP partition: ${mountEspRes.stderr}');
-              currentStatus = 'Mount Error';
-              notifyListeners();
+              await failInstallation(
+                'Mount Error',
+                'ERROR: Could not mount ESP partition: ${mountEspRes.stderr}',
+              );
               return;
             }
           }
@@ -269,26 +336,29 @@ class MainController extends ChangeNotifier {
           await scriptFile.writeAsString(script);
 
           addLog('Running DiskPart...');
-          final dpResult = await _diskService.processService
-              .run('diskpart.exe', ['/s', scriptFile.path]);
+          final dpResult = await _diskService.processService.run(
+            'diskpart.exe',
+            ['/s', scriptFile.path],
+          );
           if (dpResult.exitCode != 0) {
-            addLog('ERROR: DiskPart failed. ${dpResult.stderr}');
-            currentStatus = 'Disk Error';
-            notifyListeners();
+            await failInstallation(
+              'Disk Error',
+              'ERROR: DiskPart failed. ${dpResult.stderr}',
+            );
             return;
           }
           addLog('  ✓ Disk partitioned successfully.');
         }
       } catch (e) {
-        addLog('ERROR: Disk setup failed. $e');
-        currentStatus = 'System Error';
-        notifyListeners();
+        await failInstallation('System Error', 'ERROR: Disk setup failed. $e');
         return;
       }
     } else {
       addLog('Using existing partition layout (no format).');
       if (isLinux) {
-        addLog('Assumes target is already mounted at /mnt/windows (and /mnt/efi for GPT).');
+        addLog(
+          'Assumes target is already mounted at /mnt/windows (and /mnt/efi for GPT).',
+        );
       }
     }
 
@@ -312,33 +382,64 @@ class MainController extends ChangeNotifier {
       swmPattern: swmPattern,
     );
 
+    var applyFailed = false;
     await for (final progress in progressStream) {
       if (progress.percentage >= 0) {
-        installProgress = progress.percentage;
+        installProgress = 0.10 + (progress.percentage * 0.70);
+        if (installProgress > 0.80) installProgress = 0.80;
+        if (progress.percentage >= 1.0) {
+          currentStatus = 'Finalizing image...';
+        }
       }
+      if (progress.isError) applyFailed = true;
       addLog(progress.status);
       notifyListeners();
     }
 
+    if (applyFailed) {
+      await failInstallation(
+        'Image Error',
+        'ERROR: WIM application failed. The target disk is not bootable yet.',
+      );
+      return;
+    }
+
+    if (isLinux) {
+      currentStatus = 'Syncing filesystem...';
+      installProgress = 0.82;
+      addLog('Syncing filesystem writes...');
+      notifyListeners();
+      await _diskService.processService.run(
+        'sync',
+        [],
+        timeout: const Duration(minutes: 3),
+      );
+    }
+
     // ── Step 3: Bootloader ────────────────────────────────────────────────
     currentStatus = 'Configuring bootloader...';
+    installProgress = 0.85;
     addLog('Running Bootloader setup...');
     notifyListeners();
-    
-    final isGpt = partitionMode == PartitionMode.formatGpt;
-    
-    final espPart = isLinux ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-        ? '${selectedDisk!.devicePath}p1'
-        : '${selectedDisk!.devicePath}1') : null;
-    final winPart = isLinux ? (partitionMode == PartitionMode.formatGpt
-        ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-            ? '${selectedDisk!.devicePath}p3'
-            : '${selectedDisk!.devicePath}3')
-        : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-            ? '${selectedDisk!.devicePath}p1'
-            : '${selectedDisk!.devicePath}1')) : null;
 
-    final bcdResult = await _deploymentService.configureBootloader(
+    final isGpt = partitionMode == PartitionMode.formatGpt;
+
+    final espPart = isLinux
+        ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+              ? '${selectedDisk!.devicePath}p1'
+              : '${selectedDisk!.devicePath}1')
+        : null;
+    final winPart = isLinux
+        ? (partitionMode == PartitionMode.formatGpt
+              ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+                    ? '${selectedDisk!.devicePath}p3'
+                    : '${selectedDisk!.devicePath}3')
+              : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+                    ? '${selectedDisk!.devicePath}p1'
+                    : '${selectedDisk!.devicePath}1'))
+        : null;
+
+    final bootloaderResult = await _deploymentService.configureBootloader(
       windowsDir,
       bootDrive,
       uefi: isGpt,
@@ -346,22 +447,35 @@ class MainController extends ChangeNotifier {
       espDevice: espPart,
       windowsDevice: winPart,
     );
-    if (!bcdResult) {
-      addLog('ERROR: Bootloader configuration failed.');
+    for (final line in bootloaderResult.logs) {
+      addLog(line);
+    }
+
+    if (!bootloaderResult.success) {
+      await failInstallation(
+        'Bootloader Error',
+        'ERROR: Bootloader configuration failed. Windows files were applied, but the disk is not bootable.',
+      );
+      return;
     } else {
       addLog('  ✓ Bootloader configured successfully.');
     }
 
     // ── Step 4: Registry Injection (OEM) ──────────────────────────────────
     currentStatus = 'Injecting OEM configuration...';
+    installProgress = 0.92;
     addLog('Modifying offline registry...');
     notifyListeners();
-    
+
     try {
-      final system32Dir = isLinux ? '/mnt/windows/Windows/System32' : 'W:\\Windows\\System32';
-      final oemLogoTarget = isLinux ? '/mnt/windows/Windows/System32/oemlogo.bmp' : 'W:\\Windows\\System32\\oemlogo.bmp';
-      
-      final logoSourcePath = isLinux 
+      final system32Dir = isLinux
+          ? '/mnt/windows/Windows/System32'
+          : 'W:\\Windows\\System32';
+      final oemLogoTarget = isLinux
+          ? '/mnt/windows/Windows/System32/oemlogo.bmp'
+          : 'W:\\Windows\\System32\\oemlogo.bmp';
+
+      final logoSourcePath = isLinux
           ? '${p.dirname(Platform.resolvedExecutable)}/data/flutter_assets/assets/logo.png'
           : '${p.dirname(Platform.resolvedExecutable)}\\data\\flutter_assets\\assets\\logo.png';
 
@@ -381,9 +495,13 @@ class MainController extends ChangeNotifier {
         model: 'Hyperion v1',
         logoPath: 'C:\\Windows\\System32\\oemlogo.bmp',
       );
-      
+
       addLog('Setting environment variables...');
-      await _registryService.setEnvironmentVariable(windowsDir, 'JOSS_RED_VERSION', '1.0');
+      await _registryService.setEnvironmentVariable(
+        windowsDir,
+        'JOSS_RED_VERSION',
+        '1.0',
+      );
       addLog('  ✓ Registry injection completed.');
     } catch (e) {
       addLog('WARNING: Registry injection failed. $e');
@@ -391,13 +509,16 @@ class MainController extends ChangeNotifier {
 
     // ── Step 5: Finalizing (Copying assets) ────────────────────────────────
     currentStatus = 'Finalizing...';
+    installProgress = 0.97;
     addLog('Copying post-install scripts...');
     notifyListeners();
-    
+
     try {
-      final scriptDir = isLinux ? Directory('/mnt/windows/Windows/Setup/Scripts') : Directory('W:\\Windows\\Setup\\Scripts');
+      final scriptDir = isLinux
+          ? Directory('/mnt/windows/Windows/Setup/Scripts')
+          : Directory('W:\\Windows\\Setup\\Scripts');
       if (!await scriptDir.exists()) await scriptDir.create(recursive: true);
-      
+
       addLog('Assets successfully copied.');
     } catch (e) {
       addLog('WARNING: Assets copy failed. $e');
@@ -411,11 +532,19 @@ class MainController extends ChangeNotifier {
 
     currentStatus = 'Installation Complete!';
     installProgress = 1.0;
+    isInstalling = false;
+    installationComplete = true;
+    installationFailed = false;
     notifyListeners();
     addLog('All operations completed successfully.');
   }
 
   Future<void> reboot() async {
+    if (!installationComplete) {
+      addLog('Reboot blocked: installation is not complete yet.');
+      return;
+    }
+
     addLog('Rebooting system...');
     if (Platform.isLinux) {
       await _diskService.processService.run('reboot', []);
@@ -438,7 +567,7 @@ class MainController extends ChangeNotifier {
 
     try {
       final appPath = p.dirname(Platform.resolvedExecutable);
-      
+
       final buildStream = _isoBuilderService.buildIso(
         sourceWimPath: selectedWimPath,
         appBuildPath: appPath,

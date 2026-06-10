@@ -1,5 +1,19 @@
 #!/bin/sh
 
+LOG_FILE=/var/log/joss-installer.log
+APP_BIN=/opt/joss_red_installer/joss_red_installer
+
+{
+  echo "============================================================"
+  echo "Joss Red Installer X session started: $(date -Iseconds)"
+  echo "PATH=$PATH"
+  echo "DISPLAY=$DISPLAY"
+  echo "APP_BIN=$APP_BIN"
+  ls -la /opt/joss_red_installer || true
+  ldd "$APP_BIN" || true
+  echo "============================================================"
+} >> "$LOG_FILE" 2>&1
+
 # Disable screensaver and power management
 xset s off
 xset -dpms
@@ -11,5 +25,28 @@ xsetroot -cursor_name left_ptr
 # Start Openbox window manager in the background
 openbox-session &
 
-# Launch the Flutter installer desktop app
-exec /opt/joss_red_installer/joss_red_installer
+# Launch the Flutter installer desktop app. Do not exec it: if it exits, keep X
+# alive and show a readable diagnostic instead of dropping to raw Xorg output.
+"$APP_BIN" >> "$LOG_FILE" 2>&1
+APP_EXIT=$?
+
+{
+  echo "============================================================"
+  echo "Joss Red Installer exited with code $APP_EXIT: $(date -Iseconds)"
+  echo "Last log lines:"
+  tail -n 200 "$LOG_FILE" || true
+  echo "============================================================"
+} >> "$LOG_FILE" 2>&1
+
+if command -v xmessage >/dev/null 2>&1; then
+  xmessage -center -buttons "OK:0" -file "$LOG_FILE"
+fi
+
+if command -v xterm >/dev/null 2>&1; then
+  xterm -geometry 140x40 -title "Joss Red Installer crash log" -e "tail -n 200 '$LOG_FILE'; echo; echo 'Press Enter to reboot or Ctrl+C to stay here.'; read _; reboot"
+fi
+
+# Fallback if neither xmessage nor xterm is available.
+while true; do
+  sleep 3600
+done

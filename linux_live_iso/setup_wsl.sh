@@ -51,6 +51,10 @@ else
     echo "Step 2: Flutter SDK is already installed at $FLUTTER_INSTALL_DIR and matches version $FLUTTER_VERSION."
 fi
 
+# Make sure Flutter can update its own cache without interactive overwrite prompts.
+sudo chown -R "$(whoami):$(whoami)" "$FLUTTER_INSTALL_DIR"
+git -C "$FLUTTER_INSTALL_DIR" config --global --add safe.directory "$FLUTTER_INSTALL_DIR" || true
+
 # 3. Add Flutter to path
 export PATH="$FLUTTER_INSTALL_DIR/bin:$PATH"
 # Write to user's bashrc for persistence

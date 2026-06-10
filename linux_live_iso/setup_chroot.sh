@@ -19,6 +19,8 @@ apt-get install -y --no-install-recommends \
     xserver-xorg-legacy \
     xinit \
     openbox \
+    x11-utils \
+    xterm \
     dbus-x11 \
     x11-xserver-utils \
     libgl1-mesa-dri
@@ -28,6 +30,7 @@ apt-get install -y --no-install-recommends \
     wimtools \
     ntfs-3g \
     parted \
+    fdisk \
     udev \
     efibootmgr \
     libhivex-bin \

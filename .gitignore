@@ -56,4 +56,5 @@ assets/winpe/*.swm
 dism_mount/
 winpe_base/
 temp_assets/
-tools/
+/tools/
+assets/tools/

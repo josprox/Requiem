@@ -35,16 +35,16 @@ class PhysicalDisk {
 
   factory PhysicalDisk.fromMap(Map<String, dynamic> map) {
     return PhysicalDisk(
-      number:       int.tryParse(map['Number']?.toString() ?? '0') ?? 0,
+      number: int.tryParse(map['Number']?.toString() ?? '0') ?? 0,
       friendlyName: map['FriendlyName'] ?? 'Unknown Device',
-      size:         int.tryParse(map['Size']?.toString() ?? '0') ?? 0,
-      mediaType:    map['MediaType'] ?? 'Unknown',
-      busType:      map['BusType'] ?? 'Unknown',
-      status:       map['OperationalStatus'] ?? 'Unknown',
+      size: int.tryParse(map['Size']?.toString() ?? '0') ?? 0,
+      mediaType: map['MediaType'] ?? 'Unknown',
+      busType: map['BusType'] ?? 'Unknown',
+      status: map['OperationalStatus'] ?? 'Unknown',
       healthStatus: map['HealthStatus'] ?? 'Unknown',
-      isBootDisk:   map['IsBoot'] == true,
+      isBootDisk: map['IsBoot'] == true,
       isSystemDisk: map['IsSystem'] == true,
-      devicePath:   map['DevicePath'] ?? '',
+      devicePath: map['DevicePath'] ?? '',
     );
   }
 }
@@ -75,8 +75,10 @@ class DiskPartition {
 enum PartitionMode {
   /// Wipe disk and create a clean GPT/UEFI layout (S: + W:)
   formatGpt,
+
   /// Wipe disk and create a legacy MBR layout (W:)
   formatMbr,
+
   /// Use the disk as-is — assumes the user already has the right partitions
   /// and W: is already mounted/assigned.
   useExisting,
@@ -88,11 +90,19 @@ class DiskService {
   /// Runs a DiskPart script by writing it to a temp file and running diskpart.exe /s (Windows only)
   Future<String> _runDiskPartScript(String script) async {
     final tempDir = Directory.systemTemp;
-    final file = File(p.join(tempDir.path, 'dp_script_${DateTime.now().millisecondsSinceEpoch}.txt'));
+    final file = File(
+      p.join(
+        tempDir.path,
+        'dp_script_${DateTime.now().millisecondsSinceEpoch}.txt',
+      ),
+    );
     await file.writeAsString(script);
-    
+
     try {
-      final result = await processService.run('diskpart.exe', ['/s', file.path]);
+      final result = await processService.run('diskpart.exe', [
+        '/s',
+        file.path,
+      ]);
       return result.stdout;
     } finally {
       if (file.existsSync()) {
@@ -131,7 +141,12 @@ class DiskService {
   /// Lists physical disks on Linux using lsblk.
   Future<List<PhysicalDisk>> _listDisksLinux() async {
     try {
-      final result = await processService.run('lsblk', ['-J', '-b', '-o', 'NAME,MODEL,SIZE,TYPE,TRAN,MOUNTPOINTS']);
+      final result = await processService.run('lsblk', [
+        '-J',
+        '-b',
+        '-o',
+        'NAME,MODEL,SIZE,TYPE,TRAN,MOUNTPOINTS',
+      ]);
       if (result.exitCode != 0) {
         debugPrint('lsblk failed: ${result.stderr}');
         return [];
@@ -154,10 +169,14 @@ class DiskService {
         // Check if boot disk or system disk
         bool isBoot = false;
         bool isSystem = false;
-        
+
         final mountpoints = dev['mountpoints'] as List<dynamic>? ?? [];
         for (final mp in mountpoints) {
-          if (mp != null && (mp == '/' || mp.toString().startsWith('/run/live') || mp == '/cdrom' || mp == '/boot')) {
+          if (mp != null &&
+              (mp == '/' ||
+                  mp.toString().startsWith('/run/live') ||
+                  mp == '/cdrom' ||
+                  mp == '/boot')) {
             isBoot = true;
             isSystem = true;
           }
@@ -167,25 +186,35 @@ class DiskService {
         for (final child in children) {
           final childMps = child['mountpoints'] as List<dynamic>? ?? [];
           for (final mp in childMps) {
-            if (mp != null && (mp == '/' || mp.toString().startsWith('/run/live') || mp == '/cdrom' || mp == '/boot')) {
+            if (mp != null &&
+                (mp == '/' ||
+                    mp.toString().startsWith('/run/live') ||
+                    mp == '/cdrom' ||
+                    mp == '/boot')) {
               isBoot = true;
               isSystem = true;
             }
           }
         }
 
-        list.add(PhysicalDisk(
-          number: diskNumber++,
-          friendlyName: '$name: $model',
-          size: sizeBytes,
-          mediaType: tran.toString().toUpperCase() == 'NVME' || tran.toString().toUpperCase() == 'SSD' ? 'SSD' : 'HDD',
-          busType: tran.toString().toUpperCase(),
-          status: 'Online',
-          healthStatus: 'Healthy',
-          isBootDisk: isBoot,
-          isSystemDisk: isSystem,
-          devicePath: devicePath,
-        ));
+        list.add(
+          PhysicalDisk(
+            number: diskNumber++,
+            friendlyName: '$name: $model',
+            size: sizeBytes,
+            mediaType:
+                tran.toString().toUpperCase() == 'NVME' ||
+                    tran.toString().toUpperCase() == 'SSD'
+                ? 'SSD'
+                : 'HDD',
+            busType: tran.toString().toUpperCase(),
+            status: 'Online',
+            healthStatus: 'Healthy',
+            isBootDisk: isBoot,
+            isSystemDisk: isSystem,
+            devicePath: devicePath,
+          ),
+        );
       }
 
       return list;
@@ -200,22 +229,22 @@ class DiskService {
     try {
       final listOutput = await _runDiskPartScript('list disk');
       final lines = listOutput.split('\n');
-      
+
       final diskNumbers = <int>[];
       final isGptMap = <int, bool>{};
       final sizeMap = <int, int>{};
-      
+
       for (final line in lines) {
         final lineTrim = line.trim();
         if (!lineTrim.toUpperCase().startsWith('DISK')) continue;
-        
+
         final tokens = lineTrim.split(RegExp(r'\s+'));
         if (tokens.length < 5) continue;
         if (tokens[0].toUpperCase() != 'DISK') continue;
-        
+
         final diskNum = int.tryParse(tokens[1]);
         if (diskNum == null) continue;
-        
+
         int unitIndex = -1;
         for (int i = 3; i < tokens.length; i++) {
           final t = tokens[i].toUpperCase();
@@ -224,12 +253,12 @@ class DiskService {
             break;
           }
         }
-        
+
         if (unitIndex != -1 && unitIndex > 3) {
           final sizeValStr = tokens[unitIndex - 1];
           final sizeVal = double.tryParse(sizeValStr);
           final sizeUnit = tokens[unitIndex];
-          
+
           if (sizeVal != null) {
             final sizeBytes = _parseSize(sizeVal, sizeUnit);
             diskNumbers.add(diskNum);
@@ -238,13 +267,20 @@ class DiskService {
           }
         }
       }
-      
+
       if (diskNumbers.isEmpty) return [];
-      
-      final detailScript = diskNumbers.map((dNum) => 'select disk $dNum\ndetail disk').join('\n');
+
+      final detailScript = diskNumbers
+          .map((dNum) => 'select disk $dNum\ndetail disk')
+          .join('\n');
       final detailOutput = await _runDiskPartScript(detailScript);
-      
-      return _parseDetailDisksOutput(detailOutput, diskNumbers, isGptMap, sizeMap);
+
+      return _parseDetailDisksOutput(
+        detailOutput,
+        diskNumbers,
+        isGptMap,
+        sizeMap,
+      );
     } catch (e) {
       debugPrint('DiskService._listDisksWindows error: $e');
       return [];
@@ -260,45 +296,52 @@ class DiskService {
   ) {
     final list = <PhysicalDisk>[];
     final lines = output.split('\n');
-    
+
     int? currentDiskNum;
     String? friendlyName;
     String type = 'Unknown';
     String status = 'Unknown';
     bool isBootDisk = false;
     bool isSystemDisk = false;
-    
-    final selectHeaderRegex = RegExp(r'Disk\s+(\d+)\s+is now the selected disk\.', caseSensitive: false);
+
+    final selectHeaderRegex = RegExp(
+      r'Disk\s+(\d+)\s+is now the selected disk\.',
+      caseSensitive: false,
+    );
     final keyValueRegex = RegExp(r'^([^:]+)\s*:\s*(.+)$');
-    
+
     bool expectFriendlyNameNext = false;
     bool inVolumesTable = false;
-    
+
     void saveCurrentDisk() {
       if (currentDiskNum != null) {
-        list.add(PhysicalDisk(
-          number: currentDiskNum,
-          friendlyName: friendlyName ?? 'Disk $currentDiskNum',
-          size: sizeMap[currentDiskNum] ?? 0,
-          mediaType: isGptMap[currentDiskNum] == true ? 'SSD (GPT)' : 'HDD (MBR)',
-          busType: type,
-          status: status,
-          healthStatus: 'Healthy',
-          isBootDisk: isBootDisk,
-          isSystemDisk: isSystemDisk,
-          devicePath: '\\\\.\\PhysicalDrive$currentDiskNum',
-        ));
+        list.add(
+          PhysicalDisk(
+            number: currentDiskNum,
+            friendlyName: friendlyName ?? 'Disk $currentDiskNum',
+            size: sizeMap[currentDiskNum] ?? 0,
+            mediaType: isGptMap[currentDiskNum] == true
+                ? 'SSD (GPT)'
+                : 'HDD (MBR)',
+            busType: type,
+            status: status,
+            healthStatus: 'Healthy',
+            isBootDisk: isBootDisk,
+            isSystemDisk: isSystemDisk,
+            devicePath: '\\\\.\\PhysicalDrive$currentDiskNum',
+          ),
+        );
       }
     }
-    
+
     for (int i = 0; i < lines.length; i++) {
       final line = lines[i].trim();
       if (line.isEmpty) continue;
-      
+
       final headerMatch = selectHeaderRegex.firstMatch(line);
       if (headerMatch != null) {
         saveCurrentDisk();
-        
+
         currentDiskNum = int.tryParse(headerMatch.group(1)!);
         friendlyName = null;
         type = 'Unknown';
@@ -309,25 +352,28 @@ class DiskService {
         inVolumesTable = false;
         continue;
       }
-      
+
       if (currentDiskNum == null) continue;
-      
+
       if (expectFriendlyNameNext) {
         friendlyName = line;
         expectFriendlyNameNext = false;
         continue;
       }
-      
-      if (line.startsWith('Volume ###') || line.contains('Volume 0') || line.contains('Volume 1') || line.startsWith('----------')) {
+
+      if (line.startsWith('Volume ###') ||
+          line.contains('Volume 0') ||
+          line.contains('Volume 1') ||
+          line.startsWith('----------')) {
         inVolumesTable = true;
         continue;
       }
-      
+
       final kvMatch = keyValueRegex.firstMatch(line);
       if (kvMatch != null && !inVolumesTable) {
         final key = kvMatch.group(1)!.trim().toLowerCase();
         final value = kvMatch.group(2)!.trim();
-        
+
         if (key == 'type') {
           type = value;
         } else if (key == 'status') {
@@ -337,7 +383,7 @@ class DiskService {
         }
         continue;
       }
-      
+
       if (inVolumesTable) {
         final upperLine = line.toUpperCase();
         if (upperLine.contains('SYSTEM') || upperLine.contains('BOOT')) {
@@ -345,7 +391,7 @@ class DiskService {
         }
       }
     }
-    
+
     saveCurrentDisk();
     return list;
   }
@@ -362,9 +408,18 @@ class DiskService {
   Future<List<DiskPartition>> _listPartitionsLinux(int diskNumber) async {
     try {
       final disks = await listDisks();
-      final disk = disks.firstWhere((d) => d.number == diskNumber, orElse: () => throw Exception('Disk not found'));
+      final disk = disks.firstWhere(
+        (d) => d.number == diskNumber,
+        orElse: () => throw Exception('Disk not found'),
+      );
 
-      final result = await processService.run('lsblk', ['-J', '-b', '-o', 'NAME,SIZE,TYPE,FSTYPE,LABEL,MOUNTPOINTS', disk.devicePath]);
+      final result = await processService.run('lsblk', [
+        '-J',
+        '-b',
+        '-o',
+        'NAME,SIZE,TYPE,FSTYPE,LABEL,MOUNTPOINTS',
+        disk.devicePath,
+      ]);
       if (result.exitCode != 0) {
         debugPrint('lsblk partitions failed: ${result.stderr}');
         return [];
@@ -383,20 +438,29 @@ class DiskService {
         final fstype = child['fstype'] ?? 'Unknown';
         final label = child['label'] ?? '';
         final mountpoints = child['mountpoints'] as List<dynamic>? ?? [];
-        final mountStr = mountpoints.isNotEmpty ? mountpoints[0].toString() : '';
+        final mountStr = mountpoints.isNotEmpty
+            ? mountpoints[0].toString()
+            : '';
 
         final partNumMatch = RegExp(r'(\d+)$').firstMatch(name);
-        final partNum = partNumMatch != null ? int.tryParse(partNumMatch.group(1)!) ?? 0 : 0;
+        final partNum = partNumMatch != null
+            ? int.tryParse(partNumMatch.group(1)!) ?? 0
+            : 0;
 
-        list.add(DiskPartition(
-          diskNumber: diskNumber,
-          partitionNumber: partNum,
-          type: fstype,
-          size: sizeBytes,
-          driveLetter: mountStr,
-          isActive: mountStr == '/' || mountStr == '/boot' || label.toString().toUpperCase() == 'SYSTEM',
-          devicePath: '/dev/$name',
-        ));
+        list.add(
+          DiskPartition(
+            diskNumber: diskNumber,
+            partitionNumber: partNum,
+            type: fstype,
+            size: sizeBytes,
+            driveLetter: mountStr,
+            isActive:
+                mountStr == '/' ||
+                mountStr == '/boot' ||
+                label.toString().toUpperCase() == 'SYSTEM',
+            devicePath: '/dev/$name',
+          ),
+        );
       }
 
       return list;
@@ -409,33 +473,36 @@ class DiskService {
   /// Lists partitions/volumes on Windows using DiskPart.
   Future<List<DiskPartition>> _listPartitionsWindows(int diskNumber) async {
     try {
-      final output = await _runDiskPartScript('select disk $diskNumber\ndetail disk');
+      final output = await _runDiskPartScript(
+        'select disk $diskNumber\ndetail disk',
+      );
       final lines = output.split('\n');
       final list = <DiskPartition>[];
-      
+
       bool inVolumesTable = false;
-      
+
       for (final line in lines) {
         final lineTrim = line.trim();
         if (lineTrim.isEmpty) continue;
-        
-        if (lineTrim.toUpperCase().startsWith('VOLUME ###') || lineTrim.startsWith('----------')) {
+
+        if (lineTrim.toUpperCase().startsWith('VOLUME ###') ||
+            lineTrim.startsWith('----------')) {
           inVolumesTable = true;
           continue;
         }
-        
+
         if (inVolumesTable) {
           if (lineTrim.startsWith('---')) continue;
           if (line.length < 50) continue;
-          
+
           final volNumStr = _safeSubstring(line, 2, 13).trim().split(' ').last;
           final volNum = int.tryParse(volNumStr) ?? 0;
-          
+
           final ltr = _safeSubstring(line, 14, 18).trim();
           final type = _safeSubstring(line, 39, 50).trim();
           final sizeStr = _safeSubstring(line, 51, 59).trim();
           final info = line.length > 71 ? line.substring(71).trim() : '';
-          
+
           double sizeVal = 0;
           String sizeUnit = 'B';
           final sizeTokens = sizeStr.split(' ');
@@ -446,21 +513,24 @@ class DiskService {
             }
           }
           final sizeBytes = _parseSize(sizeVal, sizeUnit);
-          
-          list.add(DiskPartition(
-            diskNumber: diskNumber,
-            partitionNumber: volNum,
-            type: type,
-            size: sizeBytes,
-            driveLetter: ltr,
-            isActive: info.toUpperCase().contains('SYSTEM') ||
-                info.toUpperCase().contains('BOOT') ||
-                info.toUpperCase().contains('ACTIVE'),
-            devicePath: '\\\\.\\PhysicalDrive$diskNumber\\Partition$volNum',
-          ));
+
+          list.add(
+            DiskPartition(
+              diskNumber: diskNumber,
+              partitionNumber: volNum,
+              type: type,
+              size: sizeBytes,
+              driveLetter: ltr,
+              isActive:
+                  info.toUpperCase().contains('SYSTEM') ||
+                  info.toUpperCase().contains('BOOT') ||
+                  info.toUpperCase().contains('ACTIVE'),
+              devicePath: '\\\\.\\PhysicalDrive$diskNumber\\Partition$volNum',
+            ),
+          );
         }
       }
-      
+
       return list;
     } catch (e) {
       debugPrint('DiskService._listPartitionsWindows parse error: $e');
@@ -478,7 +548,13 @@ class DiskService {
   /// Unmounts all active mounts referencing partitions on the target disk (Linux).
   Future<void> _unmountDiskPartitions(String diskPath) async {
     try {
-      final result = await processService.run('lsblk', ['-J', '-b', '-o', 'NAME,MOUNTPOINTS', diskPath]);
+      final result = await processService.run('lsblk', [
+        '-J',
+        '-b',
+        '-o',
+        'NAME,MOUNTPOINTS',
+        diskPath,
+      ]);
       if (result.exitCode != 0) return;
 
       final data = jsonDecode(result.stdout);
@@ -511,23 +587,58 @@ class DiskService {
 
     if (mode == PartitionMode.formatGpt) {
       // Create GPT label
-      var res = await processService.run('parted', ['-s', device, 'mklabel', 'gpt']);
+      var res = await processService.run('parted', [
+        '-s',
+        device,
+        'mklabel',
+        'gpt',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Create ESP partition
-      res = await processService.run('parted', ['-s', device, 'mkpart', 'ESP', 'fat32', '1MiB', '513MiB']);
+      res = await processService.run('parted', [
+        '-s',
+        device,
+        'mkpart',
+        'ESP',
+        'fat32',
+        '1MiB',
+        '513MiB',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Set ESP flag
-      res = await processService.run('parted', ['-s', device, 'set', '1', 'esp', 'on']);
+      res = await processService.run('parted', [
+        '-s',
+        device,
+        'set',
+        '1',
+        'esp',
+        'on',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Create MSR partition
-      res = await processService.run('parted', ['-s', device, 'mkpart', 'MSR', '513MiB', '641MiB']);
+      res = await processService.run('parted', [
+        '-s',
+        device,
+        'mkpart',
+        'MSR',
+        '513MiB',
+        '641MiB',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Create Primary partition
-      res = await processService.run('parted', ['-s', device, 'mkpart', 'Basic_data_partition', 'ntfs', '641MiB', '100%']);
+      res = await processService.run('parted', [
+        '-s',
+        device,
+        'mkpart',
+        'Basic_data_partition',
+        'ntfs',
+        '641MiB',
+        '100%',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Wait for device nodes to settle
@@ -538,25 +649,57 @@ class DiskService {
       final winPart = _getPartitionDevice(device, 3);
 
       // Format ESP (FAT32)
-      res = await processService.run('mkfs.vfat', ['-F32', '-n', 'System', espPart]);
+      res = await processService.run('mkfs.vfat', [
+        '-F32',
+        '-n',
+        'System',
+        espPart,
+      ]);
       if (res.exitCode != 0) return false;
 
       // Format Windows partition (NTFS)
-      res = await processService.run('mkfs.ntfs', ['-f', '-L', 'Windows', winPart]);
+      res = await processService.run('mkfs.ntfs', [
+        '-f',
+        '-L',
+        'Windows',
+        winPart,
+      ]);
       if (res.exitCode != 0) return false;
 
       return true;
     } else if (mode == PartitionMode.formatMbr) {
       // Create MBR label
-      var res = await processService.run('parted', ['-s', device, 'mklabel', 'msdos']);
+      var res = await processService.run('parted', [
+        '-s',
+        device,
+        'mklabel',
+        'msdos',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Create Primary partition
-      res = await processService.run('parted', ['-s', device, 'mkpart', 'primary', 'ntfs', '1MiB', '100%']);
+      res = await processService.run('parted', [
+        '-s',
+        device,
+        'mkpart',
+        'primary',
+        'ntfs',
+        '1MiB',
+        '100%',
+      ]);
       if (res.exitCode != 0) return false;
 
       // Set active/boot flag
-      res = await processService.run('parted', ['-s', device, 'set', '1', 'boot', 'on']);
+      res = await processService.run('parted', [
+        '-s',
+        device,
+        'set',
+        '1',
+        'boot',
+        'on',
+      ]);
+      if (res.exitCode != 0) return false;
+      res = await processService.run('sfdisk', ['--activate', device, '1']);
       if (res.exitCode != 0) return false;
 
       // Wait for device nodes to settle
@@ -566,7 +709,12 @@ class DiskService {
       final winPart = _getPartitionDevice(device, 1);
 
       // Format Windows partition (NTFS)
-      res = await processService.run('mkfs.ntfs', ['-f', '-L', 'Windows', winPart]);
+      res = await processService.run('mkfs.ntfs', [
+        '-f',
+        '-L',
+        'Windows',
+        winPart,
+      ]);
       if (res.exitCode != 0) return false;
 
       return true;
@@ -610,7 +758,12 @@ class DiskService {
   Future<void> mountExternalDrivesLinux() async {
     if (!Platform.isLinux) return;
     try {
-      final result = await processService.run('lsblk', ['-J', '-b', '-o', 'NAME,TYPE,FSTYPE,MOUNTPOINTS']);
+      final result = await processService.run('lsblk', [
+        '-J',
+        '-b',
+        '-o',
+        'NAME,TYPE,FSTYPE,MOUNTPOINTS',
+      ]);
       if (result.exitCode != 0) return;
 
       final data = jsonDecode(result.stdout);
@@ -626,7 +779,8 @@ class DiskService {
           final mountpoints = child['mountpoints'] as List<dynamic>? ?? [];
 
           // Skip if already mounted
-          if (mountpoints.isNotEmpty && mountpoints.any((mp) => mp != null && mp.toString().isNotEmpty)) {
+          if (mountpoints.isNotEmpty &&
+              mountpoints.any((mp) => mp != null && mp.toString().isNotEmpty)) {
             continue;
           }
           if (fstype == null || fstype.toString().isEmpty || fstype == 'swap') {
@@ -637,10 +791,18 @@ class DiskService {
           debugPrint('Auto-mounting /dev/$name to $mountDir...');
 
           await processService.run('mkdir', ['-p', mountDir]);
-          var mountRes = await processService.run('mount', ['/dev/$name', mountDir]);
+          var mountRes = await processService.run('mount', [
+            '/dev/$name',
+            mountDir,
+          ]);
           if (mountRes.exitCode != 0) {
             if (fstype.toString().contains('ntfs')) {
-              await processService.run('mount', ['-t', 'ntfs-3g', '/dev/$name', mountDir]);
+              await processService.run('mount', [
+                '-t',
+                'ntfs-3g',
+                '/dev/$name',
+                mountDir,
+              ]);
             }
           }
         }
