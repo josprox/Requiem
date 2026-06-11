@@ -699,6 +699,13 @@ class DiskService {
         'on',
       ]);
       if (res.exitCode != 0) return false;
+      res = await processService.run('sfdisk', [
+        '--part-type',
+        device,
+        '1',
+        '7',
+      ]);
+      if (res.exitCode != 0) return false;
       res = await processService.run('sfdisk', ['--activate', device, '1']);
       if (res.exitCode != 0) return false;
 

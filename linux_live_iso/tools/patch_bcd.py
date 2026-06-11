@@ -62,22 +62,6 @@ def get_part_info(device):
         disk_sig_bin = struct.pack("<I", disk_sig_val)
         return False, disk_sig_bin, None, offset_bytes
 
-def build_gpt_device_element(disk_guid_bin, part_guid_bin):
-    # 76-byte BCD partition device element structure
-    b = bytearray(76)
-    b[0:4] = struct.pack("<I", 6)  # Partition device type = 6
-    b[32:48] = disk_guid_bin       # Disk GUID
-    b[48:64] = part_guid_bin       # Partition GUID
-    return bytes(b)
-
-def build_mbr_device_element(disk_sig_bin, offset_bytes):
-    # 32-byte BCD partition device element structure
-    b = bytearray(32)
-    b[0:4] = struct.pack("<I", 6)  # Partition device type = 6
-    b[16:20] = disk_sig_bin        # Disk signature (4 bytes)
-    b[24:32] = struct.pack("<Q", offset_bytes)  # Start offset in bytes (8 bytes)
-    return bytes(b)
-
 def set_binary_element(hive, node, data):
     # python3-hivex expects the registry value type under the key "t".
     # Some bindings/documentation examples use "type", so keep a fallback.
@@ -89,6 +73,130 @@ def set_binary_element(hive, node, data):
             raise
         hive.node_set_value(node, {"key": "Element", "type": 3, "value": data})
 
+def read_u32(data, offset):
+    if len(data) < offset + 4:
+        raise ValueError("BCD device packet is truncated")
+    return struct.unpack("<I", data[offset:offset + 4])[0]
+
+def write_partition_payload(data, offset, is_gpt, disk_sig, part_sig, offset_bytes):
+    if len(data) < offset + 0x38:
+        raise ValueError("BCD partition payload is truncated")
+
+    if is_gpt:
+        data[offset:offset + 0x10] = part_sig
+        data[offset + 0x10:offset + 0x14] = b"\x00" * 4
+        data[offset + 0x14:offset + 0x18] = struct.pack("<I", 0)
+        data[offset + 0x18:offset + 0x28] = disk_sig
+    else:
+        data[offset:offset + 0x10] = struct.pack("<Q", offset_bytes) + (b"\x00" * 8)
+        data[offset + 0x10:offset + 0x14] = b"\x00" * 4
+        data[offset + 0x14:offset + 0x18] = struct.pack("<I", 1)
+        data[offset + 0x18:offset + 0x28] = disk_sig + (b"\x00" * 12)
+
+    data[offset + 0x28:offset + 0x38] = b"\x00" * 0x10
+
+def patch_partition_packet(raw, is_gpt, disk_sig, part_sig, offset_bytes):
+    data = bytearray(raw)
+    if len(data) < 0x20:
+        return None, "device element is too short"
+
+    packet_offset = 0x10
+    packet_type = read_u32(data, packet_offset)
+    packet_flags = read_u32(data, packet_offset + 4)
+    packet_size = read_u32(data, packet_offset + 8)
+
+    if packet_type == 5:
+        return data, "left as [boot] device"
+
+    if packet_type == 6:
+        write_partition_payload(
+            data,
+            packet_offset + 0x10,
+            is_gpt,
+            disk_sig,
+            part_sig,
+            offset_bytes,
+        )
+        return data, "patched partition device"
+
+    if packet_type == 0 and packet_flags != 0:
+        return data, "skipped ramdisk device"
+
+    if packet_type == 0 and packet_size <= len(data) - packet_offset:
+        # File devices can wrap another device. Only patch the nested partition
+        # when it is present and leave paths intact.
+        nested_offset = packet_offset + 0x10
+        nested_type = read_u32(data, nested_offset)
+        if nested_type == 6:
+            write_partition_payload(
+                data,
+                nested_offset + 0x10,
+                is_gpt,
+                disk_sig,
+                part_sig,
+                offset_bytes,
+            )
+            return data, "patched nested partition device"
+
+    return None, f"unsupported device packet type {packet_type}"
+
+def get_element_data(hive, elements_node, element_name):
+    for child in hive.node_children(elements_node):
+        if hive.node_name(child) == element_name:
+            val = hive.node_get_value(child, "Element")
+            if val:
+                _, val_data = hive.value_value(val)
+                return child, val_data
+    return None, None
+
+def has_element(hive, elements_node, element_name):
+    node, _ = get_element_data(hive, elements_node, element_name)
+    return node is not None
+
+def read_utf16le_text(raw):
+    try:
+        return raw.decode("utf-16le", errors="ignore").replace("\x00", "").lower()
+    except Exception:
+        return ""
+
+def should_patch_object(hive, obj_name, elements_node):
+    if obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}":
+        return True, "boot manager"
+
+    _, description = get_element_data(hive, elements_node, "12000004")
+    description_text = read_utf16le_text(description or b"")
+
+    # 12000002 is the boot application path, e.g. \Windows\system32\winload.exe.
+    # 22000002 is usually systemroot, e.g. \Windows.
+    _, path = get_element_data(hive, elements_node, "12000002")
+    path_text = read_utf16le_text(path or b"")
+    _, systemroot = get_element_data(hive, elements_node, "22000002")
+    systemroot_text = read_utf16le_text(systemroot or b"")
+
+    combined_text = " ".join([description_text, path_text, systemroot_text])
+    if (
+        "recovery" in combined_text
+        or "recuper" in combined_text
+        or "winre" in combined_text
+    ):
+        return False, "recovery entry"
+
+    if "winresume" in path_text:
+        return False, "resume entry"
+    if "memtest" in path_text:
+        return False, "memory diagnostics entry"
+    if "winload" in path_text:
+        return True, "windows loader"
+
+    has_device = has_element(hive, elements_node, "11000001")
+    has_osdevice = has_element(hive, elements_node, "21000001")
+    if has_device and has_osdevice:
+        if "windows" in combined_text:
+            return True, "windows loader candidate"
+        return True, "loader candidate with device/osdevice"
+
+    return False, "non-boot entry"
+
 def patch_bcd(bcd_path, esp_device, windows_device):
     print(f"Reading ESP device: {esp_device}")
     esp_is_gpt, esp_disk_sig, esp_part_sig, esp_offset = get_part_info(esp_device)
@@ -97,17 +205,13 @@ def patch_bcd(bcd_path, esp_device, windows_device):
 
     if esp_is_gpt:
         print(f"ESP is GPT. PTUUID: {esp_disk_sig.hex()} PARTUUID: {esp_part_sig.hex()}")
-        esp_element_bin = build_gpt_device_element(esp_disk_sig, esp_part_sig)
     else:
         print(f"ESP is MBR. Disk Signature: {esp_disk_sig.hex()} Offset: {esp_offset} bytes")
-        esp_element_bin = build_mbr_device_element(esp_disk_sig, esp_offset)
 
     if win_is_gpt:
         print(f"Windows partition is GPT. PTUUID: {win_disk_sig.hex()} PARTUUID: {win_part_sig.hex()}")
-        win_element_bin = build_gpt_device_element(win_disk_sig, win_part_sig)
     else:
         print(f"Windows partition is MBR. Disk Signature: {win_disk_sig.hex()} Offset: {win_offset} bytes")
-        win_element_bin = build_mbr_device_element(win_disk_sig, win_offset)
 
     if not os.path.exists(bcd_path):
         print(f"Error: BCD file not found at {bcd_path}")
@@ -127,6 +231,8 @@ def patch_bcd(bcd_path, esp_device, windows_device):
         print("Error: Objects subkey not found in BCD")
         return False
 
+    patched_windows_values = 0
+
     for obj in h.node_children(objects_node):
         obj_name = h.node_name(obj)
         elements_node = None
@@ -138,36 +244,59 @@ def patch_bcd(bcd_path, esp_device, windows_device):
         if not elements_node:
             continue
 
-        # Check if the element contains a path indicating bootmgr or winload
-        is_bootmgr = False
-        path_node = None
-        for child in h.node_children(elements_node):
-            if h.node_name(child) == "22000002":  # BCD Path Element key
-                path_node = child
-                break
+        patch_object, reason = should_patch_object(h, obj_name, elements_node)
+        if not patch_object:
+            print(f"Skipping {obj_name}: {reason}")
+            continue
 
-        if path_node:
-            val = h.node_get_value(path_node, "Element")
-            if val:
-                _, val_data = h.value_value(val)
-                try:
-                    path_str = val_data.decode("utf-16le").lower()
-                except Exception:
-                    path_str = ""
-                if "bootmgfw" in path_str or "bootmgr" in path_str:
-                    is_bootmgr = True
+        is_bootmgr = obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}"
+        print(f"Patching object {obj_name}: {reason}")
 
-        # Check standard Bootmgr GUID
-        if obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}":
-            is_bootmgr = True
-
-        # Update Device (11000001) and OSDevice (21000001) values
         for el in h.node_children(elements_node):
             el_name = h.node_name(el)
             if el_name in ["11000001", "21000001"]:
-                element_data = esp_element_bin if is_bootmgr else win_element_bin
-                print(f"Patching {obj_name}/Elements/{el_name} -> {'ESP' if is_bootmgr else 'Windows'}")
-                set_binary_element(h, el, element_data)
+                val = h.node_get_value(el, "Element")
+                if not val:
+                    print(f"Skipping {obj_name}/Elements/{el_name}: missing Element value")
+                    continue
+
+                _, current_data = h.value_value(val)
+                if is_bootmgr:
+                    patched_data, status = patch_partition_packet(
+                        current_data,
+                        esp_is_gpt,
+                        esp_disk_sig,
+                        esp_part_sig,
+                        esp_offset,
+                    )
+                    target = "ESP"
+                else:
+                    patched_data, status = patch_partition_packet(
+                        current_data,
+                        win_is_gpt,
+                        win_disk_sig,
+                        win_part_sig,
+                        win_offset,
+                    )
+                    target = "Windows"
+
+                if patched_data is None:
+                    print(f"Skipping {obj_name}/Elements/{el_name}: {status}")
+                    continue
+
+                if not is_bootmgr:
+                    patched_windows_values += 1
+
+                if bytes(patched_data) == current_data:
+                    print(f"Keeping {obj_name}/Elements/{el_name}: {status}")
+                    continue
+
+                print(f"Patching {obj_name}/Elements/{el_name} -> {target}: {status}")
+                set_binary_element(h, el, bytes(patched_data))
+
+    if patched_windows_values == 0:
+        print("Error: no Windows loader device entries were patched")
+        return False
 
     h.commit(None)
     print("BCD patched successfully!")

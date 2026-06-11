@@ -96,6 +96,122 @@ class DeploymentService {
     return match?.group(1);
   }
 
+  Future<bool> _prepareLegacyPartition(
+    String disk,
+    String partitionNumber,
+    List<String> logs,
+  ) async {
+    logs.add(
+      'Setting MBR partition type 0x07 on $disk partition $partitionNumber.',
+    );
+    var res = await _processService.run('sfdisk', [
+      '--part-type',
+      disk,
+      partitionNumber,
+      '7',
+    ]);
+    if (res.exitCode != 0) {
+      logs.add('sfdisk --part-type stderr: ${res.stderr.trim()}');
+      return false;
+    }
+
+    logs.add('Setting active boot flag on $disk partition $partitionNumber.');
+    res = await _processService.run('sfdisk', [
+      '--activate',
+      disk,
+      partitionNumber,
+    ]);
+    if (res.exitCode != 0) {
+      logs.add('WARNING: sfdisk --activate failed; trying parted boot flag.');
+      logs.add('sfdisk stderr: ${res.stderr.trim()}');
+
+      res = await _processService.run('parted', [
+        '-s',
+        disk,
+        'set',
+        partitionNumber,
+        'boot',
+        'on',
+      ]);
+      if (res.exitCode != 0) {
+        logs.add('parted stderr: ${res.stderr.trim()}');
+        return false;
+      }
+    }
+
+    await _processService.run('partprobe', [disk]);
+    await _processService.run('udevadm', ['settle']);
+
+    res = await _processService.run('sfdisk', ['--dump', disk]);
+    if (res.exitCode != 0) {
+      logs.add('WARNING: could not verify MBR partition table.');
+      logs.add('sfdisk --dump stderr: ${res.stderr.trim()}');
+      return true;
+    }
+
+    final dump = res.stdout.trim();
+    logs.add('MBR partition table: $dump');
+    String? partitionLine;
+    for (final line in dump.split('\n').map((line) => line.trim())) {
+      if (line.startsWith('${disk}p$partitionNumber') ||
+          line.startsWith('$disk$partitionNumber')) {
+        partitionLine = line;
+        break;
+      }
+    }
+
+    if (partitionLine == null) {
+      logs.add(
+        'WARNING: could not find partition $partitionNumber in sfdisk dump.',
+      );
+      return true;
+    }
+
+    return partitionLine.contains('type=7') &&
+        partitionLine.contains('bootable');
+  }
+
+  Future<ProcessResult> _writeNt6BootRecords(
+    String disk,
+    String windowsDevice,
+    List<String> logs,
+  ) async {
+    // Windows 7, 8, 10, and 11 all use NT6+ bootmgr/BCD style BIOS boot.
+    var res = await _processService.run('ms-sys', ['-7', disk]);
+    if (res.exitCode != 0) return res;
+    logs.add('NT6+ compatible MBR written to $disk.');
+    if (res.stdout.trim().isNotEmpty) {
+      logs.add('ms-sys MBR stdout: ${res.stdout.trim()}');
+    }
+
+    res = await _processService.run('ms-sys', [
+      '--ntfs',
+      '--partition',
+      windowsDevice,
+    ]);
+    if (res.exitCode == 0) {
+      logs.add('NT6+ NTFS volume boot record written to $windowsDevice.');
+      if (res.stdout.trim().isNotEmpty) {
+        logs.add('ms-sys VBR stdout: ${res.stdout.trim()}');
+      }
+      return res;
+    }
+
+    logs.add('WARNING: ms-sys --ntfs --partition failed; trying --ntfs.');
+    logs.add('ms-sys --ntfs --partition stderr: ${res.stderr.trim()}');
+    res = await _processService.run('ms-sys', ['--ntfs', windowsDevice]);
+    if (res.exitCode == 0) return res;
+
+    logs.add('WARNING: ms-sys --ntfs failed; trying ms-sys -n -p.');
+    logs.add('ms-sys --ntfs stderr: ${res.stderr.trim()}');
+    res = await _processService.run('ms-sys', ['-n', '-p', windowsDevice]);
+    if (res.exitCode == 0) return res;
+
+    logs.add('WARNING: ms-sys -n -p failed; trying ms-sys -n.');
+    logs.add('ms-sys -n -p stderr: ${res.stderr.trim()}');
+    return _processService.run('ms-sys', ['-n', windowsDevice]);
+  }
+
   /// Applies a WIM/SWM image using DISM (Windows) or wimlib-imagex (Linux).
   Stream<DeploymentProgress> applyImage({
     required String imagePath,
@@ -492,61 +608,31 @@ class DeploymentService {
       }
       logs.add('Legacy BCD patched successfully.');
 
-      // 5. Mark the Windows partition active and write MBR/VBR boot code.
+      // 5. Mark the Windows partition active and write NT6+ MBR/VBR boot code.
       final disk = _parentDiskFromPartition(windowsDevice);
       final partitionNumber = _partitionNumberFromPath(windowsDevice);
       if (disk != null && partitionNumber != null) {
-        logs.add(
-          'Setting active boot flag on $disk partition $partitionNumber.',
-        );
-        res = await _processService.run('sfdisk', [
-          '--activate',
+        final partitionReady = await _prepareLegacyPartition(
           disk,
           partitionNumber,
-        ]);
-        if (res.exitCode != 0) {
-          logs.add(
-            'WARNING: sfdisk --activate failed; trying parted boot flag.',
+          logs,
+        );
+        if (!partitionReady) {
+          return fail(
+            'Windows partition is not active/type 0x07 after MBR preparation.',
           );
-          logs.add('sfdisk stderr: ${res.stderr.trim()}');
-
-          res = await _processService.run('parted', [
-            '-s',
-            disk,
-            'set',
-            partitionNumber,
-            'boot',
-            'on',
-          ]);
-          if (res.exitCode != 0) {
-            return fail('Could not mark Windows partition active.', res);
-          }
         }
 
-        await _processService.run('partprobe', [disk]);
-        await _processService.run('udevadm', ['settle']);
-
-        // Write Win7/10/11 compatible MBR
-        res = await _processService.run('ms-sys', ['-7', disk]);
+        res = await _writeNt6BootRecords(disk, windowsDevice, logs);
         if (res.exitCode != 0) {
-          return fail('ms-sys MBR write failed.', res);
+          return fail('NT6+ MBR/VBR write failed.', res);
         }
-        logs.add('Windows-compatible MBR written to $disk.');
       } else {
-        logs.add('WARNING: Could not parse parent disk for $windowsDevice.');
+        return fail('Could not parse parent disk for $windowsDevice.');
       }
 
-      // Write NTFS VBR
-      res = await _processService.run('ms-sys', ['--ntfs', windowsDevice]);
-      if (res.exitCode != 0) {
-        logs.add('WARNING: ms-sys --ntfs failed; trying ms-sys -n.');
-        logs.add('ms-sys --ntfs stderr: ${res.stderr.trim()}');
-        res = await _processService.run('ms-sys', ['-n', windowsDevice]);
-        if (res.exitCode != 0) {
-          return fail('ms-sys NTFS VBR write failed.', res);
-        }
-      }
-      logs.add('NTFS volume boot record written to $windowsDevice.');
+      await _processService.run('sync', []);
+      await _processService.run('blockdev', ['--flushbufs', disk]);
 
       return BootloaderResult(true, logs);
     }
