@@ -3,12 +3,14 @@ class PostInstallPackage {
   final String name;
   final String description;
   final String wingetId;
+  final List<String> detectNames;
 
   const PostInstallPackage({
     required this.id,
     required this.name,
     required this.description,
     required this.wingetId,
+    this.detectNames = const [],
   });
 }
 
@@ -175,6 +177,7 @@ const List<PostInstallPackage> defaultPostInstallPackages = [
     name: 'VS Code',
     description: 'Editor',
     wingetId: 'Microsoft.VisualStudioCode',
+    detectNames: ['Visual Studio Code'],
   ),
   PostInstallPackage(
     id: 'git',
@@ -187,12 +190,14 @@ const List<PostInstallPackage> defaultPostInstallPackages = [
     name: 'Node.js LTS',
     description: 'JavaScript',
     wingetId: 'OpenJS.NodeJS.LTS',
+    detectNames: ['Node.js'],
   ),
   PostInstallPackage(
     id: 'python',
     name: 'Python',
     description: 'Python 3',
-    wingetId: 'Python.Python.3.12',
+    wingetId: 'Python.Python.3.14',
+    detectNames: ['Python 3', 'Python Launcher'],
   ),
   PostInstallPackage(
     id: 'php',
@@ -205,6 +210,7 @@ const List<PostInstallPackage> defaultPostInstallPackages = [
     name: 'MySQL',
     description: 'Servidor DB',
     wingetId: 'Oracle.MySQL',
+    detectNames: ['MySQL'],
   ),
   PostInstallPackage(
     id: 'go',
@@ -223,12 +229,196 @@ const List<PostInstallPackage> defaultPostInstallPackages = [
     name: 'Java JDK',
     description: 'Temurin 21',
     wingetId: 'EclipseAdoptium.Temurin.21.JDK',
+    detectNames: ['Temurin JDK', 'Eclipse Temurin'],
   ),
   PostInstallPackage(
     id: 'docker',
     name: 'Docker',
     description: 'Desktop',
     wingetId: 'Docker.DockerDesktop',
+    detectNames: ['Docker Desktop'],
+  ),
+  PostInstallPackage(
+    id: 'terminal',
+    name: 'Windows Terminal',
+    description: 'Terminal moderno',
+    wingetId: 'Microsoft.WindowsTerminal',
+    detectNames: ['Terminal Windows', 'Windows Terminal'],
+  ),
+  PostInstallPackage(
+    id: 'wsl',
+    name: 'WSL',
+    description: 'Subsistema Linux',
+    wingetId: 'Microsoft.WSL',
+    detectNames: ['Windows Subsystem for Linux', 'Subsistema de Windows'],
+  ),
+  PostInstallPackage(
+    id: 'ubuntu',
+    name: 'Ubuntu',
+    description: 'Distro WSL',
+    wingetId: 'Canonical.Ubuntu',
+  ),
+  PostInstallPackage(
+    id: 'chrome',
+    name: 'Chrome',
+    description: 'Navegador',
+    wingetId: 'Google.Chrome.EXE',
+    detectNames: ['Google Chrome'],
+  ),
+  PostInstallPackage(
+    id: 'firefox',
+    name: 'Firefox',
+    description: 'Navegador',
+    wingetId: 'Mozilla.Firefox',
+    detectNames: ['Mozilla Firefox'],
+  ),
+  PostInstallPackage(
+    id: 'android_studio',
+    name: 'Android Studio',
+    description: 'IDE Android',
+    wingetId: 'Google.AndroidStudio',
+  ),
+  PostInstallPackage(
+    id: 'visual_studio',
+    name: 'Visual Studio',
+    description: 'IDE completo',
+    wingetId: 'Microsoft.VisualStudio.Community',
+    detectNames: ['Visual Studio Community'],
+  ),
+  PostInstallPackage(
+    id: 'vs_build_tools',
+    name: 'VS Build Tools',
+    description: 'Compiladores C++',
+    wingetId: 'Microsoft.VisualStudio.BuildTools',
+    detectNames: ['Visual Studio Build Tools'],
+  ),
+  PostInstallPackage(
+    id: 'dotnet_sdk',
+    name: '.NET SDK 10',
+    description: 'SDK .NET',
+    wingetId: 'Microsoft.DotNet.SDK.10',
+    detectNames: ['Microsoft .NET SDK 10'],
+  ),
+  PostInstallPackage(
+    id: 'dotnet_runtime',
+    name: '.NET Desktop 8',
+    description: 'Runtime escritorio',
+    wingetId: 'Microsoft.DotNet.DesktopRuntime.8',
+    detectNames: ['Desktop Runtime - 8'],
+  ),
+  PostInstallPackage(
+    id: 'xampp',
+    name: 'XAMPP 8.2',
+    description: 'Apache PHP MySQL',
+    wingetId: 'ApacheFriends.Xampp.8.2',
+    detectNames: ['XAMPP'],
+  ),
+  PostInstallPackage(
+    id: 'heidisql',
+    name: 'HeidiSQL',
+    description: 'Cliente DB',
+    wingetId: 'HeidiSQL.HeidiSQL',
+  ),
+  PostInstallPackage(
+    id: 'bruno',
+    name: 'Bruno',
+    description: 'Cliente API',
+    wingetId: 'Bruno.Bruno',
+  ),
+  PostInstallPackage(
+    id: 'putty',
+    name: 'PuTTY',
+    description: 'SSH clasico',
+    wingetId: 'PuTTY.PuTTY',
+  ),
+  PostInstallPackage(
+    id: 'termius',
+    name: 'Termius',
+    description: 'SSH moderno',
+    wingetId: 'Termius.Termius',
+  ),
+  PostInstallPackage(
+    id: 'ollama',
+    name: 'Ollama',
+    description: 'Modelos locales',
+    wingetId: 'Ollama.Ollama',
+  ),
+  PostInstallPackage(
+    id: 'cuda',
+    name: 'CUDA Toolkit',
+    description: 'GPU compute',
+    wingetId: 'Nvidia.CUDA',
+    detectNames: ['NVIDIA CUDA Toolkit'],
+  ),
+  PostInstallPackage(
+    id: 'nanazip',
+    name: 'NanaZip',
+    description: 'Compresor',
+    wingetId: 'M2Team.NanaZip',
+  ),
+  PostInstallPackage(
+    id: 'inno_setup',
+    name: 'Inno Setup',
+    description: 'Instaladores',
+    wingetId: 'JRSoftware.InnoSetup',
+  ),
+  PostInstallPackage(
+    id: 'bleachbit',
+    name: 'BleachBit',
+    description: 'Limpieza',
+    wingetId: 'BleachBit.BleachBit',
+  ),
+  PostInstallPackage(
+    id: 'dia',
+    name: 'Dia',
+    description: 'Diagramas',
+    wingetId: 'gnome.Dia',
+  ),
+  PostInstallPackage(
+    id: 'antigravity',
+    name: 'Antigravity',
+    description: 'IDE AI',
+    wingetId: 'Google.Antigravity',
+  ),
+  PostInstallPackage(
+    id: 'teams',
+    name: 'Teams',
+    description: 'Comunicacion',
+    wingetId: 'Microsoft.Teams',
+  ),
+  PostInstallPackage(
+    id: 'obs',
+    name: 'OBS Studio',
+    description: 'Grabacion',
+    wingetId: 'XPFFH613W8V6LV',
+    detectNames: ['OBS Studio'],
+  ),
+  PostInstallPackage(
+    id: 'powerbi',
+    name: 'Power BI',
+    description: 'BI Desktop',
+    wingetId: '9NTXR16HNW1T',
+    detectNames: ['Power BI Desktop'],
+  ),
+  PostInstallPackage(
+    id: 'directx',
+    name: 'DirectX',
+    description: 'Runtime juegos',
+    wingetId: 'Microsoft.DirectX',
+  ),
+  PostInstallPackage(
+    id: 'vcredist_x64',
+    name: 'VC++ 2015-2022 x64',
+    description: 'Runtime C++',
+    wingetId: 'Microsoft.VCRedist.2015+.x64',
+    detectNames: ['2015-2022 Redistributable (x64)'],
+  ),
+  PostInstallPackage(
+    id: 'vcredist_x86',
+    name: 'VC++ 2015-2022 x86',
+    description: 'Runtime C++',
+    wingetId: 'Microsoft.VCRedist.2015+.x86',
+    detectNames: ['2015-2022 Redistributable (x86)'],
   ),
 ];
 

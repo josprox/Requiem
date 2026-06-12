@@ -48,6 +48,13 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
     'go',
     'rust',
     'java',
+    'terminal',
+    'wsl',
+    'ubuntu',
+    'chrome',
+    'bruno',
+    'heidisql',
+    'nanazip',
   };
   final List<String> _logs = [];
 

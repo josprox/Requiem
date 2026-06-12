@@ -228,6 +228,7 @@ class PostInstallService {
   Future<Set<String>> detectInstalledDefaults() async {
     if (!Platform.isWindows || !await hasWinget) return {};
 
+    final installedText = await _installedPackagesText();
     final tempFile = File(
       p.join(
         Directory.systemTemp.path,
@@ -241,7 +242,13 @@ class PostInstallService {
         tempFile.path,
         '--accept-source-agreements',
       ]);
-      if (result.exitCode != 0 || !tempFile.existsSync()) return {};
+      if (result.exitCode != 0 || !tempFile.existsSync()) {
+        return {
+          for (final package in defaultPostInstallPackages)
+            if (_isPackageDetected(package, const {}, installedText))
+              package.id,
+        };
+      }
 
       final data = jsonDecode(await tempFile.readAsString());
       final ids = <String>{};
@@ -256,7 +263,7 @@ class PostInstallService {
 
       return {
         for (final package in defaultPostInstallPackages)
-          if (ids.contains(package.wingetId.toLowerCase())) package.id,
+          if (_isPackageDetected(package, ids, installedText)) package.id,
       };
     } finally {
       if (tempFile.existsSync()) {
@@ -265,6 +272,53 @@ class PostInstallService {
         } catch (_) {}
       }
     }
+  }
+
+  Future<String> _installedPackagesText() async {
+    final parts = <String>[];
+
+    final wingetResult = await _processService.run('winget', [
+      'list',
+      '--accept-source-agreements',
+    ], timeout: const Duration(minutes: 5));
+    parts.add(wingetResult.stdout);
+    parts.add(wingetResult.stderr);
+
+    final registryResult = await _processService.run('powershell.exe', [
+      '-NoProfile',
+      '-ExecutionPolicy',
+      'Bypass',
+      '-Command',
+      r'''
+$paths = @(
+  'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+  'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*',
+  'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*'
+)
+Get-ItemProperty $paths -ErrorAction SilentlyContinue |
+  Where-Object { $_.DisplayName } |
+  ForEach-Object { $_.DisplayName }
+''',
+    ], timeout: const Duration(minutes: 5));
+    parts.add(registryResult.stdout);
+    parts.add(registryResult.stderr);
+
+    return parts.join('\n').toLowerCase();
+  }
+
+  bool _isPackageDetected(
+    PostInstallPackage package,
+    Set<String> exportedIds,
+    String installedText,
+  ) {
+    final wingetId = package.wingetId.toLowerCase();
+    if (exportedIds.contains(wingetId)) return true;
+    if (installedText.contains(wingetId)) return true;
+    if (installedText.contains(package.name.toLowerCase())) return true;
+    for (final name in package.detectNames) {
+      if (installedText.contains(name.toLowerCase())) return true;
+    }
+    return false;
   }
 
   List<String> _findOsppScripts() {
