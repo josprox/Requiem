@@ -48,7 +48,6 @@ class MainController extends ChangeNotifier {
   }
 
   PartitionMode get recommendedPartitionMode {
-    if (bootedInUefi == false) return PartitionMode.formatMbr;
     return PartitionMode.formatGpt;
   }
 
@@ -62,16 +61,13 @@ class MainController extends ChangeNotifier {
       return true;
     }
     if (bootedInUefi!) return mode == PartitionMode.formatGpt;
-    return mode == PartitionMode.formatMbr;
+    return mode == PartitionMode.formatGpt || mode == PartitionMode.formatMbr;
   }
 
   String? partitionModeBlockReason(PartitionMode mode) {
     if (isPartitionModeCompatible(mode)) return null;
     if (bootedInUefi == true && mode == PartitionMode.formatMbr) {
       return 'This live session booted in UEFI. Use GPT or reboot the VM in legacy BIOS.';
-    }
-    if (bootedInUefi == false && mode == PartitionMode.formatGpt) {
-      return 'This live session booted in legacy BIOS. Use MBR or reboot the VM in UEFI.';
     }
     return null;
   }
@@ -281,6 +277,11 @@ class MainController extends ChangeNotifier {
     bootedInUefi = _diskService.currentBootIsUefi();
     if (bootedInUefi != null) {
       addLog('Firmware boot mode: $bootFirmwareLabel');
+      if (bootedInUefi == false && partitionMode == PartitionMode.formatGpt) {
+        addLog(
+          'BIOS live session with GPT target: UEFI fallback boot files will be created. Switch the VM firmware to UEFI before booting Windows.',
+        );
+      }
     }
     final blockReason = partitionModeBlockReason(partitionMode);
     if (blockReason != null) {

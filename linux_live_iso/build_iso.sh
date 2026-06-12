@@ -41,6 +41,7 @@ sudo apt-get install -y \
 
 # 2. Clean build directories
 echo "Step 2: Cleaning staging directories..."
+sudo umount -lf "$CHROOT_DIR/opt/flutter" 2>/dev/null || true
 sudo umount -f "$CHROOT_DIR/proc" 2>/dev/null || true
 sudo umount -f "$CHROOT_DIR/sys" 2>/dev/null || true
 sudo umount -f "$CHROOT_DIR/dev/pts" 2>/dev/null || true
@@ -83,6 +84,15 @@ cd "$WORKSPACE_DIR"
 
 # 6. Copy sources and compile Flutter Installer inside chroot
 echo "Step 6: Copying sources and compiling Flutter installer inside chroot..."
+# Verify host Flutter SDK is present and not empty
+if [ ! -d "/opt/flutter" ] || [ ! -d "/opt/flutter/.git" ]; then
+    echo "===================================================================="
+    echo " ❌ ERROR: Linux Flutter SDK not found in /opt/flutter on the host!"
+    echo " Please run the environment setup script first to install it:"
+    echo "   bash linux_live_iso/setup_wsl.sh"
+    echo "===================================================================="
+    exit 1
+fi
 sudo mkdir -p "$CHROOT_DIR/workspace"
 sudo mkdir -p "$CHROOT_DIR/opt/flutter"
 sudo mount --bind "/opt/flutter" "$CHROOT_DIR/opt/flutter"
@@ -186,6 +196,7 @@ sudo cp "$INITRD_FILE" "$IMAGE_DIR/live/initrd.img"
 
 # 10. Clean up and unmount chroot filesystems
 echo "Step 10: Unmounting chroot mountpoints..."
+sudo umount -lf "$CHROOT_DIR/opt/flutter" || true
 sudo umount -f "$CHROOT_DIR/proc" || true
 sudo umount -f "$CHROOT_DIR/sys" || true
 sudo umount -f "$CHROOT_DIR/dev/pts" || true

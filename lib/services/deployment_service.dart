@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:path/path.dart' as p;
 import 'process_service.dart';
 
 /// Progress update from a deployment operation.
@@ -37,7 +38,7 @@ class DeploymentService {
         continue;
       }
 
-      if (source == destination) {
+      if (p.canonicalize(source) == p.canonicalize(destination)) {
         logs.add('Using existing file: $destination');
         return true;
       }
@@ -200,9 +201,20 @@ class DeploymentService {
     return bootReady && windowsReady;
   }
 
+  Future<String> _getFilesystemType(String device) async {
+    final res = await _processService.run('blkid', [
+      '-s',
+      'TYPE',
+      '-o',
+      'value',
+      device,
+    ]);
+    return res.stdout.toString().trim().toLowerCase();
+  }
+
   Future<ProcessResult> _writeNt6BootRecords(
     String disk,
-    String windowsDevice,
+    String targetDevice,
     List<String> logs,
   ) async {
     // Windows 7, 8, 10, and 11 all use NT6+ bootmgr/BCD style BIOS boot.
@@ -213,32 +225,63 @@ class DeploymentService {
       logs.add('ms-sys MBR stdout: ${res.stdout.trim()}');
     }
 
-    res = await _processService.run('ms-sys', [
-      '--ntfs',
-      '--partition',
-      windowsDevice,
-    ]);
-    if (res.exitCode == 0) {
-      logs.add('NT6+ NTFS volume boot record written to $windowsDevice.');
-      if (res.stdout.trim().isNotEmpty) {
-        logs.add('ms-sys VBR stdout: ${res.stdout.trim()}');
+    final fsType = await _getFilesystemType(targetDevice);
+    logs.add('Detected filesystem type for $targetDevice: $fsType');
+
+    if (fsType.contains('vfat') || fsType.contains('fat')) {
+      res = await _processService.run('ms-sys', [
+        '--fat32nt',
+        '--partition',
+        targetDevice,
+      ]);
+      if (res.exitCode == 0) {
+        logs.add('NT6+ FAT32 volume boot record written to $targetDevice.');
+        if (res.stdout.trim().isNotEmpty) {
+          logs.add('ms-sys VBR stdout: ${res.stdout.trim()}');
+        }
+        return res;
       }
-      return res;
+      logs.add('WARNING: ms-sys --fat32nt --partition failed; trying --fat32nt.');
+      logs.add('ms-sys --fat32nt --partition stderr: ${res.stderr.trim()}');
+      res = await _processService.run('ms-sys', ['--fat32nt', targetDevice]);
+      if (res.exitCode == 0) return res;
+
+      logs.add('WARNING: ms-sys --fat32nt failed; trying ms-sys -2 -p.');
+      logs.add('ms-sys --fat32nt stderr: ${res.stderr.trim()}');
+      res = await _processService.run('ms-sys', ['-2', '-p', targetDevice]);
+      if (res.exitCode == 0) return res;
+
+      logs.add('WARNING: ms-sys -2 -p failed; trying ms-sys -2.');
+      logs.add('ms-sys -2 -p stderr: ${res.stderr.trim()}');
+      return _processService.run('ms-sys', ['-2', targetDevice]);
+    } else {
+      res = await _processService.run('ms-sys', [
+        '--ntfs',
+        '--partition',
+        targetDevice,
+      ]);
+      if (res.exitCode == 0) {
+        logs.add('NT6+ NTFS volume boot record written to $targetDevice.');
+        if (res.stdout.trim().isNotEmpty) {
+          logs.add('ms-sys VBR stdout: ${res.stdout.trim()}');
+        }
+        return res;
+      }
+
+      logs.add('WARNING: ms-sys --ntfs --partition failed; trying --ntfs.');
+      logs.add('ms-sys --ntfs --partition stderr: ${res.stderr.trim()}');
+      res = await _processService.run('ms-sys', ['--ntfs', targetDevice]);
+      if (res.exitCode == 0) return res;
+
+      logs.add('WARNING: ms-sys --ntfs failed; trying ms-sys -n -p.');
+      logs.add('ms-sys --ntfs stderr: ${res.stderr.trim()}');
+      res = await _processService.run('ms-sys', ['-n', '-p', targetDevice]);
+      if (res.exitCode == 0) return res;
+
+      logs.add('WARNING: ms-sys -n -p failed; trying ms-sys -n.');
+      logs.add('ms-sys -n -p stderr: ${res.stderr.trim()}');
+      return _processService.run('ms-sys', ['-n', targetDevice]);
     }
-
-    logs.add('WARNING: ms-sys --ntfs --partition failed; trying --ntfs.');
-    logs.add('ms-sys --ntfs --partition stderr: ${res.stderr.trim()}');
-    res = await _processService.run('ms-sys', ['--ntfs', windowsDevice]);
-    if (res.exitCode == 0) return res;
-
-    logs.add('WARNING: ms-sys --ntfs failed; trying ms-sys -n -p.');
-    logs.add('ms-sys --ntfs stderr: ${res.stderr.trim()}');
-    res = await _processService.run('ms-sys', ['-n', '-p', windowsDevice]);
-    if (res.exitCode == 0) return res;
-
-    logs.add('WARNING: ms-sys -n -p failed; trying ms-sys -n.');
-    logs.add('ms-sys -n -p stderr: ${res.stderr.trim()}');
-    return _processService.run('ms-sys', ['-n', windowsDevice]);
   }
 
   Future<ProcessResult> _installLegacyGrubBootmgrBridge(
@@ -817,7 +860,7 @@ boot
           );
         }
 
-        res = await _writeNt6BootRecords(disk, windowsDevice, logs);
+        res = await _writeNt6BootRecords(disk, bootDevice, logs);
         if (res.exitCode != 0) {
           return fail('NT6+ MBR/VBR write failed.', res);
         }

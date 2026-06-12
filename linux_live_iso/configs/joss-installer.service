@@ -11,8 +11,7 @@ StandardOutput=tty
 StandardError=tty
 TTYPath=/dev/tty1
 StandardInput=tty
-Restart=on-failure
-RestartSec=3
+Restart=no
 
 [Install]
 WantedBy=graphical.target

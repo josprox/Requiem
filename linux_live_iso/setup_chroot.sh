@@ -14,11 +14,15 @@ apt-get install -y --no-install-recommends \
     linux-image-amd64 \
     live-boot \
     xserver-xorg-core \
+    xserver-xorg-video-vmware \
+    xserver-xorg-video-fbdev \
+    xserver-xorg-video-vesa \
     xserver-xorg-video-all \
     xserver-xorg-input-all \
     xserver-xorg-legacy \
     xinit \
     openbox \
+    open-vm-tools-desktop \
     x11-utils \
     xterm \
     dbus-x11 \
@@ -37,6 +41,7 @@ apt-get install -y --no-install-recommends \
     grub-pc-bin \
     libhivex-bin \
     python3-hivex \
+    libwin-hivex-perl \
     dosfstools \
     uuid-runtime \
     attr \
