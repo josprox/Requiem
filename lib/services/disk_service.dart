@@ -76,7 +76,7 @@ enum PartitionMode {
   /// Wipe disk and create a clean GPT/UEFI layout (S: + W:)
   formatGpt,
 
-  /// Wipe disk and create a legacy MBR layout (W:)
+  /// Wipe disk and create a legacy MBR layout (system FAT32 + W:)
   formatMbr,
 
   /// Use the disk as-is — assumes the user already has the right partitions
@@ -86,6 +86,13 @@ enum PartitionMode {
 
 class DiskService {
   final ProcessService processService = ProcessService();
+
+  /// Returns true when the current Linux live session was booted through UEFI.
+  /// Returns null on platforms where the firmware mode cannot be inferred.
+  bool? currentBootIsUefi() {
+    if (!Platform.isLinux) return null;
+    return Directory('/sys/firmware/efi').existsSync();
+  }
 
   /// Runs a DiskPart script by writing it to a temp file and running diskpart.exe /s (Windows only)
   Future<String> _runDiskPartScript(String script) async {
@@ -677,7 +684,8 @@ class DiskService {
       ]);
       if (res.exitCode != 0) return false;
 
-      // Create Primary partition
+      // Create a single active NTFS partition. This mirrors:
+      // dism /Apply-Image ... /ApplyDir:C:\ + bcdboot C:\Windows /s C: /f BIOS.
       res = await processService.run('parted', [
         '-s',
         device,

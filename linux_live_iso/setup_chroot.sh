@@ -33,10 +33,17 @@ apt-get install -y --no-install-recommends \
     fdisk \
     udev \
     efibootmgr \
+    grub2-common \
+    grub-pc-bin \
     libhivex-bin \
     python3-hivex \
     dosfstools \
-    uuid-runtime
+    uuid-runtime \
+    attr \
+    fatattr \
+    pev \
+    sudo \
+    xxd
 
 # 4. Install additional tools (like ms-sys if available, or we can compile it if not in repositories)
 # Note: ms-sys might not be in standard Debian repositories, so we download its deb package or compile it.

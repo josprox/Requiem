@@ -96,30 +96,52 @@ class DeploymentService {
     return match?.group(1);
   }
 
-  Future<bool> _prepareLegacyPartition(
+  Future<bool> _prepareLegacyBootLayout(
     String disk,
-    String partitionNumber,
+    String bootPartitionNumber,
+    String windowsPartitionNumber,
     List<String> logs,
   ) async {
+    final splitBootPartition = bootPartitionNumber != windowsPartitionNumber;
+    final bootType = splitBootPartition ? 'c' : '7';
+
     logs.add(
-      'Setting MBR partition type 0x07 on $disk partition $partitionNumber.',
+      'Setting MBR boot partition type 0x$bootType on $disk partition $bootPartitionNumber.',
     );
     var res = await _processService.run('sfdisk', [
       '--part-type',
       disk,
-      partitionNumber,
-      '7',
+      bootPartitionNumber,
+      bootType,
     ]);
     if (res.exitCode != 0) {
-      logs.add('sfdisk --part-type stderr: ${res.stderr.trim()}');
+      logs.add('sfdisk boot --part-type stderr: ${res.stderr.trim()}');
       return false;
     }
 
-    logs.add('Setting active boot flag on $disk partition $partitionNumber.');
+    if (splitBootPartition) {
+      logs.add(
+        'Setting Windows partition type 0x07 on $disk partition $windowsPartitionNumber.',
+      );
+      res = await _processService.run('sfdisk', [
+        '--part-type',
+        disk,
+        windowsPartitionNumber,
+        '7',
+      ]);
+      if (res.exitCode != 0) {
+        logs.add('sfdisk windows --part-type stderr: ${res.stderr.trim()}');
+        return false;
+      }
+    }
+
+    logs.add(
+      'Setting active boot flag on $disk partition $bootPartitionNumber.',
+    );
     res = await _processService.run('sfdisk', [
       '--activate',
       disk,
-      partitionNumber,
+      bootPartitionNumber,
     ]);
     if (res.exitCode != 0) {
       logs.add('WARNING: sfdisk --activate failed; trying parted boot flag.');
@@ -129,7 +151,7 @@ class DeploymentService {
         '-s',
         disk,
         'set',
-        partitionNumber,
+        bootPartitionNumber,
         'boot',
         'on',
       ]);
@@ -151,24 +173,31 @@ class DeploymentService {
 
     final dump = res.stdout.trim();
     logs.add('MBR partition table: $dump');
-    String? partitionLine;
+    String? bootLine;
+    String? windowsLine;
     for (final line in dump.split('\n').map((line) => line.trim())) {
-      if (line.startsWith('${disk}p$partitionNumber') ||
-          line.startsWith('$disk$partitionNumber')) {
-        partitionLine = line;
-        break;
+      if (line.startsWith('${disk}p$bootPartitionNumber') ||
+          line.startsWith('$disk$bootPartitionNumber')) {
+        bootLine = line;
+      }
+      if (line.startsWith('${disk}p$windowsPartitionNumber') ||
+          line.startsWith('$disk$windowsPartitionNumber')) {
+        windowsLine = line;
       }
     }
 
-    if (partitionLine == null) {
+    if (bootLine == null) {
       logs.add(
-        'WARNING: could not find partition $partitionNumber in sfdisk dump.',
+        'WARNING: could not find boot partition $bootPartitionNumber in sfdisk dump.',
       );
       return true;
     }
 
-    return partitionLine.contains('type=7') &&
-        partitionLine.contains('bootable');
+    final bootReady =
+        bootLine.contains('type=$bootType') && bootLine.contains('bootable');
+    final windowsReady =
+        !splitBootPartition || (windowsLine?.contains('type=7') ?? false);
+    return bootReady && windowsReady;
   }
 
   Future<ProcessResult> _writeNt6BootRecords(
@@ -210,6 +239,111 @@ class DeploymentService {
     logs.add('WARNING: ms-sys -n -p failed; trying ms-sys -n.');
     logs.add('ms-sys -n -p stderr: ${res.stderr.trim()}');
     return _processService.run('ms-sys', ['-n', windowsDevice]);
+  }
+
+  Future<ProcessResult> _installLegacyGrubBootmgrBridge(
+    String disk,
+    String bootDir,
+    String bootDevice,
+    List<String> logs,
+  ) async {
+    final grubDir = Directory('$bootDir/Boot/grub');
+    await grubDir.create(recursive: true);
+    final uuidRes = await _processService.run('blkid', [
+      '-s',
+      'UUID',
+      '-o',
+      'value',
+      bootDevice,
+    ]);
+    final bootFsUuid = uuidRes.stdout
+        .toString()
+        .trim()
+        .split('\n')
+        .first
+        .trim();
+    final searchCommand = bootFsUuid.isNotEmpty
+        ? 'search --no-floppy --fs-uuid --set=root $bootFsUuid'
+        : 'search --no-floppy --set=root --file /Boot/BCD';
+    if (bootFsUuid.isNotEmpty) {
+      logs.add('Legacy GRUB root pinned to $bootDevice UUID $bootFsUuid.');
+    } else {
+      logs.add(
+        'WARNING: Could not read $bootDevice filesystem UUID; using Boot/BCD search fallback.',
+      );
+    }
+
+    await File('${grubDir.path}/grub.cfg').writeAsString('''
+set timeout=0
+set default=0
+
+insmod part_msdos
+insmod fat
+insmod ntfs
+insmod ntldr
+insmod search_fs_uuid
+insmod search_fs_file
+
+$searchCommand
+ntldr /bootmgr
+boot
+''');
+
+    final res = await _processService.run('grub-install', [
+      '--target=i386-pc',
+      '--boot-directory=$bootDir/Boot',
+      '--modules=part_msdos fat ntfs ntldr search_fs_uuid search_fs_file biosdisk',
+      '--recheck',
+      '--force',
+      disk,
+    ]);
+    if (res.exitCode == 0) {
+      logs.add('Legacy GRUB bootmgr bridge installed on $disk.');
+      if (res.stdout.trim().isNotEmpty) {
+        logs.add('grub-install stdout: ${res.stdout.trim()}');
+      }
+    }
+    return res;
+  }
+
+  Future<ProcessResult?> _runBcdSys({
+    required String windowsDir,
+    required String systemDir,
+    required String firmware,
+    required List<String> logs,
+  }) async {
+    const bcdSysDir = '/opt/joss_red_installer/bcd-sys/Linux';
+    const bcdSysScript = '$bcdSysDir/bcd-sys.sh';
+    if (!Platform.isLinux || !File(bcdSysScript).existsSync()) {
+      logs.add('BCD-SYS not found; using internal boot configuration.');
+      return null;
+    }
+
+    final windowsRoot = Directory(windowsDir).parent.absolute.path;
+    final systemRoot = Directory(systemDir).absolute.path;
+    logs.add(
+      'Running BCD-SYS: firmware=$firmware source=$windowsRoot system=$systemRoot',
+    );
+
+    final res = await _processService.run('bash', [
+      bcdSysScript,
+      windowsRoot,
+      '-f',
+      firmware,
+      '-s',
+      systemRoot,
+      '-c',
+      '-v',
+      '-l',
+      'en-us',
+    ], workingDirectory: bcdSysDir);
+    if (res.stdout.trim().isNotEmpty) {
+      logs.add('BCD-SYS stdout: ${res.stdout.trim()}');
+    }
+    if (res.stderr.trim().isNotEmpty) {
+      logs.add('BCD-SYS stderr: ${res.stderr.trim()}');
+    }
+    return res;
   }
 
   /// Applies a WIM/SWM image using DISM (Windows) or wimlib-imagex (Linux).
@@ -497,6 +631,7 @@ class DeploymentService {
       // 4. Patch BCD
       res = await _processService.run('python3', [
         '/opt/joss_red_installer/tools/patch_bcd.py',
+        '--uefi',
         '$efiDir/EFI/Microsoft/Boot/BCD',
         espDevice,
         windowsDevice,
@@ -554,12 +689,74 @@ class DeploymentService {
       logs.add('Legacy BIOS boot mode selected.');
       logs.add('Windows directory: $windowsDir');
       logs.add('Boot target: $efiDir');
+      final bootDevice = espDevice ?? windowsDevice;
+      logs.add('Boot device: $bootDevice');
       logs.add('Windows device: $windowsDevice');
 
-      // 1. Ensure legacy bootmgr exists at the Windows partition root. Captured
-      // BIOS/MBR backups usually already contain /bootmgr and /Boot/BCD.
+      final bcdSysDisk = _parentDiskFromPartition(windowsDevice);
+      final bcdSysBootDisk = _parentDiskFromPartition(bootDevice);
+      final bcdSysBootPartitionNumber = _partitionNumberFromPath(bootDevice);
+      final bcdSysWindowsPartitionNumber = _partitionNumberFromPath(
+        windowsDevice,
+      );
+      if (bcdSysDisk != null &&
+          bcdSysBootDisk == bcdSysDisk &&
+          bcdSysBootPartitionNumber != null &&
+          bcdSysWindowsPartitionNumber != null) {
+        final partitionReady = await _prepareLegacyBootLayout(
+          bcdSysDisk,
+          bcdSysBootPartitionNumber,
+          bcdSysWindowsPartitionNumber,
+          logs,
+        );
+        if (!partitionReady) {
+          return fail(
+            'Legacy boot partition layout is not active/type-correct before BCD-SYS.',
+          );
+        }
+
+        var bcdSysRes = await _writeNt6BootRecords(
+          bcdSysDisk,
+          windowsDevice,
+          logs,
+        );
+        if (bcdSysRes.exitCode != 0) {
+          return fail('NT6+ MBR/VBR write failed before BCD-SYS.', bcdSysRes);
+        }
+
+        bcdSysRes =
+            await _runBcdSys(
+              windowsDir: windowsDir,
+              systemDir: efiDir,
+              firmware: 'bios',
+              logs: logs,
+            ) ??
+            const ProcessResult(127, '', 'BCD-SYS is not installed.');
+        if (bcdSysRes.exitCode == 0) {
+          logs.add('BCD-SYS configured BIOS boot successfully.');
+          await _processService.run('sync', []);
+          await _processService.run('blockdev', ['--flushbufs', bcdSysDisk]);
+          return BootloaderResult(true, logs);
+        }
+
+        logs.add(
+          'WARNING: BCD-SYS BIOS setup failed; falling back to internal boot configuration.',
+        );
+      } else {
+        logs.add(
+          'WARNING: Could not parse legacy devices for BCD-SYS; using internal boot configuration.',
+        );
+      }
+
+      // 1. Ensure legacy bootmgr exists at the BIOS system partition root.
+      // This follows bcdboot's model: prefer boot files from the applied
+      // Windows directory, and only fall back to captured root boot files.
       final bootmgrReady = await _copyFirstExisting(
-        ['$efiDir/bootmgr', '$windowsDir/Boot/PCAT/bootmgr'],
+        [
+          '$windowsDir/Boot/PCAT/bootmgr',
+          '$efiDir/bootmgr',
+          '$windowsDir/../bootmgr',
+        ],
         '$efiDir/bootmgr',
         logs,
       );
@@ -573,13 +770,16 @@ class DeploymentService {
         return fail('Could not create legacy Boot directory.', res);
       }
 
-      // 3. Copy BCD template. BCD-Template is available in normal captured Windows WIMs.
+      // 3. Copy a fresh BCD template. This intentionally prefers
+      // BCD-Template over any captured Boot/BCD so WIM deployment behaves like
+      // bcdboot C:\Windows instead of a partition clone.
       final bcdCopied = await _copyFirstExisting(
         [
-          '$efiDir/Boot/BCD',
           '$windowsDir/System32/Config/BCD-Template',
           '$windowsDir/Boot/DVD/PCAT/BCD',
           '$windowsDir/Boot/BCD',
+          '$windowsDir/../Boot/BCD',
+          '$efiDir/Boot/BCD',
         ],
         '$efiDir/Boot/BCD',
         logs,
@@ -596,30 +796,24 @@ class DeploymentService {
         ]);
       }
 
-      // 4. Patch BCD (both devices point to windowsDevice)
-      res = await _processService.run('python3', [
-        '/opt/joss_red_installer/tools/patch_bcd.py',
-        '$efiDir/Boot/BCD',
-        windowsDevice,
-        windowsDevice,
-      ]);
-      if (res.exitCode != 0) {
-        return fail('BIOS BCD patching failed.', res);
-      }
-      logs.add('Legacy BCD patched successfully.');
-
-      // 5. Mark the Windows partition active and write NT6+ MBR/VBR boot code.
+      // 4. Mark the BIOS system partition active and write NT6+ MBR/VBR boot code.
       final disk = _parentDiskFromPartition(windowsDevice);
-      final partitionNumber = _partitionNumberFromPath(windowsDevice);
-      if (disk != null && partitionNumber != null) {
-        final partitionReady = await _prepareLegacyPartition(
+      final bootDisk = _parentDiskFromPartition(bootDevice);
+      final bootPartitionNumber = _partitionNumberFromPath(bootDevice);
+      final windowsPartitionNumber = _partitionNumberFromPath(windowsDevice);
+      if (disk != null &&
+          bootDisk == disk &&
+          bootPartitionNumber != null &&
+          windowsPartitionNumber != null) {
+        final partitionReady = await _prepareLegacyBootLayout(
           disk,
-          partitionNumber,
+          bootPartitionNumber,
+          windowsPartitionNumber,
           logs,
         );
         if (!partitionReady) {
           return fail(
-            'Windows partition is not active/type 0x07 after MBR preparation.',
+            'Legacy boot partition layout is not active/type-correct after MBR preparation.',
           );
         }
 
@@ -627,8 +821,62 @@ class DeploymentService {
         if (res.exitCode != 0) {
           return fail('NT6+ MBR/VBR write failed.', res);
         }
+
+        // Patch the BCD to point at the freshly prepared target partition.
+        // Changing the MBR disk signature while the NTFS partition is mounted
+        // leaves the live kernel using stale partition metadata and can produce
+        // a BIOS boot that stops at a black screen with a blinking cursor.
+        res = await _processService.run('python3', [
+          '/opt/joss_red_installer/tools/patch_bcd.py',
+          '--legacy-bios',
+          '$efiDir/Boot/BCD',
+          bootDevice,
+          windowsDevice,
+        ]);
+        if (res.exitCode != 0) {
+          return fail('BIOS BCD patching failed.', res);
+        }
+        logs.add('Legacy BCD patched successfully.');
+        if (res.stdout.trim().isNotEmpty) {
+          logs.add('BCD patch stdout: ${res.stdout.trim()}');
+        }
+
+        final windowsRootDir = Directory(windowsDir).parent.absolute.path;
+        final bootRootDir = Directory(efiDir).absolute.path;
+        final windowsRootBootmgr = File('$windowsRootDir/bootmgr');
+        final windowsRootBootDir = Directory('$windowsRootDir/Boot');
+        if (windowsRootDir != bootRootDir &&
+            (windowsRootBootmgr.existsSync() ||
+                windowsRootBootDir.existsSync())) {
+          await windowsRootBootDir.create(recursive: true);
+          res = await _processService.run('cp', [
+            '$efiDir/Boot/BCD',
+            '$windowsRootDir/Boot/BCD',
+          ]);
+          if (res.exitCode != 0) {
+            return fail(
+              'Could not mirror patched legacy BCD to Windows root.',
+              res,
+            );
+          }
+          logs.add('Patched legacy BCD mirrored to Windows root.');
+        }
+
+        if (bootDevice != windowsDevice) {
+          res = await _installLegacyGrubBootmgrBridge(
+            disk,
+            efiDir,
+            bootDevice,
+            logs,
+          );
+          if (res.exitCode != 0) {
+            return fail('Legacy GRUB bootmgr bridge install failed.', res);
+          }
+        } else {
+          logs.add('Legacy direct NT6 boot configured on Windows partition.');
+        }
       } else {
-        return fail('Could not parse parent disk for $windowsDevice.');
+        return fail('Could not parse legacy boot layout devices.');
       }
 
       await _processService.run('sync', []);

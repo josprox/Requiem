@@ -40,6 +40,42 @@ class MainController extends ChangeNotifier {
   PartitionMode _pendingPartitionMode = PartitionMode.formatGpt;
   PartitionMode get pendingPartitionMode => _pendingPartitionMode;
 
+  bool? bootedInUefi;
+
+  String get bootFirmwareLabel {
+    if (bootedInUefi == null) return 'Unknown';
+    return bootedInUefi! ? 'UEFI' : 'Legacy BIOS';
+  }
+
+  PartitionMode get recommendedPartitionMode {
+    if (bootedInUefi == false) return PartitionMode.formatMbr;
+    return PartitionMode.formatGpt;
+  }
+
+  void refreshFirmwareMode() {
+    bootedInUefi = _diskService.currentBootIsUefi();
+    notifyListeners();
+  }
+
+  bool isPartitionModeCompatible(PartitionMode mode) {
+    if (mode == PartitionMode.useExisting || bootedInUefi == null) {
+      return true;
+    }
+    if (bootedInUefi!) return mode == PartitionMode.formatGpt;
+    return mode == PartitionMode.formatMbr;
+  }
+
+  String? partitionModeBlockReason(PartitionMode mode) {
+    if (isPartitionModeCompatible(mode)) return null;
+    if (bootedInUefi == true && mode == PartitionMode.formatMbr) {
+      return 'This live session booted in UEFI. Use GPT or reboot the VM in legacy BIOS.';
+    }
+    if (bootedInUefi == false && mode == PartitionMode.formatGpt) {
+      return 'This live session booted in legacy BIOS. Use MBR or reboot the VM in UEFI.';
+    }
+    return null;
+  }
+
   void setPartitionMode(PartitionMode mode) {
     _pendingPartitionMode = mode;
     notifyListeners();
@@ -229,6 +265,7 @@ class MainController extends ChangeNotifier {
       if (!isLinux) return;
       await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
       await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
+      await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
     }
 
     Future<void> failInstallation(String status, String message) async {
@@ -241,6 +278,19 @@ class MainController extends ChangeNotifier {
     }
 
     // ── Step 1: Prepare Disk ──────────────────────────────────────────────
+    bootedInUefi = _diskService.currentBootIsUefi();
+    if (bootedInUefi != null) {
+      addLog('Firmware boot mode: $bootFirmwareLabel');
+    }
+    final blockReason = partitionModeBlockReason(partitionMode);
+    if (blockReason != null) {
+      await failInstallation(
+        'Firmware Mismatch',
+        'ERROR: $blockReason The selected layout would not boot after reboot.',
+      );
+      return;
+    }
+
     if (partitionMode != PartitionMode.useExisting) {
       currentStatus = 'Preparing disk...';
       notifyListeners();
@@ -270,15 +320,14 @@ class MainController extends ChangeNotifier {
               ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
                     ? '${selectedDisk!.devicePath}p3'
                     : '${selectedDisk!.devicePath}3')
-              : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-                    ? '${selectedDisk!.devicePath}p1'
-                    : '${selectedDisk!.devicePath}1');
+              : espPart;
 
           // Ensure mount dirs exist
           await _diskService.processService.run('mkdir', [
             '-p',
             '/mnt/windows',
             '/mnt/efi',
+            '/mnt/boot',
           ]);
 
           // Force unmount first
@@ -287,6 +336,7 @@ class MainController extends ChangeNotifier {
             '/mnt/windows',
           ]);
           await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
+          await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
 
           // Mount Windows Partition
           var mountRes = await _diskService.processService.run('mount', [
@@ -323,7 +373,11 @@ class MainController extends ChangeNotifier {
               return;
             }
           }
-          addLog('  ✓ Partitions mounted at /mnt/windows and /mnt/efi.');
+          addLog(
+            partitionMode == PartitionMode.formatGpt
+                ? '  ✓ Partitions mounted at /mnt/windows and /mnt/efi.'
+                : '  ✓ Windows partition mounted at /mnt/windows.',
+          );
         } else {
           // Windows diskpart execution
           addLog('Generating DiskPart script...');
@@ -434,9 +488,7 @@ class MainController extends ChangeNotifier {
               ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
                     ? '${selectedDisk!.devicePath}p3'
                     : '${selectedDisk!.devicePath}3')
-              : (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-                    ? '${selectedDisk!.devicePath}p1'
-                    : '${selectedDisk!.devicePath}1'))
+              : espPart)
         : null;
 
     final bootloaderResult = await _deploymentService.configureBootloader(
@@ -444,7 +496,7 @@ class MainController extends ChangeNotifier {
       bootDrive,
       uefi: isGpt,
       bios: !isGpt,
-      espDevice: espPart,
+      espDevice: isGpt ? espPart : winPart,
       windowsDevice: winPart,
     );
     for (final line in bootloaderResult.logs) {
@@ -496,6 +548,15 @@ class MainController extends ChangeNotifier {
         logoPath: 'C:\\Windows\\System32\\oemlogo.bmp',
       );
 
+      addLog('Enabling boot storage drivers...');
+      final storageReady = await _registryService
+          .enableBootStorageCompatibility(windowsDir);
+      if (storageReady) {
+        addLog('  ✓ Boot storage drivers enabled.');
+      } else {
+        addLog('  ⚠ Boot storage driver update could not be verified.');
+      }
+
       addLog('Setting environment variables...');
       await _registryService.setEnvironmentVariable(
         windowsDir,
@@ -528,6 +589,7 @@ class MainController extends ChangeNotifier {
       addLog('Unmounting target file systems...');
       await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
       await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
+      await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
     }
 
     currentStatus = 'Installation Complete!';

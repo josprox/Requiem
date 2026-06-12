@@ -19,6 +19,9 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final ctrl = context.read<MainController>();
+      ctrl.refreshFirmwareMode();
+      if (!mounted) return;
+      setState(() => _selectedMode = ctrl.recommendedPartitionMode);
       ctrl.refreshDisks();
       ctrl.autoDetectInstallWim(); // scan for install.wim immediately
     });
@@ -28,6 +31,16 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
   Widget build(BuildContext context) {
     final controller = context.watch<MainController>();
     final scheme = Theme.of(context).colorScheme;
+    final canStart =
+        controller.selectedDisk != null &&
+        controller.detectedWimPath != null &&
+        controller.isPartitionModeCompatible(_selectedMode);
+    final gptBlock = controller.partitionModeBlockReason(
+      PartitionMode.formatGpt,
+    );
+    final mbrBlock = controller.partitionModeBlockReason(
+      PartitionMode.formatMbr,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -38,6 +51,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
             padding: const EdgeInsets.only(right: 16),
             child: OutlinedButton.icon(
               onPressed: () {
+                controller.refreshFirmwareMode();
                 controller.refreshDisks();
                 controller.autoDetectInstallWim();
               },
@@ -60,192 +74,190 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                 children: [
                   Text(
                     'Seleccionar Disco de Destino',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(fontWeight: FontWeight.w900),
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     'Elija la unidad física donde se instalará Windows.',
                     style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.5),
-                        fontSize: 14),
+                      color: Colors.white.withValues(alpha: 0.5),
+                      fontSize: 14,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Expanded(
                     child: controller.isLoadingDisks
                         ? const Center(child: CircularProgressIndicator())
                         : controller.disks.isEmpty
-                            ? Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.search_off_rounded,
-                                        size: 64,
-                                        color: scheme.primary
-                                            .withValues(alpha: 0.4)),
-                                    const SizedBox(height: 16),
-                                    const Text('No se detectaron discos físicos',
-                                        style: TextStyle(fontSize: 18)),
-                                  ],
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search_off_rounded,
+                                  size: 64,
+                                  color: scheme.primary.withValues(alpha: 0.4),
                                 ),
-                              )
-                            : ListView.builder(
-                                itemCount: controller.disks.length,
-                                itemBuilder: (context, index) {
-                                  final disk = controller.disks[index];
-                                  final isSelected =
-                                      controller.selectedDisk == disk;
-                                  final isSystem =
-                                      disk.isBootDisk || disk.isSystemDisk;
+                                const SizedBox(height: 16),
+                                const Text(
+                                  'No se detectaron discos físicos',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.disks.length,
+                            itemBuilder: (context, index) {
+                              final disk = controller.disks[index];
+                              final isSelected =
+                                  controller.selectedDisk == disk;
+                              final isSystem =
+                                  disk.isBootDisk || disk.isSystemDisk;
 
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 12),
-                                    child: Card(
-                                      clipBehavior: Clip.antiAlias,
-                                      child: InkWell(
-                                        onTap: isSystem
-                                            ? null // Prevent selecting system disk
-                                            : () =>
-                                                controller.selectDisk(disk),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(20),
-                                          decoration: BoxDecoration(
-                                            border: isSelected
-                                                ? Border.all(
-                                                    color: scheme.primary,
-                                                    width: 2)
-                                                : null,
-                                            gradient: isSelected
-                                                ? LinearGradient(colors: [
-                                                    scheme.primary
-                                                        .withValues(alpha: 0.12),
-                                                    Colors.transparent,
-                                                  ])
-                                                : null,
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: InkWell(
+                                    onTap: isSystem
+                                        ? null // Prevent selecting system disk
+                                        : () => controller.selectDisk(disk),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        border: isSelected
+                                            ? Border.all(
+                                                color: scheme.primary,
+                                                width: 2,
+                                              )
+                                            : null,
+                                        gradient: isSelected
+                                            ? LinearGradient(
+                                                colors: [
+                                                  scheme.primary.withValues(
+                                                    alpha: 0.12,
+                                                  ),
+                                                  Colors.transparent,
+                                                ],
+                                              )
+                                            : null,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.all(14),
+                                            decoration: BoxDecoration(
+                                              color: isSystem
+                                                  ? scheme.error.withValues(
+                                                      alpha: 0.15,
+                                                    )
+                                                  : isSelected
+                                                  ? scheme.primary
+                                                  : scheme
+                                                        .surfaceContainerHighest,
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                            ),
+                                            child: Icon(
+                                              disk.mediaType.contains('SSD') ||
+                                                      disk.busType.contains(
+                                                        'NVMe',
+                                                      )
+                                                  ? Icons.speed_rounded
+                                                  : Icons.storage_rounded,
+                                              color: isSystem
+                                                  ? scheme.error
+                                                  : isSelected
+                                                  ? Colors.white
+                                                  : scheme.onSurfaceVariant,
+                                            ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(14),
-                                                decoration: BoxDecoration(
-                                                  color: isSystem
-                                                      ? scheme.error.withValues(
-                                                          alpha: 0.15)
-                                                      : isSelected
-                                                          ? scheme.primary
-                                                          : scheme
-                                                              .surfaceContainerHighest,
-                                                  borderRadius:
-                                                      BorderRadius.circular(14),
-                                                ),
-                                                child: Icon(
-                                                  disk.mediaType
-                                                              .contains(
-                                                                  'SSD') ||
-                                                          disk.busType
-                                                              .contains('NVMe')
-                                                      ? Icons.speed_rounded
-                                                      : Icons.storage_rounded,
-                                                  color: isSystem
-                                                      ? scheme.error
-                                                      : isSelected
-                                                          ? Colors.white
-                                                          : scheme
-                                                              .onSurfaceVariant,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 20),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                          const SizedBox(width: 20),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
                                                   children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          disk.friendlyName,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                        ),
-                                                        if (isSystem) ...[
-                                                          const SizedBox(
-                                                              width: 8),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        8,
-                                                                    vertical:
-                                                                        2),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: scheme.error
-                                                                  .withValues(
-                                                                      alpha:
-                                                                          0.2),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          6),
-                                                            ),
-                                                            child: Text(
-                                                              'SISTEMA',
-                                                              style: TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: scheme
-                                                                      .error,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  letterSpacing:
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 4),
                                                     Text(
-                                                      'DISK ${disk.number} · ${disk.mediaType.toUpperCase()} · ${disk.busType.toUpperCase()}',
-                                                      style: TextStyle(
-                                                          color: Colors.white
-                                                              .withValues(
-                                                                  alpha: 0.45),
-                                                          fontSize: 11,
-                                                          letterSpacing: 1),
+                                                      disk.friendlyName,
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
+                                                    if (isSystem) ...[
+                                                      const SizedBox(width: 8),
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets.symmetric(
+                                                              horizontal: 8,
+                                                              vertical: 2,
+                                                            ),
+                                                        decoration: BoxDecoration(
+                                                          color: scheme.error
+                                                              .withValues(
+                                                                alpha: 0.2,
+                                                              ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                6,
+                                                              ),
+                                                        ),
+                                                        child: Text(
+                                                          'SISTEMA',
+                                                          style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: scheme.error,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            letterSpacing: 1,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ],
                                                 ),
-                                              ),
-                                              Text(
-                                                '${disk.sizeGB} GB',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleLarge
-                                                    ?.copyWith(
-                                                      color: isSelected
-                                                          ? scheme.primary
-                                                          : Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                    ),
-                                              ),
-                                            ],
+                                                const SizedBox(height: 4),
+                                                Text(
+                                                  'DISK ${disk.number} · ${disk.mediaType.toUpperCase()} · ${disk.busType.toUpperCase()}',
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                        .withValues(
+                                                          alpha: 0.45,
+                                                        ),
+                                                    fontSize: 11,
+                                                    letterSpacing: 1,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
+                                          Text(
+                                            '${disk.sizeGB} GB',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge
+                                                ?.copyWith(
+                                                  color: isSelected
+                                                      ? scheme.primary
+                                                      : Colors.white,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                   ),
                 ],
               ),
@@ -261,42 +273,57 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                 children: [
                   // WIM Detection status
                   _WimStatusCard(controller: controller),
+                  const SizedBox(height: 12),
+                  _FirmwareStatusCard(controller: controller),
                   const SizedBox(height: 24),
 
                   // Partition mode selection
                   Text(
                     'Modo de Partición',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w900, letterSpacing: 1),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   _PartitionModeCard(
                     mode: PartitionMode.formatGpt,
                     selected: _selectedMode,
+                    enabled: gptBlock == null,
+                    blockedReason: gptBlock,
                     icon: Icons.auto_awesome_rounded,
                     title: 'Formatear GPT (Recomendado)',
-                    subtitle: 'Limpia el disco y crea diseño UEFI\nEFI (S:) + Windows (W:)',
-                    onTap: () => setState(() => _selectedMode = PartitionMode.formatGpt),
+                    subtitle:
+                        'Limpia el disco y crea diseño UEFI\nEFI (S:) + Windows (W:)',
+                    onTap: () =>
+                        setState(() => _selectedMode = PartitionMode.formatGpt),
                   ),
                   const SizedBox(height: 8),
                   _PartitionModeCard(
                     mode: PartitionMode.formatMbr,
                     selected: _selectedMode,
+                    enabled: mbrBlock == null,
+                    blockedReason: mbrBlock,
                     icon: Icons.history_rounded,
                     title: 'Formatear MBR (BIOS Heredado)',
-                    subtitle: 'Limpia el disco y crea diseño heredado\nSolo Windows (W:)',
-                    onTap: () => setState(() => _selectedMode = PartitionMode.formatMbr),
+                    subtitle:
+                        'Limpia el disco y crea diseño heredado\nSolo Windows (C:)',
+                    onTap: () =>
+                        setState(() => _selectedMode = PartitionMode.formatMbr),
                   ),
                   const SizedBox(height: 8),
                   _PartitionModeCard(
                     mode: PartitionMode.useExisting,
                     selected: _selectedMode,
+                    enabled: true,
+                    blockedReason: null,
                     icon: Icons.drive_file_move_rounded,
                     title: 'Usar Particiones Existentes',
-                    subtitle: 'Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente',
-                    onTap: () => setState(() => _selectedMode = PartitionMode.useExisting),
+                    subtitle:
+                        'Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente',
+                    onTap: () => setState(
+                      () => _selectedMode = PartitionMode.useExisting,
+                    ),
                   ),
 
                   const Spacer(),
@@ -305,16 +332,17 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: FilledButton.icon(
-                      onPressed: (controller.selectedDisk == null ||
-                              controller.detectedWimPath == null)
-                          ? null
-                          : () => _showConfirmDialog(context, controller),
+                      onPressed: canStart
+                          ? () => _showConfirmDialog(context, controller)
+                          : null,
                       icon: const Icon(Icons.play_arrow_rounded),
                       label: const Text('INICIAR INSTALACIÓN'),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         textStyle: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -325,8 +353,9 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                       child: Text(
                         'Esperando la detección de install.wim...',
                         style: TextStyle(
-                            color: scheme.error.withValues(alpha: 0.8),
-                            fontSize: 12),
+                          color: scheme.error.withValues(alpha: 0.8),
+                          fontSize: 12,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -351,7 +380,11 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
           size: 48,
         ),
         iconColor: willFormat ? scheme.error : scheme.primary,
-        title: Text(willFormat ? 'CONFIRMAR DESTRUCCIÓN DE DATOS' : 'CONFIRMAR INSTALACIÓN'),
+        title: Text(
+          willFormat
+              ? 'CONFIRMAR DESTRUCCIÓN DE DATOS'
+              : 'CONFIRMAR INSTALACIÓN',
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -368,18 +401,17 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
               ),
             const SizedBox(height: 16),
             _InfoRow(
-                label: 'DISK',
-                value:
-                    '${controller.selectedDisk?.number}: ${controller.selectedDisk?.friendlyName}'),
+              label: 'DISK',
+              value:
+                  '${controller.selectedDisk?.number}: ${controller.selectedDisk?.friendlyName}',
+            ),
             const SizedBox(height: 6),
             _InfoRow(label: 'MODE', value: _selectedMode.name.toUpperCase()),
             const SizedBox(height: 6),
             _InfoRow(
-                label: 'IMAGE',
-                value: controller.detectedWimPath
-                        ?.split('\\')
-                        .last ??
-                    '—'),
+              label: 'IMAGE',
+              value: controller.detectedWimPath?.split('\\').last ?? '—',
+            ),
           ],
         ),
         actions: [
@@ -394,13 +426,15 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
               controller.setPartitionMode(_selectedMode);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => const InstallationProgressScreen()),
+                  builder: (context) => const InstallationProgressScreen(),
+                ),
               );
             },
             style: willFormat
                 ? FilledButton.styleFrom(
                     backgroundColor: scheme.error,
-                    foregroundColor: scheme.onError)
+                    foregroundColor: scheme.onError,
+                  )
                 : null,
             child: const Text('CONFIRMAR E INSTALAR'),
           ),
@@ -428,24 +462,25 @@ class _WimStatusCard extends StatelessWidget {
         color: searching
             ? scheme.surfaceContainerHighest
             : found
-                ? Colors.green.withValues(alpha: 0.1)
-                : scheme.errorContainer.withValues(alpha: 0.3),
+            ? Colors.green.withValues(alpha: 0.1)
+            : scheme.errorContainer.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: searching
               ? Colors.white.withValues(alpha: 0.1)
               : found
-                  ? Colors.green.withValues(alpha: 0.4)
-                  : scheme.error.withValues(alpha: 0.4),
+              ? Colors.green.withValues(alpha: 0.4)
+              : scheme.error.withValues(alpha: 0.4),
         ),
       ),
       child: Row(
         children: [
           if (searching)
             const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2))
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
           else
             Icon(
               found
@@ -463,24 +498,25 @@ class _WimStatusCard extends StatelessWidget {
                   searching
                       ? 'Buscando imagen...'
                       : found
-                          ? 'Imagen detectada'
-                          : 'Imagen no encontrada',
+                      ? 'Imagen detectada'
+                      : 'Imagen no encontrada',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
                     color: searching
                         ? Colors.white70
                         : found
-                            ? Colors.greenAccent
-                            : scheme.error,
+                        ? Colors.greenAccent
+                        : scheme.error,
                   ),
                 ),
                 if (found && controller.detectedWimPath != null)
                   Text(
                     controller.detectedWimPath!,
                     style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.white.withValues(alpha: 0.5)),
+                      fontSize: 11,
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
               ],
@@ -490,7 +526,11 @@ class _WimStatusCard extends StatelessWidget {
             const SizedBox(width: 12),
             TextButton.icon(
               onPressed: () => controller.pickWimFile(context),
-              icon: Icon(Icons.folder_open_rounded, size: 16, color: found ? Colors.greenAccent : scheme.error),
+              icon: Icon(
+                Icons.folder_open_rounded,
+                size: 16,
+                color: found ? Colors.greenAccent : scheme.error,
+              ),
               label: Text(
                 found ? 'CAMBIAR' : 'BUSCAR',
                 style: TextStyle(
@@ -500,7 +540,10 @@ class _WimStatusCard extends StatelessWidget {
                 ),
               ),
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 backgroundColor: found
                     ? Colors.greenAccent.withValues(alpha: 0.1)
                     : scheme.error.withValues(alpha: 0.1),
@@ -516,9 +559,67 @@ class _WimStatusCard extends StatelessWidget {
   }
 }
 
+class _FirmwareStatusCard extends StatelessWidget {
+  final MainController controller;
+  const _FirmwareStatusCard({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final detected = controller.bootedInUefi != null;
+    final recommended =
+        controller.recommendedPartitionMode == PartitionMode.formatGpt
+        ? 'GPT / UEFI'
+        : 'MBR / BIOS';
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest.withValues(alpha: 0.45),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            detected ? Icons.memory_rounded : Icons.help_outline_rounded,
+            size: 20,
+            color: detected ? scheme.primary : Colors.white54,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Arranque actual: ${controller.bootFirmwareLabel}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: detected ? scheme.primary : Colors.white70,
+                  ),
+                ),
+                Text(
+                  'Modo compatible: $recommended',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.white.withValues(alpha: 0.48),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _PartitionModeCard extends StatelessWidget {
   final PartitionMode mode;
   final PartitionMode selected;
+  final bool enabled;
+  final String? blockedReason;
   final IconData icon;
   final String title;
   final String subtitle;
@@ -527,6 +628,8 @@ class _PartitionModeCard extends StatelessWidget {
   const _PartitionModeCard({
     required this.mode,
     required this.selected,
+    required this.enabled,
+    required this.blockedReason,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -537,55 +640,89 @@ class _PartitionModeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final isSelected = mode == selected;
+    final titleColor = !enabled
+        ? Colors.white.withValues(alpha: 0.35)
+        : isSelected
+        ? scheme.primary
+        : Colors.white;
+    final bodyColor = Colors.white.withValues(alpha: enabled ? 0.45 : 0.28);
+    final iconColor = !enabled
+        ? Colors.white.withValues(alpha: 0.25)
+        : isSelected
+        ? scheme.primary
+        : Colors.white54;
 
     return InkWell(
-      onTap: onTap,
+      onTap: enabled ? onTap : null,
       borderRadius: BorderRadius.circular(14),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: isSelected
+          color: !enabled
+              ? scheme.surfaceContainerHighest.withValues(alpha: 0.25)
+              : isSelected
               ? scheme.primary.withValues(alpha: 0.12)
               : scheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: isSelected
                 ? scheme.primary
-                : Colors.white.withValues(alpha: 0.08),
+                : Colors.white.withValues(alpha: enabled ? 0.08 : 0.04),
             width: isSelected ? 2 : 1,
           ),
         ),
         child: Row(
           children: [
-            Icon(icon,
-                size: 22,
-                color: isSelected ? scheme.primary : Colors.white54),
+            Icon(icon, size: 22, color: iconColor),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: isSelected ? scheme.primary : Colors.white)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: titleColor,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text(subtitle,
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: bodyColor,
+                      height: 1.4,
+                    ),
+                  ),
+                  if (blockedReason != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      blockedReason!,
                       style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.white.withValues(alpha: 0.45),
-                          height: 1.4)),
+                        fontSize: 10,
+                        color: scheme.error.withValues(alpha: 0.85),
+                        height: 1.25,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
             if (isSelected)
-              Icon(Icons.radio_button_checked_rounded,
-                  color: scheme.primary, size: 18)
+              Icon(
+                Icons.radio_button_checked_rounded,
+                color: scheme.primary,
+                size: 18,
+              )
             else
-              Icon(Icons.radio_button_unchecked_rounded,
-                  color: Colors.white24, size: 18),
+              Icon(
+                Icons.radio_button_unchecked_rounded,
+                color: enabled ? Colors.white24 : Colors.white10,
+                size: 18,
+              ),
           ],
         ),
       ),
@@ -609,18 +746,22 @@ class _InfoRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.white.withValues(alpha: 0.4),
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.white.withValues(alpha: 0.4),
+              letterSpacing: 1,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(value,
-                style: const TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.bold),
-                overflow: TextOverflow.ellipsis),
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

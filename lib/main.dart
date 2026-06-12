@@ -4,12 +4,12 @@ import 'package:window_manager/window_manager.dart';
 import 'package:provider/provider.dart';
 import 'core/theme.dart';
 import 'ui/screens/landing_screen.dart';
-import 'ui/screens/iso_builder_screen.dart';
+import 'ui/screens/post_install_screen.dart';
 import 'services/main_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Detect if running in WinPE (X:\Windows drive)
   final bool isWinPE = Directory('X:\\Windows').existsSync();
 
@@ -39,14 +39,19 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (_) => MainController(),
-      child: JossRedApp(startInBuilderMode: !isWinPE && !Platform.isLinux),
+      child: JossRedApp(startInDesktopToolsMode: !isWinPE && !Platform.isLinux),
     ),
   );
 }
 
 class JossRedApp extends StatelessWidget {
-  final bool startInBuilderMode;
-  const JossRedApp({super.key, this.startInBuilderMode = false});
+  final bool startInDesktopToolsMode;
+  const JossRedApp({
+    super.key,
+    bool? startInBuilderMode,
+    bool startInDesktopToolsMode = false,
+  }) : startInDesktopToolsMode =
+           startInDesktopToolsMode || (startInBuilderMode ?? false);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,9 @@ class JossRedApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Joss Red Installer',
       theme: JossRedTheme.darkTheme,
-      home: startInBuilderMode ? const IsoBuilderScreen() : const LandingScreen(),
+      home: startInDesktopToolsMode
+          ? const PostInstallScreen()
+          : const LandingScreen(),
     );
   }
 }

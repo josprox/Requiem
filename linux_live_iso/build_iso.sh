@@ -145,6 +145,17 @@ sudo mkdir -p "$CHROOT_DIR/opt/joss_red_installer/tools"
 sudo cp "$WORKSPACE_DIR/linux_live_iso/tools/patch_bcd.py" "$CHROOT_DIR/opt/joss_red_installer/tools/patch_bcd.py"
 sudo chmod +x "$CHROOT_DIR/opt/joss_red_installer/tools/patch_bcd.py"
 
+# bcd-sys: Linux equivalent of bcdboot for generating Windows Boot Manager files.
+echo "Fetching BCD-SYS boot configuration utility..."
+cd "$BUILD_DIR"
+git clone --depth 1 --branch v2.2 https://github.com/jpz4085/BCD-SYS.git bcd-sys
+sudo mkdir -p "$CHROOT_DIR/opt/joss_red_installer/bcd-sys"
+sudo cp -r "$BUILD_DIR/bcd-sys/Linux" "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/"
+sudo cp -r "$BUILD_DIR/bcd-sys/Resources" "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/"
+sudo cp -r "$BUILD_DIR/bcd-sys/Templates" "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/"
+sudo chmod +x "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/Linux/"*.sh
+cd "$WORKSPACE_DIR"
+
 # Enable systemd graphical autostart service inside chroot
 sudo chroot "$CHROOT_DIR" systemctl enable joss-installer.service
 sudo chroot "$CHROOT_DIR" systemctl set-default graphical.target

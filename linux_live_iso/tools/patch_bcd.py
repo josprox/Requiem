@@ -4,6 +4,7 @@ import os
 import uuid
 import struct
 import subprocess
+from collections import Counter
 import hivex
 
 def uuid_to_bin(uuid_str):
@@ -73,6 +74,16 @@ def set_binary_element(hive, node, data):
             raise
         hive.node_set_value(node, {"key": "Element", "type": 3, "value": data})
 
+def set_string_element(hive, node, text):
+    data = text.encode("utf-16le") + b"\x00\x00"
+    value = {"key": "Element", "t": 1, "value": data}
+    try:
+        hive.node_set_value(node, value)
+    except KeyError as err:
+        if "type" not in str(err):
+            raise
+        hive.node_set_value(node, {"key": "Element", "type": 1, "value": data})
+
 def read_u32(data, offset):
     if len(data) < offset + 4:
         raise ValueError("BCD device packet is truncated")
@@ -85,6 +96,8 @@ def write_partition_payload(data, offset, is_gpt, disk_sig, part_sig, offset_byt
     if is_gpt:
         data[offset:offset + 0x10] = part_sig
         data[offset + 0x10:offset + 0x14] = b"\x00" * 4
+        # Raw BCD device elements use 0 for GPT and 1 for MBR here. This is
+        # different from the WMI BcdDeviceQualifiedPartitionData enum names.
         data[offset + 0x14:offset + 0x18] = struct.pack("<I", 0)
         data[offset + 0x18:offset + 0x28] = disk_sig
     else:
@@ -95,7 +108,33 @@ def write_partition_payload(data, offset, is_gpt, disk_sig, part_sig, offset_byt
 
     data[offset + 0x28:offset + 0x38] = b"\x00" * 0x10
 
-def patch_partition_packet(raw, is_gpt, disk_sig, part_sig, offset_bytes):
+def write_partition_packet(data, packet_offset, is_gpt, disk_sig, part_sig, offset_bytes):
+    packet_size = 0x48
+    needed_size = packet_offset + packet_size
+    if len(data) < needed_size:
+        data.extend(b"\x00" * (needed_size - len(data)))
+
+    data[packet_offset:packet_offset + 0x04] = struct.pack("<I", 6)
+    data[packet_offset + 0x04:packet_offset + 0x08] = b"\x00" * 4
+    data[packet_offset + 0x08:packet_offset + 0x0c] = struct.pack("<I", packet_size)
+    data[packet_offset + 0x0c:packet_offset + 0x10] = b"\x00" * 4
+    write_partition_payload(
+        data,
+        packet_offset + 0x10,
+        is_gpt,
+        disk_sig,
+        part_sig,
+        offset_bytes,
+    )
+
+def patch_partition_packet(
+    raw,
+    is_gpt,
+    disk_sig,
+    part_sig,
+    offset_bytes,
+    keep_boot_device=False,
+):
     data = bytearray(raw)
     if len(data) < 0x20:
         return None, "device element is too short"
@@ -106,7 +145,17 @@ def patch_partition_packet(raw, is_gpt, disk_sig, part_sig, offset_bytes):
     packet_size = read_u32(data, packet_offset + 8)
 
     if packet_type == 5:
-        return data, "left as [boot] device"
+        if keep_boot_device:
+            return data, "left as [boot] device"
+        write_partition_packet(
+            data,
+            packet_offset,
+            is_gpt,
+            disk_sig,
+            part_sig,
+            offset_bytes,
+        )
+        return data, "converted [boot] to partition device"
 
     if packet_type == 6:
         write_partition_payload(
@@ -140,13 +189,54 @@ def patch_partition_packet(raw, is_gpt, disk_sig, part_sig, offset_bytes):
 
     return None, f"unsupported device packet type {packet_type}"
 
+def extract_mbr_partition_payload(raw):
+    data = bytearray(raw)
+    if len(data) < 0x20:
+        return None
+
+    packet_offsets = [0x10]
+    try:
+        if read_u32(data, 0x10) == 0:
+            packet_offsets.append(0x20)
+    except ValueError:
+        pass
+
+    for packet_offset in packet_offsets:
+        try:
+            packet_type = read_u32(data, packet_offset)
+        except ValueError:
+            continue
+
+        if packet_type != 6:
+            continue
+
+        payload = packet_offset + 0x10
+        if len(data) < payload + 0x28:
+            continue
+
+        partition_style = read_u32(data, payload + 0x14)
+        if partition_style != 1:
+            continue
+
+        offset_bytes = struct.unpack("<Q", data[payload:payload + 8])[0]
+        disk_sig = bytes(data[payload + 0x18:payload + 0x1c])
+        if disk_sig == b"\x00\x00\x00\x00":
+            continue
+
+        return disk_sig, offset_bytes
+
+    return None
+
 def get_element_data(hive, elements_node, element_name):
     for child in hive.node_children(elements_node):
         if hive.node_name(child) == element_name:
-            val = hive.node_get_value(child, "Element")
-            if val:
-                _, val_data = hive.value_value(val)
-                return child, val_data
+            try:
+                val = hive.node_get_value(child, "Element")
+                if val:
+                    _, val_data = hive.value_value(val)
+                    return child, val_data
+            except RuntimeError:
+                pass
     return None, None
 
 def has_element(hive, elements_node, element_name):
@@ -155,23 +245,26 @@ def has_element(hive, elements_node, element_name):
 
 def read_utf16le_text(raw):
     try:
-        return raw.decode("utf-16le", errors="ignore").replace("\x00", "").lower()
+        return raw.decode("utf-16le", errors="ignore").replace("\x00", "")
     except Exception:
         return ""
+
+def read_utf16le_lower(raw):
+    return read_utf16le_text(raw).lower()
 
 def should_patch_object(hive, obj_name, elements_node):
     if obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}":
         return True, "boot manager"
 
     _, description = get_element_data(hive, elements_node, "12000004")
-    description_text = read_utf16le_text(description or b"")
+    description_text = read_utf16le_lower(description or b"")
 
     # 12000002 is the boot application path, e.g. \Windows\system32\winload.exe.
     # 22000002 is usually systemroot, e.g. \Windows.
     _, path = get_element_data(hive, elements_node, "12000002")
-    path_text = read_utf16le_text(path or b"")
+    path_text = read_utf16le_lower(path or b"")
     _, systemroot = get_element_data(hive, elements_node, "22000002")
-    systemroot_text = read_utf16le_text(systemroot or b"")
+    systemroot_text = read_utf16le_lower(systemroot or b"")
 
     combined_text = " ".join([description_text, path_text, systemroot_text])
     if (
@@ -197,7 +290,109 @@ def should_patch_object(hive, obj_name, elements_node):
 
     return False, "non-boot entry"
 
-def patch_bcd(bcd_path, esp_device, windows_device):
+def parent_disk_from_partition(device):
+    name = os.path.basename(device)
+    if name.startswith("nvme") or name.startswith("mmcblk"):
+        parent = name.rsplit("p", 1)[0]
+    else:
+        parent = name.rstrip("0123456789")
+    return f"/dev/{parent}"
+
+def iter_element_values(hive, node):
+    for child in hive.node_children(node):
+        try:
+            val = hive.node_get_value(child, "Element")
+            if val:
+                _, val_data = hive.value_value(val)
+                yield val_data
+        except RuntimeError:
+            pass
+        yield from iter_element_values(hive, child)
+
+def sync_mbr_disk_signature(bcd_path, windows_device):
+    if not os.path.exists(bcd_path):
+        print(f"Error: BCD file not found at {bcd_path}")
+        return False
+
+    win_is_gpt, _win_disk_sig, _win_part_sig, win_offset = get_part_info(windows_device)
+    if win_is_gpt:
+        print("Error: disk signature sync is only valid for MBR targets")
+        return False
+
+    h = hivex.Hivex(bcd_path, write=False)
+    candidates = []
+    for value in iter_element_values(h, h.root()):
+        payload = extract_mbr_partition_payload(value)
+        if payload is not None:
+            candidates.append(payload)
+
+    if not candidates:
+        print("Error: no MBR partition devices found in BCD")
+        return False
+
+    matching_offset = [item for item in candidates if item[1] == win_offset]
+    selected = Counter(matching_offset or candidates).most_common(1)[0][0]
+    disk_sig, bcd_offset = selected
+    disk_sig_hex = disk_sig[::-1].hex()
+    disk = parent_disk_from_partition(windows_device)
+
+    print(f"BCD expects MBR disk signature: {disk_sig_hex}")
+    print(f"BCD partition offset: {bcd_offset} bytes")
+    print(f"Target partition offset: {win_offset} bytes")
+    if bcd_offset != win_offset:
+        print("Error: BCD partition offset does not match target partition offset")
+        return False
+
+    result = subprocess.run(
+        ["sfdisk", "--disk-id", disk, f"0x{disk_sig_hex}"],
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.stdout.strip():
+        print(result.stdout.strip())
+    if result.stderr.strip():
+        print(result.stderr.strip())
+    if result.returncode != 0:
+        print(f"Error: could not set disk signature on {disk}")
+        return False
+
+    subprocess.run(["partprobe", disk], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run(["udevadm", "settle"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    print(f"Disk signature synced on {disk}")
+    return True
+
+def normalize_windows_loader_path(hive, obj_name, elements_node, firmware_mode):
+    if firmware_mode is None:
+        return False
+
+    path_node, path_data = get_element_data(hive, elements_node, "12000002")
+    if path_node is None:
+        return False
+
+    current_path = read_utf16le_text(path_data or b"")
+    current_lower = current_path.lower()
+    if "winload" not in current_lower:
+        return False
+
+    wanted_path = (
+        r"\Windows\system32\winload.exe"
+        if firmware_mode == "legacy-bios"
+        else r"\Windows\system32\winload.efi"
+    )
+
+    if current_lower == wanted_path.lower():
+        print(f"Keeping {obj_name}/Elements/12000002: {current_path}")
+        return False
+
+    print(
+        f"Patching {obj_name}/Elements/12000002: "
+        f"{current_path} -> {wanted_path}"
+    )
+    set_string_element(hive, path_node, wanted_path)
+    return True
+
+def patch_bcd(bcd_path, esp_device, windows_device, firmware_mode=None):
     print(f"Reading ESP device: {esp_device}")
     esp_is_gpt, esp_disk_sig, esp_part_sig, esp_offset = get_part_info(esp_device)
     print(f"Reading Windows device: {windows_device}")
@@ -251,11 +446,16 @@ def patch_bcd(bcd_path, esp_device, windows_device):
 
         is_bootmgr = obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}"
         print(f"Patching object {obj_name}: {reason}")
+        if not is_bootmgr:
+            normalize_windows_loader_path(h, obj_name, elements_node, firmware_mode)
 
         for el in h.node_children(elements_node):
             el_name = h.node_name(el)
             if el_name in ["11000001", "21000001"]:
-                val = h.node_get_value(el, "Element")
+                try:
+                    val = h.node_get_value(el, "Element")
+                except RuntimeError:
+                    val = None
                 if not val:
                     print(f"Skipping {obj_name}/Elements/{el_name}: missing Element value")
                     continue
@@ -268,6 +468,7 @@ def patch_bcd(bcd_path, esp_device, windows_device):
                         esp_disk_sig,
                         esp_part_sig,
                         esp_offset,
+                        keep_boot_device=True,
                     )
                     target = "ESP"
                 else:
@@ -277,6 +478,7 @@ def patch_bcd(bcd_path, esp_device, windows_device):
                         win_disk_sig,
                         win_part_sig,
                         win_offset,
+                        keep_boot_device=False,
                     )
                     target = "Windows"
 
@@ -303,13 +505,23 @@ def patch_bcd(bcd_path, esp_device, windows_device):
     return True
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        print("Usage: patch_bcd.py <bcd_path> <esp_device> <windows_device>")
+    if len(sys.argv) >= 4 and sys.argv[1] == "--sync-mbr-signature":
+        success = sync_mbr_disk_signature(sys.argv[2], sys.argv[3])
+        sys.exit(0 if success else 1)
+
+    args = sys.argv[1:]
+    firmware_mode = None
+    if args and args[0] in ["--legacy-bios", "--uefi"]:
+        firmware_mode = args.pop(0).lstrip("-")
+
+    if len(args) < 3:
+        print("Usage: patch_bcd.py [--legacy-bios|--uefi] <bcd_path> <esp_device> <windows_device>")
+        print("       patch_bcd.py --sync-mbr-signature <bcd_path> <windows_device>")
         sys.exit(1)
         
-    bcd = sys.argv[1]
-    esp = sys.argv[2]
-    win = sys.argv[3]
+    bcd = args[0]
+    esp = args[1]
+    win = args[2]
     
-    success = patch_bcd(bcd, esp, win)
+    success = patch_bcd(bcd, esp, win, firmware_mode=firmware_mode)
     sys.exit(0 if success else 1)

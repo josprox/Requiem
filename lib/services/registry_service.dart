@@ -5,16 +5,40 @@ import '../services/process_service.dart';
 class RegistryService {
   final ProcessService _processService = ProcessService();
 
+  static const List<String> _bootStorageServices = [
+    'atapi',
+    'intelide',
+    'pciide',
+    'msahci',
+    'storahci',
+    'iaStorV',
+    'lsi_sas',
+    'lsi_sas2i',
+    'lsi_sas3i',
+    'megasas',
+    'vmscsi',
+    'pvscsi',
+    'storvsc',
+    'vmbus',
+  ];
+
   /// Helper to merge a .reg file content into a registry hive file (Linux).
-  Future<bool> _mergeRegistryLinux(String hivePath, String prefix, String regContent) async {
+  Future<bool> _mergeRegistryLinux(
+    String hivePath,
+    String prefix,
+    String regContent,
+  ) async {
     final tempDir = Directory.systemTemp;
-    final regFile = File(p.join(tempDir.path, 'reg_${DateTime.now().millisecondsSinceEpoch}.reg'));
+    final regFile = File(
+      p.join(tempDir.path, 'reg_${DateTime.now().millisecondsSinceEpoch}.reg'),
+    );
     await regFile.writeAsString(regContent);
 
     try {
       final result = await _processService.run('hivexregedit', [
         '--merge',
-        '--prefix', prefix,
+        '--prefix',
+        prefix,
         hivePath,
         regFile.path,
       ]);
@@ -53,7 +77,12 @@ class RegistryService {
   }
 
   /// Sets a registry value (Windows only).
-  Future<bool> setStringValue(String hivePrefix, String keyPath, String valueName, String valueData) async {
+  Future<bool> setStringValue(
+    String hivePrefix,
+    String keyPath,
+    String valueName,
+    String valueData,
+  ) async {
     final result = await _processService.run('reg.exe', [
       'add',
       'HKLM\\$hivePrefix\\$keyPath',
@@ -68,28 +97,130 @@ class RegistryService {
     return result.exitCode == 0;
   }
 
-  /// Sets an environment variable in the offline system.
-  Future<bool> setEnvironmentVariable(String windowsPath, String name, String value) async {
+  /// Sets a DWORD registry value (Windows only).
+  Future<bool> setDwordValue(
+    String hivePrefix,
+    String keyPath,
+    String valueName,
+    int valueData,
+  ) async {
+    final result = await _processService.run('reg.exe', [
+      'add',
+      'HKLM\\$hivePrefix\\$keyPath',
+      '/v',
+      valueName,
+      '/t',
+      'REG_DWORD',
+      '/d',
+      valueData.toString(),
+      '/f',
+    ]);
+    return result.exitCode == 0;
+  }
+
+  /// Enables common boot-critical storage drivers for VMware and generic PCs.
+  Future<bool> enableBootStorageCompatibility(String windowsPath) async {
+    final controlSets = ['ControlSet001', 'ControlSet002'];
+
     if (Platform.isLinux) {
-      final systemHivePath = p.join(windowsPath, 'System32', 'Config', 'SYSTEM');
+      final systemHivePath = p.join(
+        windowsPath,
+        'System32',
+        'Config',
+        'SYSTEM',
+      );
+      if (!File(systemHivePath).existsSync()) return false;
+
+      final reg = StringBuffer('Windows Registry Editor Version 5.00\n\n');
+      for (final controlSet in controlSets) {
+        for (final service in _bootStorageServices) {
+          reg.writeln(
+            '[HKEY_LOCAL_MACHINE\\SYSTEM\\$controlSet\\Services\\$service]',
+          );
+          reg.writeln('"Start"=dword:00000000');
+          reg.writeln('"ErrorControl"=dword:00000000');
+          reg.writeln();
+          reg.writeln(
+            '[HKEY_LOCAL_MACHINE\\SYSTEM\\$controlSet\\Services\\$service\\StartOverride]',
+          );
+          reg.writeln('"0"=dword:00000000');
+          reg.writeln();
+        }
+      }
+
+      return _mergeRegistryLinux(
+        systemHivePath,
+        'HKEY_LOCAL_MACHINE\\SYSTEM',
+        reg.toString(),
+      );
+    }
+
+    const hiveKey = 'OFFLINE_SYSTEM';
+    final systemHivePath = '$windowsPath\\System32\\Config\\SYSTEM';
+    if (!await loadHive(systemHivePath, hiveKey)) return false;
+
+    var success = true;
+    try {
+      for (final controlSet in controlSets) {
+        for (final service in _bootStorageServices) {
+          final keyPath = '$controlSet\\Services\\$service';
+          success &= await setDwordValue(hiveKey, keyPath, 'Start', 0);
+          success &= await setDwordValue(hiveKey, keyPath, 'ErrorControl', 0);
+          success &= await setDwordValue(
+            hiveKey,
+            '$keyPath\\StartOverride',
+            '0',
+            0,
+          );
+        }
+      }
+      return success;
+    } finally {
+      await unloadHive(hiveKey);
+    }
+  }
+
+  /// Sets an environment variable in the offline system.
+  Future<bool> setEnvironmentVariable(
+    String windowsPath,
+    String name,
+    String value,
+  ) async {
+    if (Platform.isLinux) {
+      final systemHivePath = p.join(
+        windowsPath,
+        'System32',
+        'Config',
+        'SYSTEM',
+      );
       if (!File(systemHivePath).existsSync()) return false;
 
       final escapedName = _escapeRegValue(name);
       final escapedValue = _escapeRegValue(value);
 
-      final regContent = '''Windows Registry Editor Version 5.00
+      final regContent =
+          '''Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Control\\Session Manager\\Environment]
 "$escapedName"="$escapedValue"
 ''';
 
-      return _mergeRegistryLinux(systemHivePath, 'HKEY_LOCAL_MACHINE\\SYSTEM', regContent);
+      return _mergeRegistryLinux(
+        systemHivePath,
+        'HKEY_LOCAL_MACHINE\\SYSTEM',
+        regContent,
+      );
     } else {
       const hiveKey = 'OFFLINE_SYSTEM';
       final systemHivePath = '$windowsPath\\System32\\Config\\SYSTEM';
 
       if (await loadHive(systemHivePath, hiveKey)) {
-        final success = await setStringValue(hiveKey, 'ControlSet001\\Control\\Session Manager\\Environment', name, value);
+        final success = await setStringValue(
+          hiveKey,
+          'ControlSet001\\Control\\Session Manager\\Environment',
+          name,
+          value,
+        );
         await unloadHive(hiveKey);
         return success;
       }
@@ -106,7 +237,12 @@ class RegistryService {
     String? wallpaperPath,
   }) async {
     if (Platform.isLinux) {
-      final softwareHivePath = p.join(windowsPath, 'System32', 'Config', 'SOFTWARE');
+      final softwareHivePath = p.join(
+        windowsPath,
+        'System32',
+        'Config',
+        'SOFTWARE',
+      );
       if (!File(softwareHivePath).existsSync()) return;
 
       final escapedMfg = _escapeRegValue(manufacturer);
@@ -118,14 +254,19 @@ class RegistryService {
         oemLines += '"Logo"="$escapedLogo"\n';
       }
 
-      final regContent = '''Windows Registry Editor Version 5.00
+      final regContent =
+          '''Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OEMInformation]
 "Manufacturer"="$escapedMfg"
 "Model"="$escapedModel"
 $oemLines''';
 
-      await _mergeRegistryLinux(softwareHivePath, 'HKEY_LOCAL_MACHINE\\SOFTWARE', regContent);
+      await _mergeRegistryLinux(
+        softwareHivePath,
+        'HKEY_LOCAL_MACHINE\\SOFTWARE',
+        regContent,
+      );
     } else {
       const hiveKey = 'OFFLINE_SOFTWARE';
       final softwareHivePath = '$windowsPath\\System32\\Config\\SOFTWARE';
@@ -134,11 +275,11 @@ $oemLines''';
         final oemKey = 'Microsoft\\Windows\\CurrentVersion\\OEMInformation';
         await setStringValue(hiveKey, oemKey, 'Manufacturer', manufacturer);
         await setStringValue(hiveKey, oemKey, 'Model', model);
-        
+
         if (logoPath != null) {
           await setStringValue(hiveKey, oemKey, 'Logo', logoPath);
         }
-        
+
         await unloadHive(hiveKey);
       }
     }
