@@ -438,35 +438,36 @@ class _Sidebar extends StatelessWidget {
             child: const Icon(Icons.bolt_rounded, color: Colors.white),
           ),
           const SizedBox(height: 24),
-          NavigationRail(
-            selectedIndex: selectedIndex,
-            onDestinationSelected: onDestinationSelected,
-            backgroundColor: Colors.transparent,
-            labelType: NavigationRailLabelType.all,
-            minWidth: 86,
-            groupAlignment: -0.72,
-            indicatorColor: _PostInstallScreenState._red.withValues(
-              alpha: 0.22,
+          Expanded(
+            child: NavigationRail(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: onDestinationSelected,
+              backgroundColor: Colors.transparent,
+              labelType: NavigationRailLabelType.all,
+              minWidth: 86,
+              groupAlignment: -0.72,
+              indicatorColor: _PostInstallScreenState._red.withValues(
+                alpha: 0.22,
+              ),
+              destinations: const [
+                NavigationRailDestination(
+                  icon: Icon(Icons.verified_user_outlined),
+                  selectedIcon: Icon(Icons.verified_user_rounded),
+                  label: Text('KMS'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.apps_outlined),
+                  selectedIcon: Icon(Icons.apps_rounded),
+                  label: Text('Office'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.terminal_outlined),
+                  selectedIcon: Icon(Icons.terminal_rounded),
+                  label: Text('Stack'),
+                ),
+              ],
             ),
-            destinations: const [
-              NavigationRailDestination(
-                icon: Icon(Icons.verified_user_outlined),
-                selectedIcon: Icon(Icons.verified_user_rounded),
-                label: Text('KMS'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.apps_outlined),
-                selectedIcon: Icon(Icons.apps_rounded),
-                label: Text('Office'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.terminal_outlined),
-                selectedIcon: Icon(Icons.terminal_rounded),
-                label: Text('Stack'),
-              ),
-            ],
           ),
-          const Spacer(),
           Tooltip(
             message: 'Herramientas locales',
             child: Padding(

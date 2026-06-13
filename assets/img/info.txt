@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Rosario-Bold
+font link: http://www.omnibus-type.com/fonts/rosario/
+font author: Omnibus Type
+font author site: http://www.omnibus-type.com/
+
+
+icon designer: undefined
+icon designer link: undefined
+        
+{"bg":"transparent","icon-gradient-0":"#67635D","icon-gradient-1":"#FFD6AD","font":"#000000","slogan":"#141414"}
+      
