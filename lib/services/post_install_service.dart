@@ -112,19 +112,23 @@ class PostInstallService {
     yield 'Preparando Office ODT en ${workDir.path}';
 
     if (!setupExe.existsSync()) {
-      if (!odtExe.existsSync()) {
-        yield 'Descargando Office Deployment Tool desde Microsoft...';
-        final result = await _processService.run('powershell.exe', [
-          '-NoProfile',
-          '-ExecutionPolicy',
-          'Bypass',
-          '-Command',
-          _odtDownloadScript(odtExe.path),
-        ], timeout: const Duration(minutes: 15));
-        yield _formatResult('Descarga de ODT', result);
-        if (result.exitCode != 0) return;
-      } else {
+      if (odtExe.existsSync() && odtExe.lengthSync() > 0) {
         yield 'ODT ya descargado: ${odtExe.path}';
+      } else {
+        yield 'Descargando Office Deployment Tool desde Microsoft...';
+        try {
+          final downloadUrl = await _fetchOdtDownloadUrl();
+          if (downloadUrl == null) {
+            yield 'ERROR: No se pudo obtener el enlace de descarga de ODT desde Microsoft.';
+            return;
+          }
+          yield 'Enlace de descarga ODT encontrado: $downloadUrl';
+          await _downloadFile(downloadUrl, odtExe.path);
+          yield 'Descarga de ODT: OK';
+        } catch (e) {
+          yield 'ERROR al descargar ODT: $e';
+          return;
+        }
       }
 
       yield* _runAndYield(
@@ -402,30 +406,6 @@ endlocal
 ''';
   }
 
-  String _odtDownloadScript(String targetPath) {
-    final target = _quotePowerShell(targetPath);
-    return r'''
-$ErrorActionPreference = 'Stop'
-$ProgressPreference = 'SilentlyContinue'
-$details = 'https://www.microsoft.com/en-us/download/details.aspx?id=49117'
-$confirmation = 'https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117'
-$page = Invoke-WebRequest -UseBasicParsing -Uri $confirmation
-$link = $page.Links |
-  Where-Object { $_.href -match 'https://download\.microsoft\.com/.+officedeploymenttool.+\.exe' } |
-  Select-Object -First 1 -ExpandProperty href
-if (-not $link) {
-  $match = [regex]::Match($page.Content, 'https://download\.microsoft\.com/[^"'']+officedeploymenttool[^"'']+\.exe')
-  if ($match.Success) { $link = $match.Value }
-}
-if (-not $link) {
-  throw "No se encontro el enlace oficial de ODT en $details"
-}
-Invoke-WebRequest -UseBasicParsing -Uri $link -OutFile ''' +
-        target +
-        r'''
-Write-Output "ODT descargado desde $link"
-''';
-  }
 
   String _officeConfigurationXml(OfficeDeploymentOption option) {
     final languages = option.languages
@@ -444,9 +424,6 @@ $languages
 ''';
   }
 
-  String _quotePowerShell(String value) {
-    return "'${value.replaceAll("'", "''")}'";
-  }
 
   String _xmlAttribute(String value) {
     return value
@@ -454,5 +431,41 @@ $languages
         .replaceAll('"', '&quot;')
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;');
+  }
+
+  Future<String?> _fetchOdtDownloadUrl() async {
+    final client = HttpClient();
+    try {
+      final request = await client.getUrl(Uri.parse('https://www.microsoft.com/en-us/download/details.aspx?id=49117'));
+      request.headers.set(HttpHeaders.userAgentHeader, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+      final response = await request.close();
+      if (response.statusCode == 200) {
+        final html = await response.transform(utf8.decoder).join();
+        final regExp = RegExp(r'https://download\.microsoft\.com/[^\s"''<>]*?officedeploymenttool[^\s"''<>]*?\.exe');
+        final match = regExp.firstMatch(html);
+        return match?.group(0);
+      }
+    } catch (_) {
+      // ignore
+    } finally {
+      client.close();
+    }
+    return null;
+  }
+
+  Future<void> _downloadFile(String url, String savePath) async {
+    final client = HttpClient();
+    try {
+      final request = await client.getUrl(Uri.parse(url));
+      final response = await request.close();
+      if (response.statusCode != 200) {
+        throw HttpException('Status code: ${response.statusCode}');
+      }
+      final file = File(savePath);
+      final sink = file.openWrite();
+      await response.pipe(sink);
+    } finally {
+      client.close();
+    }
   }
 }
