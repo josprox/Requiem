@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'disk_selection_screen.dart';
 import 'wim_picker_screen.dart';
 
+import '../widgets/glass_backdrop.dart';
+
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
 
@@ -42,64 +44,52 @@ class _LandingScreenState extends State<LandingScreen>
     final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Premium Background Gradient
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(-0.8, -0.6),
-                  radius: 1.5,
-                  colors: [
-                    scheme.primary.withValues(alpha: 0.15),
-                    scheme.surface,
-                  ],
-                  stops: const [0.0, 0.8],
-                ),
-              ),
+      body: GlassBackdrop(
+        child: Stack(
+          children: [
+            // Top Bar with macOS Traffic Lights
+            Positioned(
+              top: 24,
+              left: 24,
+              child: const MacTrafficLights(),
             ),
-          ),
 
-          // Subtle local texture effect. Keep the live ISO independent from network access.
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.03,
-              child: CustomPaint(painter: _CarbonFiberPainter()),
-            ),
-          ),
-
-          FadeTransition(
-            opacity: _fadeAnimation,
-            child: SlideTransition(
-              position: _slideAnimation,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Minimalist Branding with Glow
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: scheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: scheme.primary.withValues(alpha: 0.2),
-                            blurRadius: 40,
-                            spreadRadius: -10,
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 48),
+                      // Minimalist Branding with Glow
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: scheme.primary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: scheme.primary.withValues(alpha: 0.15),
+                            width: 1,
                           ),
-                        ],
+                          boxShadow: [
+                            BoxShadow(
+                              color: scheme.primary.withValues(alpha: 0.25),
+                              blurRadius: 40,
+                              spreadRadius: -10,
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.rocket_launch_rounded,
+                          size: 56,
+                          color: scheme.primary,
+                        ),
                       ),
-                      child: Icon(
-                        Icons.rocket_launch_rounded,
-                        size: 56,
-                        color: scheme.primary,
-                      ),
-                    ),
-                    const SizedBox(height: 64),
+                      const SizedBox(height: 48),
 
                     Text(
                       (Platform.isLinux || Directory('X:\\Windows').existsSync())
@@ -240,8 +230,9 @@ class _LandingScreenState extends State<LandingScreen>
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildFooterItem(IconData icon, String text) {
     return Row(

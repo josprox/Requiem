@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:window_manager/window_manager.dart';
 import '../../services/main_controller.dart';
+import '../widgets/glass_backdrop.dart';
 
 class IsoBuilderScreen extends StatefulWidget {
   const IsoBuilderScreen({super.key});
@@ -43,22 +44,49 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
     }
 
     return Scaffold(
-      body: Column(
-        children: [
-          // Custom Title Bar for Windows
-          const SizedBox(
-            height: 32,
-            child: DragToMoveArea(
-              child: WindowCaption(
-                brightness: Brightness.dark,
-                backgroundColor: Colors.transparent,
-                title: Text(
-                  'CREADOR DE ISO REQUIEM',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1),
-                ),
+      body: GlassBackdrop(
+        child: Column(
+          children: [
+            // Custom Title Bar for Windows/macOS Hybrid
+            SizedBox(
+              height: 48,
+              child: Stack(
+                children: [
+                  const Positioned.fill(
+                    child: DragToMoveArea(child: SizedBox.expand()),
+                  ),
+                  Positioned(
+                    left: 20,
+                    top: 18,
+                    child: MacTrafficLights(
+                      onClose: () => windowManager.close(),
+                      onMinimize: () => windowManager.minimize(),
+                      onMaximize: () async {
+                        if (await windowManager.isMaximized()) {
+                          windowManager.unmaximize();
+                        } else {
+                          windowManager.maximize();
+                        }
+                      },
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: IgnorePointer(
+                      child: Text(
+                        'CREADOR DE ISO REQUIEM',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 3.0,
+                          color: Colors.white.withValues(alpha: 0.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(64, 32, 64, 64),
@@ -223,8 +251,9 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildSectionHeader(BuildContext context, String title, IconData icon) {
     return Row(

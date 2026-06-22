@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 import '../../services/main_controller.dart';
 import 'disk_selection_screen.dart';
+import '../widgets/glass_backdrop.dart';
 
 class WimPickerScreen extends StatefulWidget {
   const WimPickerScreen({super.key});
@@ -54,23 +56,25 @@ class _WimPickerScreenState extends State<WimPickerScreen>
     final searching = ctrl.isSearchingWim;
 
     return Scaffold(
-      body: Stack(children: [
-        // Background gradient
-        Positioned.fill(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: RadialGradient(
-                center: const Alignment(0.6, -0.5),
-                radius: 1.4,
-                colors: [
-                  scheme.primary.withValues(alpha: 0.12),
-                  scheme.surface,
-                ],
-                stops: const [0.0, 0.75],
+      body: GlassBackdrop(
+        child: Stack(
+          children: [
+            // Top Bar with macOS Traffic Lights
+            Positioned(
+              top: 24,
+              left: 24,
+              child: MacTrafficLights(
+                onClose: () => windowManager.close(),
+                onMinimize: () => windowManager.minimize(),
+                onMaximize: () async {
+                  if (await windowManager.isMaximized()) {
+                    windowManager.unmaximize();
+                  } else {
+                    windowManager.maximize();
+                  }
+                },
               ),
             ),
-          ),
-        ),
 
         FadeTransition(
           opacity: _fade,
@@ -297,7 +301,9 @@ class _WimPickerScreenState extends State<WimPickerScreen>
             ),
           ),
         ),
-      ]),
-    );
-  }
+        ],
+      ),
+    ),
+  );
+}
 }
