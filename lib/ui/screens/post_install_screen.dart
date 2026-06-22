@@ -5,7 +5,6 @@ import 'package:window_manager/window_manager.dart';
 import '../../models/post_install_config.dart';
 import '../../services/post_install_service.dart';
 import '../widgets/glass_backdrop.dart';
-import '../widgets/panel.dart';
 import '../widgets/section_header.dart';
 import '../widgets/console_panel.dart';
 import '../widgets/activation_panel.dart';

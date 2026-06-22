@@ -1,0 +1,40 @@
+name: Requiem Installer CI Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  analyze_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Java Development Kit (for Android/general tools)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.6' # Or any stable version
+          channel: 'stable'
+          cache: true
+
+      - name: Get project dependencies
+        run: flutter pub get
+
+      - name: Run code formatting check
+        run: flutter format --set-exit-if-changed lib/ test/
+
+      - name: Run static analysis
+        run: flutter analyze
+
+      - name: Run test suite
+        run: flutter test

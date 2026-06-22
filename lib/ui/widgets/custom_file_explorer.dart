@@ -45,10 +45,6 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
   void _loadDrives() {
     final list = <String>[];
     if (Platform.isWindows) {
-      // Check X drive first (often WinPE boot drive)
-      if (Directory('X:\\').existsSync()) {
-        list.add('X:\\');
-      }
       for (int i = 67; i <= 90; i++) { // C to Z
         final drive = '${String.fromCharCode(i)}:\\';
         if (Directory(drive).existsSync()) {

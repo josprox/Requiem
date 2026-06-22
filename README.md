@@ -1,150 +1,92 @@
-# Joss Red Installer
+# Requiem Installer
 
-Instalador live de Windows construido con Flutter para Linux. El proyecto genera una ISO arrancable propia; al iniciar desde esa ISO se abre el instalador, se selecciona un archivo `install.wim` o `install.swm`, se elige el disco de destino y el sistema aplica la imagen de Windows, configura el arranque y reinicia.
+> [!NOTE]
+> **Requiem Installer** es un instalador live moderno e interactivo para sistemas operativos Windows, desarrollado con **Flutter** para entornos **Linux Live (Debian Bookworm)**. El proyecto automatiza el particionado, el despliegue directo de archivos WIM/SWM, y la inyección offline de arranque y configuraciones de registro desde una interfaz premium de alto rendimiento.
 
-## Flujo Actual
+---
 
-1. Desde Windows se usa WSL/Ubuntu como entorno de compilacion.
-2. WSL instala Flutter Linux Desktop en `/opt/flutter`.
-3. El script `linux_live_iso/build_iso.sh` crea un Debian live con `debootstrap`.
-4. Dentro del chroot se compila el bundle Linux de Flutter.
-5. El bundle queda instalado en `/opt/joss_red_installer` dentro del live ISO.
-6. La ISO arranca con GRUB, `live-boot`, Xorg y Openbox.
-7. `joss-installer.service` lanza automaticamente `/opt/joss_red_installer/joss_red_installer`.
-8. El instalador permite seleccionar el WIM/SWM desde medios montados o unidades USB.
-9. Se particiona/formatea el disco elegido, se aplica la imagen con `wimlib-imagex`, se configura BCD/bootloader y se ofrece reiniciar.
+## 🚀 Características Clave
 
-## Requisitos
+* **Despliegue Multi-Plataforma**: Diseñado para correr en un entorno autónomo Linux Live ISO (Debian Bookworm) y en modo utilitario post-instalación (Desktop Tools) sobre Windows.
+* **Particionado Autónomo**: Soporte completo para esquemas de partición GPT (UEFI) y MBR (Legacy BIOS) de forma automatizada mediante `parted` y `sfdisk`.
+* **Escritura Directa de WIM/SWM**: Despliegue de imágenes del sistema operativo Windows con la potencia de `wimlib-imagex`.
+* **Configurador de Arranque en Linux**: Reconstrucción del almacén BCD y configuración de UEFI Boot Manager y registros MBR/VBR mediante scripts híbridos (`BCD-SYS`, `patch_bcd.py` con `hivex` y `ms-sys`).
+* **Integración y Ajuste OEM**: Inyección directa de información del fabricante, logos corporativos, variables de entorno y controladores de almacenamiento esenciales en las colmenas offline de Windows.
+* **Consola de Post-Instalación**: Automatización de activaciones KMS (Windows y Office) e instalación masiva de programas de desarrollo usando `winget`.
 
-- Windows 10/11 con WSL2.
-- Ubuntu en WSL.
-- Conexion a internet durante la construccion.
-- Espacio libre recomendado: 20 GB o mas.
-- Permisos `sudo` dentro de WSL.
-- El archivo WIM/SWM de Windows en un USB, disco externo o ruta accesible durante la instalacion.
+---
 
-## Preparar WSL
+## 🛠️ Arquitectura y Tecnologías
 
-Abre Ubuntu/WSL y ve al proyecto montado desde Windows:
+### Frontend (Interfaz Gráfica)
+* **Flutter Desktop (Linux & Windows)**: Interfaz de usuario responsiva con estética premium basada en efectos de glassmorphism y micro-animaciones dinámicas.
+* **Provider (Dart)**: Arquitectura reactiva y gestión de estado mediante un controlador centralizado (`MainController`).
+* **Window Manager**: Control de comportamiento nativo de pantallas y bordes de ventana.
 
-```bash
-cd /mnt/c/Users/joss/Documents/proyectos/JossZilla
-```
+### Backend & Sistema (Live ISO)
+* **Debian Bookworm (Base Live)**: Entorno mínimo bootstrap montado en memoria RAM usando `live-boot`.
+* **Gestor Gráfico Ligero**: Xorg Server con el gestor de ventanas Openbox configurado en pantalla completa sin decoraciones.
+* **Comandos del Sistema**: `parted`, `sfdisk`, `ntfs-3g`, `wimtools`, `efibootmgr`, `ms-sys`.
+* **Edición del Registro (Python + hivex)**: Manipulación de registros binarios mediante `hivexregedit` y Python con enlace nativo a `hivex` para evitar API de Microsoft.
 
-Ejecuta el preparador:
+---
+
+## 💻 Flujo de Trabajo del Desarrollador
+
+### 1. Preparación del Entorno WSL2 (Ubuntu)
+Para compilar la aplicación y preparar el constructor de ISOs, configure su entorno de desarrollo ejecutando en la consola de WSL:
 
 ```bash
 chmod +x linux_live_iso/setup_wsl.sh
 ./linux_live_iso/setup_wsl.sh
 ```
+*Este script instalará las dependencias necesarias de compilación (CMake, Ninja, GTK3) y clonará la versión adecuada de Flutter (`3.44.1`) en `/opt/flutter`.*
 
-Este script instala dependencias de compilacion, clona Flutter `3.44.1` en `/opt/flutter`, habilita Linux Desktop y compila una primera version del app.
-
-## Generar la ISO
-
-Desde la raiz del proyecto en WSL:
+### 2. Compilación de la ISO Arrancable
+Para realizar el bootstrap del Debian live chroot, compilar el binario de Flutter e integrarlo todo en una imagen ISO híbrida UEFI+BIOS, ejecute en la raíz del proyecto en WSL:
 
 ```bash
-cd /mnt/c/Users/joss/Documents/proyectos/JossZilla
-chmod +x linux_live_iso/build_iso.sh
-./linux_live_iso/build_iso.sh
+sudo ./linux_live_iso/build_iso.sh
 ```
 
-El resultado se crea en:
+El instalador empaquetará las herramientas y generará el archivo resultante en la raíz:
+`requiem_installer.iso`
 
-```text
-joss_installer.iso
-```
+---
 
-Durante este proceso el script:
+## 💿 Flujo de Instalación para el Usuario
 
-- instala dependencias del constructor;
-- crea el chroot Debian Bookworm;
-- compila `ms-sys`;
-- compila `xorriso` desde codigo fuente;
-- copia el proyecto al chroot;
-- compila Flutter Linux release dentro del chroot;
-- instala herramientas de despliegue como `wimtools`, `ntfs-3g`, `parted`, `efibootmgr` y `hivex`;
-- copia `linux_live_iso/tools/patch_bcd.py`;
-- genera `filesystem.squashfs`;
-- empaqueta una ISO hibrida BIOS/UEFI con `grub-mkrescue`.
+1. **Arranque**: Inicie el equipo o máquina virtual utilizando el archivo `requiem_installer.iso`.
+2. **Bienvenida**: El escritorio cargará automáticamente el instalador de Flutter en pantalla completa. Presione **EMPEZAR**.
+3. **Selección de WIM/SWM**: Busque o autodetecte la imagen de Windows (`install.wim` o `install.swm`) desde discos duros, SSDs o unidades USB externas montadas.
+4. **Administración de Discos**:
+   * Seleccione la unidad física de destino.
+   * Elija el esquema de partición: **Formatear GPT (UEFI)** o **Formatear MBR (BIOS Legacy)**.
+5. **Instalación**: Confirme la advertencia de pérdida de datos. El instalador particionará, aplicará la imagen, configurará el almacén BCD de Windows y desmontará las particiones limpiamente.
+6. **Reinicio**: Presione **REINICIAR SISTEMA** y retire el medio de instalación para iniciar su nuevo Windows.
 
-## Usar la ISO
+---
 
-1. Arranca el equipo o VM desde `joss_installer.iso`.
-2. En el menu de GRUB elige `Joss Red Installer (Live RAM Mode - Recommended)`.
-3. Al cargar el escritorio live se abre Joss Red Installer automaticamente.
-4. En la bienvenida pulsa `EMPEZAR`.
-5. Selecciona o busca el archivo `install.wim` o `install.swm`.
-6. Selecciona el disco de destino.
-7. Elige el modo de particion:
-   - `Formatear GPT`: crea ESP FAT32, MSR y particion NTFS para Windows.
-   - `Formatear MBR`: crea una particion NTFS activa para BIOS heredado.
-   - `Usar Particiones Existentes`: asume que ya montaste manualmente `/mnt/windows` y, si aplica, `/mnt/efi`.
-8. Confirma la instalacion.
-9. Al terminar pulsa `REINICIAR SISTEMA`.
+## 🔧 Solución de Problemas
 
-## Que Hace el Instalador
-
-En Linux live, el instalador ejecuta este flujo:
-
-- monta unidades externas para facilitar la busqueda del WIM/SWM;
-- lista discos fisicos con `lsblk`;
-- bloquea discos detectados como sistema/live para reducir riesgo de seleccionar el medio de arranque;
-- prepara particiones con `parted`, `mkfs.vfat` y `mkfs.ntfs`;
-- monta destino en `/mnt/windows` y la ESP en `/mnt/efi`;
-- aplica la imagen con `wimlib-imagex apply`;
-- copia archivos de arranque de `Windows/Boot`;
-- parchea BCD con `linux_live_iso/tools/patch_bcd.py`;
-- registra entrada UEFI con `efibootmgr` o escribe arranque legacy con `ms-sys`;
-- inyecta marca OEM y variable `JOSS_RED_VERSION` en el registro offline con `hivexregedit`;
-- desmonta particiones y marca la instalacion como completa.
-
-## Validacion Rapida
-
-Desde Windows o WSL puedes comprobar el estado del proyecto:
-
+### Error al Compilar la ISO (Puntos de Montaje Activos)
+Si la compilación se interrumpe y `build_iso.sh` falla al intentar recrear los directorios, limpie los montajes del chroot con:
 ```bash
-flutter analyze
-flutter test
+sudo umount -lf /tmp/requiem_installer_iso_build/chroot/proc 2>/dev/null || true
+sudo umount -lf /tmp/requiem_installer_iso_build/chroot/sys 2>/dev/null || true
+sudo umount -lf /tmp/requiem_installer_iso_build/chroot/dev/pts 2>/dev/null || true
+sudo umount -lf /tmp/requiem_installer_iso_build/chroot/dev 2>/dev/null || true
 ```
 
-Tambien puedes verificar que los archivos criticos existan:
+### Windows no inicia (Pantalla Negra o Cursor Parpadeante)
+* **BIOS Mismatch**: Confirme si el instalador fue arrancado en modo UEFI pero instaló en modo MBR, o viceversa. Utilice el particionado correspondiente a la BIOS de su equipo.
+* **Falta de BCD**: Revise los logs del instalador en la fase de configuración de bootloader. La imagen WIM utilizada debe contener la estructura de archivos en `Windows/Boot/EFI` o `Windows/Boot/PCAT`.
 
-```bash
-test -f linux_live_iso/build_iso.sh
-test -f linux_live_iso/setup_wsl.sh
-test -f linux_live_iso/tools/patch_bcd.py
-test -f linux_live_iso/configs/joss-installer.service
-test -f linux_live_iso/configs/grub.cfg
-```
+---
 
-## Notas Importantes
+## 📜 Licencia y Autoría
 
-- La ISO no necesita incluir el WIM. El WIM puede estar en un USB o disco externo.
-- El modo GPT/UEFI es el recomendado para equipos modernos.
-- El modo MBR/BIOS existe para equipos heredados.
-- `Live RAM Mode` carga el live en memoria; despues de cargar, es mas tolerante si el medio de instalacion se desconecta, pero el WIM debe seguir accesible si vive en otro USB.
-- La instalacion destruye datos cuando se usa `Formatear GPT` o `Formatear MBR`.
-- Si el equipo usa Secure Boot estricto, puede requerir desactivarlo o firmar la cadena de arranque.
+Este software está sujeto a los términos de la **Requiem Installer Public License** (consulte [license.txt](license.txt)). Es libre para uso comercial y permite sublicenciamiento siempre y cuando se mantenga de manera notoria la atribución al creador.
 
-## Solucion de Problemas
-
-Si WSL no encuentra el proyecto, confirma que Windows este montado en `/mnt/c` y que la ruta exista:
-
-```bash
-ls /mnt/c/Users/joss/Documents/proyectos/JossZilla
-```
-
-Si `build_iso.sh` falla por montajes del chroot, limpia montajes previos y vuelve a ejecutar:
-
-```bash
-sudo umount -lf /tmp/joss_installer_iso_build/chroot/proc 2>/dev/null || true
-sudo umount -lf /tmp/joss_installer_iso_build/chroot/sys 2>/dev/null || true
-sudo umount -lf /tmp/joss_installer_iso_build/chroot/dev/pts 2>/dev/null || true
-sudo umount -lf /tmp/joss_installer_iso_build/chroot/dev 2>/dev/null || true
-```
-
-Si el instalador no ve el WIM, usa `BUSCAR`; el explorador integrado navega por `/`, `/media` y `/mnt` en Linux live.
-
-Si Windows no arranca despues de aplicar el WIM, revisa en los logs del instalador la fase `Configuring bootloader`. Esa fase depende de que el WIM contenga `Windows/Boot/EFI` o `Windows/Boot/DVD` y de que `patch_bcd.py`, `efibootmgr`/`ms-sys` se hayan ejecutado correctamente.
+**Creado por**:
+Melchor Estrada José Luis - Joss Red - [joss.red](https://joss.red) (web) - [josprox.com](https://josprox.com) (web)

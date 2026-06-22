@@ -18,8 +18,6 @@ class RequiemConsolePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
     return Container(
       decoration: BoxDecoration(
         color: Colors.black.withValues(alpha: 0.15),

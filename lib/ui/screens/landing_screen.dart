@@ -92,7 +92,7 @@ class _LandingScreenState extends State<LandingScreen>
                       const SizedBox(height: 48),
 
                     Text(
-                      (Platform.isLinux || Directory('X:\\Windows').existsSync())
+                      Platform.isLinux
                           ? 'REQUIEM INSTALLER'
                           : 'REQUIEM TOOLS',
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
@@ -253,28 +253,4 @@ class _LandingScreenState extends State<LandingScreen>
   }
 }
 
-class _CarbonFiberPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final darkPaint = Paint()..color = Colors.black;
-    final lightPaint = Paint()..color = Colors.white;
-    const cell = 8.0;
 
-    for (double y = 0; y < size.height; y += cell) {
-      for (double x = 0; x < size.width; x += cell) {
-        final even = ((x / cell).floor() + (y / cell).floor()).isEven;
-        canvas.drawRect(
-          Rect.fromLTWH(x, y, cell / 2, cell / 2),
-          even ? lightPaint : darkPaint,
-        );
-        canvas.drawRect(
-          Rect.fromLTWH(x + cell / 2, y + cell / 2, cell / 2, cell / 2),
-          even ? lightPaint : darkPaint,
-        );
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}

@@ -1,0 +1,34 @@
++----------------------------------------------------------------------------+
+|                       REQUIEM INSTALLER — POST-INSTALLATION                |
++----------------------------------------------------------------------------+
+
+¡Despliegue inicial completado con éxito!
+
+¿Qué va a instalar este sistema ahora?
+-------------------------------------
+Al reiniciar e iniciar Windows por primera vez, el sistema ejecutará de forma
+silenciosa los scripts de optimización y, opcionalmente, instalará los paquetes
+y activaciones de software seleccionados en el panel de herramientas.
+
+¿Qué puede hacer este software en la post-instalación?
+------------------------------------------------------
+* INSTALACIÓN DE APLICACIONES (WINGET): Descarga e instala de manera silenciosa
+  tus editores, IDEs, navegadores y runtimes (VS Code, Git, Node.js, Python,
+  Chrome, etc.) directamente de los repositorios oficiales.
+* ACTIVACIÓN DE LICENCIAS KMS: Configuración automática de servidores KMS para
+  Windows y Microsoft Office de volumen con tareas de renovación diaria.
+* SOPORTE DE DESARROLLO (WSL & DOCKER): Configuración automatizada de WSL2,
+  distribuciones Ubuntu y Docker Desktop para entornos profesionales.
+* INYECCIÓN DE ENTORNOS: Configura variables de entorno globales del sistema
+  y agrega logos de marca en la información de sistema del panel de control.
+
+Pasos siguientes:
+-----------------
+1. Retire el medio de instalación (ISO/USB) si su BIOS no está configurada
+   para dar prioridad al disco interno.
+2. Presione "Reiniciar" en el instalador o apague el equipo.
+3. Deje que Windows complete su primera fase de arranque (OOBE/Setup).
+4. El sistema estará listo para su uso con todas tus herramientas preconfiguradas.
+
+Creado por Melchor Estrada José Luis - Joss Red - joss.red - josprox.com
++----------------------------------------------------------------------------+

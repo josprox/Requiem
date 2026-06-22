@@ -1,0 +1,33 @@
++----------------------------------------------------------------------------+
+|                       REQUIEM INSTALLER — PRE-INSTALLATION                 |
++----------------------------------------------------------------------------+
+
+¡Bienvenido al asistente de pre-instalación de Requiem!
+
+¿Qué va a instalar este sistema?
+--------------------------------
+Este asistente preparará su hardware e instalará una imagen limpia del sistema 
+operativo Windows (archivos WIM/SWM) de manera directa y optimizada.
+
+¿Qué puede hacer este software?
+-------------------------------
+* PARTICIONADO INTELIGENTE: Creación automática de esquemas de partición GPT/UEFI
+  y Legacy BIOS (MBR) de forma óptima para Windows.
+* APLICACIÓN DE IMAGEN ULTRA RÁPIDA: Despliegue directo del sistema de archivos
+  Windows desde imágenes WIM y SWM usando backend nativo.
+* CONFIGURACIÓN DE ARRANQUE AUTÓNOMA: Generación del almacén BCD (Boot Configuration
+  Data), configuración de registros MBR/VBR y efibootmgr desde un entorno Linux.
+* INYECCIÓN OEM PERSONALIZADA: Marcado de fabricante, logos y controladores 
+  de almacenamiento críticos para asegurar el arranque del sistema operativo.
+* POST-INSTALACIÓN AUTOMATIZADA: Preparación del sistema para activaciones KMS 
+  y despliegue automático de tus herramientas y dependencias de desarrollo 
+  favoritas.
+
+Requisitos Previos Recomendados:
+-------------------------------
+1. Asegúrese de haber respaldado toda la información del disco de destino.
+2. Identifique el disco correcto para evitar pérdida de datos accidental.
+3. Mantenga el equipo conectado a la corriente eléctrica durante el proceso.
+
+Creado por Melchor Estrada José Luis - Joss Red - joss.red - josprox.com
++----------------------------------------------------------------------------+

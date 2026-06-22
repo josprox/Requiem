@@ -5,19 +5,24 @@ import 'package:path/path.dart' as p;
 import '../services/disk_service.dart';
 import '../services/deployment_service.dart';
 import '../services/registry_service.dart';
-import '../services/iso_builder_service.dart';
-import 'package:file_picker/file_picker.dart';
-import '../ui/widgets/custom_file_explorer.dart';
+import 'wim_scanner_service.dart';
+import 'disk_selection_controller.dart';
 
 class MainController extends ChangeNotifier {
   final DiskService _diskService = DiskService();
   final DeploymentService _deploymentService = DeploymentService();
   final RegistryService _registryService = RegistryService();
-  final IsoBuilderService _isoBuilderService = IsoBuilderService();
+  late final WimScannerService _wimScannerService;
+  late final DiskSelectionController _diskSelectionController;
 
-  List<PhysicalDisk> disks = [];
-  PhysicalDisk? selectedDisk;
-  bool isLoadingDisks = false;
+  MainController() {
+    _wimScannerService = WimScannerService(_diskService);
+    _diskSelectionController = DiskSelectionController(_diskService);
+  }
+
+  List<PhysicalDisk> get disks => _diskSelectionController.disks;
+  PhysicalDisk? get selectedDisk => _diskSelectionController.selectedDisk;
+  bool get isLoadingDisks => _diskSelectionController.isLoadingDisks;
 
   double installProgress = 0.0;
   String currentStatus = 'Ready';
@@ -26,11 +31,7 @@ class MainController extends ChangeNotifier {
   bool installationComplete = false;
   bool installationFailed = false;
 
-  // ISO Builder State (Windows-only WinPE builder)
-  bool isBuildingIso = false;
-  double buildProgress = 0.0;
-  String? selectedWimPath;
-  String? outputIsoPath;
+
 
   // Auto-detected install.wim path
   String? detectedWimPath;
@@ -82,140 +83,30 @@ class MainController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ─── Auto-detect install.wim from ISO drive ────────────────────────────────
-  /// Scans common live media directories on Linux or drive letters on Windows.
   Future<void> autoDetectInstallWim() async {
     isSearchingWim = true;
     detectedWimPath = null;
     notifyListeners();
-
-    addLog('Scanning drives for Windows installation image...');
-
-    if (Platform.isLinux) {
-      // Standard Linux live boot mount points where the WIM could be located
-      final searchPaths = [
-        '/run/live/medium/sources/install.wim',
-        '/run/live/medium/sources/install.swm',
-        '/cdrom/sources/install.wim',
-        '/cdrom/sources/install.swm',
-        '/run/live/medium/install.wim',
-        '/mnt/install.wim',
-      ];
-
-      for (final path in searchPaths) {
-        final f = File(path);
-        if (f.existsSync()) {
-          detectedWimPath = f.path;
-          addLog('  ✓ Found install image at $path (${_fileSizeMb(f)} MB)');
-          break;
-        }
-      }
-    } else {
-      // Letters the ISO could be mounted as in WinPE/Windows
-      const driveLetters = [
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
-        'I',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-      ];
-
-      for (final letter in driveLetters) {
-        final wim = File('$letter:\\sources\\install.wim');
-        if (wim.existsSync()) {
-          detectedWimPath = wim.path;
-          addLog(
-            '  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)',
-          );
-          break;
-        }
-        final swm = File('$letter:\\sources\\install.swm');
-        if (swm.existsSync()) {
-          detectedWimPath = swm.path;
-          addLog('  ✓ Found split WIM (SWM) on drive $letter:');
-          break;
-        }
-      }
-    }
-
-    if (detectedWimPath == null) {
-      addLog(
-        '  ⚠ install.wim not found. Please specify or mount image manually.',
-      );
-    }
-
+    detectedWimPath = await _wimScannerService.autoDetectInstallWim(addLog);
     isSearchingWim = false;
     notifyListeners();
   }
 
-  /// Allows the user to manually select the WIM/SWM image using a GUI File Picker.
   Future<void> pickWimFile([BuildContext? context]) async {
     isSearchingWim = true;
     notifyListeners();
-
-    if (Platform.isLinux) {
-      addLog('Mounting external USB drives to /media/usb-*...');
-      await _diskService.mountExternalDrivesLinux();
-    }
-
-    addLog('Opening file explorer to select Windows image...');
-    try {
-      String? path;
-      if (context != null && context.mounted) {
-        path = await showDialog<String>(
-          context: context,
-          builder: (context) => const CustomFileExplorer(),
-        );
-      } else {
-        final result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['wim', 'swm'],
-          dialogTitle: 'Select Windows Installation WIM or SWM Image',
-        );
-        if (result != null && result.files.single.path != null) {
-          path = result.files.single.path!;
-        }
-      }
-
-      if (path != null) {
-        final file = File(path);
-        detectedWimPath = path;
-        addLog('  ✓ Selected image: $path (${_fileSizeMb(file)} MB)');
-      } else {
-        addLog('  Image selection canceled.');
-      }
-    } catch (e) {
-      addLog('ERROR selecting image: $e');
-    }
-
+    detectedWimPath = await _wimScannerService.pickWimFile(addLog, context);
     isSearchingWim = false;
     notifyListeners();
   }
 
-  String _fileSizeMb(File f) =>
-      (f.lengthSync() / 1024 / 1024).toStringAsFixed(0);
-
   Future<void> refreshDisks() async {
-    isLoadingDisks = true;
+    await _diskSelectionController.refreshDisks(addLog);
     notifyListeners();
-    addLog('Refreshing disks...');
-    disks = await _diskService.listDisks();
-    isLoadingDisks = false;
-    notifyListeners();
-    addLog('Found ${disks.length} disks.');
   }
 
   void selectDisk(PhysicalDisk disk) {
-    selectedDisk = disk;
-    addLog('Selected disk: ${disk.friendlyName}');
+    _diskSelectionController.selectDisk(disk, addLog);
     notifyListeners();
   }
 
@@ -616,48 +507,5 @@ class MainController extends ChangeNotifier {
     }
   }
 
-  // --- ISO Builder Logic (Windows WinPE Builder Mode only) ---
 
-  Future<void> buildFinalIso() async {
-    if (outputIsoPath == null) {
-      addLog('ERROR: Missing output path for ISO build.');
-      return;
-    }
-
-    isBuildingIso = true;
-    logs.clear();
-    notifyListeners();
-
-    try {
-      final appPath = p.dirname(Platform.resolvedExecutable);
-
-      final buildStream = _isoBuilderService.buildIso(
-        sourceWimPath: selectedWimPath,
-        appBuildPath: appPath,
-        outputIsoPath: outputIsoPath!,
-      );
-
-      await for (final status in buildStream) {
-        addLog(status);
-        notifyListeners();
-      }
-    } catch (e) {
-      addLog('CRITICAL ERROR during ISO build: $e');
-    } finally {
-      isBuildingIso = false;
-      notifyListeners();
-    }
-  }
-
-  void setWimPath(String path) {
-    selectedWimPath = path;
-    addLog('Selected WIM: $path');
-    notifyListeners();
-  }
-
-  void setOutputPath(String path) {
-    outputIsoPath = path;
-    addLog('Output ISO: $path');
-    notifyListeners();
-  }
 }

@@ -1,0 +1,45 @@
+==============================================================================
+                    REQUIEM INSTALLER PUBLIC LICENSE
+==============================================================================
+Version 1.0, June 2026
+
+Copyright (c) 2026 Melchor Estrada José Luis (Joss Red)
+Websites: https://joss.red | https://josprox.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+1. PROMINENT ATTRIBUTION REQUIREMENT (MANDATORY):
+   Any distribution, deployment, execution, binary compilation, or sublicense 
+   of this Software (in whole or in any substantial portion, modified or 
+   unmodified) MUST display, in a highly visible and notorious manner within 
+   the user interface (e.g., about screen, startup splash screen, installation 
+   status screen, or main navigation bar) and in the source code comments, 
+   the following creator attribution text:
+   
+   "Created by Melchor Estrada José Luis - Joss Red - joss.red - josprox.com"
+
+   Failure to include this notice in a clearly visible location visible to the
+   end user nullifies all rights granted under this license.
+
+2. COMMERCIAL USE & SUBLICENSING:
+   Subject to the attribution condition in Section 1, permission is granted 
+   to use this Software for commercial purposes, including integration into 
+   commercial products, and to sublicense the Software.
+
+3. COPYRIGHT NOTICE:
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+==============================================================================
