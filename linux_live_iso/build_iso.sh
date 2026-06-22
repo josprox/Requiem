@@ -1,19 +1,19 @@
 #!/bin/bash
 # ==============================================================================
-# Joss Red Installer — Linux Live ISO Builder
+# Requiem Installer — Linux Live ISO Builder
 # Run this script on a Linux host (or WSL2/Docker Debian/Ubuntu) to compile the ISO.
 # ==============================================================================
 set -e
 
 # Configuration
 WORKSPACE_DIR="$(pwd)"
-BUILD_DIR="/tmp/joss_installer_iso_build"
+BUILD_DIR="/tmp/requiem_installer_iso_build"
 CHROOT_DIR="$BUILD_DIR/chroot"
 IMAGE_DIR="$BUILD_DIR/image"
-OUTPUT_ISO="$WORKSPACE_DIR/joss_installer.iso"
+OUTPUT_ISO="$WORKSPACE_DIR/requiem_installer.iso"
 
 echo "===================================================================="
-echo " Starting Joss Red Linux Live ISO compilation pipeline"
+echo " Starting Requiem Linux Live ISO compilation pipeline"
 echo " Workspace: $WORKSPACE_DIR"
 echo " Build directory: $BUILD_DIR"
 echo "===================================================================="
@@ -133,10 +133,10 @@ sudo chroot "$CHROOT_DIR" bash -c "
     rm -rf /var/lib/apt/lists/*
 "
 
-# Copy newly compiled bundle to /opt/joss_red_installer
-sudo mkdir -p "$CHROOT_DIR/opt/joss_red_installer"
-sudo cp -r "$CHROOT_DIR/workspace/build/linux/x64/release/bundle/"* "$CHROOT_DIR/opt/joss_red_installer/"
-sudo chmod +x "$CHROOT_DIR/opt/joss_red_installer/joss_red_installer"
+# Copy newly compiled bundle to /opt/requiem_installer
+sudo mkdir -p "$CHROOT_DIR/opt/requiem_installer"
+sudo cp -r "$CHROOT_DIR/workspace/build/linux/x64/release/bundle/"* "$CHROOT_DIR/opt/requiem_installer/"
+sudo chmod +x "$CHROOT_DIR/opt/requiem_installer/requiem_installer"
 
 # Unmount host Flutter SDK and clean temporary workspace
 sudo umount -lf "$CHROOT_DIR/opt/flutter" || true
@@ -145,29 +145,29 @@ sudo rm -rf "$CHROOT_DIR/workspace"
 # 7. Copy system files and scripts into chroot
 echo "Step 7: Copying configurations and scripts..."
 # systemd service
-sudo cp "$WORKSPACE_DIR/linux_live_iso/configs/joss-installer.service" "$CHROOT_DIR/etc/systemd/system/joss-installer.service"
-sudo chmod 644 "$CHROOT_DIR/etc/systemd/system/joss-installer.service"
+sudo cp "$WORKSPACE_DIR/linux_live_iso/configs/requiem-installer.service" "$CHROOT_DIR/etc/systemd/system/requiem-installer.service"
+sudo chmod 644 "$CHROOT_DIR/etc/systemd/system/requiem-installer.service"
 # xinitrc
 sudo cp "$WORKSPACE_DIR/linux_live_iso/configs/xinitrc" "$CHROOT_DIR/root/.xinitrc"
 sudo chmod +x "$CHROOT_DIR/root/.xinitrc"
 # BCD patch tool
-sudo mkdir -p "$CHROOT_DIR/opt/joss_red_installer/tools"
-sudo cp "$WORKSPACE_DIR/linux_live_iso/tools/patch_bcd.py" "$CHROOT_DIR/opt/joss_red_installer/tools/patch_bcd.py"
-sudo chmod +x "$CHROOT_DIR/opt/joss_red_installer/tools/patch_bcd.py"
+sudo mkdir -p "$CHROOT_DIR/opt/requiem_installer/tools"
+sudo cp "$WORKSPACE_DIR/linux_live_iso/tools/patch_bcd.py" "$CHROOT_DIR/opt/requiem_installer/tools/patch_bcd.py"
+sudo chmod +x "$CHROOT_DIR/opt/requiem_installer/tools/patch_bcd.py"
 
 # bcd-sys: Linux equivalent of bcdboot for generating Windows Boot Manager files.
 echo "Fetching BCD-SYS boot configuration utility..."
 cd "$BUILD_DIR"
 git clone --depth 1 --branch v2.2 https://github.com/jpz4085/BCD-SYS.git bcd-sys
-sudo mkdir -p "$CHROOT_DIR/opt/joss_red_installer/bcd-sys"
-sudo cp -r "$BUILD_DIR/bcd-sys/Linux" "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/"
-sudo cp -r "$BUILD_DIR/bcd-sys/Resources" "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/"
-sudo cp -r "$BUILD_DIR/bcd-sys/Templates" "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/"
-sudo chmod +x "$CHROOT_DIR/opt/joss_red_installer/bcd-sys/Linux/"*.sh
+sudo mkdir -p "$CHROOT_DIR/opt/requiem_installer/bcd-sys"
+sudo cp -r "$BUILD_DIR/bcd-sys/Linux" "$CHROOT_DIR/opt/requiem_installer/bcd-sys/"
+sudo cp -r "$BUILD_DIR/bcd-sys/Resources" "$CHROOT_DIR/opt/requiem_installer/bcd-sys/"
+sudo cp -r "$BUILD_DIR/bcd-sys/Templates" "$CHROOT_DIR/opt/requiem_installer/bcd-sys/"
+sudo chmod +x "$CHROOT_DIR/opt/requiem_installer/bcd-sys/Linux/"*.sh
 cd "$WORKSPACE_DIR"
 
 # Enable systemd graphical autostart service inside chroot
-sudo chroot "$CHROOT_DIR" systemctl enable joss-installer.service
+sudo chroot "$CHROOT_DIR" systemctl enable requiem-installer.service
 sudo chroot "$CHROOT_DIR" systemctl set-default graphical.target
 
 # 8. Execute setup_chroot.sh inside the chroot
@@ -180,9 +180,9 @@ sudo rm -f "$CHROOT_DIR/tmp/setup_chroot.sh"
 echo "Step 8.5: Verifying installer runtime dependencies..."
 sudo chroot "$CHROOT_DIR" bash -c '
     set -e
-    ldd /opt/joss_red_installer/joss_red_installer | tee /tmp/joss_installer_ldd.txt
-    if grep -q "not found" /tmp/joss_installer_ldd.txt; then
-        echo "ERROR: Missing runtime libraries for /opt/joss_red_installer/joss_red_installer"
+    ldd /opt/requiem_installer/requiem_installer | tee /tmp/requiem_installer_ldd.txt
+    if grep -q "not found" /tmp/requiem_installer_ldd.txt; then
+        echo "ERROR: Missing runtime libraries for /opt/requiem_installer/requiem_installer"
         exit 1
     fi
 '

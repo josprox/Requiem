@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class JossRedTheme {
+class RequiemTheme {
   // Curated M3 Expressive Palette
   static const Color primarySeed = Color(0xFFC62828); // Rich Ruby Red
   static const Color background = Color(0xFF0F0D0D); // Deep Obsidian

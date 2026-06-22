@@ -18,7 +18,7 @@ class IsoBuilderService {
 
   IsoBuilderService() {
     final tempPath = Directory.systemTemp.path;
-    _baseDir = p.join(tempPath, 'JossRedInstallerBuild');
+    _baseDir = p.join(tempPath, 'RequiemInstallerBuild');
     winPePath    = p.join(_baseDir, 'winpe_base');
     mountDir     = p.join(_baseDir, 'dism_mount');
     mediaDir     = p.join(_baseDir, 'winpe_base', 'media');
@@ -322,22 +322,22 @@ class IsoBuilderService {
       // 2. Create find_installer.cmd
       final finderPath = p.join(mountDir, 'Windows', 'System32', 'find_installer.cmd');
       final finderContent = '''@echo off
-title Joss Red Installer Bootstrap
+title Requiem Installer Bootstrap
 color 1F
 
 :search
 cls
 echo.
 echo ==================================================
-echo    Joss Red Installer - Bootstrap Loader
+echo    Requiem Installer - Bootstrap Loader
 echo ==================================================
 echo.
-echo Scanning drive letters for JossRedInstaller...
+echo Scanning drive letters for RequiemInstaller...
 for %%d in (C D E F G H I J K L M N O P Q R S T U V W Y Z) do (
-    if exist %%d:\\JossRedInstaller\\start.cmd (
+    if exist %%d:\\RequiemInstaller\\start.cmd (
         color 0B
         echo Found installer on drive %%d:
-        cd /d %%d:\\JossRedInstaller
+        cd /d %%d:\\RequiemInstaller
         call start.cmd %%d
         goto :eof
     )
@@ -346,7 +346,7 @@ for %%d in (C D E F G H I J K L M N O P Q R S T U V W Y Z) do (
 color 4F
 echo.
 echo ==================================================
-echo [ERROR] Joss Red Installer files not found!
+echo [ERROR] Requiem Installer files not found!
 echo ==================================================
 echo The ISO/USB media might not be mounted or drive 
 echo letters are not fully assigned yet.
@@ -545,9 +545,9 @@ goto :search
         throw Exception('Bootloader files cache not found. Re-run WIM customization.');
       }
       
-      // 5b. Copy installer app binaries to mediaDir/JossRedInstaller
+      // 5b. Copy installer app binaries to mediaDir/RequiemInstaller
       yield '  Deploying application binaries...';
-      final targetAppPath = p.join(mediaDir, 'JossRedInstaller');
+      final targetAppPath = p.join(mediaDir, 'RequiemInstaller');
       await Directory(targetAppPath).create(recursive: true);
 
       final excludeFile = File(p.join(_assetsTempDir, 'xcopy_exclude.txt'));
@@ -585,19 +585,19 @@ goto :search
       }
       yield '  ✓ $dllsCopied VC++ DLLs injected.';
 
-      // 5d. Write start.cmd directly to mediaDir/JossRedInstaller/start.cmd
+      // 5d. Write start.cmd directly to mediaDir/RequiemInstaller/start.cmd
       yield '  Writing start.cmd bootstrap script...';
-      const exeName = 'joss_red_installer.exe';
+      const exeName = 'requiem_tools.exe';
       final cmdContent = '''@echo off
 color 0B
 echo.
 echo ==========================================
-echo    JOSS RED INSTALLER - RUNNING PE SHELL
+echo    REQUIEM INSTALLER - RUNNING PE SHELL
 echo ==========================================
 echo.
 set ISO_DRIVE=%1
 echo ISO Drive detected as: %ISO_DRIVE%:
-cd /d %ISO_DRIVE%:\\JossRedInstaller
+cd /d %ISO_DRIVE%:\\RequiemInstaller
 echo Launching $exeName...
 $exeName
 set APP_EXIT_CODE=%errorlevel%

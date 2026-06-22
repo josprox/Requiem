@@ -18,13 +18,17 @@ void main() async {
       // Initialize window manager (only in normal Windows, not in WinPE)
       await windowManager.ensureInitialized();
 
-      WindowOptions windowOptions = const WindowOptions(
-        size: Size(1280, 720),
+      // Determine default title
+      final bool isLinuxOrWinPE = Platform.isLinux || isWinPE;
+      final String appTitle = isLinuxOrWinPE ? 'Requiem Installer' : 'Requiem Tools';
+
+      WindowOptions windowOptions = WindowOptions(
+        size: const Size(1280, 720),
         center: true,
         backgroundColor: Colors.transparent,
         skipTaskbar: false,
         titleBarStyle: TitleBarStyle.hidden,
-        title: 'Joss Red Installer',
+        title: appTitle,
       );
 
       windowManager.waitUntilReadyToShow(windowOptions, () async {
@@ -39,14 +43,14 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (_) => MainController(),
-      child: JossRedApp(startInDesktopToolsMode: !isWinPE && !Platform.isLinux),
+      child: RequiemApp(startInDesktopToolsMode: !isWinPE && !Platform.isLinux),
     ),
   );
 }
 
-class JossRedApp extends StatelessWidget {
+class RequiemApp extends StatelessWidget {
   final bool startInDesktopToolsMode;
-  const JossRedApp({
+  const RequiemApp({
     super.key,
     bool? startInBuilderMode,
     bool startInDesktopToolsMode = false,
@@ -55,10 +59,11 @@ class JossRedApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLinuxOrWinPE = Platform.isLinux || Directory('X:\\Windows').existsSync();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Joss Red Installer',
-      theme: JossRedTheme.darkTheme,
+      title: isLinuxOrWinPE ? 'Requiem Installer' : 'Requiem Tools',
+      theme: RequiemTheme.darkTheme,
       home: startInDesktopToolsMode
           ? const PostInstallScreen()
           : const LandingScreen(),

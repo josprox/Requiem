@@ -267,7 +267,7 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                   brightness: Brightness.dark,
                   backgroundColor: Colors.transparent,
                   title: Text(
-                    'JOSS RED MIGRATION TOOLS',
+                    'REQUIEM MIGRATION TOOLS',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w800,

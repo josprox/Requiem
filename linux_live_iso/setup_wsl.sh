@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# Joss Red Installer — WSL Environment Setup & Linux Compilation Script
+# Requiem Installer — WSL Environment Setup & Linux Compilation Script
 # Run this inside WSL (Ubuntu) to install Flutter and compile the Linux binary.
 # ==============================================================================
 set -e

@@ -544,7 +544,7 @@ class MainController extends ChangeNotifier {
 
       await _registryService.setOemBranding(
         windowsPath: windowsDir,
-        manufacturer: 'Joss Red Systems',
+        manufacturer: 'Requiem Systems',
         model: 'Hyperion v1',
         logoPath: 'C:\\Windows\\System32\\oemlogo.bmp',
       );

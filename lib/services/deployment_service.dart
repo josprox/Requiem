@@ -355,7 +355,7 @@ boot
     required String firmware,
     required List<String> logs,
   }) async {
-    const bcdSysDir = '/opt/joss_red_installer/bcd-sys/Linux';
+    const bcdSysDir = '/opt/requiem_installer/bcd-sys/Linux';
     const bcdSysScript = '$bcdSysDir/bcd-sys.sh';
     if (!Platform.isLinux || !File(bcdSysScript).existsSync()) {
       logs.add('BCD-SYS not found; using internal boot configuration.');
@@ -673,7 +673,7 @@ boot
 
       // 4. Patch BCD
       res = await _processService.run('python3', [
-        '/opt/joss_red_installer/tools/patch_bcd.py',
+        '/opt/requiem_installer/tools/patch_bcd.py',
         '--uefi',
         '$efiDir/EFI/Microsoft/Boot/BCD',
         espDevice,
@@ -870,7 +870,7 @@ boot
         // leaves the live kernel using stale partition metadata and can produce
         // a BIOS boot that stops at a black screen with a blinking cursor.
         res = await _processService.run('python3', [
-          '/opt/joss_red_installer/tools/patch_bcd.py',
+          '/opt/requiem_installer/tools/patch_bcd.py',
           '--legacy-bios',
           '$efiDir/Boot/BCD',
           bootDevice,

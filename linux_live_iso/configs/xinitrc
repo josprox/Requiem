@@ -1,15 +1,15 @@
 #!/bin/sh
 
-LOG_FILE=/var/log/joss-installer.log
-APP_BIN=/opt/joss_red_installer/joss_red_installer
+LOG_FILE=/var/log/requiem-installer.log
+APP_BIN=/opt/requiem_installer/requiem_installer
 
 {
   echo "============================================================"
-  echo "Joss Red Installer X session started: $(date -Iseconds)"
+  echo "Requiem Installer X session started: $(date -Iseconds)"
   echo "PATH=$PATH"
   echo "DISPLAY=$DISPLAY"
   echo "APP_BIN=$APP_BIN"
-  ls -la /opt/joss_red_installer || true
+  ls -la /opt/requiem_installer || true
   ldd "$APP_BIN" || true
   echo "============================================================"
 } >> "$LOG_FILE" 2>&1
@@ -32,7 +32,7 @@ APP_EXIT=$?
 
 {
   echo "============================================================"
-  echo "Joss Red Installer exited with code $APP_EXIT: $(date -Iseconds)"
+  echo "Requiem Installer exited with code $APP_EXIT: $(date -Iseconds)"
   echo "Last log lines:"
   tail -n 200 "$LOG_FILE" || true
   echo "============================================================"
@@ -43,7 +43,7 @@ if command -v xmessage >/dev/null 2>&1; then
 fi
 
 if command -v xterm >/dev/null 2>&1; then
-  xterm -geometry 140x40 -title "Joss Red Installer crash log" -e "tail -n 200 '$LOG_FILE'; echo; echo 'Press Enter to reboot or Ctrl+C to stay here.'; read _; reboot"
+  xterm -geometry 140x40 -title "Requiem Installer crash log" -e "tail -n 200 '$LOG_FILE'; echo; echo 'Press Enter to reboot or Ctrl+C to stay here.'; read _; reboot"
 fi
 
 # Fallback if neither xmessage nor xterm is available.

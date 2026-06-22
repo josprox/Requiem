@@ -53,7 +53,7 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                 brightness: Brightness.dark,
                 backgroundColor: Colors.transparent,
                 title: Text(
-                  'CREADOR DE ISO JOSS RED',
+                  'CREADOR DE ISO REQUIEM',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1),
                 ),
               ),
@@ -77,7 +77,7 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Automatiza la creación de un medio WinPE arrancable con Joss Red Installer preinyectado.',
+                          'Automatiza la creación de un medio WinPE arrancable con Requiem Installer preinyectado.',
                           style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 18),
                         ),
                         const SizedBox(height: 64),
@@ -109,7 +109,7 @@ class _IsoBuilderScreenState extends State<IsoBuilderScreen> {
                           label: 'Seleccionar dónde guardar la ISO',
                           onTap: () async {
                             String? result = await FilePicker.platform.saveFile(
-                              fileName: 'JossRedInstaller.iso',
+                              fileName: 'RequiemInstaller.iso',
                               allowedExtensions: ['iso'],
                             );
                             if (result != null) controller.setOutputPath(result);

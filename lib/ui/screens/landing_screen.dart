@@ -102,12 +102,14 @@ class _LandingScreenState extends State<LandingScreen>
                     const SizedBox(height: 64),
 
                     Text(
-                      'JOSS RED',
+                      (Platform.isLinux || Directory('X:\\Windows').existsSync())
+                          ? 'REQUIEM INSTALLER'
+                          : 'REQUIEM TOOLS',
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         color: Colors.white,
-                        fontSize: 100,
+                        fontSize: 60,
                         fontWeight: FontWeight.w900,
-                        letterSpacing: -2,
+                        letterSpacing: -1,
                       ),
                     ),
                     Row(
