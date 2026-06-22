@@ -41,12 +41,14 @@ class DeploymentService {
   Stream<DeploymentProgress> applyImage({
     required String imagePath,
     required String applyDir,
+    String? targetDevice,
     int index = 1,
     String? swmPattern,
   }) {
     return _provider.applyImage(
       imagePath: imagePath,
       applyDir: applyDir,
+      targetDevice: targetDevice,
       index: index,
       swmPattern: swmPattern,
     );

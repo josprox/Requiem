@@ -11,6 +11,7 @@ BUILD_DIR="/tmp/requiem_installer_iso_build"
 CHROOT_DIR="$BUILD_DIR/chroot"
 IMAGE_DIR="$BUILD_DIR/image"
 OUTPUT_ISO="$WORKSPACE_DIR/requiem_installer.iso"
+BCD_SYS_COMMIT="a2b63010835b10cb4f697d1872966d1c3c6e50ce" # v2.2
 
 echo "===================================================================="
 echo " Starting Requiem Linux Live ISO compilation pipeline"
@@ -30,6 +31,7 @@ sudo apt-get install -y \
     grub-efi-amd64-bin \
     mtools \
     curl \
+    git \
     tar \
     make \
     gcc \
@@ -156,9 +158,11 @@ sudo cp "$WORKSPACE_DIR/linux_live_iso/tools/patch_bcd.py" "$CHROOT_DIR/opt/requ
 sudo chmod +x "$CHROOT_DIR/opt/requiem_installer/tools/patch_bcd.py"
 
 # bcd-sys: Linux equivalent of bcdboot for generating Windows Boot Manager files.
-echo "Fetching BCD-SYS boot configuration utility..."
+echo "Fetching pinned BCD-SYS boot configuration utility..."
 cd "$BUILD_DIR"
-git clone --depth 1 --branch v2.2 https://github.com/jpz4085/BCD-SYS.git bcd-sys
+git clone https://github.com/jpz4085/BCD-SYS.git bcd-sys
+git -C bcd-sys checkout --detach "$BCD_SYS_COMMIT"
+test "$(git -C bcd-sys rev-parse HEAD)" = "$BCD_SYS_COMMIT"
 sudo mkdir -p "$CHROOT_DIR/opt/requiem_installer/bcd-sys"
 sudo cp -r "$BUILD_DIR/bcd-sys/Linux" "$CHROOT_DIR/opt/requiem_installer/bcd-sys/"
 sudo cp -r "$BUILD_DIR/bcd-sys/Resources" "$CHROOT_DIR/opt/requiem_installer/bcd-sys/"
@@ -185,6 +189,50 @@ sudo chroot "$CHROOT_DIR" bash -c '
         echo "ERROR: Missing runtime libraries for /opt/requiem_installer/requiem_installer"
         exit 1
     fi
+'
+
+echo "Step 8.6: Verifying Windows boot toolchain..."
+sudo chroot "$CHROOT_DIR" bash -c '
+    set -e
+
+    # Verificar que patch_bcd.py está instalado y es ejecutable
+    if [ ! -f /opt/requiem_installer/tools/patch_bcd.py ]; then
+        echo "ERROR: patch_bcd.py not found at /opt/requiem_installer/tools/patch_bcd.py"
+        exit 1
+    fi
+    echo "✓ patch_bcd.py found"
+
+    # Verificar que python3 está disponible
+    if ! command -v python3 &>/dev/null; then
+        echo "ERROR: python3 is not installed in the chroot"
+        exit 1
+    fi
+    echo "✓ python3: $(python3 --version)"
+
+    # Verificar que python3-hivex está instalado e importable
+    if ! python3 -c "import hivex; print(\"✓ python3-hivex importable\")" 2>&1; then
+        echo "ERROR: python3-hivex is not importable. BCD patching will fail."
+        exit 1
+    fi
+
+    # Verificar sintaxis de patch_bcd.py
+    if ! python3 -m py_compile /opt/requiem_installer/tools/patch_bcd.py; then
+        echo "ERROR: patch_bcd.py has syntax errors"
+        exit 1
+    fi
+    echo "✓ patch_bcd.py syntax OK"
+
+    # Verificar herramientas de boot críticas
+    for tool in efibootmgr sgdisk mkfs.vfat mkfs.ntfs partprobe udevadm blkid; do
+        if ! command -v "$tool" &>/dev/null; then
+            echo "ERROR: Missing critical boot tool: $tool"
+            exit 1
+        fi
+        echo "✓ $tool found"
+    done
+
+    echo ""
+    echo "All Windows boot toolchain components verified successfully."
 '
 
 # 9. Copy Linux Kernel and Initrd outside squashfs for booting

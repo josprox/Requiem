@@ -31,7 +31,7 @@ class ProcessService {
       executable,
       arguments,
       workingDirectory: workingDirectory,
-      runInShell: true,
+      runInShell: false,
     );
 
     // Stream stdout and stderr interleaved
@@ -72,7 +72,7 @@ class ProcessService {
           if (processExited || closed) return;
           terminalTimeoutHit = true;
           addLine(
-            '[WARN] Command reached terminal output but did not exit; continuing after ${terminalOutputGrace.inSeconds}s.',
+            '[ERR] Command reached terminal output but did not exit after ${terminalOutputGrace.inSeconds}s; the process was terminated.',
           );
           process.kill();
           unawaited(closeController());
@@ -140,7 +140,7 @@ class ProcessService {
             executable,
             arguments,
             workingDirectory: workingDirectory,
-            runInShell: true,
+            runInShell: false,
             stdoutEncoding: const SystemEncoding(),
             stderrEncoding: const SystemEncoding(),
           ).timeout(

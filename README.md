@@ -9,7 +9,7 @@
 
 * **Despliegue Multi-Plataforma**: Diseñado para correr en un entorno autónomo Linux Live ISO (Debian Bookworm) y en modo utilitario post-instalación (Desktop Tools) sobre Windows.
 * **Particionado Autónomo**: Soporte completo para esquemas de partición GPT (UEFI) y MBR (Legacy BIOS) de forma automatizada mediante `parted` y `sfdisk`.
-* **Escritura Directa de WIM/SWM**: Despliegue de imágenes del sistema operativo Windows con la potencia de `wimlib-imagex`.
+* **Escritura Directa de WIM/SWM**: Despliegue al volumen NTFS desmontado con `wimlib-imagex`, preservando ACL, ADS, reparse points y metadatos NTFS.
 * **Configurador de Arranque en Linux**: Reconstrucción del almacén BCD y configuración de UEFI Boot Manager y registros MBR/VBR mediante scripts híbridos (`BCD-SYS`, `patch_bcd.py` con `hivex` y `ms-sys`).
 * **Integración y Ajuste OEM**: Inyección directa de información del fabricante, logos corporativos, variables de entorno y controladores de almacenamiento esenciales en las colmenas offline de Windows.
 * **Consola de Post-Instalación**: Automatización de activaciones KMS (Windows y Office) e instalación masiva de programas de desarrollo usando `winget`.
@@ -26,7 +26,9 @@
 ### Backend & Sistema (Live ISO)
 * **Debian Bookworm (Base Live)**: Entorno mínimo bootstrap montado en memoria RAM usando `live-boot`.
 * **Gestor Gráfico Ligero**: Xorg Server con el gestor de ventanas Openbox configurado en pantalla completa sin decoraciones.
-* **Comandos del Sistema**: `parted`, `sfdisk`, `ntfs-3g`, `wimtools`, `efibootmgr`, `ms-sys`.
+* **Comandos del Sistema**: `sgdisk`, `parted`, `sfdisk`, `ntfs-3g`, `wimtools`, `efibootmgr`, `hivex`, `sbverify` y `ms-sys`.
+
+El flujo técnico, sus validaciones previas al reinicio y las limitaciones conocidas están documentados en [`docs/instalacion_windows_desde_linux.md`](docs/instalacion_windows_desde_linux.md).
 * **Edición del Registro (Python + hivex)**: Manipulación de registros binarios mediante `hivexregedit` y Python con enlace nativo a `hivex` para evitar API de Microsoft.
 
 ---

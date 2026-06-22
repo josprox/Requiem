@@ -62,3 +62,5 @@ temp_assets/
 # Ignorar instalador de Inno Setup compilado
 inno/*.exe
 
+
+/tmp

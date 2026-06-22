@@ -13,6 +13,7 @@ class LinuxDeploymentProvider implements DeploymentProvider {
   Stream<DeploymentProgress> applyImage({
     required String imagePath,
     required String applyDir,
+    String? targetDevice,
     int index = 1,
     String? swmPattern,
   }) async* {
@@ -25,7 +26,19 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       return;
     }
 
-    final List<String> args = ['apply', imagePath, index.toString(), applyDir];
+    final destination = targetDevice ?? applyDir;
+    if (targetDevice != null) {
+      yield DeploymentProgress(
+        -1,
+        'Applying WIM directly to NTFS volume $targetDevice (metadata-preserving mode).',
+      );
+    }
+    final List<String> args = [
+      'apply',
+      imagePath,
+      index.toString(),
+      destination,
+    ];
 
     if (swmPattern != null) {
       args.add('--ref=$swmPattern');
@@ -34,13 +47,7 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     final progressRegex = RegExp(r'(\d+)%');
     double lastPercent = 0;
 
-    final stream = _processService.runStreaming(
-      'wimlib-imagex',
-      args,
-      terminalOutputMatcher: (line) =>
-          progressRegex.hasMatch(line) && line.contains('100%'),
-      terminalOutputGrace: const Duration(seconds: 45),
-    );
+    final stream = _processService.runStreaming('wimlib-imagex', args);
 
     await for (final line in stream) {
       final trimmed = line.trim();
@@ -112,122 +119,234 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       logs.add('ESP device: $espDevice');
       logs.add('Windows device: $windowsDevice');
 
+      if (!Directory('/sys/firmware/efi').existsSync()) {
+        return fail(
+          'The live installer was not booted in UEFI mode. A GPT/UEFI target cannot be finalized from a legacy BIOS session.',
+        );
+      }
+      if (!Directory('/sys/firmware/efi/efivars').existsSync()) {
+        return fail(
+          'UEFI runtime variables are unavailable. Reboot the standard UEFI installer entry without efi=noruntime.',
+        );
+      }
+
+      final espFsType = await _getFilesystemType(espDevice);
+      if (espFsType != 'vfat' && espFsType != 'fat32') {
+        return fail('ESP filesystem is "$espFsType" instead of FAT32/vfat.');
+      }
+      logs.add('Validated ESP filesystem: $espFsType.');
+
+      // ── Verificar que el WIM contiene archivos de arranque EFI ────────────
+      final bootEfiDir = await _findBootEfiDir(windowsDir);
+      if (bootEfiDir == null) {
+        return fail(
+          'Windows/Boot/EFI is missing from the applied image. The selected WIM does not contain UEFI boot files.',
+        );
+      }
+      logs.add('Windows EFI boot source: $bootEfiDir');
+
+      // ── Intentar BCD-SYS primero (solución completa y robusta) ────────────
+      final bcdSysRes = await _runBcdSys(
+        windowsDir: windowsDir,
+        systemDir: efiDir,
+        firmware: 'uefi',
+        logs: logs,
+      );
+      if (bcdSysRes?.exitCode == 0) {
+        logs.add('BCD-SYS generated a clean UEFI BCD store and boot files.');
+        // Asegurar fallback BOOTX64.EFI incluso con BCD-SYS
+        await _ensureFallbackBootx64(efiDir, logs);
+        return _finalizeUefiBoot(
+          efiDir: efiDir,
+          espDevice: espDevice,
+          windowsDevice: windowsDevice,
+          logs: logs,
+        );
+      }
+      logs.add(
+        'WARNING: BCD-SYS UEFI setup failed; using internal EFI/BCD installer.',
+      );
+
+      // ── Crear estructura de directorios EFI ───────────────────────────────
+      // NOTA: Usar mayúsculas exactas para máxima compatibilidad con firmware.
       var res = await _processService.run('mkdir', [
         '-p',
         '$efiDir/EFI/Microsoft/Boot',
       ]);
       if (res.exitCode != 0) {
-        return fail('Could not create Microsoft EFI boot directory.', res);
+        return fail('Could not create EFI/Microsoft/Boot directory.', res);
       }
-      res = await _processService.run('mkdir', ['-p', '$efiDir/EFI/Boot']);
+      // EFI/BOOT (mayúsculas) es el directorio de fallback estándar UEFI Spec
+      res = await _processService.run('mkdir', ['-p', '$efiDir/EFI/BOOT']);
       if (res.exitCode != 0) {
-        return fail('Could not create fallback EFI boot directory.', res);
+        return fail('Could not create EFI/BOOT fallback directory.', res);
       }
 
-      res = await _processService.run('sh', [
-        '-c',
-        'cp -r "$windowsDir/Boot/EFI/"* "$efiDir/EFI/Microsoft/Boot/"',
+      // ── Copiar archivos EFI completos desde el WIM ────────────────────────
+      // cp -a preserva atributos y es recursivo. El '.' al final copia el
+      // contenido del directorio, no el directorio en sí.
+      res = await _processService.run('cp', [
+        '-a',
+        '$bootEfiDir/.',
+        '$efiDir/EFI/Microsoft/Boot/',
       ]);
       if (res.exitCode != 0) {
         return fail(
-          'Could not copy Windows EFI boot files. This WIM may not contain Windows/Boot/EFI.',
+          'Could not copy Windows EFI boot files from $bootEfiDir.',
           res,
         );
       }
-      logs.add('Copied Windows EFI boot files.');
+      logs.add('Copied Windows EFI boot files from $bootEfiDir.');
 
+      // ── Localizar bootmgfw.efi (Windows Boot Manager principal) ──────────
       final efiBootManager = await _findFirstExistingCaseInsensitive([
         '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi',
-        '$efiDir/EFI/Microsoft/Boot/bootmgr.efi',
-        '$windowsDir/Boot/EFI/bootmgfw.efi',
-        '$windowsDir/Boot/EFI/bootmgr.efi',
+        '$bootEfiDir/bootmgfw.efi',
       ]);
       if (efiBootManager == null) {
         return fail(
-          'Could not find bootmgfw.efi or bootmgr.efi. This WIM looks like a BIOS/MBR backup; use Format MBR or boot the VM in BIOS firmware.',
+          'Could not find bootmgfw.efi after copy. The WIM does not contain a valid Windows UEFI boot manager.',
         );
       }
+      logs.add('Located bootmgfw.efi: $efiBootManager');
 
-      logs.add('Using EFI boot manager: $efiBootManager');
+      // Garantizar que el archivo está en la ubicación canónica
+      if (!File('$efiDir/EFI/Microsoft/Boot/bootmgfw.efi').existsSync() ||
+          File('$efiDir/EFI/Microsoft/Boot/bootmgfw.efi').lengthSync() == 0) {
+        res = await _processService.run('cp', [
+          efiBootManager,
+          '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi',
+        ]);
+        if (res.exitCode != 0) {
+          return fail('Could not place bootmgfw.efi in EFI/Microsoft/Boot.', res);
+        }
+      }
+
+      // ── Fallback BOOTX64.EFI (estándar UEFI §3.4.1) ──────────────────────
+      // La spec UEFI requiere que el firmware busque /EFI/BOOT/BOOTX64.EFI
+      // cuando no hay entradas NVRAM. Esto garantiza el arranque incluso
+      // si efibootmgr falla por NVRAM bloqueada por OEM.
       res = await _processService.run('cp', [
-        efiBootManager,
         '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi',
+        '$efiDir/EFI/BOOT/BOOTX64.EFI',
       ]);
       if (res.exitCode != 0) {
-        return fail('Could not create EFI/Microsoft/Boot/bootmgfw.efi.', res);
+        // No fatal — NVRAM entry puede ser suficiente
+        logs.add('WARNING: Could not create EFI/BOOT/BOOTX64.EFI fallback: ${res.stderr.trim()}');
+      } else {
+        logs.add('Created UEFI fallback: EFI/BOOT/BOOTX64.EFI.');
       }
 
-      res = await _processService.run('cp', [
-        efiBootManager,
-        '$efiDir/EFI/Boot/bootx64.efi',
-      ]);
-      if (res.exitCode != 0) {
-        return fail('Could not create fallback EFI bootx64.efi.', res);
+      // ── Seleccionar fuente BCD ────────────────────────────────────────────
+      // ORDEN CRÍTICO (error 0xc000000e si se usa BCD-Template vacío primero):
+      //   1. Boot/DVD/EFI/BCD  → BCD con OS Loader entries funcionales
+      //   2. Boot/BCD          → BCD preexistente del WIM
+      //   3. BCD-Template      → Plantilla VACÍA sin OS Loader (último recurso)
+      //
+      // Si se usa BCD-Template, patch_bcd.py debe inyectar entries completos.
+      final bcdSourceCandidates = [
+        '$windowsDir/Boot/DVD/EFI/BCD',
+        '$windowsDir/Boot/BCD',
+        '$windowsDir/System32/Config/BCD-Template',
+      ];
+      final String bcdDestination = '$efiDir/EFI/Microsoft/Boot/BCD';
+
+      // Determinar cuál fuente BCD está disponible
+      String? bcdSourceUsed;
+      bool bcdIsTemplate = false;
+      for (final candidate in bcdSourceCandidates) {
+        if (File(candidate).existsSync() && File(candidate).lengthSync() > 0) {
+          bcdSourceUsed = candidate;
+          bcdIsTemplate = candidate.endsWith('BCD-Template');
+          break;
+        }
       }
-      logs.add('Created fallback EFI/Boot/bootx64.efi.');
+
+      if (bcdSourceUsed == null) {
+        return fail(
+          'No BCD source found in the WIM image. Checked: $bcdSourceCandidates',
+        );
+      }
+      logs.add('BCD source: $bcdSourceUsed (isTemplate=$bcdIsTemplate)');
 
       final bcdCopied = await _copyFirstExisting(
-        [
-          '$windowsDir/System32/Config/BCD-Template',
-          '$windowsDir/Boot/DVD/EFI/BCD',
-          '$windowsDir/Boot/BCD',
-        ],
-        '$efiDir/EFI/Microsoft/Boot/BCD',
+        [bcdSourceUsed],
+        bcdDestination,
         logs,
       );
       if (!bcdCopied) {
-        return fail('Could not find or copy a BCD template.');
+        return fail('Could not copy BCD from $bcdSourceUsed to $bcdDestination.');
       }
 
-      res = await _processService.run('python3', [
-        '/opt/requiem_installer/tools/patch_bcd.py',
-        '--uefi',
-        '$efiDir/EFI/Microsoft/Boot/BCD',
-        espDevice,
-        windowsDevice,
-      ]);
-      if (res.exitCode != 0) {
-        return fail('BCD patching failed.', res);
-      }
-      logs.add('BCD patched successfully.');
-
-      final match = RegExp(
-        r'^(/dev/nvme\d+n\d+|/dev/sd[a-z])p?(\d+)$',
-      ).firstMatch(espDevice);
-      if (match != null) {
-        final disk = match.group(1)!;
-        final part = match.group(2)!;
-        logs.add('Registering UEFI entry on disk $disk partition $part.');
-
-        await _processService.run('sh', [
-          '-c',
-          'efibootmgr | grep "Windows Boot Manager" | cut -d" " -f1 | cut -d"t" -f2 | cut -d"*" -f1 | xargs -I {} efibootmgr -b {} -B',
-        ]);
-
-        res = await _processService.run('efibootmgr', [
-          '-c',
-          '-d',
-          disk,
-          '-p',
-          part,
-          '-L',
-          'Windows Boot Manager',
-          '-l',
-          '\\EFI\\Microsoft\\Boot\\bootmgfw.efi',
-        ]);
-        if (res.exitCode != 0) {
-          logs.add(
-            'WARNING: efibootmgr failed. Fallback bootx64.efi was still created.',
+      // ── Parchear BCD con UUIDs de partición correctos ─────────────────────
+      final patchScript = _findPatchBcdScript();
+      if (patchScript == null) {
+        logs.add(
+          'WARNING: patch_bcd.py not found. BCD may be unconfigured. Trying locate=custom fallback.',
+        );
+        // Fallback: inyectar locate=custom vía script Python inline
+        final locateRes = await _injectLocateCustomBcd(bcdDestination, logs);
+        if (!locateRes) {
+          return fail(
+            'BCD patching unavailable and locate=custom injection failed. '
+            'Windows cannot boot without a valid BCD.',
           );
-          if (res.stderr.trim().isNotEmpty) {
-            logs.add('efibootmgr stderr: ${res.stderr.trim()}');
-          }
         }
       } else {
-        logs.add('WARNING: Could not parse ESP device for efibootmgr.');
+        // Modo principal: parchear BCD con UUIDs reales
+        // Si es BCD-Template, necesitamos --create-minimal-bcd
+        List<String> patchArgs;
+        if (bcdIsTemplate) {
+          patchArgs = [
+            patchScript,
+            '--create-minimal-bcd',
+            bcdDestination,
+            espDevice,
+            windowsDevice,
+          ];
+        } else {
+          patchArgs = [
+            patchScript,
+            '--uefi',
+            bcdDestination,
+            espDevice,
+            windowsDevice,
+          ];
+        }
+
+        res = await _processService.run('python3', patchArgs);
+        if (res.exitCode != 0) {
+          logs.add(
+            'WARNING: patch_bcd.py failed (exit ${res.exitCode}). '
+            'Trying locate=custom fallback to allow boot on any disk.',
+          );
+          if (res.stdout.trim().isNotEmpty) logs.add('patch_bcd stdout: ${res.stdout.trim()}');
+          if (res.stderr.trim().isNotEmpty) logs.add('patch_bcd stderr: ${res.stderr.trim()}');
+
+          // Fallback: locate=custom — permite que bootmgfw.efi encuentre
+          // winload.efi escaneando todos los discos (Estrategia B del PDF)
+          final locateRes = await _injectLocateCustomBcd(bcdDestination, logs);
+          if (!locateRes) {
+            return fail(
+              'BCD patching and locate=custom fallback both failed. '
+              'stdout: ${res.stdout.trim()} | stderr: ${res.stderr.trim()}',
+              res,
+            );
+          }
+        } else {
+          logs.add('BCD patched successfully with real partition UUIDs.');
+          if (res.stdout.trim().isNotEmpty) {
+            logs.add('patch_bcd: ${res.stdout.trim()}');
+          }
+        }
       }
 
-      return BootloaderResult(true, logs);
+      return _finalizeUefiBoot(
+        efiDir: efiDir,
+        espDevice: espDevice,
+        windowsDevice: windowsDevice,
+        logs: logs,
+      );
     } else {
       // Legacy BIOS
       if (windowsDevice == null) {
@@ -282,6 +401,16 @@ class LinuxDeploymentProvider implements DeploymentProvider {
             const ProcessResult(127, '', 'BCD-SYS is not installed.');
         if (bcdSysRes.exitCode == 0) {
           logs.add('BCD-SYS configured BIOS boot successfully.');
+          final validation = await _processService.run('python3', [
+            '/opt/requiem_installer/tools/patch_bcd.py',
+            '--validate-bios',
+            '$efiDir/Boot/BCD',
+            windowsDevice,
+          ]);
+          if (validation.exitCode != 0) {
+            return fail('BCD-SYS BIOS store validation failed.', validation);
+          }
+          logs.add('Validated BIOS BCD store and target partition references.');
           await _processService.run('sync', []);
           await _processService.run('blockdev', ['--flushbufs', bcdSysDisk]);
           return BootloaderResult(true, logs);
@@ -376,6 +505,17 @@ class LinuxDeploymentProvider implements DeploymentProvider {
           logs.add('BCD patch stdout: ${res.stdout.trim()}');
         }
 
+        res = await _processService.run('python3', [
+          '/opt/requiem_installer/tools/patch_bcd.py',
+          '--validate-bios',
+          '$efiDir/Boot/BCD',
+          windowsDevice,
+        ]);
+        if (res.exitCode != 0) {
+          return fail('BIOS BCD validation failed.', res);
+        }
+        logs.add('Validated BIOS BCD store and target partition references.');
+
         final windowsRootDir = Directory(windowsDir).parent.absolute.path;
         final bootRootDir = Directory(efiDir).absolute.path;
         final windowsRootBootmgr = File('$windowsRootDir/bootmgr');
@@ -419,6 +559,229 @@ class LinuxDeploymentProvider implements DeploymentProvider {
 
       return BootloaderResult(true, logs);
     }
+  }
+
+  Future<BootloaderResult> _finalizeUefiBoot({
+    required String efiDir,
+    required String espDevice,
+    required String windowsDevice,
+    required List<String> logs,
+  }) async {
+    BootloaderResult fail(String message, [ProcessResult? result]) {
+      logs.add('ERROR: $message');
+      if (result != null && result.stdout.trim().isNotEmpty) {
+        logs.add('stdout: ${result.stdout.trim()}');
+      }
+      if (result != null && result.stderr.trim().isNotEmpty) {
+        logs.add('stderr: ${result.stderr.trim()}');
+      }
+      return BootloaderResult(false, logs);
+    }
+
+    final microsoftBootManager = await _findFirstExistingCaseInsensitive([
+      '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi',
+    ]);
+    if (microsoftBootManager == null ||
+        File(microsoftBootManager).lengthSync() == 0) {
+      return fail('EFI/Microsoft/Boot/bootmgfw.efi is missing or empty.');
+    }
+
+    final fallbackDir = '$efiDir/EFI/BOOT';
+    var res = await _processService.run('mkdir', ['-p', fallbackDir]);
+    if (res.exitCode != 0) {
+      return fail('Could not create the UEFI fallback directory.', res);
+    }
+    res = await _processService.run('cp', [
+      microsoftBootManager,
+      '$fallbackDir/BOOTX64.EFI',
+    ]);
+    if (res.exitCode != 0) {
+      return fail('Could not create EFI/BOOT/BOOTX64.EFI.', res);
+    }
+    logs.add('Validated Microsoft boot manager and fallback BOOTX64.EFI.');
+
+    final bcdPath = '$efiDir/EFI/Microsoft/Boot/BCD';
+    final bcdFile = File(bcdPath);
+    if (!bcdFile.existsSync() || bcdFile.lengthSync() == 0) {
+      return fail('EFI/Microsoft/Boot/BCD is missing or empty.');
+    }
+    res = await _processService.run('python3', [
+      '/opt/requiem_installer/tools/patch_bcd.py',
+      '--validate-uefi',
+      bcdPath,
+      windowsDevice,
+    ]);
+    if (res.exitCode != 0) {
+      return fail('Offline BCD validation failed.', res);
+    }
+    logs.add('Validated BCD hive and Windows loader device references.');
+    if (res.stdout.trim().isNotEmpty) {
+      logs.add('BCD validation: ${res.stdout.trim()}');
+    }
+
+    final disk = _parentDiskFromPartition(espDevice);
+    final part = _partitionNumberFromPath(espDevice);
+    if (disk == null || part == null) {
+      return fail(
+        'Could not resolve the parent disk and ESP partition number.',
+      );
+    }
+
+    res = await _processService.run('sgdisk', ['--info=$part', disk]);
+    if (res.exitCode != 0 ||
+        !res.stdout.toUpperCase().contains(
+          'C12A7328-F81F-11D2-BA4B-00A0C93EC93B',
+        )) {
+      return fail(
+        'Partition $espDevice is not typed as an EFI System Partition.',
+        res,
+      );
+    }
+    logs.add('Validated GPT EFI System Partition type GUID.');
+
+    final signatureTool = await _processService.run('which', ['sbverify']);
+    if (signatureTool.exitCode == 0) {
+      final signature = await _processService.run('sbverify', [
+        '--list',
+        microsoftBootManager,
+      ]);
+      if (signature.exitCode == 0) {
+        logs.add('Microsoft EFI signature is present (Secure Boot candidate).');
+      } else {
+        logs.add(
+          'WARNING: sbverify could not confirm a signature on bootmgfw.efi; Secure Boot may reject this WIM.',
+        );
+      }
+    }
+
+    final registered = await _registerUefiBootEntry(
+      disk: disk,
+      part: part,
+      espDevice: espDevice,
+      logs: logs,
+    );
+    if (!registered) {
+      return fail(
+        'Windows Boot Manager could not be registered and verified in UEFI NVRAM. The fallback file exists, but automatic reboot is blocked.',
+      );
+    }
+
+    await _processService.run('sync', []);
+    await _processService.run('blockdev', ['--flushbufs', disk]);
+    logs.add('UEFI boot files, BCD, NVRAM and disk buffers validated.');
+    return BootloaderResult(true, logs);
+  }
+
+  Future<bool> _registerUefiBootEntry({
+    required String disk,
+    required String part,
+    required String espDevice,
+    required List<String> logs,
+  }) async {
+    final partUuidResult = await _processService.run('blkid', [
+      '-s',
+      'PARTUUID',
+      '-o',
+      'value',
+      espDevice,
+    ]);
+    final partUuid = partUuidResult.stdout.trim().toLowerCase();
+    if (partUuidResult.exitCode != 0 || partUuid.isEmpty) {
+      logs.add('ERROR: Could not read the ESP PARTUUID for NVRAM validation.');
+      return false;
+    }
+
+    Future<({ProcessResult result, String? bootNumber})> inspect() async {
+      final result = await _processService.run('efibootmgr', ['-v']);
+      if (result.exitCode != 0) return (result: result, bootNumber: null);
+
+      final compactUuid = partUuid.replaceAll('-', '');
+      for (final line in result.stdout.split('\n')) {
+        final normalized = line.toLowerCase().replaceAll('-', '');
+        final hasLabel = normalized.contains('windows boot manager');
+        final hasPartition = normalized.contains(compactUuid);
+        final hasLoader = normalized.contains(
+          r'\efi\microsoft\boot\bootmgfw.efi',
+        );
+        if (hasLabel && hasPartition && hasLoader) {
+          final match = RegExp(
+            r'^Boot([0-9A-Fa-f]{4})',
+          ).firstMatch(line.trim());
+          return (result: result, bootNumber: match?.group(1)?.toUpperCase());
+        }
+      }
+      return (result: result, bootNumber: null);
+    }
+
+    var inspection = await inspect();
+    if (inspection.result.exitCode != 0) {
+      logs.add('efibootmgr -v failed: ${inspection.result.stderr.trim()}');
+      return false;
+    }
+
+    if (inspection.bootNumber == null) {
+      logs.add('Creating Windows Boot Manager NVRAM entry.');
+      final create = await _processService.run('efibootmgr', [
+        '--create',
+        '--disk',
+        disk,
+        '--part',
+        part,
+        '--label',
+        'Windows Boot Manager',
+        '--loader',
+        r'\EFI\Microsoft\Boot\bootmgfw.efi',
+      ]);
+      if (create.exitCode != 0) {
+        logs.add('efibootmgr create failed: ${create.stderr.trim()}');
+        return false;
+      }
+      inspection = await inspect();
+    }
+
+    final bootNumber = inspection.bootNumber;
+    if (bootNumber == null) {
+      logs.add(
+        'ERROR: The created UEFI entry did not resolve to the target ESP.',
+      );
+      return false;
+    }
+
+    final orderMatch = RegExp(
+      r'^BootOrder:\s*([^\r\n]+)',
+      multiLine: true,
+    ).firstMatch(inspection.result.stdout);
+    if (orderMatch != null) {
+      final existing = orderMatch
+          .group(1)!
+          .split(',')
+          .map((value) => value.trim().toUpperCase())
+          .where((value) => value.isNotEmpty && value != bootNumber)
+          .toList();
+      final wantedOrder = [bootNumber, ...existing].join(',');
+      final setOrder = await _processService.run('efibootmgr', [
+        '--bootorder',
+        wantedOrder,
+      ]);
+      if (setOrder.exitCode != 0) {
+        logs.add(
+          'efibootmgr boot-order update failed: ${setOrder.stderr.trim()}',
+        );
+        return false;
+      }
+    }
+
+    final finalInspection = await inspect();
+    if (finalInspection.bootNumber != bootNumber) {
+      logs.add(
+        'ERROR: Windows Boot Manager NVRAM verification did not persist.',
+      );
+      return false;
+    }
+    logs.add(
+      'Verified Boot$bootNumber on $disk partition $part -> \\EFI\\Microsoft\\Boot\\bootmgfw.efi.',
+    );
+    return true;
   }
 
   @override
@@ -651,7 +1014,9 @@ class LinuxDeploymentProvider implements DeploymentProvider {
         }
         return res;
       }
-      logs.add('WARNING: ms-sys --fat32nt --partition failed; trying --fat32nt.');
+      logs.add(
+        'WARNING: ms-sys --fat32nt --partition failed; trying --fat32nt.',
+      );
       logs.add('ms-sys --fat32nt --partition stderr: ${res.stderr.trim()}');
       res = await _processService.run('ms-sys', ['--fat32nt', targetDevice]);
       if (res.exitCode == 0) return res;
@@ -797,5 +1162,215 @@ boot
       logs.add('BCD-SYS stderr: ${res.stderr.trim()}');
     }
     return res;
+  }
+
+  // ── Busca el directorio Boot/EFI dentro del Windows instalado ──────────────
+  // Maneja variaciones de capitalización en el WIM (Windows/boot/efi vs
+  // Windows/Boot/EFI) que ocurren en distintas versiones del instalador.
+  Future<String?> _findBootEfiDir(String windowsDir) async {
+    final candidates = [
+      '$windowsDir/Boot/EFI',
+      '$windowsDir/Boot/efi',
+      '$windowsDir/boot/EFI',
+      '$windowsDir/boot/efi',
+    ];
+    for (final candidate in candidates) {
+      if (Directory(candidate).existsSync()) return candidate;
+    }
+    // Búsqueda recursiva case-insensitive si las rutas exactas fallan
+    try {
+      final bootDir = await _findCaseInsensitiveDir(windowsDir, 'Boot');
+      if (bootDir == null) return null;
+      final efiDir = await _findCaseInsensitiveDir(bootDir, 'EFI');
+      return efiDir;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<String?> _findCaseInsensitiveDir(
+    String parentPath,
+    String targetName,
+  ) async {
+    final parent = Directory(parentPath);
+    if (!parent.existsSync()) return null;
+    try {
+      await for (final entity in parent.list()) {
+        if (entity is Directory &&
+            p.basename(entity.path).toLowerCase() == targetName.toLowerCase()) {
+          return entity.path;
+        }
+      }
+    } catch (_) {}
+    return null;
+  }
+
+  // ── Localiza patch_bcd.py en las posibles rutas de instalación ─────────────
+  // Busca en orden: ruta absoluta del instalador, directorio del ejecutable,
+  // ruta del sistema, y directorio de trabajo actual.
+  String? _findPatchBcdScript() {
+    final candidates = [
+      '/opt/requiem_installer/tools/patch_bcd.py',
+      // Ruta relativa al ejecutable Flutter compilado
+      '${p.dirname(Platform.resolvedExecutable)}/tools/patch_bcd.py',
+      '${p.dirname(Platform.resolvedExecutable)}/data/flutter_assets/assets/tools/patch_bcd.py',
+      // Ruta del sistema (útil en desarrollo)
+      '/usr/local/bin/patch_bcd.py',
+      '/usr/bin/patch_bcd.py',
+    ];
+    for (final candidate in candidates) {
+      if (File(candidate).existsSync()) return candidate;
+    }
+    return null;
+  }
+
+  // ── Garantiza que EFI/BOOT/BOOTX64.EFI existe ─────────────────────────────
+  // La spec UEFI §3.4.1 define /EFI/BOOT/BOOTX64.EFI como la ruta de arranque
+  // por defecto cuando no existen entradas NVRAM. Es el seguro contra NVRAM
+  // bloqueada por OEM o efibootmgr fallido.
+  Future<void> _ensureFallbackBootx64(
+    String efiDir,
+    List<String> logs,
+  ) async {
+    final fallbackDir = '$efiDir/EFI/BOOT';
+    final fallbackPath = '$fallbackDir/BOOTX64.EFI';
+    final sourcePath = '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi';
+
+    if (!File(sourcePath).existsSync()) {
+      logs.add('WARNING: Cannot create BOOTX64.EFI — bootmgfw.efi not found.');
+      return;
+    }
+
+    await _processService.run('mkdir', ['-p', fallbackDir]);
+    final res = await _processService.run('cp', [sourcePath, fallbackPath]);
+    if (res.exitCode == 0) {
+      logs.add('Fallback UEFI path ensured: EFI/BOOT/BOOTX64.EFI.');
+    } else {
+      logs.add('WARNING: Could not create EFI/BOOT/BOOTX64.EFI: ${res.stderr.trim()}');
+    }
+  }
+
+  // ── Inyecta locate=custom en el BCD como fallback robusto ─────────────────
+  // Implementa la Estrategia B del PDF técnico. El parámetro locate=custom
+  // en los elementos 11000001 (device) y 21000001 (osdevice) del BCD instruye
+  // a bootmgfw.efi para que escanee todos los dispositivos de bloque en busca
+  // de la cadena \Windows\system32\winload.efi definida en el elemento 12000002,
+  // eliminando completamente la dependencia del PARTUUID específico.
+  //
+  // Ventaja: funciona en hardware nuevo (NVMe), viejo (SATA), y en VMs.
+  // Riesgo: en discos con múltiples instalaciones Windows arrancará la primera
+  // que encuentre (no necesariamente la que instalamos). Aceptable para uso
+  // con disco limpio (instalación desde cero).
+  Future<bool> _injectLocateCustomBcd(
+    String bcdPath,
+    List<String> logs,
+  ) async {
+    if (!File(bcdPath).existsSync() || File(bcdPath).lengthSync() == 0) {
+      logs.add('ERROR: BCD not found at $bcdPath for locate=custom injection.');
+      return false;
+    }
+
+    // Script Python inline que inyecta locate=custom usando python3-hivex
+    // El valor 0x12000002 del elemento 12000002 es el path del loader y ya
+    // contiene \Windows\system32\winload.efi en el BCD-Template.
+    // Los elementos 11000001 (device) y 21000001 (osdevice) se reescriben
+    // con el tipo "custom" que indica a bootmgfw.efi que busque el loader.
+    const inlineScript = r"""
+import sys
+import struct
+
+try:
+    import hivex
+except ImportError:
+    print("ERROR: python3-hivex not installed")
+    sys.exit(1)
+
+bcd_path = sys.argv[1]
+
+# Valor binario para locate=custom:12000002
+# Esto es un device element de tipo 0 (custom/locate) con el sub-elemento
+# 12000002 codificado en little-endian como referencia de localización.
+# Formato: header(0x10) + locate_type(4) + sub_element(4) + padding(8) = 0x20
+def make_locate_custom_element():
+    data = bytearray(0x20)
+    # Type=0 (custom/locate device), flags=0
+    struct.pack_into('<I', data, 0x00, 0)
+    struct.pack_into('<I', data, 0x04, 0)
+    struct.pack_into('<I', data, 0x08, 0x20)  # size
+    struct.pack_into('<I', data, 0x0C, 0)
+    # Locate type: 0 = custom, sub-element = 0x12000002
+    struct.pack_into('<I', data, 0x10, 0)
+    struct.pack_into('<I', data, 0x14, 0x12000002)
+    return bytes(data)
+
+locate_data = make_locate_custom_element()
+
+try:
+    h = hivex.Hivex(bcd_path, write=True)
+    root = h.root()
+
+    objects_node = None
+    for child in h.node_children(root):
+        if h.node_name(child).lower() == "objects":
+            objects_node = child
+            break
+
+    if objects_node is None:
+        print("ERROR: Objects key not found in BCD")
+        sys.exit(1)
+
+    patched = 0
+    for obj in h.node_children(objects_node):
+        elements_node = None
+        for child in h.node_children(obj):
+            if h.node_name(child).lower() == "elements":
+                elements_node = child
+                break
+        if elements_node is None:
+            continue
+
+        for el in h.node_children(elements_node):
+            el_name = h.node_name(el)
+            if el_name in ["11000001", "21000001"]:
+                try:
+                    val = h.node_get_value(el, "Element")
+                    if val:
+                        h.node_set_value(el, {"key": "Element", "t": 3, "value": locate_data})
+                        print(f"Injected locate=custom into {h.node_name(obj)}/Elements/{el_name}")
+                        patched += 1
+                except Exception as e:
+                    print(f"Warning: Could not patch {el_name}: {e}")
+
+    if patched == 0:
+        print("ERROR: No device elements found to inject locate=custom")
+        sys.exit(1)
+
+    h.commit(None)
+    print(f"locate=custom injected into {patched} elements. bootmgfw.efi will scan all disks.")
+    sys.exit(0)
+
+except Exception as e:
+    print(f"ERROR: {e}")
+    sys.exit(1)
+""";
+
+    // Escribir el script en un archivo temporal con nombre único
+    final scriptPath = '/tmp/inject_locate_custom_${DateTime.now().millisecondsSinceEpoch}.py';
+    try {
+      await File(scriptPath).writeAsString(inlineScript);
+      final res = await _processService.run('python3', [scriptPath, bcdPath]);
+      if (res.stdout.trim().isNotEmpty) logs.add('locate=custom: ${res.stdout.trim()}');
+      if (res.stderr.trim().isNotEmpty) logs.add('locate=custom stderr: ${res.stderr.trim()}');
+      if (res.exitCode == 0) {
+        logs.add('BCD locate=custom injected. bootmgfw.efi will scan all disks for winload.efi.');
+        return true;
+      }
+      logs.add('ERROR: locate=custom injection failed (exit ${res.exitCode}).');
+      return false;
+    } finally {
+      try {
+        if (File(scriptPath).existsSync()) await File(scriptPath).delete();
+      } catch (_) {}
+    }
   }
 }

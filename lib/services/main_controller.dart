@@ -31,8 +31,6 @@ class MainController extends ChangeNotifier {
   bool installationComplete = false;
   bool installationFailed = false;
 
-
-
   // Auto-detected install.wim path
   String? detectedWimPath;
   bool isSearchingWim = false;
@@ -62,13 +60,16 @@ class MainController extends ChangeNotifier {
       return true;
     }
     if (bootedInUefi!) return mode == PartitionMode.formatGpt;
-    return mode == PartitionMode.formatGpt || mode == PartitionMode.formatMbr;
+    return mode == PartitionMode.formatMbr;
   }
 
   String? partitionModeBlockReason(PartitionMode mode) {
     if (isPartitionModeCompatible(mode)) return null;
     if (bootedInUefi == true && mode == PartitionMode.formatMbr) {
       return 'This live session booted in UEFI. Use GPT or reboot the VM in legacy BIOS.';
+    }
+    if (bootedInUefi == false && mode == PartitionMode.formatGpt) {
+      return 'This live session booted in legacy BIOS. Reboot the installer in UEFI mode before creating a GPT/UEFI Windows installation.';
     }
     return null;
   }
@@ -141,18 +142,34 @@ class MainController extends ChangeNotifier {
 
     // Define target directories depending on OS
     final String applyDir = isLinux ? '/mnt/windows' : 'W:\\';
-    final String bootDrive = isLinux
+    String bootDrive = isLinux
         ? (partitionMode == PartitionMode.formatGpt
               ? '/mnt/efi'
               : '/mnt/windows')
         : (partitionMode == PartitionMode.formatGpt ? 'S:' : 'W:');
     final String windowsDir = isLinux ? '/mnt/windows/Windows' : 'W:\\Windows';
+    var targetIsUefi = partitionMode == PartitionMode.formatGpt;
+    String? espPart;
+    String? winPart;
 
     Future<void> cleanupTargetMounts() async {
       if (!isLinux) return;
       await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
       await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
       await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
+    }
+
+    Future<String?> mountedDevice(String mountPoint) async {
+      final result = await _diskService.processService.run('findmnt', [
+        '--noheadings',
+        '--output',
+        'SOURCE',
+        '--target',
+        mountPoint,
+      ]);
+      if (result.exitCode != 0) return null;
+      final source = result.stdout.trim().split('\n').first.trim();
+      return source.startsWith('/dev/') ? source : null;
     }
 
     Future<void> failInstallation(String status, String message) async {
@@ -168,11 +185,6 @@ class MainController extends ChangeNotifier {
     bootedInUefi = _diskService.currentBootIsUefi();
     if (bootedInUefi != null) {
       addLog('Firmware boot mode: $bootFirmwareLabel');
-      if (bootedInUefi == false && partitionMode == PartitionMode.formatGpt) {
-        addLog(
-          'BIOS live session with GPT target: UEFI fallback boot files will be created. Switch the VM firmware to UEFI before booting Windows.',
-        );
-      }
     }
     final blockReason = partitionModeBlockReason(partitionMode);
     if (blockReason != null) {
@@ -189,7 +201,7 @@ class MainController extends ChangeNotifier {
 
       try {
         if (isLinux) {
-          addLog('Partitioning disk using parted...');
+          addLog('Partitioning disk with Windows GPT/MBR type codes...');
           final success = await _diskService.prepareDiskLinux(
             selectedDisk!,
             partitionMode,
@@ -203,12 +215,10 @@ class MainController extends ChangeNotifier {
           }
           addLog('  ✓ Disk partitioned successfully.');
 
-          // Mount partitions
-          addLog('Mounting target partitions...');
-          final espPart = selectedDisk!.devicePath.contains(RegExp(r'\d$'))
+          espPart = selectedDisk!.devicePath.contains(RegExp(r'\d$'))
               ? '${selectedDisk!.devicePath}p1'
               : '${selectedDisk!.devicePath}1';
-          final winPart = partitionMode == PartitionMode.formatGpt
+          winPart = partitionMode == PartitionMode.formatGpt
               ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
                     ? '${selectedDisk!.devicePath}p3'
                     : '${selectedDisk!.devicePath}3')
@@ -230,46 +240,7 @@ class MainController extends ChangeNotifier {
           await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
           await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
 
-          // Mount Windows Partition
-          var mountRes = await _diskService.processService.run('mount', [
-            winPart,
-            '/mnt/windows',
-          ]);
-          if (mountRes.exitCode != 0) {
-            mountRes = await _diskService.processService.run('mount', [
-              '-t',
-              'ntfs-3g',
-              winPart,
-              '/mnt/windows',
-            ]);
-            if (mountRes.exitCode != 0) {
-              await failInstallation(
-                'Mount Error',
-                'ERROR: Could not mount Windows partition: ${mountRes.stderr}',
-              );
-              return;
-            }
-          }
-
-          if (partitionMode == PartitionMode.formatGpt) {
-            // Mount ESP
-            final mountEspRes = await _diskService.processService.run('mount', [
-              espPart,
-              '/mnt/efi',
-            ]);
-            if (mountEspRes.exitCode != 0) {
-              await failInstallation(
-                'Mount Error',
-                'ERROR: Could not mount ESP partition: ${mountEspRes.stderr}',
-              );
-              return;
-            }
-          }
-          addLog(
-            partitionMode == PartitionMode.formatGpt
-                ? '  ✓ Partitions mounted at /mnt/windows and /mnt/efi.'
-                : '  ✓ Windows partition mounted at /mnt/windows.',
-          );
+          addLog('Target volumes are unmounted for block-level WIM apply.');
         } else {
           // Windows diskpart execution
           addLog('Generating DiskPart script...');
@@ -302,9 +273,28 @@ class MainController extends ChangeNotifier {
     } else {
       addLog('Using existing partition layout (no format).');
       if (isLinux) {
-        addLog(
-          'Assumes target is already mounted at /mnt/windows (and /mnt/efi for GPT).',
-        );
+        winPart = await mountedDevice('/mnt/windows');
+        espPart = await mountedDevice('/mnt/efi');
+        if (winPart == null) {
+          await failInstallation(
+            'Mount Error',
+            'ERROR: /mnt/windows is not backed by a block-device partition.',
+          );
+          return;
+        }
+
+        targetIsUefi = espPart != null;
+        bootDrive = targetIsUefi ? '/mnt/efi' : '/mnt/windows';
+        if (bootedInUefi != null && bootedInUefi != targetIsUefi) {
+          await failInstallation(
+            'Firmware Mismatch',
+            'ERROR: The existing target layout does not match the firmware mode used to boot this live session.',
+          );
+          return;
+        }
+
+        await cleanupTargetMounts();
+        addLog('Existing target volumes unmounted for block-level WIM apply.');
       }
     }
 
@@ -325,6 +315,7 @@ class MainController extends ChangeNotifier {
     final progressStream = _deploymentService.applyImage(
       imagePath: resolvedWim,
       applyDir: applyDir,
+      targetDevice: isLinux ? winPart : null,
       swmPattern: swmPattern,
     );
 
@@ -353,12 +344,85 @@ class MainController extends ChangeNotifier {
     if (isLinux) {
       currentStatus = 'Syncing filesystem...';
       installProgress = 0.82;
-      addLog('Syncing filesystem writes...');
+      addLog('Syncing filesystem writes (this may take a minute)...');
       notifyListeners();
       await _diskService.processService.run(
         'sync',
         [],
-        timeout: const Duration(minutes: 3),
+        timeout: const Duration(minutes: 5),
+      );
+
+      // Flush kernel write buffers en el disco padre
+      // Crítico: wimlib-imagex escribe directamente al bloque. Sin flush,
+      // el kernel puede no haber comprometido todos los inodos al disco.
+      final parentDisk = winPart!.replaceAll(RegExp(r'p?\d+$'), '');
+      addLog('Flushing disk buffers on $parentDisk...');
+      await _diskService.processService.run('blockdev', [
+        '--flushbufs',
+        parentDisk,
+      ]);
+
+      // Sincronizar device nodes con la tabla de particiones real
+      addLog('Waiting for device nodes to settle...');
+      await _diskService.processService.run('partprobe', [parentDisk]);
+      await _diskService.processService.run('udevadm', ['settle']);
+      await Future<void>.delayed(const Duration(seconds: 2));
+
+      addLog('Mounting the applied Windows volume...');
+      var mountRes = await _diskService.processService.run('mount', [
+        '-t',
+        'ntfs3',
+        winPart!,
+        '/mnt/windows',
+      ]);
+      if (mountRes.exitCode != 0) {
+        mountRes = await _diskService.processService.run('mount', [
+          '-t',
+          'ntfs-3g',
+          winPart!,
+          '/mnt/windows',
+        ]);
+      }
+      if (mountRes.exitCode != 0) {
+        await failInstallation(
+          'Mount Error',
+          'ERROR: Could not mount the applied Windows volume: ${mountRes.stderr}',
+        );
+        return;
+      }
+
+      if (!Directory('/mnt/windows/Windows').existsSync()) {
+        await failInstallation(
+          'Image Error',
+          'ERROR: WIM apply returned success but /mnt/windows/Windows is missing.',
+        );
+        return;
+      }
+
+      if (targetIsUefi) {
+        if (espPart == null) {
+          await failInstallation(
+            'Mount Error',
+            'ERROR: GPT/UEFI target has no resolved ESP device.',
+          );
+          return;
+        }
+        final mountEspRes = await _diskService.processService.run('mount', [
+          espPart!,
+          '/mnt/efi',
+        ]);
+        if (mountEspRes.exitCode != 0) {
+          await failInstallation(
+            'Mount Error',
+            'ERROR: Could not mount the EFI System Partition: ${mountEspRes.stderr}',
+          );
+          return;
+        }
+      }
+      addLog(
+        targetIsUefi
+            ? 'Target mounted at /mnt/windows; ESP mounted at /mnt/efi.'
+            : 'Target mounted at /mnt/windows.',
       );
     }
 
@@ -368,27 +432,12 @@ class MainController extends ChangeNotifier {
     addLog('Running Bootloader setup...');
     notifyListeners();
 
-    final isGpt = partitionMode == PartitionMode.formatGpt;
-
-    final espPart = isLinux
-        ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-              ? '${selectedDisk!.devicePath}p1'
-              : '${selectedDisk!.devicePath}1')
-        : null;
-    final winPart = isLinux
-        ? (partitionMode == PartitionMode.formatGpt
-              ? (selectedDisk!.devicePath.contains(RegExp(r'\d$'))
-                    ? '${selectedDisk!.devicePath}p3'
-                    : '${selectedDisk!.devicePath}3')
-              : espPart)
-        : null;
-
     final bootloaderResult = await _deploymentService.configureBootloader(
       windowsDir,
       bootDrive,
-      uefi: isGpt,
-      bios: !isGpt,
-      espDevice: isGpt ? espPart : winPart,
+      uefi: targetIsUefi,
+      bios: !targetIsUefi,
+      espDevice: targetIsUefi ? espPart : winPart,
       windowsDevice: winPart,
     );
     for (final line in bootloaderResult.logs) {
@@ -506,6 +555,4 @@ class MainController extends ChangeNotifier {
       await _diskService.processService.run('shutdown.exe', ['/r', '/t', '0']);
     }
   }
-
-
 }

@@ -4,6 +4,7 @@ abstract class DeploymentProvider {
   Stream<DeploymentProgress> applyImage({
     required String imagePath,
     required String applyDir,
+    String? targetDevice,
     int index = 1,
     String? swmPattern,
   });

@@ -392,6 +392,142 @@ def normalize_windows_loader_path(hive, obj_name, elements_node, firmware_mode):
     set_string_element(hive, path_node, wanted_path)
     return True
 
+def partition_payloads(raw):
+    data = bytearray(raw)
+    if len(data) < 0x20:
+        return
+
+    packet_offsets = [0x10]
+    try:
+        if read_u32(data, 0x10) == 0:
+            packet_offsets.append(0x20)
+    except ValueError:
+        return
+
+    for packet_offset in packet_offsets:
+        try:
+            if read_u32(data, packet_offset) != 6:
+                continue
+        except ValueError:
+            continue
+        payload_offset = packet_offset + 0x10
+        if len(data) >= payload_offset + 0x38:
+            yield data[payload_offset:payload_offset + 0x38]
+
+def partition_payload_matches(
+    raw,
+    is_gpt,
+    disk_sig,
+    part_sig,
+    offset_bytes,
+):
+    for payload in partition_payloads(raw):
+        style = read_u32(payload, 0x14)
+        if is_gpt:
+            if (
+                style == 0
+                and bytes(payload[0x00:0x10]) == part_sig
+                and bytes(payload[0x18:0x28]) == disk_sig
+            ):
+                return True
+        else:
+            stored_offset = struct.unpack("<Q", payload[0x00:0x08])[0]
+            if (
+                style == 1
+                and stored_offset == offset_bytes
+                and bytes(payload[0x18:0x1c]) == disk_sig
+            ):
+                return True
+    return False
+
+def validate_bcd(bcd_path, windows_device, firmware_mode):
+    if not os.path.exists(bcd_path) or os.path.getsize(bcd_path) == 0:
+        print(f"Error: BCD file not found or empty at {bcd_path}")
+        return False
+
+    try:
+        win_is_gpt, win_disk_sig, win_part_sig, win_offset = get_part_info(
+            windows_device
+        )
+        hive = hivex.Hivex(bcd_path, write=False)
+        root = hive.root()
+    except Exception as error:
+        print(f"Error: BCD hive could not be opened: {error}")
+        return False
+
+    objects_node = None
+    for child in hive.node_children(root):
+        if hive.node_name(child).lower() == "objects":
+            objects_node = child
+            break
+    if objects_node is None:
+        print("Error: Objects subkey not found in BCD")
+        return False
+
+    boot_manager_found = False
+    valid_loaders = 0
+    for obj in hive.node_children(objects_node):
+        obj_name = hive.node_name(obj)
+        if obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}":
+            boot_manager_found = True
+
+        elements_node = None
+        for child in hive.node_children(obj):
+            if hive.node_name(child).lower() == "elements":
+                elements_node = child
+                break
+        if elements_node is None:
+            continue
+
+        patch_object, _reason = should_patch_object(
+            hive,
+            obj_name,
+            elements_node,
+        )
+        if not patch_object or obj_name.lower() == "{9dea862c-5cdd-4e70-acc1-f32b344d4795}":
+            continue
+
+        _, path_data = get_element_data(hive, elements_node, "12000002")
+        path = read_utf16le_text(path_data or b"").lower()
+        expected_loader = (
+            r"\windows\system32\winload.efi"
+            if firmware_mode == "uefi"
+            else r"\windows\system32\winload.exe"
+        )
+        if "winload" not in path or path != expected_loader:
+            continue
+
+        device_ok = True
+        for element_name in ["11000001", "21000001"]:
+            _node, raw = get_element_data(hive, elements_node, element_name)
+            if raw is None or not partition_payload_matches(
+                raw,
+                win_is_gpt,
+                win_disk_sig,
+                win_part_sig,
+                win_offset,
+            ):
+                print(
+                    f"Error: {obj_name}/Elements/{element_name} does not "
+                    f"reference {windows_device}"
+                )
+                device_ok = False
+        if device_ok:
+            valid_loaders += 1
+
+    if not boot_manager_found:
+        print("Error: Windows Boot Manager object is missing")
+        return False
+    if valid_loaders == 0:
+        print("Error: no valid Windows loader entry references the target partition")
+        return False
+
+    print(
+        f"BCD valid: boot manager present, {valid_loaders} Windows loader(s) "
+        f"reference {windows_device}"
+    )
+    return True
+
 def patch_bcd(bcd_path, esp_device, windows_device, firmware_mode=None):
     print(f"Reading ESP device: {esp_device}")
     esp_is_gpt, esp_disk_sig, esp_part_sig, esp_offset = get_part_info(esp_device)
@@ -505,10 +641,222 @@ def patch_bcd(bcd_path, esp_device, windows_device, firmware_mode=None):
     return True
 
 if __name__ == "__main__":
+    if len(sys.argv) >= 4 and sys.argv[1] in ["--validate-uefi", "--validate-bios"]:
+        mode = "uefi" if sys.argv[1] == "--validate-uefi" else "legacy-bios"
+        success = validate_bcd(sys.argv[2], sys.argv[3], mode)
+        sys.exit(0 if success else 1)
+
     if len(sys.argv) >= 4 and sys.argv[1] == "--sync-mbr-signature":
         success = sync_mbr_disk_signature(sys.argv[2], sys.argv[3])
         sys.exit(0 if success else 1)
 
+    # ── Modo --create-minimal-bcd: inyecta un OS Loader real en un BCD-Template vacío ──
+    # Este modo maneja el caso en que la única fuente BCD disponible es BCD-Template,
+    # que no contiene entries de OS Loader funcionales. En lugar de fallar con
+    # "no Windows loader device entries were patched", este modo crea un BCD mínimo
+    # pero funcional inyectando los objetos necesarios con UUIDs reales.
+    if len(sys.argv) >= 4 and sys.argv[1] == "--create-minimal-bcd":
+        bcd_path = sys.argv[2]
+        esp_device = sys.argv[3]
+        windows_device = sys.argv[4] if len(sys.argv) >= 5 else sys.argv[3]
+
+        print(f"Creating minimal functional BCD from template: {bcd_path}")
+        print(f"ESP device: {esp_device}")
+        print(f"Windows device: {windows_device}")
+
+        if not os.path.exists(bcd_path) or os.path.getsize(bcd_path) == 0:
+            print(f"Error: BCD file not found or empty at {bcd_path}")
+            sys.exit(1)
+
+        # Primero intentar el parcheo normal (por si hay entries existentes)
+        print("Attempting standard patch first (BCD may not be a pure template)...")
+        success = patch_bcd(bcd_path, esp_device, windows_device, firmware_mode="uefi")
+        if success:
+            print("Standard patch succeeded on template.")
+            sys.exit(0)
+
+        print("Standard patch failed on template. Injecting minimal OS Loader entry...")
+
+        # Obtener info de particiones
+        esp_is_gpt, esp_disk_sig, esp_part_sig, esp_offset = get_part_info(esp_device)
+        win_is_gpt, win_disk_sig, win_part_sig, win_offset = get_part_info(windows_device)
+
+        if not win_is_gpt:
+            print("Error: --create-minimal-bcd only supports GPT targets")
+            sys.exit(1)
+
+        print(f"Windows GPT PTUUID: {win_disk_sig.hex()}, PARTUUID: {win_part_sig.hex()}")
+
+        # Construir el device element (partition device packet) para el Windows loader
+        def build_gpt_partition_device(disk_sig_bin, part_sig_bin):
+            """Construye un BCD device element para una partición GPT."""
+            # Estructura completa: 0x10 (header) + 0x48 (packet) = 0x58 bytes
+            data = bytearray(0x58)
+            # Header: type=0, flags=0, total_size=0x58, reserved=0
+            struct.pack_into('<I', data, 0x00, 0)         # type
+            struct.pack_into('<I', data, 0x04, 0)         # flags
+            struct.pack_into('<I', data, 0x08, 0x58)      # total size
+            struct.pack_into('<I', data, 0x0C, 0)         # reserved
+            # Partition packet at offset 0x10:
+            # type=6 (partition device), flags=0, packet_size=0x48, reserved=0
+            struct.pack_into('<I', data, 0x10, 6)         # packet type (partition)
+            struct.pack_into('<I', data, 0x14, 0)         # flags
+            struct.pack_into('<I', data, 0x18, 0x48)      # packet size
+            struct.pack_into('<I', data, 0x1C, 0)         # reserved
+            # Partition payload at offset 0x20:
+            # PARTUUID (16 bytes) + padding(4) + style(4=GPT=0) + PTUUID(16) + padding(16)
+            data[0x20:0x30] = part_sig_bin                # PARTUUID
+            struct.pack_into('<I', data, 0x30, 0)         # padding
+            struct.pack_into('<I', data, 0x34, 0)         # style: 0=GPT
+            data[0x38:0x48] = disk_sig_bin                # PTUUID
+            # padding 0x48-0x58 already zeroed
+            return bytes(data)
+
+        win_device_data = build_gpt_partition_device(win_disk_sig, win_part_sig)
+        esp_device_data = build_gpt_partition_device(esp_disk_sig, esp_part_sig)
+
+        # Loader path and systemroot as UTF-16LE
+        winload_path = r"\Windows\system32\winload.efi"
+        systemroot = r"\Windows"
+        winload_path_utf16 = winload_path.encode('utf-16-le') + b'\x00\x00'
+        systemroot_utf16 = systemroot.encode('utf-16-le') + b'\x00\x00'
+
+        # GUID del OS Loader nuevo (aleatorio, compatible con Windows)
+        new_loader_guid = "{" + str(uuid.uuid4()) + "}"
+
+        # GUID del Boot Manager estándar de Windows
+        bootmgr_guid = "{9dea862c-5cdd-4e70-acc1-f32b344d4795}"
+
+        try:
+            h = hivex.Hivex(bcd_path, write=True)
+            root = h.root()
+
+            # Localizar Objects
+            objects_node = None
+            for child in h.node_children(root):
+                if h.node_name(child).lower() == "objects":
+                    objects_node = child
+                    break
+
+            if objects_node is None:
+                print("Error: Objects node not found in BCD template")
+                sys.exit(1)
+
+            # Crear nodo del nuevo OS Loader
+            loader_node = h.node_add_child(objects_node, new_loader_guid)
+            # Subkey Description
+            desc_node = h.node_add_child(loader_node, "Description")
+            h.node_set_value(desc_node, {"key": "Type", "t": 4,
+                                          "value": struct.pack('<I', 0x10200003)})
+            # Subkey Elements
+            elements_node = h.node_add_child(loader_node, "Elements")
+
+            # 11000001: device (Windows partition)
+            el_device = h.node_add_child(elements_node, "11000001")
+            h.node_set_value(el_device, {"key": "Element", "t": 3,
+                                          "value": win_device_data})
+
+            # 12000002: path to winload.efi
+            el_path = h.node_add_child(elements_node, "12000002")
+            h.node_set_value(el_path, {"key": "Element", "t": 1,
+                                        "value": winload_path_utf16})
+
+            # 21000001: osdevice (same as device for standard installs)
+            el_osdevice = h.node_add_child(elements_node, "21000001")
+            h.node_set_value(el_osdevice, {"key": "Element", "t": 3,
+                                            "value": win_device_data})
+
+            # 22000002: systemroot
+            el_sysroot = h.node_add_child(elements_node, "22000002")
+            h.node_set_value(el_sysroot, {"key": "Element", "t": 1,
+                                           "value": systemroot_utf16})
+
+            # 25000020: NX policy = OptIn (1)
+            el_nx = h.node_add_child(elements_node, "25000020")
+            h.node_set_value(el_nx, {"key": "Element", "t": 4,
+                                      "value": struct.pack('<Q', 3)})
+
+            # 26000022: WinPE = false
+            el_winpe = h.node_add_child(elements_node, "26000022")
+            h.node_set_value(el_winpe, {"key": "Element", "t": 4,
+                                         "value": struct.pack('<Q', 0)})
+
+            print(f"Created OS Loader entry: {new_loader_guid}")
+            print(f"  winload.efi path: {winload_path}")
+            print(f"  Windows partition: {win_part_sig.hex()}")
+
+            # Actualizar Boot Manager para incluir el nuevo loader en DisplayOrder
+            # El Boot Manager tiene GUID {9dea862c-5cdd-4e70-acc1-f32b344d4795}
+            bootmgr_node = None
+            for child in h.node_children(objects_node):
+                if h.node_name(child).lower() == bootmgr_guid:
+                    bootmgr_node = child
+                    break
+
+            if bootmgr_node:
+                mgr_elements = None
+                for child in h.node_children(bootmgr_node):
+                    if h.node_name(child).lower() == "elements":
+                        mgr_elements = child
+                        break
+
+                if mgr_elements:
+                    # Actualizar 11000001 (device) del boot manager con ESP device
+                    mgr_device_found = False
+                    for el in h.node_children(mgr_elements):
+                        if h.node_name(el) == "11000001":
+                            try:
+                                _, current = h.value_value(h.node_get_value(el, "Element"))
+                                patched_data, _ = patch_partition_packet(
+                                    current, esp_is_gpt, esp_disk_sig,
+                                    esp_part_sig, esp_offset, keep_boot_device=True
+                                )
+                                if patched_data:
+                                    set_binary_element(h, el, bytes(patched_data))
+                                    mgr_device_found = True
+                            except Exception:
+                                pass
+
+                    # Crear/actualizar 24000001 (DisplayOrder) con el nuevo loader GUID
+                    # El GUID se codifica como bytes en little-endian
+                    new_loader_uuid = uuid.UUID(new_loader_guid.strip('{}'))
+                    guid_bytes = (
+                        new_loader_uuid.time_low.to_bytes(4, 'little') +
+                        new_loader_uuid.time_mid.to_bytes(2, 'little') +
+                        new_loader_uuid.time_hi_version.to_bytes(2, 'little') +
+                        new_loader_uuid.bytes[8:16]
+                    )
+                    display_order_found = False
+                    for el in h.node_children(mgr_elements):
+                        if h.node_name(el) == "24000001":
+                            try:
+                                _, current = h.value_value(h.node_get_value(el, "Element"))
+                                # Agregar nuestro GUID al inicio si no está ya
+                                if guid_bytes not in current:
+                                    new_order = guid_bytes + current
+                                    h.node_set_value(el, {"key": "Element", "t": 3,
+                                                          "value": new_order})
+                                display_order_found = True
+                            except Exception:
+                                pass
+                    if not display_order_found:
+                        el_order = h.node_add_child(mgr_elements, "24000001")
+                        h.node_set_value(el_order, {"key": "Element", "t": 3,
+                                                     "value": guid_bytes})
+
+                    print(f"Boot Manager DisplayOrder updated with {new_loader_guid}")
+
+            h.commit(None)
+            print("Minimal BCD created successfully!")
+            sys.exit(0)
+
+        except Exception as e:
+            print(f"Error creating minimal BCD: {e}")
+            import traceback
+            traceback.print_exc()
+            sys.exit(1)
+
+    # ── Modo estándar de parcheo ────────────────────────────────────────────────
     args = sys.argv[1:]
     firmware_mode = None
     if args and args[0] in ["--legacy-bios", "--uefi"]:
@@ -516,7 +864,9 @@ if __name__ == "__main__":
 
     if len(args) < 3:
         print("Usage: patch_bcd.py [--legacy-bios|--uefi] <bcd_path> <esp_device> <windows_device>")
+        print("       patch_bcd.py --validate-uefi|--validate-bios <bcd_path> <windows_device>")
         print("       patch_bcd.py --sync-mbr-signature <bcd_path> <windows_device>")
+        print("       patch_bcd.py --create-minimal-bcd <bcd_path> <esp_device> <windows_device>")
         sys.exit(1)
         
     bcd = args[0]
@@ -525,3 +875,4 @@ if __name__ == "__main__":
     
     success = patch_bcd(bcd, esp, win, firmware_mode=firmware_mode)
     sys.exit(0 if success else 1)
+

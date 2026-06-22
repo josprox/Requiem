@@ -34,18 +34,22 @@ apt-get install -y --no-install-recommends \
     wimtools \
     ntfs-3g \
     parted \
+    gdisk \
     fdisk \
+    bsdextrautils \
     udev \
     efibootmgr \
     grub2-common \
     grub-pc-bin \
     libhivex-bin \
+    python3 \
     python3-hivex \
     libwin-hivex-perl \
     dosfstools \
     uuid-runtime \
     attr \
     fatattr \
+    sbsigntool \
     pev \
     sudo \
     xxd

@@ -173,68 +173,73 @@ class LinuxDiskProvider implements DiskProvider {
     // 1. Unmount all partitions
     await _unmountDiskPartitions(device);
 
+    // Remove stale filesystem/RAID signatures before creating a new table.
+    // A leftover hybrid MBR is enough to make some firmware select the wrong
+    // boot path even when the new GPT itself is valid.
+    var res = await _processService.run('wipefs', ['--all', '--force', device]);
+    if (res.exitCode != 0) {
+      debugPrint('wipefs failed for $device: ${res.stderr}');
+      return false;
+    }
+
     if (mode == PartitionMode.formatGpt) {
-      // Create GPT label
-      var res = await _processService.run('parted', [
-        '-s',
-        device,
-        'mklabel',
-        'gpt',
-      ]);
+      res = await _processService.run('sgdisk', ['--zap-all', device]);
       if (res.exitCode != 0) return false;
 
-      // Create ESP partition
-      res = await _processService.run('parted', [
-        '-s',
+      // Windows GPT layout: ESP, MSR, Windows, Recovery.  sgdisk is used
+      // instead of filesystem-name hints so every partition gets the exact
+      // Microsoft type GUID expected by Windows and UEFI firmware.
+      res = await _processService.run('sgdisk', [
+        '--clear',
+        '--set-alignment=2048',
+        '--new=1:0:+512M',
+        '--typecode=1:EF00',
+        '--change-name=1:EFI System',
+        '--new=2:0:+16M',
+        '--typecode=2:0C01',
+        '--change-name=2:Microsoft Reserved',
+        '--new=3:0:-1024M',
+        '--typecode=3:0700',
+        '--change-name=3:Windows',
+        '--new=4:0:0',
+        '--typecode=4:2700',
+        '--change-name=4:Windows Recovery',
+        '--attributes=4:set:0',
+        '--attributes=4:set:63',
         device,
-        'mkpart',
-        'ESP',
-        'fat32',
-        '1MiB',
-        '513MiB',
-      ]);
-      if (res.exitCode != 0) return false;
-
-      // Set ESP flag
-      res = await _processService.run('parted', [
-        '-s',
-        device,
-        'set',
-        '1',
-        'esp',
-        'on',
-      ]);
-      if (res.exitCode != 0) return false;
-
-      // Create MSR partition
-      res = await _processService.run('parted', [
-        '-s',
-        device,
-        'mkpart',
-        'MSR',
-        '513MiB',
-        '641MiB',
-      ]);
-      if (res.exitCode != 0) return false;
-
-      // Create Primary partition
-      res = await _processService.run('parted', [
-        '-s',
-        device,
-        'mkpart',
-        'Basic_data_partition',
-        'ntfs',
-        '641MiB',
-        '100%',
       ]);
       if (res.exitCode != 0) return false;
 
       // Wait for device nodes to settle
+      await _processService.run('partprobe', [device]);
+      await _processService.run('udevadm', ['trigger']);
       await _processService.run('udevadm', ['settle']);
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 2));
+      // Segunda pasada para NVMe que puede ser más lento en actualizar device nodes
+      await _processService.run('udevadm', ['settle']);
 
       final espPart = _getPartitionDevice(device, 1);
       final winPart = _getPartitionDevice(device, 3);
+      final recoveryPart = _getPartitionDevice(device, 4);
+
+      // Verificar que los device nodes existen antes de formatear
+      if (!File(espPart).existsSync() ||
+          !File(winPart).existsSync() ||
+          !File(recoveryPart).existsSync()) {
+        debugPrint('Device nodes not ready after partprobe: $espPart, $winPart, $recoveryPart');
+        // Esperar extra y reintentar
+        await Future.delayed(const Duration(seconds: 3));
+        await _processService.run('partprobe', [device]);
+        await _processService.run('udevadm', ['settle']);
+        await Future.delayed(const Duration(seconds: 2));
+
+        if (!File(espPart).existsSync() ||
+            !File(winPart).existsSync() ||
+            !File(recoveryPart).existsSync()) {
+          debugPrint('Device nodes still not ready after retry. espPart=$espPart winPart=$winPart recovPart=$recoveryPart');
+          return false;
+        }
+      }
 
       // Format ESP (FAT32)
       res = await _processService.run('mkfs.vfat', [
@@ -248,16 +253,46 @@ class LinuxDiskProvider implements DiskProvider {
       // Format Windows partition (NTFS)
       res = await _processService.run('mkfs.ntfs', [
         '-f',
+        '-q',
         '-L',
         'Windows',
         winPart,
       ]);
       if (res.exitCode != 0) return false;
 
+      res = await _processService.run('mkfs.ntfs', [
+        '-f',
+        '-q',
+        '-L',
+        'Recovery',
+        recoveryPart,
+      ]);
+      if (res.exitCode != 0) return false;
+
+      res = await _processService.run('sgdisk', ['--verify', device]);
+      if (res.exitCode != 0) return false;
+
+      final typeChecks = <int, String>{
+        1: 'C12A7328-F81F-11D2-BA4B-00A0C93EC93B',
+        2: 'E3C9E316-0B5C-4DB8-817D-F92DF00215AE',
+        3: 'EBD0A0A2-B9E5-4433-87C0-68B6B72699C7',
+        4: 'DE94BBA4-06D1-4D40-A16A-BFD50179D6AC',
+      };
+      for (final entry in typeChecks.entries) {
+        if (!await _partitionHasTypeGuid(device, entry.key, entry.value)) {
+          return false;
+        }
+      }
+      if (await _filesystemType(espPart) != 'vfat' ||
+          await _filesystemType(winPart) != 'ntfs' ||
+          await _filesystemType(recoveryPart) != 'ntfs') {
+        return false;
+      }
+
       return true;
     } else if (mode == PartitionMode.formatMbr) {
       // Create MBR label
-      var res = await _processService.run('parted', [
+      res = await _processService.run('parted', [
         '-s',
         device,
         'mklabel',
@@ -319,12 +354,16 @@ class LinuxDiskProvider implements DiskProvider {
 
   @override
   String generateGptScript(int diskNumber) {
-    throw UnsupportedError('GPT diskpart scripting is only supported on Windows.');
+    throw UnsupportedError(
+      'GPT diskpart scripting is only supported on Windows.',
+    );
   }
 
   @override
   String generateMbrScript(int diskNumber) {
-    throw UnsupportedError('MBR diskpart scripting is only supported on Windows.');
+    throw UnsupportedError(
+      'MBR diskpart scripting is only supported on Windows.',
+    );
   }
 
   @override
@@ -396,6 +435,30 @@ class LinuxDiskProvider implements DiskProvider {
     final lastChar = diskPath.substring(diskPath.length - 1);
     final isDigit = RegExp(r'^\d$').hasMatch(lastChar);
     return isDigit ? '${diskPath}p$partNum' : '$diskPath$partNum';
+  }
+
+  Future<bool> _partitionHasTypeGuid(
+    String diskPath,
+    int partitionNumber,
+    String expectedGuid,
+  ) async {
+    final result = await _processService.run('sgdisk', [
+      '--info=$partitionNumber',
+      diskPath,
+    ]);
+    return result.exitCode == 0 &&
+        result.stdout.toUpperCase().contains(expectedGuid);
+  }
+
+  Future<String> _filesystemType(String devicePath) async {
+    final result = await _processService.run('blkid', [
+      '-s',
+      'TYPE',
+      '-o',
+      'value',
+      devicePath,
+    ]);
+    return result.exitCode == 0 ? result.stdout.trim().toLowerCase() : '';
   }
 
   Future<void> _unmountDiskPartitions(String diskPath) async {
