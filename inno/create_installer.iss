@@ -3,7 +3,11 @@
 ; Non-commercial use only
 
 #define MyAppName "Requiem Tools"
-#define MyAppVersion "1.0.0"
+#if FileExists("..\build\windows\x64\runner\Release\requiem_tools.exe")
+  #define MyAppVersion GetVersionNumbersString("..\build\windows\x64\runner\Release\requiem_tools.exe")
+#else
+  #define MyAppVersion "1.0.0"
+#endif
 #define MyAppPublisher "Joss Red"
 #define MyAppURL "https://joss.red"
 #define MyAppExeName "requiem_tools.exe"
@@ -41,6 +45,8 @@ OutputBaseFilename=Requiem Software
 SetupIconFile=..\assets\img\default.ico
 SolidCompression=yes
 WizardStyle=modern dynamic polar
+InfoBeforeFile=..\before_install.txt
+InfoAfterFile=..\after_install.txt
 
 [Languages]
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"

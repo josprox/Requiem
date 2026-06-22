@@ -57,4 +57,8 @@ dism_mount/
 winpe_base/
 temp_assets/
 /tools/
-assets/tools/
+
+
+# Ignorar instalador de Inno Setup compilado
+inno/*.exe
+
