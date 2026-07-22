@@ -144,6 +144,21 @@ def patch_partition_packet(
     packet_flags = read_u32(data, packet_offset + 4)
     packet_size = read_u32(data, packet_offset + 8)
 
+    if not keep_boot_device:
+        if packet_type != 6:
+            write_partition_packet(
+                data,
+                packet_offset,
+                is_gpt,
+                disk_sig,
+                part_sig,
+                offset_bytes,
+            )
+            # Update total size in the element header (offset 8) to 0x58
+            data[0x08:0x0c] = struct.pack("<I", 0x58)
+            data = data[:0x58]
+            return data, "converted device to partition device"
+
     if packet_type == 5:
         if keep_boot_device:
             return data, "left as [boot] device"
