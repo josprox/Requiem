@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../models/post_install_config.dart';
 import 'panel.dart';
 
 class RequiemActivationPanel extends StatelessWidget {

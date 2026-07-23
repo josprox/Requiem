@@ -20,9 +20,13 @@ add_executable(${BINARY_NAME} WIN32
 # that need different build settings.
 apply_standard_settings(${BINARY_NAME})
 
-# Force Administrator privileges (UAC requireAdministrator)
+# Release builds request elevation at startup. Debug must stay asInvoker so
+# `flutter run -d windows` can launch and attach the debugger normally.
 if(MSVC)
-  target_link_options(${BINARY_NAME} PRIVATE "/MANIFESTUAC:level='requireAdministrator' uiAccess='false'")
+  target_link_options(${BINARY_NAME} PRIVATE
+    "$<$<CONFIG:Debug>:/MANIFESTUAC:level='asInvoker' uiAccess='false'>"
+    "$<$<NOT:$<CONFIG:Debug>>:/MANIFESTUAC:level='requireAdministrator' uiAccess='false'>"
+  )
 endif()
 
 # Add preprocessor definitions for the build version.

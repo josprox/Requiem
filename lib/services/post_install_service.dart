@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -61,12 +62,47 @@ class PostInstallService {
     return result.exitCode == 0;
   }
 
+  Future<String?> checkKmsEndpoint(
+    String kmsHost, {
+    int port = 1688,
+  }) async {
+    try {
+      final addresses = await InternetAddress.lookup(
+        kmsHost,
+      ).timeout(const Duration(seconds: 8));
+      if (addresses.isEmpty) {
+        return 'El servidor KMS no tiene una direccion DNS valida.';
+      }
+      final socket = await Socket.connect(
+        kmsHost,
+        port,
+        timeout: const Duration(seconds: 8),
+      );
+      await socket.close();
+      return null;
+    } on SocketException catch (error) {
+      return 'No se puede conectar a $kmsHost:$port (${error.message}). '
+          'Revisa firewall, publicacion TCP y que el DNS no use proxy.';
+    } on TimeoutException {
+      return 'Tiempo de espera agotado al conectar con $kmsHost:$port. '
+          'El puerto TCP parece cerrado o filtrado.';
+    } catch (error) {
+      return 'No se pudo comprobar $kmsHost:$port: $error';
+    }
+  }
+
   Stream<String> activateWindowsKms({
     required String kmsHost,
     required bool createRenewalTask,
   }) async* {
     if (!Platform.isWindows) {
       yield 'Windows KMS solo se ejecuta en Windows.';
+      return;
+    }
+
+    final endpointError = await checkKmsEndpoint(kmsHost);
+    if (endpointError != null) {
+      yield 'ERROR KMS: $endpointError';
       return;
     }
 
@@ -116,6 +152,12 @@ class PostInstallService {
       return;
     }
 
+    final endpointError = await checkKmsEndpoint(kmsHost);
+    if (endpointError != null) {
+      yield 'ERROR KMS: $endpointError';
+      return;
+    }
+
     final osppFiles = _findOsppScripts();
     if (osppFiles.isEmpty) {
       yield 'No se encontró ospp.vbs. Office de volumen no parece estar instalado.';
@@ -129,8 +171,12 @@ class PostInstallService {
         '//nologo',
         ospp,
         '/sethst:$kmsHost',
-      ]);
-      yield* _runAndYield('cscript.exe', ['//nologo', ospp, '/setprt:1688']);
+      ], accessDeniedIsWarning: true);
+      yield* _runAndYield(
+        'cscript.exe',
+        ['//nologo', ospp, '/setprt:1688'],
+        accessDeniedIsWarning: true,
+      );
       yield* _runAndYield('cscript.exe', ['//nologo', ospp, '/act']);
     }
 
@@ -400,6 +446,7 @@ Get-ItemProperty $paths -ErrorAction SilentlyContinue |
     String? label,
     String? workingDirectory,
     Duration timeout = const Duration(minutes: 30),
+    bool accessDeniedIsWarning = false,
   }) async* {
     final result = await _processService.run(
       executable,
@@ -407,15 +454,34 @@ Get-ItemProperty $paths -ErrorAction SilentlyContinue |
       workingDirectory: workingDirectory,
       timeout: timeout,
     );
-    yield _formatResult(label ?? '$executable ${arguments.join(' ')}', result);
+    yield _formatResult(
+      label ?? '$executable ${arguments.join(' ')}',
+      result,
+      accessDeniedIsWarning: accessDeniedIsWarning,
+    );
   }
 
-  String _formatResult(String label, ProcessResult result) {
+  String _formatResult(
+    String label,
+    ProcessResult result, {
+    bool accessDeniedIsWarning = false,
+  }) {
     final output = [
       if (result.stdout.trim().isNotEmpty) result.stdout.trim(),
       if (result.stderr.trim().isNotEmpty) result.stderr.trim(),
     ].join('\n');
-    final status = result.exitCode == 0 ? 'OK' : 'ERROR ${result.exitCode}';
+    final licensingError = RegExp(
+      r'(ERROR CODE|ERROR DESCRIPTION|0xC004F[0-9A-F]+)',
+      caseSensitive: false,
+    ).hasMatch(output);
+    final accessDenied =
+        accessDeniedIsWarning &&
+        output.toUpperCase().contains('0X80070005');
+    final status = accessDenied
+        ? 'ADVERTENCIA (requiere administrador)'
+        : result.exitCode == 0 && !licensingError
+        ? 'OK'
+        : 'ERROR${result.exitCode == 0 ? '' : ' ${result.exitCode}'}';
     if (output.isEmpty) return '$label: $status';
     return '$label: $status\n$output';
   }

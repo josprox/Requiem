@@ -109,6 +109,13 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
       return;
     }
 
+    _log('Comprobando conectividad con $host:1688...');
+    final endpointError = await _service.checkKmsEndpoint(host);
+    if (endpointError != null) {
+      _log('ERROR KMS: $endpointError');
+      return;
+    }
+
     if (_windowsKms) {
       await for (final line in _service.activateWindowsKms(
         kmsHost: host,
