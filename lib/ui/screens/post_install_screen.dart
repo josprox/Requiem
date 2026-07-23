@@ -38,8 +38,6 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
   bool _installOffice = true;
   bool _renewalTask = true;
   int _navIndex = 0;
-  KmsProduct _windowsProduct = windowsKmsProducts.first;
-  KmsProduct _officeProduct = officeKmsProducts[1];
   OfficeDeploymentOption _officeDeployment = officeDeploymentOptions[1];
   final Set<String> _selectedPackages = {
     'vscode',
@@ -114,8 +112,7 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
     if (_windowsKms) {
       await for (final line in _service.activateWindowsKms(
         kmsHost: host,
-        product: _windowsProduct,
-        createRenewalTask: _renewalTask,
+        createRenewalTask: false,
       )) {
         _log(line);
       }
@@ -124,9 +121,13 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
     if (_officeKms) {
       await for (final line in _service.activateOfficeKms(
         kmsHost: host,
-        product: _officeProduct,
-        createRenewalTask: _renewalTask,
+        createRenewalTask: false,
       )) {
+        _log(line);
+      }
+    }
+    if (_renewalTask) {
+      await for (final line in _service.createKmsRenewalTask(kmsHost: host)) {
         _log(line);
       }
     }
@@ -332,17 +333,9 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
         windowsKms: _windowsKms,
         officeKms: _officeKms,
         renewalTask: _renewalTask,
-        windowsProduct: _windowsProduct,
-        officeProduct: _officeProduct,
         onWindowsKmsChanged: (value) => setState(() => _windowsKms = value),
         onOfficeKmsChanged: (value) => setState(() => _officeKms = value),
         onRenewalChanged: (value) => setState(() => _renewalTask = value),
-        onWindowsProductChanged: (value) {
-          if (value != null) setState(() => _windowsProduct = value);
-        },
-        onOfficeProductChanged: (value) {
-          if (value != null) setState(() => _officeProduct = value);
-        },
         onRun: _busy ? null : () => _run(_runKms),
       );
     } else if (_navIndex == 1) {
@@ -380,7 +373,6 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
           if (value == null) return;
           setState(() {
             _officeDeployment = value;
-            _officeProduct = value.kmsProduct;
           });
         },
         onRun: _busy ? null : () => _run(_installOfficeWithOdt),

@@ -7,13 +7,9 @@ class RequiemActivationPanel extends StatelessWidget {
   final bool windowsKms;
   final bool officeKms;
   final bool renewalTask;
-  final KmsProduct windowsProduct;
-  final KmsProduct officeProduct;
   final ValueChanged<bool> onWindowsKmsChanged;
   final ValueChanged<bool> onOfficeKmsChanged;
   final ValueChanged<bool> onRenewalChanged;
-  final ValueChanged<KmsProduct?> onWindowsProductChanged;
-  final ValueChanged<KmsProduct?> onOfficeProductChanged;
   final VoidCallback? onRun;
 
   const RequiemActivationPanel({
@@ -22,13 +18,9 @@ class RequiemActivationPanel extends StatelessWidget {
     required this.windowsKms,
     required this.officeKms,
     required this.renewalTask,
-    required this.windowsProduct,
-    required this.officeProduct,
     required this.onWindowsKmsChanged,
     required this.onOfficeKmsChanged,
     required this.onRenewalChanged,
-    required this.onWindowsProductChanged,
-    required this.onOfficeProductChanged,
     required this.onRun,
   });
 
@@ -79,27 +71,11 @@ class RequiemActivationPanel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: RequiemProductSelector(
-                  title: 'Windows',
-                  enabled: windowsKms,
-                  enabledLabel: 'Activar Windows',
-                  items: windowsKmsProducts,
-                  value: windowsProduct,
-                  onEnabledChanged: onWindowsKmsChanged,
-                  onChanged: onWindowsProductChanged,
-                ),
+                child: RequiemSwitchTile(title: 'Windows automatico', subtitle: 'Detecta edicion y GVLK compatible', value: windowsKms, color: scheme.primary, onChanged: onWindowsKmsChanged),
               ),
               const SizedBox(width: 14),
               Expanded(
-                child: RequiemProductSelector(
-                  title: 'Office existente',
-                  enabled: officeKms,
-                  enabledLabel: 'Activar Office instalado',
-                  items: officeKmsProducts,
-                  value: officeProduct,
-                  onEnabledChanged: onOfficeKmsChanged,
-                  onChanged: onOfficeProductChanged,
-                ),
+                child: RequiemSwitchTile(title: 'Office automatico', subtitle: 'Usa la GVLK de volumen ya instalada', value: officeKms, color: scheme.primary, onChanged: onOfficeKmsChanged),
               ),
             ],
           ),

@@ -22,6 +22,43 @@ class KmsProduct {
   const KmsProduct({required this.id, required this.name, required this.key});
 }
 
+KmsProduct? windowsKmsProductForEdition(String? editionId, int? build) {
+  if (editionId == null || build == null) return null;
+  final edition = editionId.toLowerCase();
+  if (edition.startsWith('core') || edition.contains('home') || edition.endsWith('eval')) {
+    return null;
+  }
+
+  final versioned = <String, KmsProduct>{
+    '9600:professional': const KmsProduct(id: 'win81_pro', name: 'Windows 8.1 Pro', key: 'GCRJD-8NW9H-F2CDX-CCM8D-9D6T9'),
+    '9600:enterprise': const KmsProduct(id: 'win81_enterprise', name: 'Windows 8.1 Enterprise', key: 'MHF9N-XY6XB-WVXMC-BTDCT-MKKG7'),
+    '9200:professional': const KmsProduct(id: 'win8_pro', name: 'Windows 8 Pro', key: 'NG4HW-VH26C-733KW-K6F98-J8CK4'),
+    '9200:enterprise': const KmsProduct(id: 'win8_enterprise', name: 'Windows 8 Enterprise', key: '32JNW-9KQ84-P47T8-D8GGY-CWCK7'),
+    '26100:serverstandard': const KmsProduct(id: 'server2025_standard', name: 'Windows Server 2025 Standard', key: 'TVRH6-WHNXV-R9WG3-9XRFY-MY832'),
+    '26100:serverdatacenter': const KmsProduct(id: 'server2025_datacenter', name: 'Windows Server 2025 Datacenter', key: 'D764K-2NDRG-47T6Q-P8T8W-YP6DF'),
+    '20348:serverstandard': const KmsProduct(id: 'server2022_standard', name: 'Windows Server 2022 Standard', key: 'VDYBN-27WPP-V4HQT-9VMD4-VMK7H'),
+    '20348:serverdatacenter': const KmsProduct(id: 'server2022_datacenter', name: 'Windows Server 2022 Datacenter', key: 'WX4NM-KYWYW-QJJR4-XV3QB-6VM33'),
+    '17763:serverstandard': const KmsProduct(id: 'server2019_standard', name: 'Windows Server 2019 Standard', key: 'N69G4-B89J2-4G8F4-WWYCC-J464C'),
+    '17763:serverdatacenter': const KmsProduct(id: 'server2019_datacenter', name: 'Windows Server 2019 Datacenter', key: 'WMDGN-G9PQG-XVVXX-R3X43-63DFG'),
+  }['$build:$edition'];
+  if (versioned != null) return versioned;
+  if (build < 10240) return null;
+
+  const modern = <String, KmsProduct>{
+    'professional': KmsProduct(id: 'win10_11_pro', name: 'Windows 10/11 Pro', key: 'W269N-WFGWX-YVC9B-4J6C9-T83GX'),
+    'professionaln': KmsProduct(id: 'win10_11_pro_n', name: 'Windows 10/11 Pro N', key: 'MH37W-N47XK-V7XM9-C7227-GCQG9'),
+    'professionalworkstation': KmsProduct(id: 'win10_11_workstations', name: 'Windows 10/11 Pro for Workstations', key: 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'),
+    'professionaleducation': KmsProduct(id: 'win10_11_pro_education', name: 'Windows 10/11 Pro Education', key: '6TP4R-GNPTD-KYYHQ-7B7DP-J447Y'),
+    'education': KmsProduct(id: 'win10_11_education', name: 'Windows 10/11 Education', key: 'NW6C2-QMPVW-D7KKK-3GKT6-VCFB2'),
+    'educationn': KmsProduct(id: 'win10_11_education_n', name: 'Windows 10/11 Education N', key: '2WH4N-8QGBV-H22JP-CT43Q-MDWWJ'),
+    'enterprise': KmsProduct(id: 'win10_11_enterprise', name: 'Windows 10/11 Enterprise', key: 'NPPR9-FWDCX-D2C8J-H872K-2YT43'),
+    'enterprisen': KmsProduct(id: 'win10_11_enterprise_n', name: 'Windows 10/11 Enterprise N', key: 'DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4'),
+    'enterpriseg': KmsProduct(id: 'win10_11_enterprise_g', name: 'Windows 10/11 Enterprise G', key: 'YYVX9-NTFWV-6MDM3-9PT4T-4M68B'),
+    'enterprisegn': KmsProduct(id: 'win10_11_enterprise_gn', name: 'Windows 10/11 Enterprise G N', key: '44RPN-FTY23-9VTTB-MP9BX-T84FV'),
+  };
+  return modern[edition];
+}
+
 class OfficeDeploymentOption {
   final String id;
   final String name;

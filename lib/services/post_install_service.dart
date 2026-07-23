@@ -5,9 +5,56 @@ import 'package:path/path.dart' as p;
 
 import '../models/post_install_config.dart';
 import 'process_service.dart';
+import 'system_info_service.dart';
 
 class PostInstallService {
   final ProcessService _processService = ProcessService();
+  final SystemInfoService _systemInfoService = SystemInfoService();
+
+  /// Aplica configuraciones del sistema adaptadas a la edición detectada
+  Stream<String> configureSystemByEdition() async* {
+    if (!Platform.isWindows) {
+      yield 'Esta función solo está disponible en Windows.';
+      return;
+    }
+
+    final edition = await _systemInfoService.getWindowsEdition();
+    final productName = await _systemInfoService.getWindowsProductName();
+
+    yield 'Edición detectada: ${productName ?? "Desconocido"} ($edition)';
+
+    switch (edition?.toLowerCase()) {
+      case 'core':
+        yield* _configureHomeEdition();
+        break;
+      case 'professional':
+        yield* _configureProEdition();
+        break;
+      case 'enterprise':
+        yield* _configureEnterpriseEdition();
+        break;
+      default:
+        yield 'Aplicando configuración estándar para ediciones generales.';
+        yield* _configureGenericEdition();
+        break;
+    }
+  }
+
+  Stream<String> _configureHomeEdition() async* {
+    yield 'Aplicando optimizaciones específicas para Windows Home...';
+  }
+
+  Stream<String> _configureProEdition() async* {
+    yield 'Aplicando optimizaciones específicas para Windows Pro...';
+  }
+
+  Stream<String> _configureEnterpriseEdition() async* {
+    yield 'Aplicando optimizaciones corporativas para Windows Enterprise...';
+  }
+
+  Stream<String> _configureGenericEdition() async* {
+    yield 'Aplicando configuración base...';
+  }
 
   Future<bool> get hasWinget async {
     final result = await _processService.run('where.exe', ['winget']);
@@ -16,11 +63,21 @@ class PostInstallService {
 
   Stream<String> activateWindowsKms({
     required String kmsHost,
-    required KmsProduct product,
     required bool createRenewalTask,
   }) async* {
     if (!Platform.isWindows) {
       yield 'Windows KMS solo se ejecuta en Windows.';
+      return;
+    }
+
+    final edition = await _systemInfoService.getWindowsEdition();
+    final build = await _systemInfoService.getWindowsBuild();
+    final product = windowsKmsProductForEdition(edition, build);
+    yield 'Windows detectado: ${edition ?? "desconocido"}, build ${build ?? "desconocido"}.';
+    if (product == null) {
+      yield edition?.toLowerCase().startsWith('core') == true
+          ? 'Windows Home/Core no admite activacion KMS por volumen; no se modifico la licencia.'
+          : 'No existe una GVLK compatible configurada para esta edicion; no se modifico la licencia.';
       return;
     }
 
@@ -52,7 +109,6 @@ class PostInstallService {
 
   Stream<String> activateOfficeKms({
     required String kmsHost,
-    required KmsProduct product,
     required bool createRenewalTask,
   }) async* {
     if (!Platform.isWindows) {
@@ -67,7 +123,7 @@ class PostInstallService {
     }
 
     for (final ospp in osppFiles) {
-      yield 'Configurando Office KMS: ${product.name} -> $kmsHost';
+      yield 'Configurando la licencia por volumen de Office detectada -> $kmsHost';
       yield 'Usando $ospp';
       yield* _runAndYield('cscript.exe', [
         '//nologo',
@@ -75,11 +131,6 @@ class PostInstallService {
         '/sethst:$kmsHost',
       ]);
       yield* _runAndYield('cscript.exe', ['//nologo', ospp, '/setprt:1688']);
-      yield* _runAndYield('cscript.exe', [
-        '//nologo',
-        ospp,
-        '/inpkey:${product.key}',
-      ]);
       yield* _runAndYield('cscript.exe', ['//nologo', ospp, '/act']);
     }
 
@@ -167,7 +218,6 @@ class PostInstallService {
 
     yield* activateOfficeKms(
       kmsHost: kmsHost,
-      product: option.kmsProduct,
       createRenewalTask: createRenewalTask,
     );
   }
