@@ -17,10 +17,10 @@ La versión se obtiene exclusivamente de la clave `version:` de `pubspec.yaml`. 
 
 1. Actualizar `version:` en `pubspec.yaml` y enviar el cambio. El archivo del workflow debe existir en la rama predeterminada para que GitHub muestre **Run workflow**; desde ese botón puede elegirse la rama que se distribuirá.
 2. Abrir la pestaña **Actions** y ejecutar **Build Requiem Distribution**.
-3. Mantener activa la opción `create_draft_release` para crear `vX.Y.Z` como Release en borrador.
+3. Mantener activa la opción `create_draft_release` para crear `vX.Y.Z` como Release en borrador o actualizar sus archivos si el tag ya existe.
 4. Revisar notas y archivos en GitHub Releases y publicar manualmente cuando estén listos.
 
-Si el workflow se repite para la misma versión y el Release sigue en borrador, reemplaza sus artefactos. Nunca sobrescribe un Release ya publicado. El job de publicación pasa `github.repository` explícitamente a GitHub CLI, por lo que no depende de un checkout ni de la presencia local de un directorio `.git`.
+Si el workflow se repite para la misma versión, reemplaza mediante `--clobber` los artefactos que tengan el mismo nombre tanto en Releases en borrador como ya publicados. El estado del Release no cambia: un borrador continúa como borrador y uno publicado permanece publicado. Si el tag todavía no existe, crea un Release en borrador. El job de publicación pasa `github.repository` explícitamente a GitHub CLI, por lo que no depende de un checkout ni de la presencia local de un directorio `.git`.
 
 ## Compilación local del instalador
 

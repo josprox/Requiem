@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       create_draft_release:
-        description: Create or update the GitHub draft release
+        description: Create a draft or update an existing GitHub release
         required: true
         default: true
         type: boolean
@@ -308,7 +308,7 @@ jobs:
           compression-level: 0
 
   draft_release:
-    name: Create draft GitHub release
+    name: Create or update GitHub release
     if: ${{ inputs.create_draft_release }}
     needs: [metadata, windows, iso]
     runs-on: ubuntu-latest
@@ -333,7 +333,7 @@ jobs:
           cd dist
           sha256sum Requiem-* > SHA256SUMS.txt
 
-      - name: Create or update draft release
+      - name: Create or update GitHub release
         shell: pwsh
         run: |
           $assets = Get-ChildItem -LiteralPath dist -File |
@@ -349,16 +349,15 @@ jobs:
             --json isDraft `
             --jq .isDraft 2>$null
           if ($LASTEXITCODE -eq 0) {
-            if ($existingDraft -ne 'true') {
-              throw "Release $env:RELEASE_TAG is already published and will not be overwritten."
-            }
-
             gh release upload $env:RELEASE_TAG @assets `
               --repo $env:GH_REPO `
               --clobber
             if ($LASTEXITCODE -ne 0) {
-              throw "Could not update draft release $env:RELEASE_TAG."
+              throw "Could not update release $env:RELEASE_TAG."
             }
+
+            $releaseState = if ($existingDraft -eq 'true') { 'draft' } else { 'published' }
+            "Updated assets in $releaseState release: $env:RELEASE_TAG" >> $env:GITHUB_STEP_SUMMARY
           } else {
             gh release create $env:RELEASE_TAG @assets `
               --repo $env:GH_REPO `
@@ -369,6 +368,6 @@ jobs:
             if ($LASTEXITCODE -ne 0) {
               throw "Could not create draft release $env:RELEASE_TAG."
             }
-          }
 
-          "Draft release ready: $env:RELEASE_TAG" >> $env:GITHUB_STEP_SUMMARY
+            "Draft release ready: $env:RELEASE_TAG" >> $env:GITHUB_STEP_SUMMARY
+          }

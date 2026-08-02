@@ -73,7 +73,7 @@ El archivo ISO resultante se generará en la raíz del proyecto:
 
 ### Distribución oficial
 
-El workflow manual `.github/workflows/distribution.yml` valida el proyecto, compila el instalador Windows con Inno Setup, genera el bundle portable, construye la ISO híbrida y prepara un GitHub Release en borrador. Todos los nombres, metadatos y el tag se derivan de `version:` en `pubspec.yaml`. Consulte [`docs/distribucion.md`](docs/distribucion.md) para el flujo de publicación y la compilación local.
+El workflow manual `.github/workflows/distribution.yml` valida el proyecto, compila el instalador Windows con Inno Setup, genera el bundle portable, construye la ISO híbrida y crea un GitHub Release en borrador. Si el tag ya existe, actualiza sus archivos aunque el Release ya esté publicado, sin cambiar su estado. Todos los nombres, metadatos y el tag se derivan de `version:` en `pubspec.yaml`. Consulte [`docs/distribucion.md`](docs/distribucion.md) para el flujo de publicación y la compilación local.
 
 El instalador y el portable incluyen `xorriso` y `wimlib` para las funciones **ISO y Puente**. El protocolo, las rutas del payload y los requisitos de red se documentan en [`docs/medios_y_puente_ipv4.md`](docs/medios_y_puente_ipv4.md).
 
