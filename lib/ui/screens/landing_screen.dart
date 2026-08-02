@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'disk_selection_screen.dart';
 import 'wim_picker_screen.dart';
+import '../../services/main_controller.dart';
 
 import '../widgets/glass_backdrop.dart';
 
@@ -48,11 +50,7 @@ class _LandingScreenState extends State<LandingScreen>
         child: Stack(
           children: [
             // Top Bar with macOS Traffic Lights
-            Positioned(
-              top: 24,
-              left: 24,
-              child: const MacTrafficLights(),
-            ),
+            Positioned(top: 24, left: 24, child: const MacTrafficLights()),
 
             FadeTransition(
               opacity: _fadeAnimation,
@@ -91,148 +89,159 @@ class _LandingScreenState extends State<LandingScreen>
                       ),
                       const SizedBox(height: 48),
 
-                    Text(
-                      Platform.isLinux
-                          ? 'REQUIEM INSTALLER'
-                          : 'REQUIEM TOOLS',
-                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        color: Colors.white,
-                        fontSize: 60,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: -1,
+                      Text(
+                        Platform.isLinux
+                            ? 'REQUIEM INSTALLER'
+                            : 'REQUIEM TOOLS',
+                        style: Theme.of(context).textTheme.displayLarge
+                            ?.copyWith(
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -1,
+                            ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Container(height: 2, width: 40, color: scheme.primary),
-                        const SizedBox(width: 16),
-                        Text(
-                          'DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN',
-                          style: Theme.of(context).textTheme.headlineSmall
-                              ?.copyWith(
-                                color: scheme.primary,
-                                letterSpacing: 10,
-                                fontWeight: FontWeight.w300,
-                              ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 32),
-
-                    SizedBox(
-                      width: 650,
-                      child: Text(
-                        'Instalador de Windows de alta precisión para entornos de alto rendimiento. '
-                        'Experimente un despliegue rápido con orquestación directa de DISM y optimización automatizada del sistema.',
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.6),
-                          fontSize: 20,
-                          height: 1.8,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 80),
-
-                    Row(
-                      children: [
-                        FilledButton(
-                          onPressed: () {
-                            final Widget next = Platform.isLinux
-                                ? const WimPickerScreen()
-                                : const DiskSelectionScreen();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => next),
-                            );
-                          },
-                          style: FilledButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 56,
-                              vertical: 32,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            backgroundColor: scheme.primary,
-                            foregroundColor: Colors.white,
-                            elevation: 8,
-                            shadowColor: scheme.primary.withValues(alpha: 0.5),
-                          ),
-                          child: const Text(
-                            'EMPEZAR',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 32),
-                        OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 56,
-                              vertical: 32,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            side: BorderSide(
-                              color: Colors.white.withValues(alpha: 0.2),
-                              width: 2,
-                            ),
-                          ),
-                          child: const Text(
-                            'LOGS DEL SISTEMA',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const Spacer(),
-
-                    // Footer
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 64),
-                      child: Row(
+                      Row(
                         children: [
-                          _buildFooterItem(
-                            Icons.verified_user_rounded,
-                            'VERSIÓN ESTABLE v1.0.0',
+                          Container(
+                            height: 2,
+                            width: 40,
+                            color: scheme.primary,
                           ),
-                          const SizedBox(width: 48),
-                          _buildFooterItem(
-                            Icons.security_rounded,
-                            'COMPATIBLE CON SECURE BOOT',
-                          ),
-                          const Spacer(),
+                          const SizedBox(width: 16),
                           Text(
-                            'DISEÑADO POR JOSS',
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.1),
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 4,
-                              fontSize: 12,
+                            'DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN',
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(
+                                  color: scheme.primary,
+                                  letterSpacing: 10,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 32),
+
+                      SizedBox(
+                        width: 650,
+                        child: Text(
+                          'Instalador de Windows de alta precisión para entornos de alto rendimiento. '
+                          'Experimente un despliegue rápido con orquestación directa de DISM y optimización automatizada del sistema.',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.6),
+                            fontSize: 20,
+                            height: 1.8,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 80),
+
+                      Row(
+                        children: [
+                          FilledButton(
+                            onPressed: () {
+                              final controller = context.read<MainController>();
+                              final embedded =
+                                  Platform.isLinux &&
+                                  controller.detectEmbeddedWim();
+                              final Widget next = Platform.isLinux && !embedded
+                                  ? const WimPickerScreen()
+                                  : const DiskSelectionScreen();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => next),
+                              );
+                            },
+                            style: FilledButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 56,
+                                vertical: 32,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              backgroundColor: scheme.primary,
+                              foregroundColor: Colors.white,
+                              elevation: 8,
+                              shadowColor: scheme.primary.withValues(
+                                alpha: 0.5,
+                              ),
+                            ),
+                            child: const Text(
+                              'EMPEZAR',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 32),
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 56,
+                                vertical: 32,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              side: BorderSide(
+                                color: Colors.white.withValues(alpha: 0.2),
+                                width: 2,
+                              ),
+                            ),
+                            child: const Text(
+                              'LOGS DEL SISTEMA',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white70,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+
+                      const Spacer(),
+
+                      // Footer
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 64),
+                        child: Row(
+                          children: [
+                            _buildFooterItem(
+                              Icons.verified_user_rounded,
+                              'VERSIÓN ESTABLE v1.0.0',
+                            ),
+                            const SizedBox(width: 48),
+                            _buildFooterItem(
+                              Icons.security_rounded,
+                              'COMPATIBLE CON SECURE BOOT',
+                            ),
+                            const Spacer(),
+                            Text(
+                              'DISEÑADO POR JOSS',
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.1),
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 4,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildFooterItem(IconData icon, String text) {
     return Row(
@@ -252,5 +261,3 @@ class _LandingScreenState extends State<LandingScreen>
     );
   }
 }
-
-

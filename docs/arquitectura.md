@@ -23,6 +23,9 @@ lib/
 │   ├── process_service.dart                # Ejecución asíncrona y streaming de procesos
 │   ├── disk_service.dart                   # Particionado GPT/MBR y formateo
 │   ├── deployment_service.dart             # Orquestador del flujo de aplicación de WIM
+│   ├── iso_packaging_service.dart           # Descarga ISO base e inserta payload WIM
+│   ├── bridge_server_service.dart           # Prepara y publica WIM pipable por IPv4
+│   ├── bridge_discovery_service.dart        # Descubrimiento UDP y validación del puente
 │   ├── registry_service.dart               # Modificación offline de registros binarios
 │   └── deployment/
 │       ├── deployment_provider.dart        # Interfaz abstracta de despliegue
@@ -42,13 +45,16 @@ lib/
    └── Debian Bookworm Kernel → Systemd → Xorg + Openbox → Requiem Installer UI
 
 2. Selección de Imagen y Disco
-   └── Detección de WIM/SWM → Selección de Unidad Física → Esquema (GPT/UEFI o MBR/BIOS)
+   ├── Payload integrado: detección de /requiem/payload/install.wim → selección directa de disco
+   ├── ISO simple: WIM/SWM local o puente IPv4 descubierto/manual
+   └── Selección de Unidad Física → Esquema (GPT/UEFI o MBR/BIOS)
 
 3. Particionado y Formateo
    └── parted / sgdisk / sfdisk → mkfs.vfat (ESP) + mkfs.ntfs (Windows)
 
 4. Aplicación de Imagen WIM/SWM (Directo al Bloque)
-   └── wimlib-imagex apply install.wim 1 /dev/DESTINO_WINDOWS (preserva ACLs, ADS y metadatos)
+   ├── Local/integrado: wimlib-imagex apply install.wim 1 /dev/DESTINO_WINDOWS
+   └── Puente: HTTP → stdin de wimlib-imagex → /dev/DESTINO_WINDOWS, sin WIM temporal
 
 5. Sincronización y Montaje
    └── sync → blockdev --flushbufs → Mount /mnt/windows y /mnt/efi

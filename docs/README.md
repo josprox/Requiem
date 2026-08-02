@@ -7,6 +7,7 @@ Bienvenido a la documentación técnica oficial de **Requiem Installer**.
 | Documento | Descripción |
 |---|---|
 | [distribucion.md](./distribucion.md) | Workflow manual, artefactos Windows/ISO y publicación de Releases en borrador |
+| [medios_y_puente_ipv4.md](./medios_y_puente_ipv4.md) | ISO simple, empaquetado de WIM y despliegue directo por puente IPv4 |
 | [arquitectura.md](./arquitectura.md) | Estructura general del proyecto, flujos de despliegue en Linux y arquitectura del pipeline |
 | [instalacion_windows_desde_linux.md](./instalacion_windows_desde_linux.md) | Especificación técnica del despliegue WIM sin WinPE, BCD y Bootloader |
 | [diagnostico_errores.md](./diagnostico_errores.md) | Diagnóstico de errores conocidos de arranque, firmware e imágenes |
@@ -26,3 +27,4 @@ Bienvenido a la documentación técnica oficial de **Requiem Installer**.
 * **Entorno**: Windows Desktop (Post-Instalación).
 * **Función**: Instalación desatendida de paquetes de desarrollo y software corporativo mediante `winget`.
 * **Extras**: Activación KMS de Windows/Office y branding OEM.
+* **Distribución**: Descarga de ISO simple, generación de ISO autónoma con WIM y servidor puente IPv4.

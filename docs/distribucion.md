@@ -7,6 +7,8 @@ El workflow `.github/workflows/distribution.yml` construye las tres variantes of
 - `Requiem-Installer-ISO-vX.Y.Z.iso`: medio Live híbrido BIOS/UEFI para desplegar imágenes WIM/SWM.
 - `SHA256SUMS.txt`: sumas de integridad de todos los archivos publicados.
 
+Los dos paquetes de Windows incluyen también `tools/xorriso` y `tools/wimlib`. Estas utilidades permiten que **ISO y Puente** genere una ISO con WIM integrado y prepare una transmisión WIM pipable sin exigir instalaciones externas en el equipo del usuario.
+
 Antes de compilar, el workflow ejecuta `flutter analyze --no-fatal-infos` y `flutter test`. Los errores y advertencias bloquean la distribución; los avisos puramente informativos se conservan en el log sin impedir el empaquetado. El smoke test valida la pantalla inicial sin depender del texto específico de Windows o Linux, por lo que produce el mismo resultado en runners Ubuntu y equipos Windows.
 
 La versión se obtiene exclusivamente de la clave `version:` de `pubspec.yaml`. Para `version: 1.0.1+2`, los nombres públicos y el tag usan `1.0.1`, mientras que Flutter e Inno Setup conservan `2` como número de compilación.
@@ -33,3 +35,5 @@ Para reutilizar un bundle Windows ya compilado:
 ```powershell
 .\inno\build_installer.ps1 -SkipFlutterBuild
 ```
+
+Cuando se utiliza `-SkipFlutterBuild`, la carpeta `build/windows/x64/runner/Release/tools` debe existir si se desea producir un instalador con las funciones de empaquetado y puente. En GitHub Actions estas herramientas se descargan, verifican y agregan automáticamente antes de construir el portable y el instalador.

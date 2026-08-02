@@ -10,6 +10,7 @@ import '../widgets/console_panel.dart';
 import '../widgets/activation_panel.dart';
 import '../widgets/office_panel.dart';
 import '../widgets/packages_panel.dart';
+import '../widgets/iso_distribution_panel.dart';
 
 class PostInstallScreen extends StatefulWidget {
   const PostInstallScreen({super.key});
@@ -312,11 +313,14 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
     if (_navIndex == 0) {
       currentHeader = RequiemHeader(
         title: 'Activación de Licencias',
-        description: 'Configura el servidor KMS local o remoto para activar Windows y Office.',
+        description:
+            'Configura el servidor KMS local o remoto para activar Windows y Office.',
         statusPills: [
           RequiemStatusPill(
             icon: Icons.dns_rounded,
-            label: _kmsHostController.text.trim().isEmpty ? 'KMS pendiente' : _kmsHostController.text.trim(),
+            label: _kmsHostController.text.trim().isEmpty
+                ? 'KMS pendiente'
+                : _kmsHostController.text.trim(),
             color: scheme.secondary,
           ),
         ],
@@ -328,7 +332,10 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                 ? const SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
                   )
                 : const Icon(Icons.play_arrow_rounded),
             label: const Text('ACTIVAR KMS'),
@@ -348,7 +355,8 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
     } else if (_navIndex == 1) {
       currentHeader = RequiemHeader(
         title: 'Instalador de Office',
-        description: 'Despliega Microsoft Office LTSC o 365 de manera automatizada usando ODT.',
+        description:
+            'Despliega Microsoft Office LTSC o 365 de manera automatizada usando ODT.',
         statusPills: [
           RequiemStatusPill(
             icon: Icons.apps_rounded,
@@ -364,7 +372,10 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                 ? const SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
                   )
                 : const Icon(Icons.download_rounded),
             label: const Text('INSTALAR OFFICE'),
@@ -384,10 +395,11 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
         },
         onRun: _busy ? null : () => _run(_installOfficeWithOdt),
       );
-    } else {
+    } else if (_navIndex == 2) {
       currentHeader = RequiemHeader(
         title: 'Stack de Aplicaciones',
-        description: 'Instala y actualiza herramientas de desarrollo esenciales para Windows mediante winget.',
+        description:
+            'Instala y actualiza herramientas de desarrollo esenciales para Windows mediante winget.',
         statusPills: [
           RequiemStatusPill(
             icon: Icons.inventory_2_rounded,
@@ -403,7 +415,10 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                 ? const SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
                   )
                 : const Icon(Icons.install_desktop_rounded),
             label: const Text('INSTALAR TODO'),
@@ -424,6 +439,20 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
         onDetect: _busy ? null : () => _run(_detectInstalledPackages),
         onInstall: _busy ? null : () => _run(_installPackages),
       );
+    } else {
+      currentHeader = RequiemHeader(
+        title: 'ISO y despliegue por red',
+        description:
+            'Cree medios autónomos con un WIM integrado o distribuya una instalación directamente por IPv4.',
+        statusPills: [
+          RequiemStatusPill(
+            icon: Icons.security_rounded,
+            label: 'BIOS + UEFI preservados',
+            color: scheme.secondary,
+          ),
+        ],
+      );
+      currentPanel = IsoDistributionPanel(onLog: _log);
     }
 
     return Scrollbar(
@@ -432,11 +461,7 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
       child: ListView(
         controller: _contentScrollController,
         padding: const EdgeInsets.fromLTRB(30, 26, 30, 32),
-        children: [
-          currentHeader,
-          const SizedBox(height: 18),
-          currentPanel,
-        ],
+        children: [currentHeader, const SizedBox(height: 18), currentPanel],
       ),
     );
   }
@@ -535,6 +560,14 @@ class _Sidebar extends StatelessWidget {
                     icon: Icons.terminal_outlined,
                     selectedIcon: Icons.terminal_rounded,
                     title: 'Stack Programas',
+                    scheme: scheme,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildSidebarItem(
+                    index: 3,
+                    icon: Icons.album_outlined,
+                    selectedIcon: Icons.album_rounded,
+                    title: 'ISO y Puente',
                     scheme: scheme,
                   ),
                 ],

@@ -6,7 +6,12 @@ echo "==============================================="
 echo "   Running setup_chroot.sh inside chroot"
 echo "==============================================="
 
-# 1. Update package lists
+# 1. Enable Bookworm firmware components and update package lists
+cat > /etc/apt/sources.list <<EOF
+deb http://deb.debian.org/debian bookworm main contrib non-free-firmware
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free-firmware
+deb http://security.debian.org/debian-security bookworm-security main contrib non-free-firmware
+EOF
 apt-get update
 
 # 2. Install base utilities, kernel, live-boot, and graphical environment
@@ -32,6 +37,15 @@ apt-get install -y --no-install-recommends \
 # 3. Install installation-specific backends
 apt-get install -y --no-install-recommends \
     wimtools \
+    curl \
+    network-manager \
+    wpasupplicant \
+    wireless-regdb \
+    iw \
+    firmware-iwlwifi \
+    firmware-realtek \
+    firmware-atheros \
+    firmware-brcm80211 \
     ntfs-3g \
     parted \
     gdisk \
@@ -53,6 +67,8 @@ apt-get install -y --no-install-recommends \
     pev \
     sudo \
     xxd
+
+systemctl enable NetworkManager.service
 
 # 4. Install additional tools (like ms-sys if available, or we can compile it if not in repositories)
 # Note: ms-sys might not be in standard Debian repositories, so we download its deb package or compile it.

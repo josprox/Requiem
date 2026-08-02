@@ -7,6 +7,7 @@ import '../services/deployment_service.dart';
 import '../services/registry_service.dart';
 import 'wim_scanner_service.dart';
 import 'disk_selection_controller.dart';
+import '../models/installation_source.dart';
 
 class MainController extends ChangeNotifier {
   final DiskService _diskService = DiskService();
@@ -33,7 +34,14 @@ class MainController extends ChangeNotifier {
 
   // Auto-detected install.wim path
   String? detectedWimPath;
+  InstallationSourceKind installationSourceKind = InstallationSourceKind.local;
+  BridgeAnnouncement? bridgeAnnouncement;
   bool isSearchingWim = false;
+
+  bool get hasEmbeddedWim =>
+      installationSourceKind == InstallationSourceKind.embedded;
+  bool get usesBridge =>
+      installationSourceKind == InstallationSourceKind.bridge;
 
   // Partition mode chosen by user in DiskSelectionScreen
   PartitionMode _pendingPartitionMode = PartitionMode.formatGpt;
@@ -84,11 +92,18 @@ class MainController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> autoDetectInstallWim() async {
+  Future<void> autoDetectInstallWim({bool force = false}) async {
+    if (usesBridge && !force) return;
     isSearchingWim = true;
     detectedWimPath = null;
     notifyListeners();
     detectedWimPath = await _wimScannerService.autoDetectInstallWim(addLog);
+    installationSourceKind =
+        detectedWimPath != null &&
+            WimScannerService.embeddedWimPaths.contains(detectedWimPath)
+        ? InstallationSourceKind.embedded
+        : InstallationSourceKind.local;
+    bridgeAnnouncement = null;
     isSearchingWim = false;
     notifyListeners();
   }
@@ -97,7 +112,29 @@ class MainController extends ChangeNotifier {
     isSearchingWim = true;
     notifyListeners();
     detectedWimPath = await _wimScannerService.pickWimFile(addLog, context);
+    installationSourceKind = InstallationSourceKind.local;
+    bridgeAnnouncement = null;
     isSearchingWim = false;
+    notifyListeners();
+  }
+
+  bool detectEmbeddedWim() {
+    final path = _wimScannerService.detectEmbeddedWim(addLog);
+    if (path == null) return false;
+    detectedWimPath = path;
+    installationSourceKind = InstallationSourceKind.embedded;
+    bridgeAnnouncement = null;
+    notifyListeners();
+    return true;
+  }
+
+  void useBridge(BridgeAnnouncement announcement) {
+    detectedWimPath = announcement.imageUri.toString();
+    bridgeAnnouncement = announcement;
+    installationSourceKind = InstallationSourceKind.bridge;
+    addLog(
+      'Bridge selected: ${announcement.imageName} from ${announcement.address}:${announcement.port}',
+    );
     notifyListeners();
   }
 

@@ -114,6 +114,60 @@ jobs:
             --build-name="$env:APP_VERSION" `
             --build-number="$env:BUILD_NUMBER"
 
+      - name: Bundle xorriso and wimlib tools
+        shell: pwsh
+        run: |
+          $release = Join-Path $PWD 'build/windows/x64/runner/Release'
+          $xorrisoTarget = Join-Path $release 'tools/xorriso'
+          $wimlibTarget = Join-Path $release 'tools/wimlib'
+          New-Item -ItemType Directory -Path $xorrisoTarget, $wimlibTarget -Force | Out-Null
+
+          & C:\msys64\usr\bin\bash.exe -lc 'pacman -Sy --noconfirm xorriso'
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not install the MSYS2 xorriso package.'
+          }
+          $env:REQUIEM_XORRISO_TARGET = $xorrisoTarget
+          & C:\msys64\usr\bin\bash.exe -lc @'
+            set -euo pipefail
+            destination="$(cygpath -u "$REQUIEM_XORRISO_TARGET")"
+            mkdir -p "$destination/licenses"
+            cp /usr/bin/xorriso.exe "$destination/"
+            cp /usr/share/licenses/xorriso/COPYING "$destination/licenses/COPYING-xorriso"
+            ldd /usr/bin/xorriso.exe | awk '($3 ~ /^\/usr\/bin\//) {print $3} ($1 ~ /^\/usr\/bin\//) {print $1}' | sort -u | while read -r dependency; do
+              cp "$dependency" "$destination/"
+            done
+          '@
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not collect xorriso runtime dependencies.'
+          }
+
+          $wimlibVersion = '1.14.5'
+          $wimlibArchive = Join-Path $env:RUNNER_TEMP "wimlib-$wimlibVersion.zip"
+          $wimlibExtract = Join-Path $env:RUNNER_TEMP 'wimlib-extracted'
+          Invoke-WebRequest `
+            -Uri "https://wimlib.net/downloads/wimlib-$wimlibVersion-windows-x86_64-bin.zip" `
+            -OutFile $wimlibArchive
+          $expectedHash = '2F446D6FA3866582175F1A22A7BE198EEEE0AEC7ABA5B4E04AD25C99EAE2D265'
+          $actualHash = (Get-FileHash -LiteralPath $wimlibArchive -Algorithm SHA256).Hash
+          if ($actualHash -ne $expectedHash) {
+            throw "Unexpected wimlib SHA-256: $actualHash"
+          }
+          Expand-Archive -LiteralPath $wimlibArchive -DestinationPath $wimlibExtract -Force
+          $wimlibExe = Get-ChildItem -LiteralPath $wimlibExtract -Recurse -Filter wimlib-imagex.exe |
+            Select-Object -First 1
+          if (-not $wimlibExe) {
+            throw 'wimlib-imagex.exe was not found in the official archive.'
+          }
+          Copy-Item -Path (Join-Path $wimlibExe.Directory.FullName '*') `
+            -Destination $wimlibTarget -Recurse -Force
+
+          if (-not (Test-Path -LiteralPath (Join-Path $xorrisoTarget 'xorriso.exe'))) {
+            throw 'xorriso.exe was not bundled.'
+          }
+          if (-not (Test-Path -LiteralPath (Join-Path $wimlibTarget 'wimlib-imagex.exe'))) {
+            throw 'wimlib-imagex.exe was not bundled.'
+          }
+
       - name: Create portable package
         shell: pwsh
         run: |

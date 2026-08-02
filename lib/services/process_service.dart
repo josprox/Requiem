@@ -19,6 +19,83 @@ class ProcessResult {
 }
 
 class ProcessService {
+  /// Pipes the producer stdout directly into the consumer stdin while
+  /// returning both processes' diagnostic output as a single line stream.
+  /// This is used by the Live ISO to apply a network WIM without storing it.
+  Stream<String> runPipedStreaming({
+    required String producerExecutable,
+    required List<String> producerArguments,
+    required String consumerExecutable,
+    required List<String> consumerArguments,
+    String? workingDirectory,
+  }) async* {
+    final producer = await Process.start(
+      producerExecutable,
+      producerArguments,
+      workingDirectory: workingDirectory,
+      runInShell: false,
+    );
+    final consumer = await Process.start(
+      consumerExecutable,
+      consumerArguments,
+      workingDirectory: workingDirectory,
+      runInShell: false,
+    );
+    final controller = StreamController<String>();
+
+    Future<void> forwardLines(Stream<List<int>> stream) async {
+      await for (final line
+          in stream
+              .transform(systemEncoding.decoder)
+              .transform(const LineSplitter())) {
+        if (!controller.isClosed) controller.add(line);
+      }
+    }
+
+    unawaited(() async {
+      Object? pipeError;
+      try {
+        final pipeFuture = producer.stdout.pipe(consumer.stdin).catchError((
+          Object error,
+        ) {
+          pipeError = error;
+        });
+        final outputFutures = [
+          forwardLines(producer.stderr),
+          forwardLines(consumer.stdout),
+          forwardLines(consumer.stderr),
+        ];
+        final producerExit = await producer.exitCode;
+        await pipeFuture;
+        final consumerExit = await consumer.exitCode;
+        await Future.wait(outputFutures);
+        if (pipeError != null) {
+          controller.add('[ERR] Network stream pipe failed: $pipeError');
+        }
+        if (producerExit != 0) {
+          controller.add(
+            '[ERR] Producer exited with code $producerExit: '
+            '$producerExecutable ${producerArguments.join(' ')}',
+          );
+        }
+        if (consumerExit != 0) {
+          controller.add(
+            '[ERR] Consumer exited with code $consumerExit: '
+            '$consumerExecutable ${consumerArguments.join(' ')}',
+          );
+        }
+      } catch (error, stackTrace) {
+        if (!controller.isClosed) controller.addError(error, stackTrace);
+        producer.kill();
+        consumer.kill();
+      } finally {
+        await controller.close();
+      }
+    }());
+
+    yield* controller.stream;
+  }
+
   /// Executes a command and streams stdout line-by-line.
   Stream<String> runStreaming(
     String executable,

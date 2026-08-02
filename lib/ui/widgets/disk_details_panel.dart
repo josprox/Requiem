@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/main_controller.dart';
 import '../../services/disk_service.dart';
+import '../../models/installation_source.dart';
 
 class WimStatusCard extends StatelessWidget {
   final MainController controller;
@@ -11,6 +12,12 @@ class WimStatusCard extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final found = controller.detectedWimPath != null;
     final searching = controller.isSearchingWim;
+    final sourceLabel = switch (controller.installationSourceKind) {
+      InstallationSourceKind.embedded => 'WIM integrado en la ISO',
+      InstallationSourceKind.bridge =>
+        'Puente: ${controller.bridgeAnnouncement?.imageName ?? 'WIM remoto'}',
+      InstallationSourceKind.local => controller.detectedWimPath ?? '',
+    };
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -18,15 +25,15 @@ class WimStatusCard extends StatelessWidget {
         color: searching
             ? scheme.surfaceContainerHighest
             : found
-                ? Colors.green.withValues(alpha: 0.1)
-                : scheme.errorContainer.withValues(alpha: 0.3),
+            ? Colors.green.withValues(alpha: 0.1)
+            : scheme.errorContainer.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: searching
               ? Colors.white.withValues(alpha: 0.1)
               : found
-                  ? Colors.green.withValues(alpha: 0.4)
-                  : scheme.error.withValues(alpha: 0.4),
+              ? Colors.green.withValues(alpha: 0.4)
+              : scheme.error.withValues(alpha: 0.4),
         ),
       ),
       child: Row(
@@ -54,21 +61,21 @@ class WimStatusCard extends StatelessWidget {
                   searching
                       ? 'Buscando imagen...'
                       : found
-                          ? 'Imagen detectada'
-                          : 'Imagen no encontrada',
+                      ? 'Imagen detectada'
+                      : 'Imagen no encontrada',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
                     color: searching
                         ? Colors.white70
                         : found
-                            ? Colors.greenAccent
-                            : scheme.error,
+                        ? Colors.greenAccent
+                        : scheme.error,
                   ),
                 ),
                 if (found && controller.detectedWimPath != null)
                   Text(
-                    controller.detectedWimPath!,
+                    sourceLabel,
                     style: TextStyle(
                       fontSize: 11,
                       color: Colors.white.withValues(alpha: 0.5),
@@ -78,7 +85,7 @@ class WimStatusCard extends StatelessWidget {
               ],
             ),
           ),
-          if (!searching) ...[
+          if (!searching && !controller.hasEmbeddedWim) ...[
             const SizedBox(width: 12),
             TextButton.icon(
               onPressed: () => controller.pickWimFile(context),
@@ -125,8 +132,8 @@ class FirmwareStatusCard extends StatelessWidget {
     final detected = controller.bootedInUefi != null;
     final recommended =
         controller.recommendedPartitionMode == PartitionMode.formatGpt
-            ? 'GPT / UEFI'
-            : 'MBR / BIOS';
+        ? 'GPT / UEFI'
+        : 'MBR / BIOS';
 
     return Container(
       padding: const EdgeInsets.all(14),

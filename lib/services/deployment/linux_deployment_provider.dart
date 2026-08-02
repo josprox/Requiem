@@ -17,7 +17,11 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     int index = 1,
     String? swmPattern,
   }) async* {
-    if (!File(imagePath).existsSync()) {
+    final imageUri = Uri.tryParse(imagePath);
+    final isNetworkImage =
+        imageUri != null &&
+        (imageUri.scheme == 'http' || imageUri.scheme == 'https');
+    if (!isNetworkImage && !File(imagePath).existsSync()) {
       yield DeploymentProgress(
         -1,
         'ERROR: Image file not found: $imagePath',
@@ -30,12 +34,14 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     if (targetDevice != null) {
       yield DeploymentProgress(
         -1,
-        'Applying WIM directly to NTFS volume $targetDevice (metadata-preserving mode).',
+        isNetworkImage
+            ? 'Streaming the prepared WIM directly to NTFS volume $targetDevice.'
+            : 'Applying WIM directly to NTFS volume $targetDevice (metadata-preserving mode).',
       );
     }
     final List<String> args = [
       'apply',
-      imagePath,
+      isNetworkImage ? '-' : imagePath,
       index.toString(),
       destination,
     ];
@@ -51,17 +57,30 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     // wimlib reports several independent phases and each one reaches 100%.
     // Treating the first 100% as the end makes the UI appear stuck while the
     // much longer data-extraction phase is still running.
-    final stream = _processService.runStreaming(
-      'wimlib-imagex',
-      args,
-      terminalOutputMatcher: (line) {
-        final normalized = line.toLowerCase();
-        return normalized.contains('applying metadata') &&
-            progressRegex.hasMatch(line) &&
-            line.contains('100%');
-      },
-      terminalOutputGrace: const Duration(minutes: 10),
-    );
+    final stream = isNetworkImage
+        ? _processService.runPipedStreaming(
+            producerExecutable: 'curl',
+            producerArguments: [
+              '--fail',
+              '--location',
+              '--silent',
+              '--show-error',
+              imagePath,
+            ],
+            consumerExecutable: 'wimlib-imagex',
+            consumerArguments: args,
+          )
+        : _processService.runStreaming(
+            'wimlib-imagex',
+            args,
+            terminalOutputMatcher: (line) {
+              final normalized = line.toLowerCase();
+              return normalized.contains('applying metadata') &&
+                  progressRegex.hasMatch(line) &&
+                  line.contains('100%');
+            },
+            terminalOutputGrace: const Duration(minutes: 10),
+          );
 
     await for (final line in stream) {
       final trimmed = line.trim();

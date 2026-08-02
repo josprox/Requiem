@@ -5,14 +5,22 @@ import '../services/disk_service.dart';
 import '../ui/widgets/custom_file_explorer.dart';
 
 class WimScannerService {
+  static const embeddedWimPaths = [
+    '/run/live/medium/requiem/payload/install.wim',
+    '/cdrom/requiem/payload/install.wim',
+  ];
+
   final DiskService _diskService;
   WimScannerService(this._diskService);
 
-  Future<String?> autoDetectInstallWim(void Function(String) logCallback) async {
+  Future<String?> autoDetectInstallWim(
+    void Function(String) logCallback,
+  ) async {
     logCallback('Scanning drives for Windows installation image...');
 
     if (Platform.isLinux) {
       final searchPaths = [
+        ...embeddedWimPaths,
         '/run/live/medium/sources/install.wim',
         '/run/live/medium/sources/install.swm',
         '/cdrom/sources/install.wim',
@@ -24,19 +32,35 @@ class WimScannerService {
       for (final path in searchPaths) {
         final f = File(path);
         if (f.existsSync()) {
-          logCallback('  ✓ Found install image at $path (${_fileSizeMb(f)} MB)');
+          logCallback(
+            '  ✓ Found install image at $path (${_fileSizeMb(f)} MB)',
+          );
           return f.path;
         }
       }
     } else {
       const driveLetters = [
-        'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
       ];
 
       for (final letter in driveLetters) {
         final wim = File('$letter:\\sources\\install.wim');
         if (wim.existsSync()) {
-          logCallback('  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)');
+          logCallback(
+            '  ✓ Found install.wim on drive $letter: (${_fileSizeMb(wim)} MB)',
+          );
           return wim.path;
         }
         final swm = File('$letter:\\sources\\install.swm');
@@ -47,7 +71,23 @@ class WimScannerService {
       }
     }
 
-    logCallback('  ⚠ install.wim not found. Please specify or mount image manually.');
+    logCallback(
+      '  ⚠ install.wim not found. Please specify or mount image manually.',
+    );
+    return null;
+  }
+
+  String? detectEmbeddedWim([void Function(String)? logCallback]) {
+    if (!Platform.isLinux) return null;
+    for (final path in embeddedWimPaths) {
+      final file = File(path);
+      if (file.existsSync()) {
+        logCallback?.call(
+          '  ✓ Embedded Windows image detected at $path (${_fileSizeMb(file)} MB)',
+        );
+        return path;
+      }
+    }
     return null;
   }
 

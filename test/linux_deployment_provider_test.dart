@@ -8,6 +8,8 @@ class _StreamingProcessService extends ProcessService {
   _StreamingProcessService(this.lines);
 
   final List<String> lines;
+  bool piped = false;
+  List<String>? consumerArguments;
 
   @override
   Stream<String> runStreaming(
@@ -17,6 +19,21 @@ class _StreamingProcessService extends ProcessService {
     bool Function(String line)? terminalOutputMatcher,
     Duration terminalOutputGrace = const Duration(seconds: 45),
   }) async* {
+    for (final line in lines) {
+      yield line;
+    }
+  }
+
+  @override
+  Stream<String> runPipedStreaming({
+    required String producerExecutable,
+    required List<String> producerArguments,
+    required String consumerExecutable,
+    required List<String> consumerArguments,
+    String? workingDirectory,
+  }) async* {
+    piped = true;
+    this.consumerArguments = consumerArguments;
     for (final line in lines) {
       yield line;
     }
@@ -80,5 +97,27 @@ void main() {
 
     expect(progress.any((event) => event.isError), isTrue);
     expect(progress.any((event) => event.percentage == 1.0), isFalse);
+  });
+
+  test('streams a bridge WIM directly into wimlib stdin', () async {
+    final process = _StreamingProcessService([
+      'Creating files: 100 of 100 (100%) done',
+      'Extracting file data: 100 MiB of 100 MiB (100%) done',
+      'Applying metadata to files: 100 of 100 (100%) done',
+    ]);
+    final provider = LinuxDeploymentProvider(process);
+
+    final progress = await provider
+        .applyImage(
+          imagePath: 'http://192.168.1.20:40124/requiem/v1/image',
+          applyDir: '/mnt/windows',
+          targetDevice: '/dev/nvme0n1p3',
+        )
+        .toList();
+
+    expect(process.piped, isTrue);
+    expect(process.consumerArguments, ['apply', '-', '1', '/dev/nvme0n1p3']);
+    expect(progress.last.percentage, 1);
+    expect(progress.last.isError, isFalse);
   });
 }

@@ -26,6 +26,8 @@ Una consola utilitaria diseñada para ser ejecutada sobre sistemas Windows ya in
 * **Instalación Masiva de Software**: Integración con `winget` y scripts desatendidos para instalar navegadores, entornos de desarrollo y utilidades.
 * **Activación de Licencias**: Automatización de servicios KMS para la activación oficial de Windows y Microsoft Office.
 * **Branding e Integración OEM**: Inyección de marca personalizada del fabricante, modelo, soporte técnico y logotipos corporativos en el registro del sistema.
+* **Medios personalizados**: Descarga la ISO Live simple o genera una ISO autónoma con `/requiem/payload/install.wim`; el Live detecta el payload y salta directamente a la selección de disco.
+* **Puente IPv4**: Prepara el WIM en Windows y lo transmite por una red privada al instalador Live, que lo aplica directamente a NTFS sin almacenarlo primero en el cliente.
 
 ---
 
@@ -73,6 +75,8 @@ El archivo ISO resultante se generará en la raíz del proyecto:
 
 El workflow manual `.github/workflows/distribution.yml` valida el proyecto, compila el instalador Windows con Inno Setup, genera el bundle portable, construye la ISO híbrida y prepara un GitHub Release en borrador. Todos los nombres, metadatos y el tag se derivan de `version:` en `pubspec.yaml`. Consulte [`docs/distribucion.md`](docs/distribucion.md) para el flujo de publicación y la compilación local.
 
+El instalador y el portable incluyen `xorriso` y `wimlib` para las funciones **ISO y Puente**. El protocolo, las rutas del payload y los requisitos de red se documentan en [`docs/medios_y_puente_ipv4.md`](docs/medios_y_puente_ipv4.md).
+
 ---
 
 ## 📁 Estructura del Proyecto
@@ -85,7 +89,8 @@ Requiem/
 │   ├── arquitectura.md              # Visión general de componentes y servicios
 │   ├── diagnostico_errores.md       # Diagnóstico de errores de boot e imágenes
 │   ├── fix_etfsboot.md              # Correcciones del pipeline
-│   └── instalacion_windows_desde_linux.md # Flujo técnico del despliegue en Linux
+│   ├── instalacion_windows_desde_linux.md # Flujo técnico del despliegue en Linux
+│   └── medios_y_puente_ipv4.md      # Empaquetado WIM y puente de red
 ├── inno/                            # Script ISS y binarios de instalador Inno Setup
 ├── lib/                             # Código fuente principal de Flutter / Dart
 │   ├── core/                        # Tema gráfico y constantes
