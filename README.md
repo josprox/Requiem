@@ -69,6 +69,10 @@ sudo ./linux_live_iso/build_iso.sh --clean
 El archivo ISO resultante se generará en la raíz del proyecto:
 `requiem_installer.iso`
 
+### Distribución oficial
+
+El workflow manual `.github/workflows/distribution.yml` valida el proyecto, compila el instalador Windows con Inno Setup, genera el bundle portable, construye la ISO híbrida y prepara un GitHub Release en borrador. Todos los nombres, metadatos y el tag se derivan de `version:` en `pubspec.yaml`. Consulte [`docs/distribucion.md`](docs/distribucion.md) para el flujo de publicación y la compilación local.
+
 ---
 
 ## 📁 Estructura del Proyecto

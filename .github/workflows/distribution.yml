@@ -1,0 +1,301 @@
+name: Build Requiem Distribution
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_draft_release:
+        description: Create or update the GitHub draft release
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: requiem-distribution-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.44.1
+
+jobs:
+  metadata:
+    name: Read version metadata
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      build_number: ${{ steps.version.outputs.build_number }}
+      pubspec_version: ${{ steps.version.outputs.pubspec_version }}
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read version from pubspec.yaml
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          pubspec_version="$(sed -nE 's/^version:[[:space:]]*([^[:space:]#]+).*/\1/p' pubspec.yaml | head -n 1)"
+
+          if [[ ! "$pubspec_version" =~ ^([0-9]+\.[0-9]+\.[0-9]+)(\+([0-9]+))?$ ]]; then
+            echo "Invalid or missing pubspec version: $pubspec_version" >&2
+            exit 1
+          fi
+
+          version="${BASH_REMATCH[1]}"
+          build_number="${BASH_REMATCH[3]:-0}"
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "build_number=$build_number" >> "$GITHUB_OUTPUT"
+          echo "pubspec_version=$pubspec_version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### Distribution metadata"
+            echo "- Version: \`$version\`"
+            echo "- Build: \`$build_number\`"
+            echo "- Tag: \`v$version\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  validate:
+    name: Analyze and test
+    needs: metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Run static analysis
+        run: flutter analyze --no-fatal-infos
+
+      - name: Run tests
+        run: flutter test
+
+  windows:
+    name: Build Windows installer and portable bundle
+    needs: [metadata, validate]
+    runs-on: windows-latest
+    env:
+      APP_VERSION: ${{ needs.metadata.outputs.version }}
+      BUILD_NUMBER: ${{ needs.metadata.outputs.build_number }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Enable Windows desktop and resolve dependencies
+        shell: pwsh
+        run: |
+          flutter config --enable-windows-desktop
+          flutter pub get
+
+      - name: Build Windows release
+        shell: pwsh
+        run: |
+          flutter build windows --release `
+            --build-name="$env:APP_VERSION" `
+            --build-number="$env:BUILD_NUMBER"
+
+      - name: Create portable package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          $portable = "dist/Requiem-Tools-Portable-v$env:APP_VERSION.zip"
+          Compress-Archive `
+            -Path "build/windows/x64/runner/Release/*" `
+            -DestinationPath $portable `
+            -CompressionLevel Optimal
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          $iscc = Get-Command ISCC.exe -ErrorAction SilentlyContinue
+          $defaultIscc = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6/ISCC.exe'
+          if (-not $iscc -and -not (Test-Path -LiteralPath $defaultIscc)) {
+            choco install innosetup --no-progress --yes
+          }
+
+      - name: Build versioned Windows installer
+        shell: pwsh
+        run: |
+          ./inno/build_installer.ps1 `
+            -SkipFlutterBuild `
+            -OutputDirectory "$PWD/dist"
+
+      - name: Verify Windows packages
+        shell: pwsh
+        run: |
+          $installer = "dist/Requiem-Tools-Setup-v$env:APP_VERSION.exe"
+          $portable = "dist/Requiem-Tools-Portable-v$env:APP_VERSION.zip"
+          if (-not (Test-Path -LiteralPath $installer)) {
+            throw "Installer was not generated: $installer"
+          }
+          if (-not (Test-Path -LiteralPath $portable)) {
+            throw "Portable package was not generated: $portable"
+          }
+
+      - name: Upload Windows distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: requiem-windows-v${{ needs.metadata.outputs.version }}
+          path: |
+            dist/Requiem-Tools-Setup-v${{ needs.metadata.outputs.version }}.exe
+            dist/Requiem-Tools-Portable-v${{ needs.metadata.outputs.version }}.zip
+          if-no-files-found: error
+          compression-level: 0
+
+  iso:
+    name: Build bootable ISO
+    needs: [metadata, validate]
+    runs-on: ubuntu-latest
+    env:
+      APP_VERSION: ${{ needs.metadata.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install ISO build dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            debootstrap \
+            squashfs-tools \
+            xorriso \
+            grub-common \
+            grub-pc-bin \
+            grub-efi-amd64-bin \
+            mtools \
+            rsync \
+            curl \
+            git \
+            tar \
+            make \
+            gcc \
+            libc6-dev \
+            gettext \
+            libisofs-dev \
+            libburn-dev \
+            libisoburn-dev
+
+          flutter_root="$(dirname "$(dirname "$(command -v flutter)")")"
+          sudo ln -s "$flutter_root" /opt/flutter
+          test -d /opt/flutter/.git
+
+      - name: Restore ISO build cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/requiem_iso_cache
+          key: requiem-iso-v1-${{ runner.os }}-${{ hashFiles('linux_live_iso/setup_chroot.sh', 'pubspec.lock') }}
+          restore-keys: |
+            requiem-iso-v1-${{ runner.os }}-
+
+      - name: Build hybrid BIOS and UEFI ISO
+        run: sudo bash ./linux_live_iso/build_iso.sh
+
+      - name: Version ISO artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          mv requiem_installer.iso "dist/Requiem-Installer-ISO-v${APP_VERSION}.iso"
+
+      - name: Make ISO cache readable for persistence
+        if: always()
+        run: |
+          if [ -d /tmp/requiem_iso_cache ]; then
+            sudo chown -R "$(id -u):$(id -g)" /tmp/requiem_iso_cache
+          fi
+
+      - name: Upload ISO distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: requiem-iso-v${{ needs.metadata.outputs.version }}
+          path: dist/Requiem-Installer-ISO-v${{ needs.metadata.outputs.version }}.iso
+          if-no-files-found: error
+          compression-level: 0
+
+  draft_release:
+    name: Create draft GitHub release
+    if: ${{ inputs.create_draft_release }}
+    needs: [metadata, windows, iso]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_TAG: ${{ needs.metadata.outputs.tag }}
+      APP_VERSION: ${{ needs.metadata.outputs.version }}
+    steps:
+      - name: Download distribution artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Generate SHA-256 checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd dist
+          sha256sum Requiem-* > SHA256SUMS.txt
+
+      - name: Create or update draft release
+        shell: pwsh
+        run: |
+          $assets = Get-ChildItem -LiteralPath dist -File |
+            Sort-Object Name |
+            ForEach-Object FullName
+
+          if (-not $assets) {
+            throw 'No distribution assets were downloaded.'
+          }
+
+          $existingDraft = gh release view $env:RELEASE_TAG --json isDraft --jq .isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            if ($existingDraft -ne 'true') {
+              throw "Release $env:RELEASE_TAG is already published and will not be overwritten."
+            }
+
+            gh release upload $env:RELEASE_TAG @assets --clobber
+            if ($LASTEXITCODE -ne 0) {
+              throw "Could not update draft release $env:RELEASE_TAG."
+            }
+          } else {
+            gh release create $env:RELEASE_TAG @assets `
+              --draft `
+              --generate-notes `
+              --target $env:GITHUB_SHA `
+              --title "Requiem v$env:APP_VERSION"
+            if ($LASTEXITCODE -ne 0) {
+              throw "Could not create draft release $env:RELEASE_TAG."
+            }
+          }
+
+          "Draft release ready: $env:RELEASE_TAG" >> $env:GITHUB_STEP_SUMMARY

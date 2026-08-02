@@ -6,6 +6,7 @@ Bienvenido a la documentación técnica oficial de **Requiem Installer**.
 
 | Documento | Descripción |
 |---|---|
+| [distribucion.md](./distribucion.md) | Workflow manual, artefactos Windows/ISO y publicación de Releases en borrador |
 | [arquitectura.md](./arquitectura.md) | Estructura general del proyecto, flujos de despliegue en Linux y arquitectura del pipeline |
 | [instalacion_windows_desde_linux.md](./instalacion_windows_desde_linux.md) | Especificación técnica del despliegue WIM sin WinPE, BCD y Bootloader |
 | [diagnostico_errores.md](./diagnostico_errores.md) | Diagnóstico de errores conocidos de arranque, firmware e imágenes |

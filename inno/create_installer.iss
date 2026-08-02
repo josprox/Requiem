@@ -3,10 +3,15 @@
 ; Non-commercial use only
 
 #define MyAppName "Requiem Tools"
-#if FileExists("..\build\windows\x64\runner\Release\requiem_tools.exe")
-  #define MyAppVersion GetVersionNumbersString("..\build\windows\x64\runner\Release\requiem_tools.exe")
-#else
-  #define MyAppVersion "1.0.0"
+#define VersionScript AddBackslash(SourcePath) + "get_pubspec_version.ps1"
+#define VersionCommandPrefix "-NoProfile -ExecutionPolicy Bypass -File " + AddQuotes(VersionScript)
+#define MyAppVersion ExecAndGetFirstLine("powershell.exe", VersionCommandPrefix + " -Part Name", SourcePath)
+#define MyAppBuildNumber ExecAndGetFirstLine("powershell.exe", VersionCommandPrefix + " -Part Build", SourcePath)
+#if MyAppVersion == ""
+  #error Could not read the application version from pubspec.yaml
+#endif
+#ifndef OutputDirectory
+  #define OutputDirectory "."
 #endif
 #define MyAppPublisher "Joss Red"
 #define MyAppURL "https://joss.red"
@@ -21,7 +26,8 @@
 AppId={{81254124-4499-4BE5-AF47-5AE0E978899B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
+VersionInfoVersion={#MyAppVersion}.{#MyAppBuildNumber}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -40,8 +46,8 @@ ChangesAssociations=yes
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
-OutputDir=.
-OutputBaseFilename=Requiem Software
+OutputDir={#OutputDirectory}
+OutputBaseFilename=Requiem-Tools-Setup-v{#MyAppVersion}
 SetupIconFile=..\assets\img\default.ico
 SolidCompression=yes
 WizardStyle=modern dynamic polar
