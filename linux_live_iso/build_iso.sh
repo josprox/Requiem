@@ -230,6 +230,10 @@ echo "Step 7: Copying configurations and scripts..."
 sudo cp "$WORKSPACE_DIR/linux_live_iso/configs/requiem-installer.service" "$CHROOT_DIR/etc/systemd/system/requiem-installer.service"
 sudo chmod 644 "$CHROOT_DIR/etc/systemd/system/requiem-installer.service"
 
+sudo mkdir -p "$CHROOT_DIR/usr/local/sbin"
+sudo cp "$WORKSPACE_DIR/linux_live_iso/configs/ensure-local-hostname.sh" "$CHROOT_DIR/usr/local/sbin/requiem-ensure-local-hostname"
+sudo chmod 755 "$CHROOT_DIR/usr/local/sbin/requiem-ensure-local-hostname"
+
 sudo cp "$WORKSPACE_DIR/linux_live_iso/configs/xinitrc" "$CHROOT_DIR/root/.xinitrc"
 sudo chmod +x "$CHROOT_DIR/root/.xinitrc"
 

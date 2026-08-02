@@ -6,6 +6,8 @@ La configuración del cargador muestra en tiempo real cada subpaso de particiona
 
 BCD-SYS no recibe un límite de tiempo adicional: Requiem conserva el flujo completo y espera su terminación. Si una operación tarda, la última línea visible permite distinguir si el trabajo continúa en `sfdisk`, `ms-sys`, BCD-SYS, `patch_bcd.py`, `efibootmgr`, `sync` o `blockdev` sin confundirlo con la aplicación del WIM.
 
+Si aparecen pausas repetidas acompañadas por `sudo: unable to resolve host`, el hostname efectivo de la sesión Live no estaba registrado localmente y cada llamada a `sudo` esperaba una consulta NSS/DNS. La ISO configura `requiem` como hostname base y, antes de iniciar la interfaz, agrega de forma idempotente el hostname efectivo a `/etc/hosts`. BCD-SYS continúa ejecutándose completo, pero sin las esperas de resolución entre subprocesos.
+
 ## `Cannot acquire drive 'stdio:E:/...'` al generar una ISO
 
 El binario Windows de `xorriso` distribuido por MSYS2 interpreta las rutas de forma distinta según el argumento. Requiem conserva `E:\archivo.iso` para el destino `-o` y para validar la ISO terminada. Las rutas de entrada, extracción, `graft-points` e intervalo GRUB se convierten a `/cygdrive/e/ruta`.

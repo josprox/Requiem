@@ -2,6 +2,18 @@
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
+# Keep sudo/NSS lookups local and deterministic in the Live environment.
+# The boot-time helper also adds the effective hostname in case live-boot or
+# the hypervisor replaces this static value.
+printf 'requiem\n' > /etc/hostname
+cat > /etc/hosts <<EOF
+127.0.0.1 localhost
+127.0.1.1 requiem
+::1 localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+EOF
+
 echo "==============================================="
 echo "   Running setup_chroot.sh inside chroot"
 echo "==============================================="

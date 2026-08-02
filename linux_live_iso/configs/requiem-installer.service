@@ -6,6 +6,7 @@ After=systemd-user-sessions.service
 Type=simple
 User=root
 WorkingDirectory=/root
+ExecStartPre=/usr/local/sbin/requiem-ensure-local-hostname
 ExecStart=/usr/bin/xinit /root/.xinitrc -- -keeptty vt1
 StandardOutput=tty
 StandardError=tty
