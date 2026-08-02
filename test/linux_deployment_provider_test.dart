@@ -120,4 +120,23 @@ void main() {
     expect(progress.last.percentage, 1);
     expect(progress.last.isError, isFalse);
   });
+
+  test('forwards bootloader substeps through onLog immediately', () async {
+    final liveLogs = <String>[];
+    final provider = LinuxDeploymentProvider(_StreamingProcessService([]));
+
+    final result = await provider.configureBootloader(
+      '/mnt/windows/Windows',
+      '/mnt/windows',
+      uefi: false,
+      bios: true,
+      onLog: liveLogs.add,
+    );
+
+    expect(result.success, isFalse);
+    expect(liveLogs, [
+      'ERROR: Missing windowsDevice for BIOS boot configuration.',
+    ]);
+    expect(result.logs, liveLogs);
+  });
 }

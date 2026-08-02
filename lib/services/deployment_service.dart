@@ -62,6 +62,7 @@ class DeploymentService {
     bool bios = false,
     String? espDevice, // Required on Linux
     String? windowsDevice, // Required on Linux
+    void Function(String line)? onLog,
   }) {
     return _provider.configureBootloader(
       windowsDir,
@@ -70,6 +71,7 @@ class DeploymentService {
       bios: bios,
       espDevice: espDevice,
       windowsDevice: windowsDevice,
+      onLog: onLog,
     );
   }
 

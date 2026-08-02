@@ -19,6 +19,54 @@ class ProcessResult {
 }
 
 class ProcessService {
+  /// Executes a command without imposing a timeout and forwards stdout and
+  /// stderr as soon as each complete line is emitted.
+  Future<ProcessResult> runLive(
+    String executable,
+    List<String> arguments, {
+    String? workingDirectory,
+    void Function(String line)? onStdout,
+    void Function(String line)? onStderr,
+  }) async {
+    try {
+      final process = await Process.start(
+        executable,
+        arguments,
+        workingDirectory: workingDirectory,
+        runInShell: false,
+      );
+      final stdoutBuffer = StringBuffer();
+      final stderrBuffer = StringBuffer();
+
+      final stdoutDone = process.stdout
+          .transform(systemEncoding.decoder)
+          .transform(const LineSplitter())
+          .forEach((line) {
+            stdoutBuffer.writeln(line);
+            onStdout?.call(line);
+          });
+      final stderrDone = process.stderr
+          .transform(systemEncoding.decoder)
+          .transform(const LineSplitter())
+          .forEach((line) {
+            stderrBuffer.writeln(line);
+            onStderr?.call(line);
+          });
+
+      final exitCode = await process.exitCode;
+      await Future.wait([stdoutDone, stderrDone]);
+      return ProcessResult(
+        exitCode,
+        stdoutBuffer.toString(),
+        stderrBuffer.toString(),
+      );
+    } catch (error) {
+      final message = error.toString();
+      onStderr?.call(message);
+      return ProcessResult(-1, '', message);
+    }
+  }
+
   /// Pipes the producer stdout directly into the consumer stdin while
   /// returning both processes' diagnostic output as a single line stream.
   /// This is used by the Live ISO to apply a network WIM without storing it.

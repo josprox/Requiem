@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import '../deployment_service.dart';
@@ -160,8 +161,9 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     required bool bios,
     String? espDevice,
     String? windowsDevice,
+    void Function(String line)? onLog,
   }) async {
-    final logs = <String>[];
+    final logs = _ForwardingLogList(onLog);
 
     Future<BootloaderResult> fail(
       String message, [
@@ -486,6 +488,9 @@ class LinuxDeploymentProvider implements DeploymentProvider {
             const ProcessResult(127, '', 'BCD-SYS is not installed.');
         if (bcdSysRes.exitCode == 0) {
           logs.add('BCD-SYS configured BIOS boot successfully.');
+          logs.add(
+            'Validating BIOS BCD store and Windows device references...',
+          );
           final validation = await _processService.run('python3', [
             '/opt/requiem_installer/tools/patch_bcd.py',
             '--validate-bios',
@@ -496,8 +501,11 @@ class LinuxDeploymentProvider implements DeploymentProvider {
             return fail('BCD-SYS BIOS store validation failed.', validation);
           }
           logs.add('Validated BIOS BCD store and target partition references.');
+          logs.add('Synchronizing BIOS bootloader writes...');
           await _processService.run('sync', []);
+          logs.add('Flushing BIOS bootloader buffers on $bcdSysDisk...');
           await _processService.run('blockdev', ['--flushbufs', bcdSysDisk]);
+          logs.add('BIOS bootloader buffers flushed.');
           return BootloaderResult(true, logs);
         }
 
@@ -1025,9 +1033,13 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       }
     }
 
+    logs.add('Refreshing the kernel partition table on $disk...');
     await _processService.run('partprobe', [disk]);
+    logs.add('Waiting for updated device nodes...');
     await _processService.run('udevadm', ['settle']);
+    logs.add('Partition table and device nodes settled.');
 
+    logs.add('Verifying the MBR partition table on $disk...');
     res = await _processService.run('sfdisk', ['--dump', disk]);
     if (res.exitCode != 0) {
       logs.add('WARNING: could not verify MBR partition table.');
@@ -1080,6 +1092,7 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     String targetDevice,
     List<String> logs,
   ) async {
+    logs.add('Writing NT6+ MBR to $disk with ms-sys...');
     var res = await _processService.run('ms-sys', ['-7', disk]);
     if (res.exitCode != 0) return res;
     logs.add('NT6+ compatible MBR written to $disk.');
@@ -1091,6 +1104,7 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     logs.add('Detected filesystem type for $targetDevice: $fsType');
 
     if (fsType.contains('vfat') || fsType.contains('fat')) {
+      logs.add('Writing NT6+ FAT32 volume boot record to $targetDevice...');
       res = await _processService.run('ms-sys', [
         '--fat32nt',
         '--partition',
@@ -1119,6 +1133,7 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       logs.add('ms-sys -2 -p stderr: ${res.stderr.trim()}');
       return _processService.run('ms-sys', ['-2', targetDevice]);
     } else {
+      logs.add('Writing NT6+ NTFS volume boot record to $targetDevice...');
       res = await _processService.run('ms-sys', [
         '--ntfs',
         '--partition',
@@ -1232,25 +1247,36 @@ boot
       'Running BCD-SYS: firmware=$firmware source=$windowsRoot system=$systemRoot',
     );
 
-    final res = await _processService.run('bash', [
-      bcdSysScript,
-      windowsRoot,
-      '-f',
-      firmware,
-      '-s',
-      systemRoot,
-      '-c',
-      '-v',
-      '-l',
-      'en-us',
-    ], workingDirectory: bcdSysDir);
-    if (res.stdout.trim().isNotEmpty) {
-      logs.add('BCD-SYS stdout: ${res.stdout.trim()}');
-    }
-    if (res.stderr.trim().isNotEmpty) {
-      logs.add('BCD-SYS stderr: ${res.stderr.trim()}');
-    }
+    final res = await _processService.runLive(
+      'bash',
+      [
+        bcdSysScript,
+        windowsRoot,
+        '-f',
+        firmware,
+        '-s',
+        systemRoot,
+        '-c',
+        '-v',
+        '-l',
+        'en-us',
+      ],
+      workingDirectory: bcdSysDir,
+      onStdout: (line) {
+        final cleaned = _cleanProcessLine(line);
+        if (cleaned.isNotEmpty) logs.add('BCD-SYS: $cleaned');
+      },
+      onStderr: (line) {
+        final cleaned = _cleanProcessLine(line);
+        if (cleaned.isNotEmpty) logs.add('BCD-SYS stderr: $cleaned');
+      },
+    );
+    logs.add('BCD-SYS exited with code ${res.exitCode}.');
     return res;
+  }
+
+  String _cleanProcessLine(String line) {
+    return line.replaceAll(RegExp('\x1B\\[[0-9;]*m'), '').trim();
   }
 
   // ── Busca el directorio Boot/EFI dentro del Windows instalado ──────────────
@@ -1463,6 +1489,38 @@ except Exception as e:
       try {
         if (File(scriptPath).existsSync()) await File(scriptPath).delete();
       } catch (_) {}
+    }
+  }
+}
+
+class _ForwardingLogList extends ListBase<String> {
+  _ForwardingLogList(this.onLog);
+
+  final void Function(String line)? onLog;
+  final List<String> _items = <String>[];
+
+  @override
+  int get length => _items.length;
+
+  @override
+  set length(int value) => _items.length = value;
+
+  @override
+  String operator [](int index) => _items[index];
+
+  @override
+  void operator []=(int index, String value) => _items[index] = value;
+
+  @override
+  void add(String value) {
+    _items.add(value);
+    onLog?.call(value);
+  }
+
+  @override
+  void addAll(Iterable<String> iterable) {
+    for (final value in iterable) {
+      add(value);
     }
   }
 }

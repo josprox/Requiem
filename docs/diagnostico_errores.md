@@ -1,5 +1,11 @@
 # Diagnóstico de Errores — Joss Red Installer
 
+## El despliegue permanece en `Configuring bootloader...`
+
+La configuración del cargador muestra en tiempo real cada subpaso de particionado Legacy, escritura MBR/VBR, ejecución de BCD-SYS, creación o validación del BCD, registro UEFI y sincronización final. La salida estándar y de error de BCD-SYS se presenta línea por línea con su prefijo correspondiente.
+
+BCD-SYS no recibe un límite de tiempo adicional: Requiem conserva el flujo completo y espera su terminación. Si una operación tarda, la última línea visible permite distinguir si el trabajo continúa en `sfdisk`, `ms-sys`, BCD-SYS, `patch_bcd.py`, `efibootmgr`, `sync` o `blockdev` sin confundirlo con la aplicación del WIM.
+
 ## `Cannot acquire drive 'stdio:E:/...'` al generar una ISO
 
 El binario Windows de `xorriso` distribuido por MSYS2 interpreta las rutas de forma distinta según el argumento. Requiem conserva `E:\archivo.iso` para el destino `-o` y para validar la ISO terminada. Las rutas de entrada, extracción, `graft-points` e intervalo GRUB se convierten a `/cygdrive/e/ruta`.

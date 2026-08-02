@@ -71,6 +71,7 @@ class WindowsDeploymentProvider implements DeploymentProvider {
     required bool bios,
     String? espDevice,
     String? windowsDevice,
+    void Function(String line)? onLog,
   }) async {
     String firmware;
     if (uefi && bios) {
@@ -81,23 +82,28 @@ class WindowsDeploymentProvider implements DeploymentProvider {
       firmware = 'UEFI';
     }
 
-    final result = await _processService.run('bcdboot.exe', [
-      windowsDir,
-      '/s',
-      efiDir,
-      '/f',
-      firmware,
-    ]);
+    final logs = <String>[];
+    void emit(String line) {
+      logs.add(line);
+      onLog?.call(line);
+    }
+
+    emit('Running bcdboot.exe for $firmware firmware...');
+    final result = await _processService.runLive(
+      'bcdboot.exe',
+      [windowsDir, '/s', efiDir, '/f', firmware],
+      onStdout: (line) => emit('bcdboot: $line'),
+      onStderr: (line) {
+        emit('bcdboot stderr: $line');
+      },
+    );
 
     if (!result.success) {
       debugPrint('BCDBoot failed: ${result.stdout} ${result.stderr}');
     }
 
-    return BootloaderResult(result.success, [
-      'bcdboot.exe ${result.success ? 'completed' : 'failed'}',
-      if (result.stdout.trim().isNotEmpty) 'stdout: ${result.stdout.trim()}',
-      if (result.stderr.trim().isNotEmpty) 'stderr: ${result.stderr.trim()}',
-    ]);
+    emit('bcdboot.exe ${result.success ? 'completed' : 'failed'}');
+    return BootloaderResult(result.success, logs);
   }
 
   @override

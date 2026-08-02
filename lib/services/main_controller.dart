@@ -579,10 +579,8 @@ class MainController extends ChangeNotifier {
       bios: !targetIsUefi,
       espDevice: targetIsUefi ? espPart : winPart,
       windowsDevice: winPart,
+      onLog: addLog,
     );
-    for (final line in bootloaderResult.logs) {
-      addLog(line);
-    }
 
     if (!bootloaderResult.success) {
       await failInstallation(

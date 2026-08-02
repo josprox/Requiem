@@ -16,6 +16,7 @@ abstract class DeploymentProvider {
     required bool bios,
     String? espDevice,
     String? windowsDevice,
+    void Function(String line)? onLog,
   });
 
   Stream<DeploymentProgress> cloneDisk({
