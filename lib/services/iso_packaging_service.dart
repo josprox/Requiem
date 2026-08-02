@@ -185,10 +185,10 @@ class IsoPackagingService {
         '-osirrox',
         'on',
         '-indev',
-        _xorrisoPath(baseIso.path),
+        toXorrisoCompoundPath(baseIso.path),
         '-extract',
         '/',
-        _xorrisoPath(tree.path),
+        toXorrisoCompoundPath(tree.path),
       ], timeout: const Duration(hours: 1));
       if (!extraction.success) {
         throw StateError(
@@ -198,10 +198,10 @@ class IsoPackagingService {
 
       final destination = File(destinationPath);
       if (await destination.exists()) await destination.delete();
-      final basePath = _xorrisoPath(baseIso.path);
-      final treePath = _xorrisoPath(tree.path);
-      final wimInput = _xorrisoPath(wim.path);
-      final manifestInput = _xorrisoPath(manifest.path);
+      final basePath = toXorrisoCompoundPath(baseIso.path);
+      final treePath = toXorrisoCompoundPath(tree.path);
+      final wimInput = toXorrisoCompoundPath(wim.path);
+      final manifestInput = toXorrisoCompoundPath(manifest.path);
 
       onLog('Empaquetando WIM y reconstruyendo el arranque híbrido...');
       onProgress?.call(0.55);
@@ -244,7 +244,7 @@ class IsoPackagingService {
         '-boot-load-size',
         '5760',
         '-o',
-        _xorrisoPath(destination.path),
+        destination.path,
         '-graft-points',
         '/=$treePath',
         '/requiem/payload/install.wim=$wimInput',
@@ -256,19 +256,26 @@ class IsoPackagingService {
         );
       }
 
-      final validation = await _processService.run(xorriso, [
+      final payloadValidation = await _processService.run(xorriso, [
         '-indev',
-        _xorrisoPath(destination.path),
+        destination.path,
         '-ls',
         '/requiem/payload/install.wim',
+      ], timeout: const Duration(minutes: 10));
+      final bootValidation = await _processService.run(xorriso, [
+        '-indev',
+        destination.path,
         '-report_el_torito',
         'plain',
       ], timeout: const Duration(minutes: 10));
-      final validationText = '${validation.stdout}\n${validation.stderr}';
-      if (!validation.success ||
-          !validationText.contains('/requiem/payload/install.wim') ||
-          !validationText.contains('BIOS') ||
-          !validationText.contains('UEFI')) {
+      final payloadText =
+          '${payloadValidation.stdout}\n${payloadValidation.stderr}';
+      final bootText = '${bootValidation.stdout}\n${bootValidation.stderr}';
+      if (!payloadValidation.success ||
+          !bootValidation.success ||
+          !payloadText.contains('/requiem/payload/install.wim') ||
+          !bootText.contains('BIOS') ||
+          !bootText.contains('UEFI')) {
         if (await destination.exists()) await destination.delete();
         throw StateError(
           'La ISO fue escrita, pero no superó la validación de payload y arranque BIOS/UEFI.',
@@ -285,8 +292,15 @@ class IsoPackagingService {
     }
   }
 
-  String _xorrisoPath(String value) =>
-      Platform.isWindows ? value.replaceAll('\\', '/') : value;
+  static String toXorrisoCompoundPath(String value, {bool? windows}) {
+    if (!(windows ?? Platform.isWindows)) return value;
+    final normalized = value.replaceAll('\\', '/');
+    final drivePath = RegExp(r'^([A-Za-z]):/(.*)$').firstMatch(normalized);
+    if (drivePath == null) return normalized;
+    final drive = drivePath.group(1)!.toLowerCase();
+    final rest = drivePath.group(2)!;
+    return '/cygdrive/$drive/$rest';
+  }
 
   Future<void> _deleteWorkingDirectory(Directory directory) async {
     if (!await directory.exists()) return;

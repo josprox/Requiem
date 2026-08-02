@@ -53,6 +53,23 @@ void main() {
     expect(asset.name, 'Requiem-Installer-ISO-v1.2.3.iso');
   });
 
+  test('converts compound Windows paths to MSYS cygdrive paths', () {
+    expect(
+      IsoPackagingService.toXorrisoCompoundPath(
+        r'E:\Requiem-Windows-install.iso',
+        windows: true,
+      ),
+      '/cygdrive/e/Requiem-Windows-install.iso',
+    );
+    expect(
+      IsoPackagingService.toXorrisoCompoundPath(
+        r'C:\Users\Joss\AppData\Local\Temp\iso tree',
+        windows: true,
+      ),
+      '/cygdrive/c/Users/Joss/AppData/Local/Temp/iso tree',
+    );
+  });
+
   test('parses and de-duplicates Wi-Fi networks by strongest signal', () {
     final networks = WifiNetworkService.parseScanOutput(
       'Lab:42:WPA2\nGuest:75:--\nLab:81:WPA2\n',

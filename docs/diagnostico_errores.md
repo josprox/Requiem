@@ -1,5 +1,11 @@
 # Diagnóstico de Errores — Joss Red Installer
 
+## `Cannot acquire drive 'stdio:E:/...'` al generar una ISO
+
+El binario Windows de `xorriso` distribuido por MSYS2 interpreta las rutas de forma distinta según el argumento. Requiem conserva `E:\archivo.iso` para el destino `-o` y para validar la ISO terminada. Las rutas de entrada, extracción, `graft-points` e intervalo GRUB se convierten a `/cygdrive/e/ruta`.
+
+Si aparece este error en una versión anterior, actualice Requiem Tools y vuelva a generar la ISO. No es un error del WIM ni implica que la ISO base esté dañada.
+
 ## ❌ ERROR ACTIVO: `oscdimg failed (code 1)` — etfsboot.com no encontrado
 
 ### Mensaje completo
