@@ -2,6 +2,7 @@
 *.class
 *.log
 *.pyc
+*.pyo
 *.swp
 .DS_Store
 .atom/
@@ -11,56 +12,44 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+__pycache__/
 
-# IntelliJ related
+# IntelliJ / VSCode related
 *.iml
 *.ipr
 *.iws
 .idea/
+.vscode/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
+# Flutter / Dart / Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
 /build/
 /coverage/
 
-# Symbolication related
+# Symbolication / Obfuscation
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# Joss Red Installer Assets
-# Ignorar el WIM base (600MB+)
-assets/winpe/*.wim
-assets/winpe/*.swm
-
-# Ignorar ISOs generadas
+# Requiem Live ISO Build Cache & Output
+.build_cache/
+requiem_installer.iso
 *.iso
+*.wim
+*.swm
 
-# Ignorar carpetas de montaje/temporales obsoletas (si quedaron algunas)
+# Staging & Temporary Mount Directories
 dism_mount/
 winpe_base/
 temp_assets/
-/tools/
+/tmp/
+scratch/
 
-
-# Ignorar instalador de Inno Setup compilado
+# Inno Setup Compiled Outputs
 inno/*.exe
-
-
-/tmp
+inno/Output/

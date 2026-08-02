@@ -152,11 +152,39 @@ class MainController extends ChangeNotifier {
     String? espPart;
     String? winPart;
 
-    Future<void> cleanupTargetMounts() async {
-      if (!isLinux) return;
-      await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
-      await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
-      await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
+    Future<bool> cleanupTargetMounts() async {
+      if (!isLinux) return true;
+
+      final syncResult = await _diskService.processService.run(
+        'sync',
+        [],
+        timeout: const Duration(minutes: 5),
+      );
+      if (syncResult.exitCode != 0) return false;
+
+      if (winPart != null) {
+        final parentDisk = winPart.replaceAll(RegExp(r'p?\d+$'), '');
+        final flushResult = await _diskService.processService.run('blockdev', [
+          '--flushbufs',
+          parentDisk,
+        ]);
+        if (flushResult.exitCode != 0) return false;
+      }
+
+      for (final mountPoint in ['/mnt/windows', '/mnt/efi', '/mnt/boot']) {
+        final mounted = await _diskService.processService.run('findmnt', [
+          '--noheadings',
+          '--target',
+          mountPoint,
+        ]);
+        if (mounted.exitCode != 0) continue;
+
+        final unmount = await _diskService.processService.run('umount', [
+          mountPoint,
+        ]);
+        if (unmount.exitCode != 0) return false;
+      }
+      return true;
     }
 
     Future<String?> mountedDevice(String mountPoint) async {
@@ -177,7 +205,12 @@ class MainController extends ChangeNotifier {
       currentStatus = status;
       installationFailed = true;
       isInstalling = false;
-      await cleanupTargetMounts();
+      final cleaned = await cleanupTargetMounts();
+      if (!cleaned) {
+        addLog(
+          'WARNING: Target volumes remain mounted because a clean sync/unmount could not be verified.',
+        );
+      }
       notifyListeners();
     }
 
@@ -293,7 +326,13 @@ class MainController extends ChangeNotifier {
           return;
         }
 
-        await cleanupTargetMounts();
+        if (!await cleanupTargetMounts()) {
+          await failInstallation(
+            'Unmount Error',
+            'ERROR: Existing target volumes could not be synchronized and unmounted cleanly.',
+          );
+          return;
+        }
         addLog('Existing target volumes unmounted for block-level WIM apply.');
       }
     }
@@ -320,17 +359,22 @@ class MainController extends ChangeNotifier {
     );
 
     var applyFailed = false;
-    await for (final progress in progressStream) {
-      if (progress.percentage >= 0) {
-        installProgress = 0.10 + (progress.percentage * 0.70);
-        if (installProgress > 0.80) installProgress = 0.80;
-        if (progress.percentage >= 1.0) {
-          currentStatus = 'Finalizing image...';
+    try {
+      await for (final progress in progressStream) {
+        if (progress.percentage >= 0) {
+          installProgress = 0.10 + (progress.percentage * 0.70);
+          if (installProgress > 0.80) installProgress = 0.80;
+          if (progress.percentage >= 1.0) {
+            currentStatus = 'Finalizing image...';
+          }
         }
+        if (progress.isError) applyFailed = true;
+        addLog(progress.status);
+        notifyListeners();
       }
-      if (progress.isError) applyFailed = true;
-      addLog(progress.status);
-      notifyListeners();
+    } catch (e) {
+      applyFailed = true;
+      addLog('ERROR: WIM process failed unexpectedly: $e');
     }
 
     if (applyFailed) {
@@ -344,42 +388,67 @@ class MainController extends ChangeNotifier {
     if (isLinux) {
       currentStatus = 'Syncing filesystem...';
       installProgress = 0.82;
-      addLog('Syncing filesystem writes (this may take a minute)...');
+      addLog('Syncing filesystem writes to physical disk...');
       notifyListeners();
-      await _diskService.processService.run(
+      final syncResult = await _diskService.processService.run(
         'sync',
         [],
         timeout: const Duration(minutes: 5),
       );
+      if (syncResult.exitCode != 0) {
+        await failInstallation(
+          'Disk Error',
+          'ERROR: Could not synchronize WIM writes: ${syncResult.stderr}',
+        );
+        return;
+      }
+      addLog('  ✓ Disk writes synced.');
+      notifyListeners();
 
       // Flush kernel write buffers en el disco padre
-      // Crítico: wimlib-imagex escribe directamente al bloque. Sin flush,
-      // el kernel puede no haber comprometido todos los inodos al disco.
       final parentDisk = winPart!.replaceAll(RegExp(r'p?\d+$'), '');
       addLog('Flushing disk buffers on $parentDisk...');
-      await _diskService.processService.run('blockdev', [
+      final flushResult = await _diskService.processService.run('blockdev', [
         '--flushbufs',
         parentDisk,
       ]);
+      if (flushResult.exitCode != 0) {
+        await failInstallation(
+          'Disk Error',
+          'ERROR: Could not flush $parentDisk: ${flushResult.stderr}',
+        );
+        return;
+      }
 
       // Sincronizar device nodes con la tabla de particiones real
       addLog('Waiting for device nodes to settle...');
       await _diskService.processService.run('partprobe', [parentDisk]);
       await _diskService.processService.run('udevadm', ['settle']);
-      await Future<void>.delayed(const Duration(seconds: 2));
+      await Future<void>.delayed(const Duration(seconds: 1));
+
+      addLog('Creating mountpoints /mnt/windows and /mnt/efi...');
+      await _diskService.processService.run('mkdir', ['-p', '/mnt/windows']);
+      await _diskService.processService.run('mkdir', ['-p', '/mnt/efi']);
+      await _diskService.processService.run('mkdir', ['-p', '/mnt/boot']);
 
       addLog('Mounting the applied Windows volume...');
       var mountRes = await _diskService.processService.run('mount', [
         '-t',
-        'ntfs3',
-        winPart!,
+        'ntfs-3g',
+        winPart,
         '/mnt/windows',
       ]);
       if (mountRes.exitCode != 0) {
         mountRes = await _diskService.processService.run('mount', [
           '-t',
-          'ntfs-3g',
-          winPart!,
+          'ntfs3',
+          winPart,
+          '/mnt/windows',
+        ]);
+      }
+      if (mountRes.exitCode != 0) {
+        mountRes = await _diskService.processService.run('mount', [
+          winPart,
           '/mnt/windows',
         ]);
       }
@@ -408,7 +477,7 @@ class MainController extends ChangeNotifier {
           return;
         }
         final mountEspRes = await _diskService.processService.run('mount', [
-          espPart!,
+          espPart,
           '/mnt/efi',
         ]);
         if (mountEspRes.exitCode != 0) {
@@ -424,6 +493,7 @@ class MainController extends ChangeNotifier {
             ? 'Target mounted at /mnt/windows; ESP mounted at /mnt/efi.'
             : 'Target mounted at /mnt/windows.',
       );
+      notifyListeners();
     }
 
     // ── Step 3: Bootloader ────────────────────────────────────────────────
@@ -527,10 +597,18 @@ class MainController extends ChangeNotifier {
     }
 
     if (isLinux) {
-      addLog('Unmounting target file systems...');
-      await _diskService.processService.run('umount', ['-f', '/mnt/windows']);
-      await _diskService.processService.run('umount', ['-f', '/mnt/efi']);
-      await _diskService.processService.run('umount', ['-f', '/mnt/boot']);
+      addLog('Synchronizing final registry and boot writes...');
+      addLog('Unmounting target file systems cleanly...');
+      if (!await cleanupTargetMounts()) {
+        addLog(
+          'ERROR: Final disk synchronization or clean unmount failed. The target was not marked complete.',
+        );
+        currentStatus = 'Unmount Error';
+        installationFailed = true;
+        isInstalling = false;
+        notifyListeners();
+        return;
+      }
     }
 
     currentStatus = 'Installation Complete!';

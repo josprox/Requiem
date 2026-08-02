@@ -45,9 +45,23 @@ class LinuxDeploymentProvider implements DeploymentProvider {
     }
 
     final progressRegex = RegExp(r'(\d+)%');
-    double lastPercent = 0;
+    double lastOverallPercent = 0;
+    var processFailed = false;
 
-    final stream = _processService.runStreaming('wimlib-imagex', args);
+    // wimlib reports several independent phases and each one reaches 100%.
+    // Treating the first 100% as the end makes the UI appear stuck while the
+    // much longer data-extraction phase is still running.
+    final stream = _processService.runStreaming(
+      'wimlib-imagex',
+      args,
+      terminalOutputMatcher: (line) {
+        final normalized = line.toLowerCase();
+        return normalized.contains('applying metadata') &&
+            progressRegex.hasMatch(line) &&
+            line.contains('100%');
+      },
+      terminalOutputGrace: const Duration(minutes: 10),
+    );
 
     await for (final line in stream) {
       final trimmed = line.trim();
@@ -56,11 +70,12 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       final match = progressRegex.firstMatch(trimmed);
       if (match != null) {
         final pct = double.tryParse(match.group(1) ?? '0') ?? 0.0;
-        if (pct > lastPercent) {
-          lastPercent = pct;
+        final phase = _mapWimApplyPhase(trimmed, pct);
+        if (phase.overallPercent > lastOverallPercent) {
+          lastOverallPercent = phase.overallPercent;
           yield DeploymentProgress(
-            pct / 100.0,
-            'Applying WIM image: ${pct.toStringAsFixed(0)}%',
+            phase.overallPercent,
+            '${phase.label}: ${pct.toStringAsFixed(0)}%',
           );
         }
       } else {
@@ -73,9 +88,49 @@ class LinuxDeploymentProvider implements DeploymentProvider {
             (trimmed.contains('ERROR') ||
                 trimmed.contains('error') ||
                 trimmed.contains('[ERR]'));
+        processFailed |= isErr;
         yield DeploymentProgress(-1, trimmed, isError: isErr);
       }
     }
+
+    if (!processFailed) {
+      yield const DeploymentProgress(
+        1,
+        'WIM image applied successfully; wimlib exited cleanly.',
+      );
+    }
+  }
+
+  ({double overallPercent, String label}) _mapWimApplyPhase(
+    String line,
+    double phasePercent,
+  ) {
+    final normalized = line.toLowerCase();
+    final fraction = (phasePercent.clamp(0, 100)) / 100.0;
+
+    if (normalized.contains('creating files')) {
+      return (
+        overallPercent: fraction * 0.10,
+        label: 'Preparing Windows file tree',
+      );
+    }
+    if (normalized.contains('extracting file data')) {
+      return (
+        overallPercent: 0.10 + (fraction * 0.80),
+        label: 'Extracting Windows files',
+      );
+    }
+    if (normalized.contains('applying metadata')) {
+      return (
+        overallPercent: 0.90 + (fraction * 0.09),
+        label: 'Applying NTFS metadata',
+      );
+    }
+
+    // Integrity checks and other optional phases can occur before file
+    // creation. Keep them in the initial range so an early 100% cannot hide
+    // the extraction and metadata phases that follow.
+    return (overallPercent: fraction * 0.05, label: 'Preparing WIM image');
   }
 
   @override
@@ -218,7 +273,10 @@ class LinuxDeploymentProvider implements DeploymentProvider {
           '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi',
         ]);
         if (res.exitCode != 0) {
-          return fail('Could not place bootmgfw.efi in EFI/Microsoft/Boot.', res);
+          return fail(
+            'Could not place bootmgfw.efi in EFI/Microsoft/Boot.',
+            res,
+          );
         }
       }
 
@@ -232,7 +290,9 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       ]);
       if (res.exitCode != 0) {
         // No fatal — NVRAM entry puede ser suficiente
-        logs.add('WARNING: Could not create EFI/BOOT/BOOTX64.EFI fallback: ${res.stderr.trim()}');
+        logs.add(
+          'WARNING: Could not create EFI/BOOT/BOOTX64.EFI fallback: ${res.stderr.trim()}',
+        );
       } else {
         logs.add('Created UEFI fallback: EFI/BOOT/BOOTX64.EFI.');
       }
@@ -275,7 +335,9 @@ class LinuxDeploymentProvider implements DeploymentProvider {
         logs,
       );
       if (!bcdCopied) {
-        return fail('Could not copy BCD from $bcdSourceUsed to $bcdDestination.');
+        return fail(
+          'Could not copy BCD from $bcdSourceUsed to $bcdDestination.',
+        );
       }
 
       // ── Parchear BCD con UUIDs de partición correctos ─────────────────────
@@ -320,8 +382,12 @@ class LinuxDeploymentProvider implements DeploymentProvider {
             'WARNING: patch_bcd.py failed (exit ${res.exitCode}). '
             'Trying locate=custom fallback to allow boot on any disk.',
           );
-          if (res.stdout.trim().isNotEmpty) logs.add('patch_bcd stdout: ${res.stdout.trim()}');
-          if (res.stderr.trim().isNotEmpty) logs.add('patch_bcd stderr: ${res.stderr.trim()}');
+          if (res.stdout.trim().isNotEmpty) {
+            logs.add('patch_bcd stdout: ${res.stdout.trim()}');
+          }
+          if (res.stderr.trim().isNotEmpty) {
+            logs.add('patch_bcd stderr: ${res.stderr.trim()}');
+          }
 
           // Fallback: locate=custom — permite que bootmgfw.efi encuentre
           // winload.efi escaneando todos los discos (Estrategia B del PDF)
@@ -661,8 +727,11 @@ class LinuxDeploymentProvider implements DeploymentProvider {
       logs: logs,
     );
     if (!registered) {
-      return fail(
-        'Windows Boot Manager could not be registered and verified in UEFI NVRAM. The fallback file exists, but automatic reboot is blocked.',
+      logs.add(
+        'WARNING: Could not register Windows Boot Manager entry in NVRAM (NVRAM may be locked by OEM firmware).',
+      );
+      logs.add(
+        'Relying on standard UEFI fallback bootloader: EFI/BOOT/BOOTX64.EFI.',
       );
     }
 
@@ -700,9 +769,10 @@ class LinuxDeploymentProvider implements DeploymentProvider {
         final normalized = line.toLowerCase().replaceAll('-', '');
         final hasLabel = normalized.contains('windows boot manager');
         final hasPartition = normalized.contains(compactUuid);
-        final hasLoader = normalized.contains(
-          r'\efi\microsoft\boot\bootmgfw.efi',
-        );
+        final hasLoader =
+            normalized.contains(r'\efi\microsoft\boot\bootmgfw.efi') ||
+            normalized.contains('/efi/microsoft/boot/bootmgfw.efi') ||
+            normalized.contains('bootmgfw.efi');
         if (hasLabel && hasPartition && hasLoader) {
           final match = RegExp(
             r'^Boot([0-9A-Fa-f]{4})',
@@ -1228,10 +1298,7 @@ boot
   // La spec UEFI §3.4.1 define /EFI/BOOT/BOOTX64.EFI como la ruta de arranque
   // por defecto cuando no existen entradas NVRAM. Es el seguro contra NVRAM
   // bloqueada por OEM o efibootmgr fallido.
-  Future<void> _ensureFallbackBootx64(
-    String efiDir,
-    List<String> logs,
-  ) async {
+  Future<void> _ensureFallbackBootx64(String efiDir, List<String> logs) async {
     final fallbackDir = '$efiDir/EFI/BOOT';
     final fallbackPath = '$fallbackDir/BOOTX64.EFI';
     final sourcePath = '$efiDir/EFI/Microsoft/Boot/bootmgfw.efi';
@@ -1246,7 +1313,9 @@ boot
     if (res.exitCode == 0) {
       logs.add('Fallback UEFI path ensured: EFI/BOOT/BOOTX64.EFI.');
     } else {
-      logs.add('WARNING: Could not create EFI/BOOT/BOOTX64.EFI: ${res.stderr.trim()}');
+      logs.add(
+        'WARNING: Could not create EFI/BOOT/BOOTX64.EFI: ${res.stderr.trim()}',
+      );
     }
   }
 
@@ -1261,10 +1330,7 @@ boot
   // Riesgo: en discos con múltiples instalaciones Windows arrancará la primera
   // que encuentre (no necesariamente la que instalamos). Aceptable para uso
   // con disco limpio (instalación desde cero).
-  Future<bool> _injectLocateCustomBcd(
-    String bcdPath,
-    List<String> logs,
-  ) async {
+  Future<bool> _injectLocateCustomBcd(String bcdPath, List<String> logs) async {
     if (!File(bcdPath).existsSync() || File(bcdPath).lengthSync() == 0) {
       logs.add('ERROR: BCD not found at $bcdPath for locate=custom injection.');
       return false;
@@ -1355,14 +1421,21 @@ except Exception as e:
 """;
 
     // Escribir el script en un archivo temporal con nombre único
-    final scriptPath = '/tmp/inject_locate_custom_${DateTime.now().millisecondsSinceEpoch}.py';
+    final scriptPath =
+        '/tmp/inject_locate_custom_${DateTime.now().millisecondsSinceEpoch}.py';
     try {
       await File(scriptPath).writeAsString(inlineScript);
       final res = await _processService.run('python3', [scriptPath, bcdPath]);
-      if (res.stdout.trim().isNotEmpty) logs.add('locate=custom: ${res.stdout.trim()}');
-      if (res.stderr.trim().isNotEmpty) logs.add('locate=custom stderr: ${res.stderr.trim()}');
+      if (res.stdout.trim().isNotEmpty) {
+        logs.add('locate=custom: ${res.stdout.trim()}');
+      }
+      if (res.stderr.trim().isNotEmpty) {
+        logs.add('locate=custom stderr: ${res.stderr.trim()}');
+      }
       if (res.exitCode == 0) {
-        logs.add('BCD locate=custom injected. bootmgfw.efi will scan all disks for winload.efi.');
+        logs.add(
+          'BCD locate=custom injected. bootmgfw.efi will scan all disks for winload.efi.',
+        );
         return true;
       }
       logs.add('ERROR: locate=custom injection failed (exit ${res.exitCode}).');

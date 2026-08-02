@@ -543,6 +543,145 @@ def validate_bcd(bcd_path, windows_device, firmware_mode):
     )
     return True
 
+
+def create_minimal_bcd(bcd_path, esp_device, windows_device):
+    print(f"Creating minimal functional BCD: {bcd_path}")
+    print(f"ESP device: {esp_device}")
+    print(f"Windows device: {windows_device}")
+
+    if not os.path.exists(bcd_path) or os.path.getsize(bcd_path) == 0:
+        print(f"Error: BCD file not found or empty at {bcd_path}")
+        return False
+
+    esp_is_gpt, esp_disk_sig, esp_part_sig, _ = get_part_info(esp_device)
+    win_is_gpt, win_disk_sig, win_part_sig, _ = get_part_info(windows_device)
+
+    if not win_is_gpt:
+        print("Error: create_minimal_bcd only supports GPT targets")
+        return False
+
+    def build_gpt_partition_device(disk_sig_bin, part_sig_bin):
+        data = bytearray(0x58)
+        struct.pack_into('<I', data, 0x00, 0)
+        struct.pack_into('<I', data, 0x04, 0)
+        struct.pack_into('<I', data, 0x08, 0x58)
+        struct.pack_into('<I', data, 0x0C, 0)
+        struct.pack_into('<I', data, 0x10, 6)
+        struct.pack_into('<I', data, 0x14, 0)
+        struct.pack_into('<I', data, 0x18, 0x48)
+        struct.pack_into('<I', data, 0x1C, 0)
+        data[0x20:0x30] = part_sig_bin
+        struct.pack_into('<I', data, 0x30, 0)
+        struct.pack_into('<I', data, 0x34, 0)
+        data[0x38:0x48] = disk_sig_bin
+        return bytes(data)
+
+    win_device_data = build_gpt_partition_device(win_disk_sig, win_part_sig)
+    esp_device_data = build_gpt_partition_device(esp_disk_sig, esp_part_sig)
+
+    winload_path = r"\Windows\system32\winload.efi"
+    systemroot = r"\Windows"
+    winload_path_utf16 = winload_path.encode('utf-16-le') + b'\x00\x00'
+    systemroot_utf16 = systemroot.encode('utf-16-le') + b'\x00\x00'
+
+    new_loader_guid = "{" + str(uuid.uuid4()) + "}"
+    bootmgr_guid = "{9dea862c-5cdd-4e70-acc1-f32b344d4795}"
+
+    try:
+        h = hivex.Hivex(bcd_path, write=True)
+        root = h.root()
+
+        objects_node = None
+        for child in h.node_children(root):
+            if h.node_name(child).lower() == "objects":
+                objects_node = child
+                break
+
+        if objects_node is None:
+            print("Error: Objects node not found in BCD template")
+            return False
+
+        loader_node = h.node_add_child(objects_node, new_loader_guid)
+        desc_node = h.node_add_child(loader_node, "Description")
+        h.node_set_value(desc_node, {"key": "Type", "t": 4, "value": struct.pack('<I', 0x10200003)})
+        elements_node = h.node_add_child(loader_node, "Elements")
+
+        el_device = h.node_add_child(elements_node, "11000001")
+        h.node_set_value(el_device, {"key": "Element", "t": 3, "value": win_device_data})
+
+        el_path = h.node_add_child(elements_node, "12000002")
+        h.node_set_value(el_path, {"key": "Element", "t": 1, "value": winload_path_utf16})
+
+        el_osdevice = h.node_add_child(elements_node, "21000001")
+        h.node_set_value(el_osdevice, {"key": "Element", "t": 3, "value": win_device_data})
+
+        el_sysroot = h.node_add_child(elements_node, "22000002")
+        h.node_set_value(el_sysroot, {"key": "Element", "t": 1, "value": systemroot_utf16})
+
+        el_nx = h.node_add_child(elements_node, "25000020")
+        h.node_set_value(el_nx, {"key": "Element", "t": 4, "value": struct.pack('<Q', 3)})
+
+        el_winpe = h.node_add_child(elements_node, "26000022")
+        h.node_set_value(el_winpe, {"key": "Element", "t": 4, "value": struct.pack('<Q', 0)})
+
+        bootmgr_node = None
+        for child in h.node_children(objects_node):
+            if h.node_name(child).lower() == bootmgr_guid:
+                bootmgr_node = child
+                break
+
+        if bootmgr_node:
+            mgr_elements = None
+            for child in h.node_children(bootmgr_node):
+                if h.node_name(child).lower() == "elements":
+                    mgr_elements = child
+                    break
+
+            if mgr_elements:
+                for el in h.node_children(mgr_elements):
+                    if h.node_name(el) == "11000001":
+                        try:
+                            _, current = h.value_value(h.node_get_value(el, "Element"))
+                            patched_data, _ = patch_partition_packet(
+                                current, esp_is_gpt, esp_disk_sig,
+                                esp_part_sig, 0, keep_boot_device=True
+                            )
+                            if patched_data:
+                                set_binary_element(h, el, bytes(patched_data))
+                        except Exception:
+                            pass
+
+                new_loader_uuid = uuid.UUID(new_loader_guid.strip('{}'))
+                guid_bytes = (
+                    new_loader_uuid.time_low.to_bytes(4, 'little') +
+                    new_loader_uuid.time_mid.to_bytes(2, 'little') +
+                    new_loader_uuid.time_hi_version.to_bytes(2, 'little') +
+                    new_loader_uuid.bytes[8:16]
+                )
+                display_order_found = False
+                for el in h.node_children(mgr_elements):
+                    if h.node_name(el) == "24000001":
+                        try:
+                            _, current = h.value_value(h.node_get_value(el, "Element"))
+                            if guid_bytes not in current:
+                                new_order = guid_bytes + current
+                                h.node_set_value(el, {"key": "Element", "t": 3, "value": new_order})
+                            display_order_found = True
+                        except Exception:
+                            pass
+                if not display_order_found:
+                    el_order = h.node_add_child(mgr_elements, "24000001")
+                    h.node_set_value(el_order, {"key": "Element", "t": 3, "value": guid_bytes})
+
+        h.commit(None)
+        print("Minimal BCD created successfully!")
+        return True
+    except Exception as e:
+        print(f"Error creating minimal BCD: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
 def patch_bcd(bcd_path, esp_device, windows_device, firmware_mode=None):
     print(f"Reading ESP device: {esp_device}")
     esp_is_gpt, esp_disk_sig, esp_part_sig, esp_offset = get_part_info(esp_device)
@@ -648,6 +787,10 @@ def patch_bcd(bcd_path, esp_device, windows_device, firmware_mode=None):
                 set_binary_element(h, el, bytes(patched_data))
 
     if patched_windows_values == 0:
+        if (firmware_mode == "uefi" or win_is_gpt) and win_is_gpt:
+            print("Warning: 0 pre-existing loader entries patched. Injecting minimal OS Loader entry into BCD...")
+            del h
+            return create_minimal_bcd(bcd_path, esp_device, windows_device)
         print("Error: no Windows loader device entries were patched")
         return False
 
@@ -890,4 +1033,3 @@ if __name__ == "__main__":
     
     success = patch_bcd(bcd, esp, win, firmware_mode=firmware_mode)
     sys.exit(0 if success else 1)
-

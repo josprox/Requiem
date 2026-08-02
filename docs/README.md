@@ -1,34 +1,27 @@
-# Joss Red Installer — Documentación Técnica
+# Requiem Installer — Documentación Técnica
 
-## Índice
+Bienvenido a la documentación técnica oficial de **Requiem Installer**.
+
+## Índice de Documentos
 
 | Documento | Descripción |
 |---|---|
-| [arquitectura.md](./arquitectura.md) | Estructura del proyecto, flujo del pipeline, dependencias |
-| [diagnostico_errores.md](./diagnostico_errores.md) | Análisis de errores encontrados y causas raíz |
-| [fix_etfsboot.md](./fix_etfsboot.md) | Fix implementado: extracción automática de boot sector files |
+| [arquitectura.md](./arquitectura.md) | Estructura general del proyecto, flujos de despliegue en Linux y arquitectura del pipeline |
+| [instalacion_windows_desde_linux.md](./instalacion_windows_desde_linux.md) | Especificación técnica del despliegue WIM sin WinPE, BCD y Bootloader |
+| [diagnostico_errores.md](./diagnostico_errores.md) | Diagnóstico de errores conocidos de arranque, firmware e imágenes |
+| [fix_etfsboot.md](./fix_etfsboot.md) | Histórico de correcciones del pipeline |
 
 ---
 
-## Error corregido en esta sesión
+## Modos de Operación
 
-```
-❌ BUILD FAILED: Exception: oscdimg failed (code 1).
-ERROR: Could not open boot sector file
-   "...\winpe_base\media\boot\etfsboot.com"
-Error 3
-```
+### 💿 Modo ISO (Linux Live ISO)
+* **Entorno**: Debian Bookworm Live x86_64 con gestor gráfico Openbox en pantalla completa.
+* **Función**: Despliegue directo de archivos `install.wim` o `install.swm` a particiones NTFS desmontadas usando `wimlib-imagex`.
+* **Bootloader**: Construcción autónoma de almacenes BCD (UEFI/BIOS), registro NVRAM vía `efibootmgr` y sectores MBR/VBR con `ms-sys`.
+* **Caché de Compilación**: Pipeline optimizado en `linux_live_iso/build_iso.sh` con caché de 4 niveles en `.build_cache`.
 
-**Causa:** Los archivos `etfsboot.com` y `efisys.bin` no existían en el proyecto.  
-**Fix:** Se agregó `_prepareBootFiles()` en `iso_builder_service.dart` que los extrae automáticamente del `boot.wim` embebido.
-
----
-
-## Estado de assets críticos
-
-| Asset | Ruta | Estado |
-|---|---|---|
-| `boot.wim` | `assets/winpe/boot.wim` | ✅ 628 MB |
-| `oscdimg.exe` | `assets/tools/oscdimg.exe` | ✅ 143 KB |
-| `etfsboot.com` | Generado en runtime → `winpe_base/media/boot/` | ✅ Auto-extraído |
-| `efisys.bin` | Generado en runtime → `winpe_base/media/efi/microsoft/boot/` | ✅ Auto-extraído |
+### 🛠️ Modo Tools (Desktop Tools)
+* **Entorno**: Windows Desktop (Post-Instalación).
+* **Función**: Instalación desatendida de paquetes de desarrollo y software corporativo mediante `winget`.
+* **Extras**: Activación KMS de Windows/Office y branding OEM.

@@ -1,94 +1,112 @@
 # Requiem Installer
 
 > [!NOTE]
-> **Requiem Installer** es un instalador live moderno e interactivo para sistemas operativos Windows, desarrollado con **Flutter** para entornos **Linux Live (Debian Bookworm)**. El proyecto automatiza el particionado, el despliegue directo de archivos WIM/SWM, y la inyección offline de arranque y configuraciones de registro desde una interfaz premium de alto rendimiento.
+> **Requiem Installer** es una solución avanzada de despliegue e instalación de Windows multi-plataforma desarrollada con **Flutter Desktop**. El proyecto cuenta con dos modos principales de operación: el **Modo ISO** (una distribución autónoma de Linux Live basada en Debian Bookworm optimizada exclusivamente para instalar imágenes Windows `.wim`/`.swm` sin depender de WinPE) y el **Modo Tools** (una herramienta utilitaria de post-instalación para la activación KMS, personalización OEM e instalación masiva de programas en Windows).
 
 ---
 
-## 🚀 Características Clave
+## 🚀 Propósitos del Proyecto
 
-* **Despliegue Multi-Plataforma**: Diseñado para correr en un entorno autónomo Linux Live ISO (Debian Bookworm) y en modo utilitario post-instalación (Desktop Tools) sobre Windows.
-* **Particionado Autónomo**: Soporte completo para esquemas de partición GPT (UEFI) y MBR (Legacy BIOS) de forma automatizada mediante `parted` y `sfdisk`.
-* **Escritura Directa de WIM/SWM**: Despliegue al volumen NTFS desmontado con `wimlib-imagex`, preservando ACL, ADS, reparse points y metadatos NTFS.
-* **Configurador de Arranque en Linux**: Reconstrucción del almacén BCD y configuración de UEFI Boot Manager y registros MBR/VBR mediante scripts híbridos (`BCD-SYS`, `patch_bcd.py` con `hivex` y `ms-sys`).
-* **Integración y Ajuste OEM**: Inyección directa de información del fabricante, logos corporativos, variables de entorno y controladores de almacenamiento esenciales en las colmenas offline de Windows.
-* **Consola de Post-Instalación**: Automatización de activaciones KMS (Windows y Office) e instalación masiva de programas de desarrollo usando `winget`.
+### 1. Modo ISO (Distribución Linux Live Installer) 💿
+Un entorno autónomo de alto rendimiento basado en **Debian Bookworm Live** que se ejecuta directamente desde una memoria USB o máquina virtual.
+* **Menú GRUB Unificado**: Un único punto de entrada principal con parámetros universales del kernel (`quiet splash`, `console=tty0`, `gfxpayload=1024x768x32,auto`) para garantizar compatibilidad gráfica universal en UEFI/BIOS, hardware real, VMware, QEMU/KVM y VirtualBox.
+* **Compilación Rápida con Sistema de Caché (`build_iso.sh`)**: Incluye un pipeline de construcción optimizado con almacenamiento en caché de 4 niveles (`.build_cache`):
+  - *Caché de Debootstrap*: Reutiliza el archivo tarball del sistema base Debian (`debootstrap_bookworm_base.tar.xz`), reduciendo el tiempo de bootstrap de minutos a segundos.
+  - *Caché de Binarios*: Preserva las utilidades precompiladas `xorriso-1.5.6`, `ms-sys` y `BCD-SYS`.
+  - *Caché de Paquetes APT*: Reutiliza los paquetes `.deb` descargados en `/var/cache/apt/archives`.
+  - *Compilación Incremental de Flutter*: Mantiene `.dart_tool` para compilar solo los cambios de código en segundos.
+* **Despliegue Directo WIM/SWM**: Aplica la imagen de Windows al volumen NTFS desmontado usando `wimlib-imagex`, preservando ACLs, ADS, reparse points y metadatos NTFS sin requerir WinPE. El progreso se calcula por las fases reales de `wimlib` (creación, extracción y metadatos), y sólo se acepta el WIM cuando el proceso termina limpiamente; un `100%` intermedio no se confunde con la finalización global.
+* **Configuración Perfeccionada del Bootloader**:
+  - *Modo UEFI GPT*: Reconstruye el almacén BCD usando `BCD-SYS` o `patch_bcd.py` (con inyección automática de OS Loader `create_minimal_bcd`), copia `bootmgfw.efi` y el cargador de respaldo `EFI/BOOT/BOOTX64.EFI`, y registra la entrada en NVRAM con `efibootmgr`. Si la NVRAM está protegida contra escritura por el firmware OEM, continúa la instalación con éxito apoyándose en `BOOTX64.EFI`.
+  - *Modo BIOS Legacy MBR*: Escribe MBR y VBR NT6+ mediante `ms-sys`, marca la partición como activa y sincroniza la firma de disco MBR en la colmena BCD.
+* **Inyección de Controladores de Almacenamiento Críticos**: Activa automáticamente en el registro offline `SYSTEM` (`ControlSet001/ControlSet002`) los controladores `stornvme`, `iaStorVD`, `iaStorA`, `nvme`, `vmd`, `storahci`, `ahci`, `msahci`, `intelide`, etc. Previene de forma definitiva las pantallas azules `INACCESSIBLE_BOOT_DEVICE` (0x0000007B) en SSDs NVMe y procesadores Intel de última generación.
+
+### 2. Modo Tools (Post-Instalación & Desktop Tools) 🛠️
+Una consola utilitaria diseñada para ser ejecutada sobre sistemas Windows ya instalados:
+* **Instalación Masiva de Software**: Integración con `winget` y scripts desatendidos para instalar navegadores, entornos de desarrollo y utilidades.
+* **Activación de Licencias**: Automatización de servicios KMS para la activación oficial de Windows y Microsoft Office.
+* **Branding e Integración OEM**: Inyección de marca personalizada del fabricante, modelo, soporte técnico y logotipos corporativos en el registro del sistema.
 
 ---
 
 ## 🛠️ Arquitectura y Tecnologías
 
 ### Frontend (Interfaz Gráfica)
-* **Flutter Desktop (Linux & Windows)**: Interfaz de usuario responsiva con estética premium basada en efectos de glassmorphism y micro-animaciones dinámicas.
-* **Provider (Dart)**: Arquitectura reactiva y gestión de estado mediante un controlador centralizado (`MainController`).
-* **Window Manager**: Control de comportamiento nativo de pantallas y bordes de ventana.
+* **Flutter Desktop (Linux & Windows)**: Interfaz responsiva moderna con estética glassmorphic, modo oscuro y micro-animaciones dinámicas.
+* **Provider (Dart)**: Arquitectura reactiva y gestión de estado mediante controlador centralizado (`MainController`).
+* **Window Manager**: Control nativo de bordes de ventana y comportamiento en pantalla completa.
 
-### Backend & Sistema (Live ISO)
-* **Debian Bookworm (Base Live)**: Entorno mínimo bootstrap montado en memoria RAM usando `live-boot`.
-* **Gestor Gráfico Ligero**: Xorg Server con el gestor de ventanas Openbox configurado en pantalla completa sin decoraciones.
-* **Comandos del Sistema**: `sgdisk`, `parted`, `sfdisk`, `ntfs-3g`, `wimtools`, `efibootmgr`, `hivex`, `sbverify` y `ms-sys`.
-
-El flujo técnico, sus validaciones previas al reinicio y las limitaciones conocidas están documentados en [`docs/instalacion_windows_desde_linux.md`](docs/instalacion_windows_desde_linux.md).
-* **Edición del Registro (Python + hivex)**: Manipulación de registros binarios mediante `hivexregedit` y Python con enlace nativo a `hivex` para evitar API de Microsoft.
+### Backend & Herramientas de Sistema (Live ISO)
+* **Base Linux Live**: Debian Bookworm Live montado en memoria RAM mediante `live-boot`.
+* **Entorno Gráfico**: Xorg Server con gestor de ventanas Openbox en pantalla completa sin bordes.
+* **Utilidades del Sistema**: `wimlib-imagex`, `sgdisk`, `parted`, `sfdisk`, `ntfs-3g`, `efibootmgr`, `hivex` (`python3-hivex`), `ms-sys` y `BCD-SYS`.
 
 ---
 
-## 💻 Flujo de Trabajo del Desarrollador
+## 💻 Flujo de Trabajo para Desarrolladores (Compilar la ISO)
 
-### 1. Preparación del Entorno WSL2 (Ubuntu)
-Para compilar la aplicación y preparar el constructor de ISOs, configure su entorno de desarrollo ejecutando en la consola de WSL:
+### 1. Configuración del Entorno WSL2 / Linux
+Para preparar el entorno de compilación e instalar el SDK de Flutter de Linux en `/opt/flutter`:
 
 ```bash
 chmod +x linux_live_iso/setup_wsl.sh
 ./linux_live_iso/setup_wsl.sh
 ```
-*Este script instalará las dependencias necesarias de compilación (CMake, Ninja, GTK3) y clonará la versión adecuada de Flutter (`3.44.1`) en `/opt/flutter`.*
 
 ### 2. Compilación de la ISO Arrancable
-Para realizar el bootstrap del Debian live chroot, compilar el binario de Flutter e integrarlo todo en una imagen ISO híbrida UEFI+BIOS, ejecute en la raíz del proyecto en WSL:
 
+#### Compilación Rápida (con Caché por Defecto):
 ```bash
 sudo ./linux_live_iso/build_iso.sh
 ```
+*La primera ejecución genera la caché en `.build_cache`. Las compilaciones subsecuentes tomarán solo unos segundos.*
 
-El instalador empaquetará las herramientas y generará el archivo resultante en la raíz:
+#### Reconstruir desde Cero (Limpiar Caché):
+```bash
+sudo ./linux_live_iso/build_iso.sh --clean
+```
+
+El archivo ISO resultante se generará en la raíz del proyecto:
 `requiem_installer.iso`
 
 ---
 
-## 💿 Flujo de Instalación para el Usuario
+## 📁 Estructura del Proyecto
 
-1. **Arranque**: Inicie el equipo o máquina virtual utilizando el archivo `requiem_installer.iso`.
-2. **Bienvenida**: El escritorio cargará automáticamente el instalador de Flutter en pantalla completa. Presione **EMPEZAR**.
-3. **Selección de WIM/SWM**: Busque o autodetecte la imagen de Windows (`install.wim` o `install.swm`) desde discos duros, SSDs o unidades USB externas montadas.
-4. **Administración de Discos**:
-   * Seleccione la unidad física de destino.
-   * Elija el esquema de partición: **Formatear GPT (UEFI)** o **Formatear MBR (BIOS Legacy)**.
-5. **Instalación**: Confirme la advertencia de pérdida de datos. El instalador particionará, aplicará la imagen, configurará el almacén BCD de Windows y desmontará las particiones limpiamente.
-6. **Reinicio**: Presione **REINICIAR SISTEMA** y retire el medio de instalación para iniciar su nuevo Windows.
-
----
-
-## 🔧 Solución de Problemas
-
-### Error al Compilar la ISO (Puntos de Montaje Activos)
-Si la compilación se interrumpe y `build_iso.sh` falla al intentar recrear los directorios, limpie los montajes del chroot con:
-```bash
-sudo umount -lf /tmp/requiem_installer_iso_build/chroot/proc 2>/dev/null || true
-sudo umount -lf /tmp/requiem_installer_iso_build/chroot/sys 2>/dev/null || true
-sudo umount -lf /tmp/requiem_installer_iso_build/chroot/dev/pts 2>/dev/null || true
-sudo umount -lf /tmp/requiem_installer_iso_build/chroot/dev 2>/dev/null || true
+```text
+Requiem/
+├── assets/                          # Logotipos y recursos de la aplicación
+├── docs/                            # Documentación técnica detallada
+│   ├── README.md                    # Índice de documentación
+│   ├── arquitectura.md              # Visión general de componentes y servicios
+│   ├── diagnostico_errores.md       # Diagnóstico de errores de boot e imágenes
+│   ├── fix_etfsboot.md              # Correcciones del pipeline
+│   └── instalacion_windows_desde_linux.md # Flujo técnico del despliegue en Linux
+├── inno/                            # Script ISS y binarios de instalador Inno Setup
+├── lib/                             # Código fuente principal de Flutter / Dart
+│   ├── core/                        # Tema gráfico y constantes
+│   ├── models/                      # Modelos de datos (discos, particiones, progreso)
+│   ├── services/                    # Servicios de backend (discos, despliegue, registro)
+│   │   ├── deployment/              # Providers de despliegue para Linux y Windows
+│   │   ├── main_controller.dart     # Controlador central de estado
+│   │   ├── disk_service.dart        # Gestión de discos y particionado
+│   │   ├── registry_service.dart    # Modificación de registro offline
+│   │   └── process_service.dart     # Ejecución streaming de comandos
+│   └── ui/                          # Pantallas y widgets de la interfaz gráfica
+├── linux_live_iso/                  # Constructor y configuraciones de la ISO Live
+│   ├── build_iso.sh                 # Pipeline principal de compilación con caché
+│   ├── setup_chroot.sh              # Instalación de paquetes dentro del chroot
+│   ├── setup_wsl.sh                 # Preparación del entorno WSL host
+│   ├── configs/                     # Archivos de configuración (grub.cfg, systemd, xinitrc)
+│   └── tools/                       # Parcheador BCD en Python (patch_bcd.py)
+└── pubspec.yaml                     # Configuración de dependencias de Flutter
 ```
-
-### Windows no inicia (Pantalla Negra o Cursor Parpadeante)
-* **BIOS Mismatch**: Confirme si el instalador fue arrancado en modo UEFI pero instaló en modo MBR, o viceversa. Utilice el particionado correspondiente a la BIOS de su equipo.
-* **Falta de BCD**: Revise los logs del instalador en la fase de configuración de bootloader. La imagen WIM utilizada debe contener la estructura de archivos en `Windows/Boot/EFI` o `Windows/Boot/PCAT`.
 
 ---
 
 ## 📜 Licencia y Autoría
 
-Este software está sujeto a los términos de la **Requiem Installer Public License** (consulte [license.txt](license.txt)). Es libre para uso comercial y permite sublicenciamiento siempre y cuando se mantenga de manera notoria la atribución al creador.
+Software protegido bajo la **Requiem Installer Public License** (consulte [`license.txt`](license.txt)).
 
-**Creado por**:
-Melchor Estrada José Luis - Joss Red - [joss.red](https://joss.red) (web) - [josprox.com](https://josprox.com) (web)
+**Desarrollado por**:
+Melchor Estrada José Luis — Joss Red — [joss.red](https://joss.red) (web) — [josprox.com](https://josprox.com) (web)

@@ -1,116 +1,79 @@
-# Joss Red Installer — Arquitectura del Sistema
+# Requiem Installer — Arquitectura del Sistema
 
 ## Visión General
 
-Joss Red Installer es una aplicación **Flutter Desktop (Windows)** que actúa como herramienta de construcción de ISOs bootables y como instalador de Windows dentro de un entorno WinPE.
+**Requiem Installer** es un instalador multi-plataforma desarrollado en **Flutter Desktop** diseñado para operar en dos entornos principales:
 
-La app tiene **dos modos de operación**:
+1. **Modo ISO (Linux Live ISO Installer)**: Un entorno autónomo basado en Debian Bookworm Live que despliega sistemas operativos Windows a partir de imágenes `.wim`/`.swm` directamente sobre NTFS desmontado, construyendo el almacén BCD y configurando los registros de arranque sin requerir Microsoft WinPE.
+2. **Modo Tools (Desktop Tools)**: Una herramienta post-instalación ejecutable sobre Windows para la gestión desatendida de software (vía `winget`), activación KMS de Windows/Office y personalización de marcas OEM.
 
-| Modo | Condición de arranque | Pantalla inicial |
-|---|---|---|
-| **Builder Mode** | Corre en Windows normal (`X:\Windows` no existe) | `IsoBuilderScreen` |
-| **WinPE Mode** | Corre dentro de WinPE (`X:\Windows` existe) | `LandingScreen` |
+---
 
-```
-main.dart
-│
-├── [Windows Normal] → IsoBuilderScreen (construir ISO)
-└── [WinPE] → LandingScreen → DiskSelectionScreen → InstallationProgressScreen
+## Arquitectura de Componentes (Dart / Flutter)
+
+```text
+lib/
+├── main.dart                               # Entry point y selección de modo
+├── core/
+│   └── theme.dart                          # Tema oscuro responsivo (glassmorphism)
+├── models/                                 # Definiciones de modelos de datos
+│   └── disk_model.dart                     # Estructuras para discos y particiones
+├── services/
+│   ├── main_controller.dart                # Controlador central de estado (Provider)
+│   ├── process_service.dart                # Ejecución asíncrona y streaming de procesos
+│   ├── disk_service.dart                   # Particionado GPT/MBR y formateo
+│   ├── deployment_service.dart             # Orquestador del flujo de aplicación de WIM
+│   ├── registry_service.dart               # Modificación offline de registros binarios
+│   └── deployment/
+│       ├── deployment_provider.dart        # Interfaz abstracta de despliegue
+│       ├── linux_deployment_provider.dart  # Implementación nativa para entorno Linux Live
+│       └── windows_deployment_provider.dart# Implementación utilitaria para Windows
+└── ui/
+    ├── screens/                            # Pantallas de la aplicación
+    └── widgets/                            # Componentes visuales reutilizables
 ```
 
 ---
 
-## Árbol de Archivos
+## Flujo Técnico del Modo ISO (Linux Live Deployment)
 
-```
-flutter_app/
-├── lib/
-│   ├── main.dart                        # Entry point, modo PE vs Builder
-│   ├── core/
-│   │   └── theme.dart                   # Tema oscuro "Joss Red"
-│   ├── models/                          # Modelos de datos (discos, particiones)
-│   ├── services/
-│   │   ├── main_controller.dart         # ChangeNotifier central (estado global)
-│   │   ├── iso_builder_service.dart     # Pipeline de construcción de ISO ← CRÍTICO
-│   │   ├── disk_service.dart            # Listado de discos vía WMIC/DiskPart
-│   │   ├── deployment_service.dart      # Aplicación de imágenes WIM vía DISM
-│   │   ├── registry_service.dart        # Inyección de OEM en registro offline
-│   │   ├── process_service.dart         # Wrapper para Process.run / runStreaming
-│   │   └── recovery_service.dart        # Limpieza de emergencia
-│   └── ui/
-│       ├── screens/
-│       │   ├── landing_screen.dart
-│       │   ├── iso_builder_screen.dart  # UI del pipeline ISO
-│       │   ├── disk_selection_screen.dart
-│       │   └── installation_progress_screen.dart
-│       └── widgets/
-├── assets/
-│   ├── logo.png
-│   ├── winpe/
-│   │   └── boot.wim                     # Imagen base WinPE (~600MB)
-│   └── tools/
-│       └── oscdimg.exe                  # Herramienta de creación de ISOs
-├── winpe_base/
-│   └── media/                           # ← Estructura de la ISO final
-│       └── sources/                     # Vacía en repo (se llena en runtime)
-├── tools/                               # Vacía en repo
-└── docs/                                # Esta carpeta
+```text
+1. Inicio del Live ISO
+   └── Debian Bookworm Kernel → Systemd → Xorg + Openbox → Requiem Installer UI
+
+2. Selección de Imagen y Disco
+   └── Detección de WIM/SWM → Selección de Unidad Física → Esquema (GPT/UEFI o MBR/BIOS)
+
+3. Particionado y Formateo
+   └── parted / sgdisk / sfdisk → mkfs.vfat (ESP) + mkfs.ntfs (Windows)
+
+4. Aplicación de Imagen WIM/SWM (Directo al Bloque)
+   └── wimlib-imagex apply install.wim 1 /dev/DESTINO_WINDOWS (preserva ACLs, ADS y metadatos)
+
+5. Sincronización y Montaje
+   └── sync → blockdev --flushbufs → Mount /mnt/windows y /mnt/efi
+
+6. Reconstrucción del Bootloader de Windows
+   ├── UEFI: BCD-SYS / patch_bcd.py (create_minimal_bcd) → efibootmgr NVRAM → EFI/BOOT/BOOTX64.EFI
+   └── BIOS: ms-sys (-7 MBR + VBR NT6+) → patch_bcd.py (--sync-mbr-signature)
+
+7. Inyección de Registro Offline
+   ├── Controladores de Almacenamiento: Start = 0 (stornvme, iaStorVD, iaStorA, nvme, vmd, storahci)
+   └── Marca OEM: Información del fabricante, modelo y logotipo
+
+8. Cierre Limpio
+   └── sync → blockdev --flushbufs → Desmontaje de /mnt/windows y /mnt/efi → Reinicio
 ```
 
 ---
 
-## Flujo del Pipeline ISO (`IsoBuilderService.buildIso`)
+## Flujo del Pipeline de Compilación (`linux_live_iso/build_iso.sh`)
 
-```
-Step 1/6  Preparar assets embebidos
-          → boot.wim y oscdimg.exe se cachean en temp_assets/
+El pipeline de compilación de la ISO incluye un sistema de almacenamiento en caché de 4 niveles (`.build_cache`):
 
-Step 2/6  Localizar boot.wim
-          → temp_assets/base_boot.wim (prioridad)
-          → winpe_base/media/sources/boot.wim
-          → winpe_base/sources/boot.wim
-
-Step 3/6  Limpiar entorno DISM
-          → dism /Get-MountedWimInfo → descartar mounts stale
-          → dism /Cleanup-Mountpoints
-
-Step 4/6  Montar imagen WinPE
-          → dism /Mount-Wim → dism_mount/
-
-Step 5/6  Inyectar contenido en la imagen montada
-    5a.   xcopy binarios de la app → dism_mount/JossRedInstaller/
-    5b.   Copiar DLLs de VC++ Runtime desde C:\Windows\System32
-    5c.   Escribir winpeshl.ini → dism_mount/Windows/System32/
-    5d.   Copiar install.wim/swm → winpe_base/media/sources/
-
-Step 6/6  Commit + Crear ISO
-          → dism /Unmount-Wim /Commit
-          → oscdimg -bootdata:2#p0,e,b{etfsboot.com}#pEF,e,b{efisys.bin}
-```
-
----
-
-## Dependencias del Proyecto
-
-| Paquete | Versión | Uso |
-|---|---|---|
-| `provider` | ^6.1.5+1 | State management |
-| `window_manager` | ^0.5.1 | Barra de título personalizada |
-| `file_picker` | ^8.0.0 | Selección de archivos WIM/ISO |
-| `path_provider` | ^2.1.5 | Rutas temporales |
-| `path` | ^1.9.0 | Manipulación de rutas |
-| `google_fonts` | ^8.1.0 | Tipografía |
-| `crypto` | ^3.0.7 | Hashing (potencial verificación de integridad) |
-
----
-
-## Herramientas del Sistema Utilizadas
-
-| Herramienta | Propósito |
-|---|---|
-| `dism.exe` | Montar/desmontar WIM, inyectar paquetes |
-| `oscdimg.exe` | Crear ISO bootable BIOS+UEFI |
-| `xcopy.exe` | Copiar binarios al mount |
-| `diskpart.exe` | Particionar discos en modo PE |
-| `bcdboot.exe` | Configurar bootloader |
-| `shutdown.exe` | Reiniciar al terminar instalación |
+1. **Host Tool Verification**: Comprueba e instala herramientas requeridas (`debootstrap`, `squashfs-tools`, `xorriso`, `grub-mkrescue`).
+2. **Debootstrap Base Cache**: Extrae `debootstrap_bookworm_base.tar.xz` si existe, o genera el archivo para futuros builds.
+3. **Tool Binaries Cache**: Reutiliza binarios precompilados de `xorriso-1.5.6`, `ms-sys` y el repositorio `BCD-SYS`.
+4. **APT Cache**: Monta `/var/cache/apt/archives` dentro del chroot para evitar re-descargar paquetes Debian.
+5. **Incremental Flutter Build**: Sincroniza el código fuente manteniendo `.dart_tool` para compilar solo los cambios en segundos.
+6. **SquashFS & ISO Creation**: Empaqueta el chroot con `mksquashfs` y genera la ISO híbrida UEFI+BIOS mediante `grub-mkrescue` con el menú GRUB unificado.
