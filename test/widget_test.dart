@@ -1,9 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:requiem_tools/main.dart';
+import 'package:requiem_tools/ui/screens/landing_screen.dart';
 
 void main() {
-  testWidgets('Smoke test', (WidgetTester tester) async {
+  testWidgets('renders the landing screen without exceptions', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const RequiemApp());
-    expect(find.text('REQUIEM TOOLS'), findsOneWidget);
+
+    expect(find.byType(LandingScreen), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

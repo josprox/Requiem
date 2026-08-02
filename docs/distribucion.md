@@ -7,7 +7,7 @@ El workflow `.github/workflows/distribution.yml` construye las tres variantes of
 - `Requiem-Installer-ISO-vX.Y.Z.iso`: medio Live híbrido BIOS/UEFI para desplegar imágenes WIM/SWM.
 - `SHA256SUMS.txt`: sumas de integridad de todos los archivos publicados.
 
-Antes de compilar, el workflow ejecuta `flutter analyze --no-fatal-infos` y `flutter test`. Los errores y advertencias bloquean la distribución; los avisos puramente informativos se conservan en el log sin impedir el empaquetado.
+Antes de compilar, el workflow ejecuta `flutter analyze --no-fatal-infos` y `flutter test`. Los errores y advertencias bloquean la distribución; los avisos puramente informativos se conservan en el log sin impedir el empaquetado. El smoke test valida la pantalla inicial sin depender del texto específico de Windows o Linux, por lo que produce el mismo resultado en runners Ubuntu y equipos Windows.
 
 La versión se obtiene exclusivamente de la clave `version:` de `pubspec.yaml`. Para `version: 1.0.1+2`, los nombres públicos y el tag usan `1.0.1`, mientras que Flutter e Inno Setup conservan `2` como número de compilación.
 
