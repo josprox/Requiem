@@ -130,15 +130,27 @@ jobs:
           & C:\msys64\usr\bin\bash.exe -lc @'
             set -euo pipefail
             destination="$(cygpath -u "$REQUIEM_XORRISO_TARGET")"
-            mkdir -p "$destination/licenses"
             cp /usr/bin/xorriso.exe "$destination/"
-            cp /usr/share/licenses/xorriso/COPYING "$destination/licenses/COPYING-xorriso"
             ldd /usr/bin/xorriso.exe | awk '($3 ~ /^\/usr\/bin\//) {print $3} ($1 ~ /^\/usr\/bin\//) {print $1}' | sort -u | while read -r dependency; do
               cp "$dependency" "$destination/"
             done
           '@
           if ($LASTEXITCODE -ne 0) {
             throw 'Could not collect xorriso runtime dependencies.'
+          }
+
+          $xorrisoLicenseDirectory = Join-Path $xorrisoTarget 'licenses'
+          $xorrisoLicense = Join-Path $xorrisoLicenseDirectory 'LICENSE-NOTICE-xorriso.txt'
+          New-Item -ItemType Directory -Path $xorrisoLicenseDirectory -Force | Out-Null
+          @'
+          xorriso 1.5.6
+          License: GPL-3.0-or-later
+          Project: https://www.gnu.org/software/xorriso/
+          License text: https://www.gnu.org/licenses/gpl-3.0.txt
+          MSYS2 package: https://packages.msys2.org/packages/xorriso
+          '@ | Set-Content -LiteralPath $xorrisoLicense -Encoding utf8
+          if (-not (Test-Path -LiteralPath $xorrisoLicense)) {
+            throw 'Could not create the xorriso license notice.'
           }
 
           $wimlibVersion = '1.14.5'
