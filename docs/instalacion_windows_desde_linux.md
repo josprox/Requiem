@@ -12,6 +12,8 @@ Requiem ahora asigna rangos monotónicos a cada fase y reserva la finalización 
 
 La validación de `patch_bcd.py` también devuelve éxito de forma explícita cuando encuentra Windows Boot Manager y al menos un OS Loader que referencia la partición correcta. Esto evita rechazar un BCD válido antes de crear `EFI/BOOT/BOOTX64.EFI` y finalizar el disco.
 
+El desmontaje final comprueba entradas exactas de la tabla de montajes mediante `findmnt --mountpoint`. No se utiliza `findmnt --target` para esta decisión porque ese modo devuelve el filesystem que contiene una ruta —por ejemplo, el filesystem raíz para `/mnt/boot`— aunque la ruta no sea un punto de montaje. Cada volumen activo se desmonta normalmente, con un segundo intento después de `sync`; si falla, el log conserva el comando, código de salida y error concreto.
+
 ---
 
 ## Flujo de Despliegue UEFI GPT

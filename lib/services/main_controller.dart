@@ -160,7 +160,12 @@ class MainController extends ChangeNotifier {
         [],
         timeout: const Duration(minutes: 5),
       );
-      if (syncResult.exitCode != 0) return false;
+      if (syncResult.exitCode != 0) {
+        addLog(
+          'ERROR: sync failed before unmount: ${syncResult.stderr.trim()}',
+        );
+        return false;
+      }
 
       if (winPart != null) {
         final parentDisk = winPart.replaceAll(RegExp(r'p?\d+$'), '');
@@ -168,21 +173,49 @@ class MainController extends ChangeNotifier {
           '--flushbufs',
           parentDisk,
         ]);
-        if (flushResult.exitCode != 0) return false;
+        if (flushResult.exitCode != 0) {
+          addLog(
+            'ERROR: blockdev --flushbufs failed on $parentDisk: ${flushResult.stderr.trim()}',
+          );
+          return false;
+        }
       }
 
       for (final mountPoint in ['/mnt/windows', '/mnt/efi', '/mnt/boot']) {
+        // --target resolves the filesystem containing a path, so it reports
+        // the live root filesystem even when /mnt/boot is not mounted.  Use
+        // --mountpoint to require an exact mount-table entry.
         final mounted = await _diskService.processService.run('findmnt', [
           '--noheadings',
-          '--target',
+          '--mountpoint',
           mountPoint,
         ]);
         if (mounted.exitCode != 0) continue;
 
-        final unmount = await _diskService.processService.run('umount', [
+        var unmount = await _diskService.processService.run('umount', [
           mountPoint,
         ]);
-        if (unmount.exitCode != 0) return false;
+        if (unmount.exitCode != 0) {
+          addLog(
+            'Unmount of $mountPoint is busy; synchronizing and retrying...',
+          );
+          await _diskService.processService.run(
+            'sync',
+            [],
+            timeout: const Duration(minutes: 5),
+          );
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+          unmount = await _diskService.processService.run('umount', [
+            mountPoint,
+          ]);
+        }
+        if (unmount.exitCode != 0) {
+          addLog(
+            'ERROR: umount $mountPoint failed with exit ${unmount.exitCode}: ${unmount.stderr.trim()}',
+          );
+          return false;
+        }
+        addLog('  ✓ Unmounted $mountPoint cleanly.');
       }
       return true;
     }
