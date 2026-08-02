@@ -18,7 +18,7 @@ La versión se obtiene exclusivamente de la clave `version:` de `pubspec.yaml`. 
 3. Mantener activa la opción `create_draft_release` para crear `vX.Y.Z` como Release en borrador.
 4. Revisar notas y archivos en GitHub Releases y publicar manualmente cuando estén listos.
 
-Si el workflow se repite para la misma versión y el Release sigue en borrador, reemplaza sus artefactos. Nunca sobrescribe un Release ya publicado.
+Si el workflow se repite para la misma versión y el Release sigue en borrador, reemplaza sus artefactos. Nunca sobrescribe un Release ya publicado. El job de publicación pasa `github.repository` explícitamente a GitHub CLI, por lo que no depende de un checkout ni de la presencia local de un directorio `.git`.
 
 ## Compilación local del instalador
 

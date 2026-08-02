@@ -250,6 +250,7 @@ jobs:
       contents: write
     env:
       GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
       RELEASE_TAG: ${{ needs.metadata.outputs.tag }}
       APP_VERSION: ${{ needs.metadata.outputs.version }}
     steps:
@@ -277,18 +278,24 @@ jobs:
             throw 'No distribution assets were downloaded.'
           }
 
-          $existingDraft = gh release view $env:RELEASE_TAG --json isDraft --jq .isDraft 2>$null
+          $existingDraft = gh release view $env:RELEASE_TAG `
+            --repo $env:GH_REPO `
+            --json isDraft `
+            --jq .isDraft 2>$null
           if ($LASTEXITCODE -eq 0) {
             if ($existingDraft -ne 'true') {
               throw "Release $env:RELEASE_TAG is already published and will not be overwritten."
             }
 
-            gh release upload $env:RELEASE_TAG @assets --clobber
+            gh release upload $env:RELEASE_TAG @assets `
+              --repo $env:GH_REPO `
+              --clobber
             if ($LASTEXITCODE -ne 0) {
               throw "Could not update draft release $env:RELEASE_TAG."
             }
           } else {
             gh release create $env:RELEASE_TAG @assets `
+              --repo $env:GH_REPO `
               --draft `
               --generate-notes `
               --target $env:GITHUB_SHA `
