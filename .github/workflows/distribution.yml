@@ -156,9 +156,30 @@ jobs:
           $wimlibVersion = '1.14.5'
           $wimlibArchive = Join-Path $env:RUNNER_TEMP "wimlib-$wimlibVersion.zip"
           $wimlibExtract = Join-Path $env:RUNNER_TEMP 'wimlib-extracted'
-          Invoke-WebRequest `
-            -Uri "https://wimlib.net/downloads/wimlib-$wimlibVersion-windows-x86_64-bin.zip" `
-            -OutFile $wimlibArchive
+          $wimlibUrls = @(
+            "https://wimlib.net/downloads/wimlib-$wimlibVersion-windows-x86_64-bin.zip",
+            "https://downloads.sourceforge.net/project/wimlib/wimlib-$wimlibVersion-windows-x86_64-bin.zip"
+          )
+          $downloadSuccess = $false
+          foreach ($url in $wimlibUrls) {
+            for ($attempt = 1; $attempt -le 3; $attempt++) {
+              try {
+                Write-Host "Downloading wimlib from $url (attempt $attempt)..."
+                Invoke-WebRequest -Uri $url -OutFile $wimlibArchive -TimeoutSec 45 -UserAgent 'Mozilla/5.0'
+                if (Test-Path -LiteralPath $wimlibArchive) {
+                  $downloadSuccess = $true
+                  break
+                }
+              } catch {
+                Write-Host "Download attempt $attempt failed: $_"
+                Start-Sleep -Seconds 3
+              }
+            }
+            if ($downloadSuccess) { break }
+          }
+          if (-not $downloadSuccess) {
+            throw 'Failed to download wimlib archive from all sources.'
+          }
           $expectedHash = '2F446D6FA3866582175F1A22A7BE198EEEE0AEC7ABA5B4E04AD25C99EAE2D265'
           $actualHash = (Get-FileHash -LiteralPath $wimlibArchive -Algorithm SHA256).Hash
           if ($actualHash -ne $expectedHash) {
