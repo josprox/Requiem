@@ -58,6 +58,11 @@ apt-get install -y --no-install-recommends \
     firmware-realtek \
     firmware-atheros \
     firmware-brcm80211 \
+    firmware-linux \
+    firmware-linux-free \
+    firmware-misc-nonfree \
+    firmware-amd-graphics \
+    firmware-sof-signed \
     ntfs-3g \
     parted \
     gdisk \
@@ -141,6 +146,13 @@ apt-get autoremove -y
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 rm -rf /tmp/* /var/tmp/*
+rm -rf /usr/share/doc/*
+rm -rf /usr/share/man/*
+rm -rf /usr/share/info/*
+rm -rf /usr/share/groff/*
+rm -rf /usr/share/locale/*
+rm -rf /var/cache/debconf/*
+rm -rf /var/log/*
 
 echo "==============================================="
 echo "   setup_chroot.sh completed successfully!"
