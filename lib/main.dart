@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'core/theme.dart';
 import 'ui/screens/landing_screen.dart';
 import 'ui/screens/post_install_screen.dart';
+import 'ui/widgets/update_gate.dart';
 import 'services/main_controller.dart';
 
 void main() async {
@@ -57,7 +58,7 @@ class RequiemApp extends StatelessWidget {
       title: isLinux ? 'Requiem Installer' : 'Requiem Tools',
       theme: RequiemTheme.darkTheme,
       home: startInDesktopToolsMode
-          ? const PostInstallScreen()
+          ? const UpdateGate(child: PostInstallScreen())
           : const LandingScreen(),
     );
   }

@@ -12,6 +12,7 @@ Bienvenido a la documentación técnica oficial de **Requiem Installer**.
 | [instalacion_windows_desde_linux.md](./instalacion_windows_desde_linux.md) | Especificación técnica del despliegue WIM sin WinPE, BCD y Bootloader |
 | [diagnostico_errores.md](./diagnostico_errores.md) | Diagnóstico de errores conocidos de arranque, firmware e imágenes |
 | [fix_etfsboot.md](./fix_etfsboot.md) | Histórico de correcciones del pipeline |
+| [release_notes_v1.0.3.md](./release_notes_v1.0.3.md) | Release notes oficiales de la v1.0.3 (primera versión funcional) |
 
 ---
 
@@ -28,3 +29,4 @@ Bienvenido a la documentación técnica oficial de **Requiem Installer**.
 * **Función**: Instalación desatendida de paquetes de desarrollo y software corporativo mediante `winget`.
 * **Extras**: Activación KMS de Windows/Office y branding OEM.
 * **Distribución**: Descarga de ISO simple, generación de ISO autónoma con WIM y servidor puente IPv4.
+* **Actualización automática**: Al iniciar, `UpdateGate` consulta `https://joss.red/api/version/requiem`. Si hay una versión más nueva, bloquea la UI con un overlay hasta que el usuario descargue la actualización.
