@@ -54,3 +54,5 @@ scratch/
 # Inno Setup Compiled Outputs
 inno/*.exe
 inno/Output/
+translations/requiem_es.json
+lib/l10n/translation_log.xlsx

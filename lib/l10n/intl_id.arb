@@ -1,0 +1,623 @@
+{
+  "@@locale": "id",
+  "logsCopied": "Log disalin ke portapel.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Pembaruan yang diperlukan",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Untuk melanjutkan menggunakan Requiem Tools, Anda perlu memperbarui versi yang lebih baru.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Versi yang tersedia: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Pembaruan ini wajib dan tidak dapat dihilangkan.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Unduh penginstal (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Unduh portabel (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Terjadi kesalahan: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Fungsi ini hanya tersedia di Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Edisi terdeteksi: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "tidak ada yang terinstal atau tidak ada di PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "appTitleInstaller": "Pemasang Requiem",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Alat Requiem",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Kaisar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Log dari sistem",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Versi stabil v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Kompatibel dengan Boot Aman",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Diseñado oleh Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despliegue de SO de proxima generación",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Instal Windows dengan presisi tinggi untuk seluruh kinerja. Bereksperimenlah dengan cepat dengan menanyakan langsung DISM dan mengoptimalkan sistem secara otomatis.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Pembatalan",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Lanjutkan",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Konfirmasi",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Instal",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Memperbarui",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Hubungkan",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Memulai kembali sistem",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Pilih",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Buscar",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Kambiar",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Temukan unit baru",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Administrasi diskotik",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Pilih disko tujuan",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Hilangkan perangkat fisik setelah menginstal Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Memulai instalasi",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando deteksi install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Tidak terdeteksi pada disk fisik",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Sistema",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modus partisi",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Format GPT (disarankan)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco dan ciptakan diseño UEFI\nEFI (S :) + Jendela (W :)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "bridgeSearchError": "Tidak ada buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Tidak ada koneksi yang dapat Anda lakukan: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Hubungkan Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Koneksi Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Hubungkan ke {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Anda tidak dapat menyambungkan Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Tidak ada pertemuan dengan perangkat Wi-Fi.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Hubungkan penginstal ke Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Anda menerima instalasi yang disiapkan dari Requiem untuk Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Aktivasi Lisensi",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Aktivasi volume (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Server KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Aktivasi",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Aktivasi KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Batas waktu 160 hari",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Renovasi otomatis",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows otomatis",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Deteksi edisi dan kompatibel dengan GVLK",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Otomatis kantor",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Gunakan GVLK untuk volume yang sudah diinstal",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Kesalahan: host KMS sedang kosong.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Tidak ada produk KMS yang dipilih.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Sambungan yang disetujui dengan {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Kesalahan KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Penginstal Office",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Versi Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Instal Office",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Unduh + aktivar",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Unduh Microsoft Office LTSC atau 365 dengan cara otomatis menggunakan ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bit. Renovasi itu {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "Format MBR (BIOS sudah ada)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco dan crea diseño heredado\nJendela Tunggal (C :)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Gunakan partisi yang ada",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nKami menggunakan panduan partisipan",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Arranque sebenarnya: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Kompatibel dengan Modo: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Konfirmasikan penghancuran data",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Konfirmasikan instalasi",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "Disk yang dipilih akan diformat sepenuhnya. Jika Anda melakukan kesalahan pada semua data.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows akan dihapus dan W:\\ tidak diformat.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Kemajuan instalasi",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Hapus secara langsung",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Energi tidak terputus atau alat instalasi dimatikan",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Pilih gambar Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Pilih gambar instalasi Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Proporsi gambar instalasi Windows (install.wim atau install.swm)\ndari satu unit USB atau yang lainnya.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Gambar Buscando…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Gambar ditemukan",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Tidak ada gambar yang terdeteksi",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Gunakan \"Buscar\" untuk melokalkan arsip WIM secara manual.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Pilih arsip .wim atau .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Dipilih: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Karpet ini adalah ruang kosong",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Rute tidak valid: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filter…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un level",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Anda dapat menginstal IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP dari puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Anda tidak akan bertemu lagi. Gunakan panduan IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "renewalActive": "Aktifkan",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Nonaktifkan",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Tumpukan aplikasi",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Tumpukan program (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Deteksi",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Instal semua yang harus dilakukan",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} program",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Instal dan perbarui perangkat desarrollo penting untuk Windows di tengah jendela.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Tidak ada program yang dipilih.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Tidak ada paket yang terdeteksi di sayap.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Paket yang terdeteksi: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Instalasi sedang",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM yang dipilih",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "ISO Umum",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Dapatkan ISO untuk instalasi dengan tenang",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Dapatkan basis ISO untuk memilih WIM pada pengaturan, atau pilih ISO otonom yang Anda sertakan pada gambar Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM terintegrasi dengan ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Gambar Buscando...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Deteksi gambar",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Gambar tidak ditemukan",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Bersiaplah dan mulai",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener bisa",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Siapkan WIM sekali saja dan kirimkan langsung ke klien Requiem de la misma red. Klien tidak perlu menjaga WIM sebelum menginstal.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Antarmuka Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · unduh UDP 40123. Jika Windows Defender membutuhkannya, izinkan akses dan privasi tambahan.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Pilih WIM dan privasi antarmuka IPv4.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Konsol sistem",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Salin log",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Log limpiar",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando sebuah tindakan...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  }
+}

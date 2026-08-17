@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/localizations.dart';
 import '../../models/post_install_config.dart';
 import 'panel.dart';
 
@@ -23,6 +24,7 @@ class RequiemOfficePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     return RequiemPanel(
       icon: Icons.cloud_download_rounded,
@@ -33,7 +35,7 @@ class RequiemOfficePanel extends StatelessWidget {
         child: FilledButton.icon(
           onPressed: enabled ? onRun : null,
           icon: const Icon(Icons.download_for_offline_rounded, size: 16),
-          label: const Text('DESCARGAR + ACTIVAR'),
+          label: Text(t.downloadAndActivate),
           style: FilledButton.styleFrom(
             minimumSize: const Size(0, 42),
           ),
@@ -45,11 +47,11 @@ class RequiemOfficePanel extends StatelessWidget {
             children: [
               Expanded(
                 child: DropdownButtonFormField<OfficeDeploymentOption>(
-                  value: deployment,
+                  initialValue: deployment,
                   isExpanded: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Versión de Office',
-                    prefixIcon: Icon(Icons.apps_rounded, size: 18),
+                  decoration: InputDecoration(
+                    labelText: t.officeVersion,
+                    prefixIcon: const Icon(Icons.apps_rounded, size: 18),
                   ),
                   items: [
                     for (final option in officeDeploymentOptions)
@@ -60,7 +62,7 @@ class RequiemOfficePanel extends StatelessWidget {
               ),
               const SizedBox(width: 14),
               RequiemSwitchTile(
-                title: 'Instalar Office',
+                title: t.installOffice,
                 subtitle: 'ODT + KMS',
                 value: enabled,
                 color: scheme.tertiary,
@@ -72,7 +74,7 @@ class RequiemOfficePanel extends StatelessWidget {
           RequiemInlineNotice(
             icon: Icons.info_outline_rounded,
             color: scheme.tertiary,
-            text: '${deployment.productId} / ${deployment.channel} / ${deployment.clientEdition} bits. La renovación queda ${renewalTask ? "activa" : "desactivada"}.',
+            text: t.officeRenewalStatus(deployment.productId, deployment.channel, deployment.clientEdition, renewalTask ? t.renewalActive : t.renewalDisabled),
           ),
         ],
       ),

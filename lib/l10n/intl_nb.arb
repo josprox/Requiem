@@ -1,0 +1,623 @@
+{
+  "@@locale": "nb",
+  "formatMbr": "Formatear MBR (BIOS heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco y crea diseño heredado\nSolo Windows (C :)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Usar particiones existentes",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Arrangement faktisk: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modo-kompatibel: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Bekreft destrucción de data",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Bekreft installasjon",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "El disco seleccionado se formateará por completo. Se perderán todos los data.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows se desplegará en W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Progreso de installering",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Ingen desconecte la energía ni pensjonere el medio de instalación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Velg bilde av Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Velg bilde av installasjon av Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Proporcione la imagen de installering av Windows (install.wim eller install.swm)\ndesde una unidad USB eller cualquier medio montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Buscando-bilde...",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Bilde encontrada",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Ingen se detectó ninguna bilde",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Bruk \"Buscar\" for localizar su archivo WIM manualmente.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Velg et arkiv .wim o .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Valg: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Esta carpeta está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Ruta inválida: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filtrer...",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Puente IPv4-installasjon",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "No se encontró ningún puente. Bruksanvisning for Pruebe con la IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "appTitleInstaller": "Requiem Installer",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Requiem-verktøy",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Logger av systemet",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Versjon etablert v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Kompatibel med sikker oppstart",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Diseñado av Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despliegue de SO de proxima generación",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Windows installering for alt rendimiento. Eksperimenter og despliegue rápido med orquestación directa de DISM og optimization automatisada del sistema.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Avbryt",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Kontinuerlig",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Bekreft",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Installer",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Aktualisering",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectar",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reiniciar sistema",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Seleccionar",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Buscar",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Cambiar",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Administrasjon av diskoteker",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Velg disco destino",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde se installer Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Start installasjon",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Ingen se detectaron discos físicos",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Systema",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modus for deltakelse",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT (anbefales)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco y crea diseño UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "renewalActive": "Activa",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Deaktivering",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Stack de aplicaciones",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Stack de programas (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Detektor",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Installer å gjøre",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programmer",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Installer og aktualisere herramientas desarrollo esenciales for Windows mediante winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Ingen høyprogram som utvalgte.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "No se detectaron paquetes conocidos con winget.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Paquetes detectados: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Medio de installering",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Velg WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Generell ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Oppnå ISO for solamente",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Få en ISO-base for å velge WIM for å installere, eller skape en ISO-autonome for å inkludere Windows-bilder.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM integrert i ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Buscando-bilde...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Bilde oppdaget",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Bilde uten encontrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Preparar e iniciar puente",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Forbered WIM for å sende direkte til kunders Requiem de la misma red. Los klienter ingen guardan el WIM ante installasjonen.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaz Wi-Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · descubrimiento UDP 40123. Med Windows Defender kan du få tilgang til private.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Velg en WIM og en interfaz IPv4 privat.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Systemets konsoll",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Kopier logger",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Limpiar logger",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando una acción...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "No se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "No se pudo conectar: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Conectar Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Contraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Koble til {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Ingen tilkobling til Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Det er ikke mulig å bruke Wi-Fi tilgjengelig.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Koble til installering av Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "O reciba la installación preparada desde Requiem for Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Aktivering av lisenser",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Aktivering av volum (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Servidor KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Aktiver",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Aktiver KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 dager",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Renovación automática",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows automatisk",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Detecta edición og GVLK-kompatibel",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Automatisk kontor",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Bruk av GVLK for installering",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Feil: El host KMS está vacío.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Ingen høyprodukter fra KMS-seleccionados.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Comprobando conectividad con {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Feil KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Installator av Office",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Versjon av Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Installer Office",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Last ned + aktivator",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Desplie av Microsoft Office LTSC eller 365 automatisert manera med ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} biter. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "logsCopied": "Logger copiados al portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Actualización requerida",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "For kontinuerlig bruk av Requiem Tools er nødvendig å aktualisere en ny versjon.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Tilgjengelig versjon: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Esta actualización es obligatoria y no puede utelate.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Last ned installering (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Last ned bærbar (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Det oppstod en feil: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Funksjonen alene er tilgjengelig i Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Utgave oppdaget: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget no está instalado o no está en PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

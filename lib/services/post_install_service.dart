@@ -557,7 +557,7 @@ $languages
       final response = await request.close();
       if (response.statusCode == 200) {
         final html = await response.transform(utf8.decoder).join();
-        final regExp = RegExp(r'https://download\.microsoft\.com/[^\s"''<>]*?officedeploymenttool[^\s"''<>]*?\.exe');
+        final regExp = RegExp(r'https://download\.microsoft\.com/[^\s"''<>]*?officedeploymenttool[^s"''<>]*?.exe');
         final match = regExp.firstMatch(html);
         return match?.group(0);
       }

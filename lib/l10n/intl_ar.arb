@@ -1,0 +1,623 @@
+{
+  "@@locale": "ar",
+  "renewalActive": "اكتيفا",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "تم إلغاء التنشيط",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "كومة من التطبيقات",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "كومة البرامج (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "الكاشف",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "تثبيت ما يجب القيام به",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} البرامج",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "قم بتثبيت وتحديث أدوات التطوير الأساسية لنظام Windows عبر Winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "لا توجد برامج مختارة.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "لا يتم اكتشاف الحزم المخلوطة بالجناح.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "الحزم المكتشفة: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "وسيلة التثبيت",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM الاختيارية",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "جينار ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "الحصول على ISO للتثبيت فقط",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "احصل على قاعدة ISO لاختيار WIM للترتيب، أو قم بإنشاء ملف ISO مستقل يتضمن صورة Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM متكامل في ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "صورة بوسكاندو...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "تم اكتشاف الصورة",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "لا يوجد تناقض",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "التحضير والبدء",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "نقطة الحاجز",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "قم بإعداد WIM مرة واحدة وإرسالها مباشرة إلى العملاء قداس اللون الأحمر. لا يحرس العملاء WIM قبل التثبيت.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "إنترفاز واي فاي/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · اكتشاف UDP 40123. إذا طلب Windows Defender، فسيسمح لك بالوصول إلى الخصوصية.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "اختر WIM وواجهة IPv4 خاصة.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "وحدة تحكم النظام",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "سجلات النسخ",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "سجلات ليمبيار",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "الإسبراندو عمل...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "لا يمكنك البحث عن النقطة: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "لا يمكنك الاتصال: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "كونيكتار واي فاي",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "كونتراسينيا واي فاي",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "تم الاتصال بـ {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "لا يمكنك الاتصال بشبكة Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "لا يوجد أي مشكلة في شبكة Wi-Fi المتاحة.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "قم بتوصيل المثبت بشبكة Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "يمكنك الحصول على التثبيت المجهز من قداس Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "تنشيط التراخيص",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "تنشيط وحدة التخزين (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "خادم KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "نشط",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "تفعيل KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "سعر 160 دياس",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "التجديد التلقائي",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "ويندوز تلقائيا",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Detecta edición y GVLK متوافق",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "مكتب آلي",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "استخدم حجم الصوت المثبت بواسطة GVLK",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "خطأ: المضيف KMS فارغ.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "لا توجد منتجات مختارة من KMS.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "تم التصحيح مع {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "خطأ KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "مثبت المكتب",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "نسخة المكتب",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "مكتب التثبيت",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "تحميل + تفعيل",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "يتم تشغيل Microsoft Office LTSC بطريقة تلقائية بنسبة 365 درجة باستخدام ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} بت. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "Formatear MBR (BIOS Heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "ليمبيا الديسكو وأنشئ تصميمًا موروثًا\nويندوز منفرد (C :)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "استخدام المشاركات الموجودة",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "تنسيق الخطيئة — despliega en W: tal cual\nيتم استخدام إدارة الأجزاء يدويًا",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "الترتيب الفعلي: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "مودو متوافق: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "تأكيد تدمير البيانات",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "تأكيد التثبيت",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "يتم تنسيق القرص المحدد بالكامل. سيفقد كل البيانات.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "سيتم إلغاء قفل Windows بتنسيق W:\\ بدون تنسيق.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "تقدم التثبيت",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "لا تقم بفصل الطاقة أو إيقاف تشغيل وسيلة التثبيت",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "قم باختيار صورة Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "اختر صورة تثبيت Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "عرض صورة تثبيت Windows (install.wim أو install.swm)\nمن وحدة USB أو أي وسائط مدمجة.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "صورة بوسكاندو…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "الصورة متناقضة",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "لم يتم اكتشاف أي صورة",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "استخدم \"البحث\" لترجمة ملف WIM يدويًا.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "حدد ملفًا .wim أو .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "التحديد: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "هذه السجادة فارغة",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "الطريق غير صالح: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "فلتر…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "مستوى عالٍ",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "يونيدادس",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "يمكنك تثبيت IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente قداس",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "لم يتم العثور على أي نقطة. Pruebe مع دليل IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "appTitleInstaller": "قداس المثبت",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "أدوات القداس",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "إمبيزار",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "سجلات النظام",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "الإصدار الثابت v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "متوافق مع التمهيد الآمن",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "تصميم بواسطة جوس",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "عرض SO من الجيل التالي",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "مُثبِّت Windows بدقة عالية للحصول على أداء عالٍ. قم بتجربة النشر السريع من خلال الطلب المباشر على DISM وتحسين النظام تلقائيًا.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "إلغاء",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "استمر",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "تأكيد",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "التثبيت",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "تحديث",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "كونيكتار",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "نظام الرينيسيار",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "اختياري",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "بحث",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "كامبيار",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "امسح الوحدات الجديدة",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "إدارة المراقص",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "اختر ديسكو الوجهة",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "قم بإزالة الوحدة المادية عند تثبيت Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "بدء التثبيت",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "ترقبوا اكتشاف التثبيت.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "لا يتم اكتشاف الأقراص الصلبة",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "النظام",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "طريقة المشاركة",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT (موصى به)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "قم بمسح الديسكو وإنشاء تصميم UEFI\nEFI (S :) + Windows (W :)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "logsCopied": "سجلات النسخ من Portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "التحديث مطلوب",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "لمواصلة استخدام Requiem Tools، من الضروري تحديث الإصدار الأحدث.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "الإصدار المتاح: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "هذا التحديث إلزامي ولا يمكنك حذفه.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "تنزيل المثبت (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "تنزيل محمول (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "حدث خطأ: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "هذه الوظيفة متاحة فقط على Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "الإصدار المكتشف: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "ديسكونوسيدو",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "لم يتم تثبيت الجناح أو عدم وجوده في PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

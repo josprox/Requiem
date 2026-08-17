@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -57,6 +59,15 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   change_app_package_name: ^1.5.0
   rename_app: ^1.6.6
+  intl_utils: ^2.8.16
+
+# Genera la clase S y sus delegates desde los archivos ARB de lib/l10n.
+flutter_intl:
+  enabled: true
+  class_name: S
+  main_locale: es
+  arb_dir: lib/l10n
+  output_dir: lib/generated
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

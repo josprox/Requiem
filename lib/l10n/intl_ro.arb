@@ -1,0 +1,623 @@
+{
+  "@@locale": "ro",
+  "renewalActive": "activ",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Dezactivat",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Stiva de aplicații",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Stiva de programe (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Detecta",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Instalați toate",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programe",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Instalați și actualizați instrumentele de dezvoltare esențiale pentru Windows folosind Winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Nu există programe selectate.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Nu au fost detectate pachete cunoscute cu Winget.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Pachete detectate: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Medii de instalare",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Selectați WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Generați ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Obțineți ISO numai pentru instalare",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Obțineți ISO de bază pentru a selecta un WIM la pornire sau creați un ISO autonom care include deja imaginea dvs. Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM integrat în ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Se caută imagine...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Imaginea detectată",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Imaginea nu a fost găsită",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Pregătiți și porniți podul",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "oprire pod",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Pregătiți WIM-ul o singură dată și transmiteți-l direct clienților Requiem din aceeași rețea. Clienții nu salvează WIM-ul înainte de a-l instala.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfață Wi-Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Port HTTP 40124 · Descoperire UDP 40123. Dacă Windows Defender vă întreabă, permiteți accesul în rețelele private.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Selectați o interfață WIM și o interfață IPv4 privată.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Consola de sistem",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Copiați înregistrările",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Curata bustenii",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "În așteptarea unei acțiuni...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "Nu s-a putut căuta puntea: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Nu s-a putut conecta: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Conectați Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Parola Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Conectat la {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Nu s-a putut conecta la Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Nu au fost găsite rețele Wi-Fi disponibile.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Conectați programul de instalare la Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Sau primiți instalarea gata de la Requiem pentru Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "activarea licenței",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Activare volum (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Server KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Activa",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Activați KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Sarcina 160 de zile",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Reînnoire automată",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "ferestre automate",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Detectează ediția și GVLK compatibil",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "birou automat",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Utilizați volumul deja instalat GVLK",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Eroare: gazda KMS este goală.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Nu sunt produse KMS selectate.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Se verifică conectivitatea cu {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Eroare KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "instalator de birou",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "versiune office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Birou montaj",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Descărcați + activați",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Implementați Microsoft Office LTSC sau 365 într-un mod automat, folosind ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} biți. Reînnoirea rămâne {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "Formatați MBR (BIOS moștenit)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Ștergeți discul și creați un aspect moștenit\nDoar Windows (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Utilizați partițiile existente",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Neformatat — se afișează în W: așa cum este\nGestionați manual participările",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Acord curent: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Mod acceptat: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Confirmați distrugerea datelor",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Confirmați instalarea",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "Discul selectat va fi complet formatat. Toate datele se vor pierde.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows se va implementa în W:\\ fără formatare.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Progresul instalării",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Desfășurare în curs",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Nu opriți alimentarea și nu îndepărtați mediul de instalare",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Selectați imaginea Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Selectați imaginea de instalare Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Furnizați imaginea de instalare Windows (install.wim sau install.swm)\nde pe o unitate USB sau orice suport montat.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Se caută imaginea...",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Imaginea găsită",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Nu a fost detectată nicio imagine",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Folosiți „Răsfoiți” pentru a vă localiza manual fișierul WIM.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Selectați un fișier .wim sau .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Selectat: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Acest folder este gol",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Rută nevalidă: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filtra…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Urcă un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unități",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Instalare IPv4 Bridge",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "Requiem Bridge IP",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Nu a fost găsit nici un pod. Încercați manualul IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "appTitleInstaller": "Instalator Requiem",
+  "@appTitleInstaller": {
+    "description": "Título de la ventana en el instalador Live Linux."
+  },
+  "appTitleTools": "Instrumente Requiem",
+  "@appTitleTools": {
+    "description": "Título de la ventana en modo herramientas de escritorio."
+  },
+  "start": "ÎNCEPE",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Jurnalele de sistem",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Versiunea stabilă v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Pornire securizată acceptată",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Proiectat de Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Implementarea sistemului de operare de generație următoare",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Program de instalare Windows de înaltă precizie pentru medii de înaltă performanță. Experimentați implementarea rapidă cu orchestrarea DISM directă și optimizarea automată a sistemului.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Anula",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Continua",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Confirma",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Instala",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Actualizare",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectați-vă",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reporniți sistemul",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Selecta",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Caută",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Schimba",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Scanați din nou unitățile",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "managementul cluburilor de noapte",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Selectați discul de destinație",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Alegeți unitatea fizică pe care va fi instalat Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Începeți instalarea",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Se așteaptă detectarea instal.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Nu au fost detectate discuri fizice",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "sistem",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modul partiție",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Format GPT (recomandat)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Curățați discoteca și creați aspectul UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "logsCopied": "Înregistrările au fost copiate în clipboard.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Actualizare necesară",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Pentru a continua să utilizați Requiem Tools, este necesar să actualizați la cea mai recentă versiune.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Versiune disponibilă: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Această actualizare este obligatorie și nu poate fi omisă.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Descărcați programul de instalare (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Descărcați portabil (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "A apărut o eroare: {error}",
+  "@errorGeneric": {
+    "description": "Mensaje genérico de error.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyWindows": "Această caracteristică este disponibilă numai pe Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Editare detectată: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Un străin",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "Winget nu este instalat sau nu este în PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

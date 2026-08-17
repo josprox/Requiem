@@ -1,0 +1,623 @@
+{
+  "@@locale": "it",
+  "appTitleInstaller": "Programma di installazione di Requiem",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Strumenti del Requiem",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Log del sistema",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Versione stabile v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Compatibile con Secure Boot",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Progettato da Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Descrizione dell'SO di prossima generazione",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Installatore di Windows ad alta precisione per ambienti ad alta resa. Sperimenta un download rapido con la richiesta diretta di DISM e l'ottimizzazione automatizzata del sistema.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Cancellare",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Continua",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Conferma",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Installare",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Aggiornare",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectar",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Riavviare il sistema",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Selezionare",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Buscare",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Cambiare",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Esci dalle nuove unità",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Amministrazione di discoteche",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Selezionare il disco di destinazione",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elimina l'unità fisica dove verrà installato Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Avviare l'installazione",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Aspettando il rilevamento di install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Non vengono rilevati dischi fisici",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Sistema",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modalità di partizione",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatta GPT (consigliato)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Pulisci il disco e crea il design UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "bridgeSearchError": "Non è possibile cercare il ponte: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Impossibile connettersi: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Connettersi al Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Contraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Collegato a {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Impossibile connettersi al Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Non si trovano reti Wi-Fi disponibili.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Collegare l'installatore al Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "O ricevi l'installazione preparata dal Requiem per Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Attivazione delle licenze",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Attivazione del volume (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Servidor KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Attivare",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Attiva KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 giorni",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Ristrutturazione automatica",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows automatico",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Rileva edizione e compatibile GVLK",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Ufficio automatico",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Usa il GVLK del volume già installato",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Errore: l'host KMS è vuoto.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Nessun prodotto fieno selezionato da KMS.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Comprobando la connettività con {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Errore KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Installatore di Office",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Versione di Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Ufficio installatore",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Scarica + attiva",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Distribuisci Microsoft Office LTSC o 365 in modo automatizzato utilizzando ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bit. La ristrutturazione è {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "renewalActive": "Attiva",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Disattivato",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Pila di applicazioni",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Stack di programmi (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Rilevatore",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Installa tutto",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programmi",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Installa e aggiorna gli strumenti di sviluppo essenziali per Windows tramite il winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Nessun programma selezionato.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Non si rilevano pacchetti conosciuti con ali.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Pacchetti rilevati: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Medio di installazione",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Selezionare WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "ISO generato",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Ottenere ISO solo per l'installazione",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Ottieni la base ISO per selezionare un WIM al momento dell'installazione o crea un ISO automatico che includa la tua immagine di Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM integrato nell'ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Cercando immagine...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Immagine rilevata",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Immagine non trovata",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Preparare e iniziare il ponte",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener ponte",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Prepara il WIM una sola volta e trasmettilo direttamente ai clienti Requiem de la misma red. I clienti non salvano il WIM prima dell'installazione.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaccia Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · descubrimiento UDP 40123. Se Windows Defender richiede, consente l'accesso in reti private.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Selezionare un WIM e un'interfaccia IPv4 privata.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Consola del sistema",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Copiare i log",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Log chiari",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Aspettando un'azione...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "formatMbr": "Formattare MBR (BIOS ereditato)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Pulisci il disco e crea il tuo design ereditato\nSolo Windows (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Usare partizioni esistenti",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nUsted gestiona le partizioni manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Disposizione effettiva: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modalità compatibile: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Conferma la distruzione dei dati",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Conferma installazione",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "Il disco selezionato verrà formattato completamente. Si perderanno tutti i dati.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows verrà visualizzato in W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Progresso dell'installazione",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Non scollegare l'energia e non rimuovere il supporto di installazione",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Selezionare l'immagine di Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Selezionare l'immagine di installazione di Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Proporzione dell'immagine di installazione di Windows (install.wim o install.swm)\nda un'unità USB o da qualsiasi supporto medio montato.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Cercando immagine…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Immagine trovata",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Non è stata rilevata nessuna immagine",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Utilizzare \"Cerca\" per localizzare manualmente il file WIM.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Selezionare un file .wim o .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Selezionato: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Questa cartella è vuota",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Percorso non valido: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filtra…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Sono a un livello",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unità",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Ponte di installazione IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del ponte Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Non si è incontrato con nessun ponte. Prova con il manuale IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "logsCopied": "Log copiati nel portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Aggiornamento richiesto",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Per continuare a utilizzare Requiem Tools è necessario aggiornarlo alla versione più recente.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Versione disponibile: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Questo aggiornamento è obbligatorio e non può essere omesso.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Scaricare il programma di installazione (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Scarica portatile (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Si è verificato un errore: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Questa funzione è disponibile solo in Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Edizione rilevata: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "l'ala non è installata o non è in PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

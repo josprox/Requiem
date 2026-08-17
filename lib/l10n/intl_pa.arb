@@ -1,0 +1,623 @@
+{
+  "@@locale": "pa",
+  "appTitleInstaller": "ਇੰਸਟੌਲਰ ਦੀ ਮੰਗ ਕਰੋ",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "ਟੂਲ ਦੀ ਮੰਗ ਕਰੋ",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "ਐਮਪੇਜ਼ਰ",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "ਸਿਸਟਮ ਦੇ ਲਾਗ",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "ਸੰਸਕਰਣ ਅਸਟੇਬਲ v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "ਸੁਰੱਖਿਅਤ ਬੂਟ ਲਈ ਅਨੁਕੂਲ",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Joss ਲਈ ਡਿਜ਼ਾਇਨ ਕਰੋ",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despliegue de SO de próxima generación",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "ਵਿੰਡੋਜ਼ ਨੂੰ ਸਭ ਤੋਂ ਵਧੀਆ ਰੈਂਡੀਮੇਂਟ ਲਈ ਇੰਸਟਾਲ ਕਰੋ। DISM y optimización automatizada del sistema ਦੇ ਲਈ ਪ੍ਰਯੋਗ un desspliegue rápido con orquestación directa.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "ਰੱਦ ਕਰੋ",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "ਨਿਰੰਤਰ",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "ਪੁਸ਼ਟੀਕਰਨ",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "ਇੰਸਟਾਲ ਕਰੋ",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "ਵਾਸਤਵਿਕਤਾ",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "ਕਨੈਕਟਰ",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "ਰੀਨੀਸੀਅਰ ਸਿਸਟਮ",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "ਚੋਣ ਕਰੋ",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "ਬਸਕਾਰ",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "ਕੈਮਬਿਆਰ",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "ਡਿਸਕੋ ਦਾ ਪ੍ਰਸ਼ਾਸਨ",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "ਡਿਸਕੋ ਡੇਸਟਿਨੋ ਦੀ ਚੋਣ ਕਰੋ",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "ਵਿੰਡੋਜ਼ ਨੂੰ ਸਥਾਪਿਤ ਕਰਨ ਲਈ ਏਲੀਜਾ ਲਾ ਯੂਨੀਡਾਡ ਫਿਜ਼ਿਕ ਡੌਂਡੇ.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "ਸ਼ੁਰੂਆਤੀ ਸਥਾਪਨਾ",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "ਕੋਈ ਵੀ ਖੋਜਣ ਵਾਲਾ ਡਿਸਕੋ ਫਿਜ਼ਿਕਸ ਨਹੀਂ ਹੈ",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "ਸਿਸਟਮ",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "ਭਾਗੀਦਾਰੀ ਦੇ ਢੰਗ",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "ਫਾਰਮੈਟੀਅਰ GPT (ਸਿਫ਼ਾਰਸ਼)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco y crea diseño UEFI\nEFI (S:) + ਵਿੰਡੋਜ਼ (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "formatMbr": "ਫਾਰਮੈਟੀਅਰ MBR (BIOS ਹੇਰੇਡਾਡੋ)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco y crea diseño heredado\nਸੋਲੋ ਵਿੰਡੋਜ਼ (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "ਯੂਜ਼ਰ ਪਾਰਟੀਸ਼ਨ ਮੌਜੂਦ ਹਨ",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "ਪਾਪ ਫਾਰਮੈਟੀਅਰ — despliega en W: tal cual\nਯੂਸਟਡ gestiona las particiones manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "ਅਸਲ ਆਰੈਂਕ: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "ਮੋਡੋ ਅਨੁਕੂਲ: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "ਪੁਸ਼ਟੀ ਕਰੋ destrucción de datos",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "ਸਥਾਪਨਾ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "El disco seleccionado se formateará por completo. Se perderán todos los datos.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "ਵਿੰਡੋਜ਼ ਨੂੰ desplegará en W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਤਰੱਕੀ",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "ਕੋਈ desconecte la energía ni retire el medio de instalación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "ਵਿੰਡੋਜ਼ ਲਈ ਚਿੱਤਰ ਚੁਣੋ",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "ਵਿੰਡੋਜ਼ ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਚਿੱਤਰ ਚੁਣੋ",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "ਵਿੰਡੋਜ਼ ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਪ੍ਰੋਪੋਰਸੀਓਨ (install.wim o install.swm)\ndesde una unidad USB o cualquier medio montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "ਬੱਸਕੈਂਡੋ ਚਿੱਤਰ…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "ਚਿੱਤਰਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "ਕੋਈ ਵੀ ਖੋਜ ਨਹੀਂ ਹੈ",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "WIM ਦਸਤਾਵੇਜ਼ ਦੇ ਪੁਰਾਲੇਖ ਲਈ \"ਬਸਕਾਰ\" ਦੀ ਵਰਤੋਂ ਕਰੋ।",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "ਸੰਗ੍ਰਹਿ ਦੀ ਚੋਣ ਕਰੋ .wim o .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "ਚੋਣ: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Esta carpeta está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Ruta inválida: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "ਫਿਲਟਰ…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "ਸੁਬੀਰ ਅਨ ਨਿਵੇਲ",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "ਯੂਨੀਡੇਡਸ",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "ਆਈਪੀਵੀ 4 ਦੀ ਸਥਾਪਨਾ",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "No se encontró ningún puente. ਆਈਪੀ ਮੈਨੂਅਲ ਨਾਲ ਪ੍ਰੂਬੇ.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "bridgeSearchError": "No se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "No se pudo conectar: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Wi-Fi ਨਾਲ ਜੁੜਨ",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Contraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network} ਨਾਲ ਸੰਪਰਕ ਕਰੋ।",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "ਕੋਈ Wi-Fi ਨਹੀਂ ਹੈ: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Wi-Fi ਡਿਸਪੋਨੇਬਲਾਂ ਨੂੰ ਦੁਬਾਰਾ ਨਹੀਂ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Wi-Fi ਨਾਲ ਜੁੜਨ ਲਈ",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "ਵਿੰਡੋਜ਼ ਲਈ ਰੀਕਿਊਮ ਲਈ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "ਲਾਇਸੈਂਸ ਦੀ ਸਰਗਰਮੀ",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "ਸਰਗਰਮੀ (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "ਸੇਵਾਦਾਰ KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "ਐਕਟੀਵਾਰ",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "ਐਕਟੀਵਾਰ KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 días",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "ਨਵੀਨੀਕਰਨ ਆਟੋਮੈਟਿਕ",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "ਵਿੰਡੋਜ਼ ਆਟੋਮੈਟਿਕ",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "ਖੋਜ ਐਡੀਸੀਓਨ ਅਤੇ GVLK ਅਨੁਕੂਲ",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "ਦਫ਼ਤਰ ਆਟੋਮੈਟਿਕ",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "GVLK ਦੇ ਵੋਲਯੂਮ ਨੂੰ ਸਥਾਪਿਤ ਕਰੋ",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "ਗਲਤੀ: el host KMS está vacío.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "ਕੋਈ ਪਰਾਗ ਉਤਪਾਦ KMS seleccionados ਨਹੀਂ।",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "{host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "ਗਲਤੀ KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "ਦਫਤਰ ਦੀ ਸਥਾਪਨਾ",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "ਦਫਤਰ ਦਾ ਸੰਸਕਰਣ",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "ਦਫਤਰ ਸਥਾਪਿਤ ਕਰੋ",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "ਡਾਊਨਲੋਡ ਕਰੋ + ਐਕਟੀਵਾਰ",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Microsoft Office LTSC ਜਾਂ 365 de manera automatizada usando ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} ਬਿੱਟ। La renovacion queda {status}।",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "renewalActive": "ਐਕਟਿਵਾ",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Desactivada",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "ਸਟੈਕ ਡੀ ਐਪਲੀਕੇਸ਼ਨ",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "ਸਟੈਕ ਡੀ ਪ੍ਰੋਗਰਾਮਸ (ਵਿੰਗੇਟ)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "ਡਿਟੈਕਟਰ",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "ਟੂਡੋ ਨੂੰ ਸਥਾਪਿਤ ਕਰੋ",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} ਪ੍ਰੋਗਰਾਮ",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "ਵਿੰਡੋਜ਼ ਮੀਡੀਏਂਟ ਵਿੰਗੇਟ ਲਈ ਅਸਲ ਵਿੱਚ ਸਥਾਪਤ ਕਰੋ।",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "ਕੋਈ ਪਰਾਗ ਪ੍ਰੋਗਰਾਮਾਂ ਦੀ ਚੋਣ ਨਹੀਂ।",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "ਨੋ ਸੇ ਡਿਟੈਕਟਰੋਨ ਪੈਕੇਟਸ ਕੋਨੋਸੀਡੋਸ ਕੋਨ ਵਿੰਗੇਟ.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "ਪੈਕੇਟਸ ਡਿਟੈਕਡੋਸ: {count}।",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "ਮਾਧਿਅਮ ਦੀ ਸਥਾਪਨਾ",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM ਦੀ ਚੋਣ ਕਰੋ",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "ਜਨਰਲਰ ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "ਸੋਲਮੈਂਟ ਲਈ ਸਥਾਪਿਤ ਕਰਨ ਵਾਲਾ ISO",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Obtenga la ISO base para seleccionar un WIM al arrancar, o cree una ISO autónoma que ya incluya su imagen de Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM ਇੰਟੀਗ੍ਰੇਡੋ en la ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "ਬੱਸਕੈਂਡੋ ਚਿੱਤਰ...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "ਚਿੱਤਰ ਖੋਜਦਾ ਹੈ",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "ਇਮੇਜਨ ਕੋਈ ਐਨਕੰਟਰਾਡਾ ਨਹੀਂ",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "ਤਿਆਰ ਕਰੋ ਅਤੇ ਸ਼ੁਰੂਆਤ ਕਰੋ",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Prepara el WIM una sola vez y lo transmite directamente a los clientes Requiem de la misma red. Los clientes no guardan el WIM antes de instalar.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "ਇੰਟਰਫੇਜ਼ Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "ਪੋਰਟੋ HTTP 40124 · ਯੂਡੀਪੀ 40123 ਦਾ ਵੇਰਵਾ। ਵਿੰਡੋਜ਼ ਡਿਫੈਂਡਰ ਪਹਿਲਾਂ ਤੋਂ ਹੀ, ਰੀਡਜ਼ ਪ੍ਰਾਈਵੇਟ ਨੂੰ ਐਕਸੈਸ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ।",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "ਇੱਕ WIM ਅਤੇ ਇੱਕ ਇੰਟਰਫੇਜ਼ IPv4 ਪ੍ਰਾਈਵੇਟ ਲਈ ਚੁਣੋ।",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "ਕੰਸੋਲ ਡੇਲ ਸਿਸਟਮ",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "ਕਾਪੀਅਰ ਲੌਗਸ",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "ਲਿਮਪਿਅਰ ਲੌਗਸ",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando una acción...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "logsCopied": "ਲੌਗਸ copiados al portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "ਵਾਸਤਵਿਕਤਾ ਦੀ ਲੋੜ ਹੈ",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Para continuar usando Requiem Tools es necesario actualizar a la versión más reciente.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "ਵਰਜਨ ਡਿਸਪੋਨੇਬਲ: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Esta actualización es obligatoria y no puede omitirse.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "ਇੰਸਟਾਲਰ (.exe) ਨੂੰ ਡਾਊਨਲੋਡ ਕਰੋ",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "ਪੋਰਟੇਬਲ (.zip) ਨੂੰ ਡਾਊਨਲੋਡ ਕਰੋ",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "ਗਲਤੀ ਦੀ ਘਟਨਾ: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "ਵਿੰਡੋਜ਼ ਵਿੱਚ ਇਕੱਲੇ ਕੰਮ ਕਰਨ ਦੇ ਯੋਗ ਹਨ।",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "ਐਡੀਸੀਓਨ ਡਿਟੈਕਟਾ: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "ਡੈਸਕੋਨੋਸੀਡੋ",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget no está instalado o no está en PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

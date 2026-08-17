@@ -1,0 +1,623 @@
+{
+  "@@locale": "cs",
+  "logsCopied": "Záznamy kopií al portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Aktualizace požadavku",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Pokračovat v používání nástrojů Requiem je nutné aktualizovat a aktualizovat verzi, která je k dispozici.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Dostupná verze: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Esta updatedización es obligatoria y no puede omitirse.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Stáhnout instalační program (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Stáhnout portable (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Vyskytla se chyba: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Esta función solo está disponible en Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Detekovaná edice: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget no está instalado o no está en PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "formatMbr": "Formatear MBR (BIOS heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco a crea diseño heredado\nSolo Windows (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Usar particiones existentes",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nPoužité gesto las particiones manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Skutečná objednávka: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Kompatibilní s režimem: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Potvrďte destrucción de datos",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Potvrďte instalaci",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "El disco seleccionado se formateará por completo. Se perderán todos los datos.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows se desplegará en W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Průběh instalace",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "No desconecte la energía ni pension el medio de instalación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Výběr obrázku systému Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Výběr obrázku instalace systému Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Proporcione la imagen de instalación Windows (install.wim nebo install.swm)\nod una unidad USB nebo coalquier medium montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Obrázek Buscando…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Imagen encontrada",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Nebyl nalezen žádný obrázek",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Použijte \"Buscar\" pro lokalizaci a archivaci WIM manuálu.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Seleccione un archivo .wim o .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Výběr: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Esta carpeta está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Ruta inválida: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filtrační…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Puente IPv4 instalace",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "No se encontró ningún puente. Pruebe con la IP manuál.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "bridgeSearchError": "No se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "No se pudo conectar: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Připojte Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Kontraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Připojte se k {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Žádné připojení k Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Žádné protikladné možnosti Wi-Fi.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Připojte se k Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "O reciba la instalación preparada desde Requiem para Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Aktivace licencí",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Aktivace objemu (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Servider KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Aktivar",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Aktivar KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 días",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Renovace automatiky",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Automatická Windows",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Kompatibilní s Detecta edición a GVLK",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Kancelářský automat",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Pomocí GVLK je nainstalován objem",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Chyba: el host KMS está vacío.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Žádné produkty sena KMS seleccionados.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Kombinované připojení s {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Chyba KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Instalatér Office",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Verze Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Instalační kancelář",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Ke stažení + aktivar",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Despliega Microsoft Office LTSC nebo 365 výrobní automatizace pomocí ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bitů. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "renewalActive": "Aktivní",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Deaktivace",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Zásobník aplikací",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Stack de programas (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Detektor",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Instalovat úkol",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programů",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Nainstalujte a aktualizujte herramentas desarrollo esenciales pro Windows mediante winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Žádné seno programy jako seleccionados.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "No se detectaron paquetes conocidos con winget.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Paquetes detectados: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Medio de instalace",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Výběr WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Obecné ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Obtener ISO pro instalación solamente",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Získání základny ISO pro výběr WIM v systému Windows, který je automatickým systémem ISO, který je součástí obrazu systému Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "Integrace WIM do ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Obrázek Buscando...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Obrazová detekce",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Imagen no contrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Připravte se na začátek",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Připravte se na WIM tak, abyste předali přímou cestu pro klienty Requiem de la misma red. Klienti nejsou chráněni před instalací WIM.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Rozhraní Wi-Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · chráněné UDP 40123. Pokud máte Windows Defender povolen, máte povolený přístup k soukromí.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Vyberte WIM a rozhraní IPv4.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Consola del systema",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Kopie protokoly",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Limpiarské kulatiny",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando una acción...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "appTitleInstaller": "Instalační program Requiem",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Nástroje Requiem",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Logs del systema",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Verze etable v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Kompatibilní s Secure Boot",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Diseñado por Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despliegue de SO de próxima generaceón",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Instalace Windows s vyšší přesností pro vyšší verzi. Experimente un despliegue rápido con orquestación directa de DISM y optimalización automatizada del sistema.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Zrušit",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Kontinuální",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Potvrdit",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Instalační",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Actualizar",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectar",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reiniciární systém",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Selekcionar",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Buscar",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Kambiár",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Správa diskoték",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Výběrová diskotéka de destino",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde se instaluje Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Úvodní instalace",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "No se detectaron discos fisicos",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Systém",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modo de partición",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formát GPT (doporučeno)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco a crea diseño UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  }
+}

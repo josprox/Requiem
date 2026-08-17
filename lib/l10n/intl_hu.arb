@@ -1,0 +1,623 @@
+{
+  "@@locale": "hu",
+  "logsCopied": "Logs copiados al porttapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Actualización requerida",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Folyamatosan használja a Requiem Tools-t, és aktualizálni kell a reciente verziót.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Elérhető verzió: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Esta aktualización es obligatoria y no puede omitirse.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Telepítő (.exe) letöltése",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Hordozható (.zip) letöltés",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Hiba előfordulása: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Ez a funkció egyedül elérhető Windowson.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Edition detectada: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget no está instalado o no está en PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "formatMbr": "Formatear MBR (BIOS heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco y crea diseño heredado\nEgyedülálló Windows (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Usar particiones existentes",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nHasznált gestiona las particiones manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Tényleges sorrend: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modo kompatibilis: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Confirmar destrucción de datos",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Confirmar installación",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "El disco seleccionado se formateará por Completo. Se perderán todos los datos.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows se desplegará en W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Progreso de instalación",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despiegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "No desconecte la energía ni retire el medio de instalación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Válassza ki a Windows képeit",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Válassza ki a Windows telepítési képét",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "A Windows telepítési képének aránya (install.wim vagy install.swm)\ndesde una unidad USB vagy cualquier medio montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Buscando kép…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Imagen encontrada",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "No se detectó ninguna imagen",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Használja a „Buscar”-t a WIM-kézikönyvtárban.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Selectione un archivo .wim o .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Kiválasztás: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Esta carpeta está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Ruta inválida: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Szűrő…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Puente IPv4 telepítés",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del Puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "No se encontró ningún puente. Pruebe con la IP kézikönyv.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "bridgeSearchError": "No se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Nincs pudo conectar: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Conectar Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Contraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Csatlakoztassa a {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Nem lehet Wi-Fi-t csatlakoztatni: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "No se encontraron redes Wi-Fi elérhető.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Csatlakoztassa a Wi-Fi-t",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "O reciba la instalación preparada desde Requiem para Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Activación de licencias",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Activación de volumen (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Servidor KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Activar",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Activar KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 días",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Renovación automatica",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows automatika",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Detecta Edition és GVLK kompatibilis",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Irodai automatika",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Usa la GVLK de volumen ya instalada",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Hiba: el host KMS está vacío.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Nem szénatermékek KMS Selectionados.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Comprobando conectividad con {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Hiba KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Iroda telepítése",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Versión de Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Iroda telepítése",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Letöltés + aktiválás",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Távolítsa el a Microsoft Office LTSC-t vagy 365-öt, amely automatizálja az ODT-t.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bit. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "renewalActive": "Activa",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Desactivada",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Stack de aplicaciones",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Stack de programs (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Detectar",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Teendők telepítése",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programok",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Instala y aktualiza herramientas de desarrollo esenciales para Windows mediante winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Nincs széna programs seleccionados.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "No se detectaron paquetes conocidos con winget.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Paquetes detectados: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Medio de instalación",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Válassza ki a WIM-et",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Általános ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Megszerző ISO para instalación solamente",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Válassza az ISO-alapot a WIM al arrancar, o cree una ISO autónoma que ya incluya su Windows képpel.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM integráció az ISO-ba",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Buscando kép...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Imagen detectada",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Imagen no encontrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Preparar e iniciar puente",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Prepara el WIM una sola vez y lo transfere directamente a los clientes Requiem de la misma red. Az ügyfelek nem védik a WIM-et a telepítés előtt.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaz Wi-Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · UDP 40123 leállítása. A Windows Defender előzetesen engedélyezve van a hozzáféréshez és a titkosításhoz.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Válassza ki a WIM-et és az IPv4 privát interfészét.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Consola del system",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Copiar naplók",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Limpiar rönkök",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando una acción...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "appTitleInstaller": "Requiem telepítő",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Requiem Tools",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Rendszernaplók",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Version estabil v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Biztonságos rendszerindítással kompatibilis",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Diseñado por Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despiegue de SO de próxima generación",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Instalador de Windows de alta precisión para entornos de alto rendimiento. Experimente un despliegue rápido con orquestación directa de DISM y optimación automatizada del system.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Mégse",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Folyamatos",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Megerősítő",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Telepítés",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Actualizar",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectar",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reiniciar rendszer",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Selectionar",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Buscar",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Cambiar",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Administración de discos",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Selectionar disco de destino",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde a Windows telepítéséhez.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Kezdeti telepítés",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "No se detectaron discos físicos",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Rendszer",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modo de partición",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT (ajánlott)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco és létrehozta az UEFI-t\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  }
+}

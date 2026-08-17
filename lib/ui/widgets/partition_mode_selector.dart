@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/localizations.dart';
 import '../../services/disk_service.dart';
 
 class PartitionModeSelector extends StatelessWidget {
@@ -17,11 +18,12 @@ class PartitionModeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Modo de Partición',
+          t.partitionMode,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1,
@@ -34,9 +36,8 @@ class PartitionModeSelector extends StatelessWidget {
           enabled: gptBlock == null,
           blockedReason: gptBlock,
           icon: Icons.auto_awesome_rounded,
-          title: 'Formatear GPT (Recomendado)',
-          subtitle:
-              'Limpia el disco y crea diseño UEFI\nEFI (S:) + Windows (W:)',
+          title: t.formatGpt,
+          subtitle: t.formatGptDescription,
           onTap: () => onChange(PartitionMode.formatGpt),
         ),
         const SizedBox(height: 8),
@@ -46,9 +47,8 @@ class PartitionModeSelector extends StatelessWidget {
           enabled: mbrBlock == null,
           blockedReason: mbrBlock,
           icon: Icons.history_rounded,
-          title: 'Formatear MBR (BIOS Heredado)',
-          subtitle:
-              'Limpia el disco y crea diseño heredado\nSolo Windows (C:)',
+          title: t.formatMbr,
+          subtitle: t.formatMbrDescription,
           onTap: () => onChange(PartitionMode.formatMbr),
         ),
         const SizedBox(height: 8),
@@ -58,9 +58,8 @@ class PartitionModeSelector extends StatelessWidget {
           enabled: true,
           blockedReason: null,
           icon: Icons.drive_file_move_rounded,
-          title: 'Usar Particiones Existentes',
-          subtitle:
-              'Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente',
+          title: t.useExistingPartitions,
+          subtitle: t.useExistingPartitionsDescription,
           onTap: () => onChange(PartitionMode.useExisting),
         ),
       ],

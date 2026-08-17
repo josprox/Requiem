@@ -1,0 +1,623 @@
+{
+  "@@locale": "zh",
+  "renewalActive": "激活",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "去激活",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "应用程序堆栈",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "程序堆栈 (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "探测器",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "安装待办事项",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} 计划",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "安装并实现 Windows 中间 winget 的相关功能。",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "没有干草计划作为选择。",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "没有检测到 paquetes conocidos con winget。",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "检测到的数据包：{count}。",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "安装媒体",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "选择性WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "通用ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "获取安装所需的 ISO",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "在 WIM 中选择 ISO 基础，或者在 Windows 映像中包含 ISO 自动化。",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM 与 ISO 集成",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "布斯坎多图像...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "图像检测",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "图像没有冲突",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "准备开胃口水",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "德特纳普恩特",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "准备 WIM 来直接向客户传达《红色米斯玛安魂曲》。客户在安装前不会保护 WIM。",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaz Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · 解析 UDP 40123。如果 Windows Defender 已同意，则允许以私有方式访问。",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "选择 WIM 和 IPv4 私有接口。",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "系统控制台",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "复印原木",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "林皮亚原木",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "世界语行动...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "formatMbr": "格式化MBR（BIOS继承）",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco y Crea diseño 世袭\n单独的窗口 (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "存在的使用者",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\n使用手册管理",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "阿兰克实际： {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modo 兼容：{mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "确认数据销毁",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "确认安装",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "精选迪斯科格式以完成。请参阅所有数据。",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows 下的格式为 W:\\。",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "安装进度",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "德斯普利格·恩·库索",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "安装中途停止供电时不得断开电源",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Windows 图像选择",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "选择 Windows 安装映像",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Windows 安装映像（install.wim 或 install.swm）\n是一个统一的 USB 或中度的 montado。",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "而且，布斯坎多图像…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "图像恩康特拉达",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "无法检测到图像",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "使用存档 WIM 手册中的本地化“Buscar”。",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "选择存档 .wim 或 .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "选择：{file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "地毯上空了",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "芜菁：{path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "过滤器…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "苏比尔·乌尼维尔",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "统一",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "IPv4 安装桥",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "安魂曲IP",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "不存在任何问题。 Pruebe con la IP 手册。",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "logsCopied": "Logs copiados al portapapeles。",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "要求实施",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "继续使用安魂曲工具需要实现最新版本。",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "可选版本： {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "必须实现这一点，并且不得省略。",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "下载安装程序 (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "下载便携式 (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "出现错误：{error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "该功能仅在 Windows 上可用。",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "检测结果：{name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "德斯科诺西多",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget 没有安装，也没有在 PATH 中。",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "appTitleInstaller": "安魂曲安装程序",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "安魂曲工具",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "恩佩扎",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "系统日志",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "稳定版 v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "兼容安全启动",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "乔斯的事业",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "近代生成的解说",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "安装 Windows 以获得最精确的效果。尝试直接快速解决 DISM 问题并优化系统自动化。",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "取消",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "连续",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "确认",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "因斯塔拉尔",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "实现",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "连接器",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "雷尼西亚系统",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "精选",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "巴士卡",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "坎比亚尔",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "新联盟",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "迪斯科舞厅管理",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "目的地精选迪斯科",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde se instalará Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "初始安装",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "安装检测的世界语...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "不检测迪斯科舞厅",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "系统",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "参与方式",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT（推荐）",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco 和 creat diseño UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "bridgeSearchError": "没有se pudo Buscar el puente：{error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "没有 se pudo 连接： {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "连接无线网络",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "康特拉塞尼亚 Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "连接 {network}。",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "无法连接 Wi-Fi：{error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "不会遇到任何 Wi-Fi 设备的问题。",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "连接并安装 Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "请准备安装 Windows 的安魂曲",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "许可证激活",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "音量激活 (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "服务器KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "阿维瓦尔",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "激活KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "塔雷亚 160 天",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "自动翻新",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows 自动",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "检测版本与 GVLK 兼容",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "办公自动化",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "使用 GVLK 安装卷",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "错误：主机 KMS 已空。",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "没有 KMS 选择的干草产品。",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "与 {host} 进行合作：1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "错误 KMS：{error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "办公室安装员",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "办公室版本",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "安装办公室",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "下载 + activar",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "使用 ODT 提供 Microsoft Office LTSC 或 365 度自动化管理。",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} 位。 La renovación queda {status}。",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  }
+}

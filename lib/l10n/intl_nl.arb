@@ -1,0 +1,623 @@
+{
+  "@@locale": "nl",
+  "appTitleInstaller": "Requiem-installatieprogramma",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Requiem-instrumenten",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Logboeken van het systeem",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Versie stabiel v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Compatibel met Secure Boot",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Diseñado door Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Gebruik de SO-proxima-generatie",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Installeer de Windows met hoge precisie voor hoge prestaties. Experimenteer met een snelle uitvoering van DISM-opdrachten en automatische optimalisatie van het systeem.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Annuleren",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Ga door",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Bevestiging",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Installeer",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Werkelijk",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectar",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reiniciar systeem",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Selectie",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Buscar",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Cambiar",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Beheer van discotheken",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Selectie van de bestemmingsdisco",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde se instalará Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Eerste installatie",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando de detectie van install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Er is geen detectie van fysieke discotheken",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Systeem",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modus van deelname",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT (aanbevolen)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia de disco en het creëren van UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "bridgeSearchError": "U kunt niet naar de volgende bus gaan: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Er kan geen verbinding worden gemaakt: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Verbinding maken met wifi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Tegenover Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Maak verbinding met {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "U kunt geen Wi-Fi aansluiten: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Er is geen toegang tot de beschikbare Wi-Fi.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Sluit een Wi-Fi-installatie aan",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "U kunt de installatie voorbereiden op Windows-vereisten",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Activering van licenties",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Volumeactivering (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Dienstverlener KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Actief",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Activar KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 dias",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Automatische renovatie",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows automatisch",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Detecta-edición en GVLK-compatibel",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Kantoorautomaat",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Gebruik de GVLK-volume-installatie",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Fout: de host KMS is leeg.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Geen hooiproducten KMS-selecties.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Verbinding maken met {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Fout KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Installateur van kantoor",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Versie van Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Installeer kantoor",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Downloaden + activar",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Gebruik Microsoft Office LTSC of 365 automatische manieren om ODT te gebruiken.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bits. De renovatie is {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "Formatteer MBR (BIOS heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco en cree deze heredado\nSolo-ramen (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Gebruik bestaande deelnames",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nGebruik de handmatige deelname",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Arrangement actueel: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modo-compatibel: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Bevestig de gegevensvernietiging",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Bevestigde installatie",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "De discoselectie wordt volledig uitgevoerd. Bekijk alle gegevens.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows wordt weergegeven in W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Voortgang van de installatie",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Sluit de energie niet af en schakel de installatie niet uit",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Selecteer Windows-afbeeldingen",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Selecteer een installatieafbeelding van Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Proporcione de installatieafbeelding van Windows (install.wim of install.swm)\nAls u een USB-poort of een middellange termijn gebruikt.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Buscando-afbeelding…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Afbeelding tegengesteld",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Er is geen afbeelding gedetecteerd",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Gebruik \"Buscar\" om uw WIM-archiefhandleiding te lokaliseren.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Selecteer een archief .wim of .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Selectie: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Het tapijt is leeg",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Ongeldige geldigheidsduur: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filterr…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Zie een nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Installeer IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Geen controle meer. Pruebe con la IP-handleiding.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "renewalActive": "Actief",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Deactiveren",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Stapel de applicaties",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Programmastapel (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Detecteer",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Installatie todo",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programma's",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Installeer en actualiseer de herramen van de essentiële onderdelen voor Windows-middenvleugels.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Geen hooiprogramma's geselecteerd.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Er zijn geen conocidos met vleugeltjes gedetecteerd.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Paquetes gedetecteerd: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Middellange installatie",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Selecteer WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Algemene ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Verkrijg ISO voor permanente installatie",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Zorg ervoor dat u de ISO-basis gebruikt om een WIM-configuratie te selecteren, of maak een ISO-automatisch dat uw Windows-afbeeldingen omvat.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM geïntegreerd in de ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Buscando-afbeelding...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Beeld gedetecteerd",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Afbeelding geen contrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Bereid een beginpunt voor",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Ontspan puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Bereid de WIM voor op een solo en zend direct het requiem van de misma rode klanten uit. Klanten bewaken de WIM niet vóór de installatie.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaz Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Sluit HTTP 40124 aan · beschrijving UDP 40123. Als Windows Defender toegang geeft tot nieuwe privérechten.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Selecteer een WIM en een IPv4-interface.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Consola del systeem",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Kopieer logboeken",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Limpiare logboeken",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando een accion...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "logsCopied": "Kopieën van logboeken in portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Actualisatie vereist",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Om Requiem Tools te blijven gebruiken is het noodzakelijk om de nieuwste versie te actualiseren.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Beschikbare versie: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Dit actualiseren is verplicht en kan niet worden weggelaten.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Installatieprogramma downloaden (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Download draagbaar (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Er is een fout opgetreden: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Deze functie is alleen beschikbaar in Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Edición gedetecteerd: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "er is geen installatie meer op PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

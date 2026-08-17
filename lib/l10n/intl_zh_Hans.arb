@@ -1,0 +1,623 @@
+{
+  "@@locale": "zh_Hans",
+  "renewalActive": "فعال",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "معذور",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "ایپلیکیشن اسٹیک",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "پروگرام اسٹیک (ونگیٹ)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "پتہ لگانا",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "تمام انسٹال کریں۔",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} پروگرامز",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "وِنگٹ کا استعمال کرتے ہوئے ونڈوز کے لیے ضروری ڈویلپمنٹ ٹولز انسٹال اور اپ ڈیٹ کریں۔",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "کوئی پروگرام منتخب نہیں ہیں۔",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "ونگیٹ کے ساتھ کوئی معلوم پیکج نہیں ملا۔",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "دریافت شدہ پیکٹ: {count}۔",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "انسٹالیشن میڈیا",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM منتخب کریں۔",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "آئی ایس او بنائیں",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "صرف انسٹالیشن کے لیے آئی ایس او حاصل کریں۔",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "بوٹ پر WIM کو منتخب کرنے کے لیے بیس ISO حاصل کریں، یا ایک خود ساختہ ISO بنائیں جس میں آپ کی ونڈوز امیج پہلے سے شامل ہو۔",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM ISO میں ضم ہو گیا۔",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "تصویر تلاش کر رہا ہے...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "تصویر کا پتہ چلا",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "تصویر نہیں ملی",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "پل تیار کریں اور شروع کریں۔",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "پل سٹاپ",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "WIM کو صرف ایک بار تیار کریں اور اسے اسی نیٹ ورک کے Requiem کلائنٹس کو براہ راست منتقل کریں۔ کلائنٹ WIM کو انسٹال کرنے سے پہلے اسے محفوظ نہیں کرتے ہیں۔",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Wi-Fi/LAN IPv4 انٹرفیس",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "HTTP پورٹ 40124 · UDP دریافت 40123۔ اگر ونڈوز ڈیفنڈر پوچھے تو نجی نیٹ ورکس تک رسائی کی اجازت دیں۔",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "ایک WIM اور ایک نجی IPv4 انٹرفیس منتخب کریں۔",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "سسٹم کنسول",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "ریکارڈز کاپی کریں۔",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "نوشتہ جات کو صاف کریں۔",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "ایک کارروائی کا انتظار ہے...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "پل کی تلاش نہیں ہو سکی: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "مربوط نہیں ہو سکا: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "وائی فائی کو مربوط کریں۔",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "وائی فائی پاس ورڈ",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network} سے منسلک ہے۔",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Wi-Fi سے منسلک نہیں ہو سکا: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "کوئی دستیاب Wi-Fi نیٹ ورک نہیں ملا۔",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "انسٹالر کو Wi-Fi سے مربوط کریں۔",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "یا Requiem for Windows سے تیار انسٹالیشن حاصل کریں۔",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "لائسنس ایکٹیویشن",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "والیوم ایکٹیویشن (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "KMS سرور",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "چالو کریں۔",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "KMS کو چالو کریں۔",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "ٹاسک 160 دن",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "خودکار تجدید",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "خودکار ونڈوز",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "ایڈیشن اور ہم آہنگ GVLK کا پتہ لگاتا ہے۔",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "خودکار دفتر",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "پہلے سے نصب شدہ والیوم GVLK استعمال کریں۔",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "خرابی: KMS میزبان خالی ہے۔",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "کوئی KMS پروڈکٹس منتخب نہیں ہیں۔",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "{host}:1688 کے ساتھ کنیکٹیویٹی چیک کی جا رہی ہے...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "KMS خرابی: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "آفس انسٹالر",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "آفس ورژن",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "تنصیب کا دفتر",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "ڈاؤن لوڈ + ایکٹیویٹ کریں۔",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "مائیکروسافٹ آفس LTSC یا 365 کو ODT کا استعمال کرتے ہوئے خودکار طریقے سے تعینات کریں۔",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} بٹس۔ تجدید {status} باقی ہے۔",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "فارمیٹ MBR (وراثتی BIOS)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "ڈسک کو صاف کریں اور میراثی لے آؤٹ بنائیں\nصرف ونڈوز (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "موجودہ پارٹیشنز استعمال کریں۔",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "غیر فارمیٹڈ — W میں دکھاتا ہے: جیسا کہ ہے۔\nآپ دستی طور پر شرکت کا انتظام کرتے ہیں۔",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "موجودہ معاہدہ: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "تعاون یافتہ موڈ: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "ڈیٹا کی تباہی کی تصدیق کریں۔",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "تنصیب کی تصدیق کریں۔",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "منتخب کردہ ڈسک کو مکمل طور پر فارمیٹ کیا جائے گا۔ تمام ڈیٹا ضائع ہو جائے گا۔",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "ونڈوز بغیر فارمیٹنگ کے W:\\ پر تعینات کرے گا۔",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "تنصیب کی پیشرفت",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "تعیناتی جاری ہے۔",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "بجلی بند نہ کریں یا انسٹالیشن میڈیا کو نہ ہٹا دیں۔",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "ونڈوز امیج کو منتخب کریں۔",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "ونڈوز انسٹالیشن امیج کو منتخب کریں۔",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "ونڈوز انسٹالیشن امیج فراہم کریں (install.wim یا install.swm)\nUSB ڈرائیو یا کسی بھی ماونٹڈ میڈیا سے۔",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "تصویر تلاش کر رہا ہے…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "تصویر ملی",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "کوئی تصویر نہیں ملی",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "اپنی WIM فائل کو دستی طور پر تلاش کرنے کے لیے \"براؤز\" کا استعمال کریں۔",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "ایک .wim یا .swm فائل منتخب کریں۔",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "منتخب کردہ: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "یہ فولڈر خالی ہے۔",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "غلط راستہ: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "فلٹر…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "ایک سطح پر جائیں۔",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "یونٹس",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "انسٹالیشن IPv4 پل",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "برج آئی پی کی درخواست کریں۔",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "کوئی پل نہیں ملا۔ آئی پی مینوئل آزمائیں۔",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "appTitleInstaller": "انسٹالر کی درخواست کریں۔",
+  "@appTitleInstaller": {
+    "description": "Título de la ventana en el instalador Live Linux."
+  },
+  "appTitleTools": "Requiem ٹولز",
+  "@appTitleTools": {
+    "description": "Título de la ventana en modo herramientas de escritorio."
+  },
+  "start": "شروع کریں",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "سسٹم لاگز",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "مستحکم ورژن v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "سیکیور بوٹ سپورٹڈ",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "جوس کے ذریعہ ڈیزائن کیا گیا۔",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "اگلی نسل کے OS کی تعیناتی۔",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "اعلی کارکردگی والے ماحول کے لیے اعلی صحت سے متعلق ونڈوز انسٹالر۔ براہ راست DISM آرکیسٹریشن اور خودکار نظام کی اصلاح کے ساتھ تیزی سے تعیناتی کا تجربہ کریں۔",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "منسوخ کریں۔",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "جاری رکھیں",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "تصدیق کریں۔",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "انسٹال کریں۔",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "اپ ڈیٹ کریں۔",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "جڑیں۔",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "سسٹم کو ریبوٹ کریں۔",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "منتخب کریں۔",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "تلاش کریں۔",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "تبدیلی",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "ڈرائیوز کو دوبارہ اسکین کریں۔",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "نائٹ کلب کا انتظام",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "منزل ڈسک منتخب کریں۔",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "فزیکل ڈرائیو کا انتخاب کریں جہاں ونڈوز انسٹال ہو گی۔",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "تنصیب شروع کریں۔",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "install.wim کا پتہ لگانے کا انتظار ہے...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "کوئی فزیکل ڈسک نہیں ملی",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "نظام",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "پارٹیشن موڈ",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "GPT فارمیٹ کریں (تجویز کردہ)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "ڈسکو کو صاف کریں اور UEFI لے آؤٹ بنائیں\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "logsCopied": "ریکارڈز کو کلپ بورڈ پر کاپی کیا گیا۔",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "اپ ڈیٹ درکار ہے۔",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Requiem Tools کا استعمال جاری رکھنے کے لیے تازہ ترین ورژن میں اپ ڈیٹ کرنا ضروری ہے۔",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "دستیاب ورژن: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "یہ اپ ڈیٹ لازمی ہے اور اسے چھوڑا نہیں جا سکتا۔",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "انسٹالر ڈاؤن لوڈ کریں (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "پورٹیبل ڈاؤن لوڈ کریں (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "ایک خرابی پیش آگئی: {error}",
+  "@errorGeneric": {
+    "description": "Mensaje genérico de error.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyWindows": "یہ فیچر صرف ونڈوز پر دستیاب ہے۔",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "ترمیم کا پتہ چلا: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "نامعلوم",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "ونگٹ انسٹال نہیں ہے یا PATH میں نہیں ہے۔",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:provider/provider.dart';
+import 'generated/l10n.dart';
 import 'core/theme.dart';
 import 'ui/screens/landing_screen.dart';
 import 'ui/screens/post_install_screen.dart';
@@ -55,7 +57,16 @@ class RequiemApp extends StatelessWidget {
     final bool isLinux = Platform.isLinux;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: isLinux ? 'Requiem Installer' : 'Requiem Tools',
+      onGenerateTitle: (context) => isLinux
+          ? S.of(context).appTitleInstaller
+          : S.of(context).appTitleTools,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       theme: RequiemTheme.darkTheme,
       home: startInDesktopToolsMode
           ? const UpdateGate(child: PostInstallScreen())

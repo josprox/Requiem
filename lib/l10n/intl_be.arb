@@ -1,0 +1,623 @@
+{
+  "@@locale": "be",
+  "formatMbr": "Фарматаванне MBR (наступны BIOS)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el Disco y crea diseño heredado\nІндывідуальныя Windows (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Карыстайцеся існуючымі раздзеламі",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Фактычнае размяшчэнне: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Сумяшчальны з Modo: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Пацвердзіце знішчэнне даных",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Пацвердзіце ўстаноўку",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "El disco seleccionado se formateará por completo. Se perderán todos los datos.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows адключаецца ў фармаце W:\\.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Прагрэс дэ інсталяцыі",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "No desconecte la energía ni retire el medio de instalación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Выбар малюнкаў Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Выберыце малюнак для ўстаноўкі Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Параметр выявы ўстаноўкі Windows (install.wim або install.swm)\ndesde una unidad USB o cualquier medio montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Выява Buscando…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Выява кантрады",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Нічога не выяўлена",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Выкарыстоўвайце \"Пошук\" для лакалізацыі ў архіве WIM.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Выберыце архіў .wim або .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Selectionado: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Esta carpeta está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Рута несапраўдная: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Фільтр…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Пункт усталявання IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "No se encontró ningún puente. Дапаможнік Pruebe con la IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "logsCopied": "Logs copiados al portapapeles.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Actualización requerida",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Для далейшага выкарыстання Requiem Tools неабходна актуалізаваць іншую версію.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Даступная версія: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Esta actualización es obligatoria y no puede omitirse.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Спампаваць праграму ўстаноўкі (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Спампаваць portable (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Узнікла памылка: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Гэтая функцыя даступная ў Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Выяўленае выданне: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Дэсканацыда",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget no está instalado o no está en PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "bridgeSearchError": "No se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Няма сувязі: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Падключэнне Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Contraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Падключыцеся да {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Няма магчымасці падлучыцца да Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Wi-Fi не працуе.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Падключыцеся да Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "O reciba la installón preparada desde Requiem для Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Актывацыя ліцэнзій",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Activación de Volume (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Сервер KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Актыватар",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Актыватар KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Тэрэя 160 дзён",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Аўтаматычная рэканструкцыя",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows аўтаматычна",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Сумяшчальны з Detecta edición і GVLK",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Аўтаматычны офіс",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Выкарыстоўвайце аб'ём GVLK для ўстаноўкі",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Памылка: el host KMS está vacío.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Няма выбару прадуктаў сена KMS.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Comprobando conectividad con {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Памылка KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Інсталятар офіса",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Версія офіса",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Ўсталяваць офіс",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Спампаваць + актыватар",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Апісанне Microsoft Office LTSC або аўтаматызаванага спосабу 365 з дапамогай ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} біт. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "renewalActive": "Актываваць",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Дэзактывацыя",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Стэк прыкладанняў",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Стэк праграм (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Дэтэктар",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Усталяваць усё",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} праграм",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Instala y actualiza herramientas de desarrollo esenciales para Windows mediante winget.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Няма выбраных праграм.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "No se detectaron paquetes conocidos con winget.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Выяўленыя пакеты: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Медыя інсталяцыі",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Выберыце WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Стварэнне ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Атрымаць ISO для ўстаноўкі Solamente",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Атрымайце базу ISO для выбару WIM у праграме, або стварыце аўтаномную ISO, якая ўключае выяву Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM інтэграваны ў ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Выява Buscando...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Выяўленая выява",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Выява без канфлікту",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Preparar e iniciar puente",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Detener puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Prepara el WIM una sola vez y lo transmite directamente a los clientes Requiem de la misma red. Los clientes no guardan el WIM antes de instalar.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Інтэрфаз Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Пункт HTTP 40124 · Апісанне UDP 40123. Калі Windows Defender усталяваны, дазволены доступ і аднаўленне прыватных правоў.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Выберыце WIM і прыватны інтэрфейс IPv4.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Кансоль сістэмы",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Капіраваць часопісы",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Лімпіярскія бярвёны",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando una ación...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "appTitleInstaller": "Ўсталёўшчык Requiem",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Інструменты Requiem",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Эмпезар",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Журналы сістэмы",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Усталяваная версія v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Сумяшчальны з бяспечнай загрузкай",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Дызайн Джоса",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despliegue de SO de próxima generación",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Instalador de Windows de alta precisión para entornos de alto rendimiento. Experimente un despliegue rápido con orquestación directa de DISM y optimización automatizada del system.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Адмяніць",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Працягнуць",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Пацвердзіць",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Усталяваць",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Актуалізаваць",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Conectar",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reiniciar сістэма",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Selectionar",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Бускар",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Камбіяр",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Адміністрацыя дыскатэк",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Selectionar Disco de Destino",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde se instalará Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Пачаць усталяванне",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "No se detectaron discos físicos",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "сістэма",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Modo de partición",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Фарматаванне GPT (рэкамендавана)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Дыскатэка Limpia y crea diseño UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  }
+}

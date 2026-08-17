@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/localizations.dart';
 import 'panel.dart';
 
 class RequiemActivationPanel extends StatelessWidget {
@@ -26,17 +27,18 @@ class RequiemActivationPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     return RequiemPanel(
       icon: Icons.verified_user_rounded,
       accent: scheme.primary,
-      title: 'Activación de Volumen (KMS)',
+      title: t.kmsVolumeActivation,
       trailing: SizedBox(
         width: 150,
         child: FilledButton.icon(
           onPressed: onRun,
           icon: const Icon(Icons.key_rounded, size: 16),
-          label: const Text('ACTIVAR'),
+          label: Text(t.activate),
           style: FilledButton.styleFrom(
             minimumSize: const Size(0, 42),
           ),
@@ -49,16 +51,16 @@ class RequiemActivationPanel extends StatelessWidget {
               Expanded(
                 child: TextField(
                   controller: kmsHostController,
-                  decoration: const InputDecoration(
-                    labelText: 'Servidor KMS',
-                    prefixIcon: Icon(Icons.dns_rounded, size: 18),
+                  decoration: InputDecoration(
+                    labelText: t.kmsServer,
+                    prefixIcon: const Icon(Icons.dns_rounded, size: 18),
                   ),
                 ),
               ),
               const SizedBox(width: 14),
               RequiemSwitchTile(
-                title: 'Tarea 160 días',
-                subtitle: 'Renovación automática',
+                title: t.kmsTask160Days,
+                subtitle: t.automaticRenewal,
                 value: renewalTask,
                 color: scheme.secondary,
                 onChanged: onRenewalChanged,
@@ -70,11 +72,11 @@ class RequiemActivationPanel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: RequiemSwitchTile(title: 'Windows automatico', subtitle: 'Detecta edicion y GVLK compatible', value: windowsKms, color: scheme.primary, onChanged: onWindowsKmsChanged),
+                child: RequiemSwitchTile(title: t.automaticWindows, subtitle: t.automaticWindowsDescription, value: windowsKms, color: scheme.primary, onChanged: onWindowsKmsChanged),
               ),
               const SizedBox(width: 14),
               Expanded(
-                child: RequiemSwitchTile(title: 'Office automatico', subtitle: 'Usa la GVLK de volumen ya instalada', value: officeKms, color: scheme.primary, onChanged: onOfficeKmsChanged),
+                child: RequiemSwitchTile(title: t.automaticOffice, subtitle: t.automaticOfficeDescription, value: officeKms, color: scheme.primary, onChanged: onOfficeKmsChanged),
               ),
             ],
           ),

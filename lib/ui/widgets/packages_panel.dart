@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/localizations.dart';
 import '../../models/post_install_config.dart';
 import 'panel.dart';
 
@@ -19,18 +20,19 @@ class RequiemPackagesPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     return RequiemPanel(
       icon: Icons.developer_board_rounded,
       accent: scheme.secondary,
-      title: 'Stack de Programas (Winget)',
+      title: t.packageStack,
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           OutlinedButton.icon(
             onPressed: onDetect,
             icon: const Icon(Icons.manage_search_rounded, size: 16),
-            label: const Text('DETECTAR'),
+            label: Text(t.detect),
             style: OutlinedButton.styleFrom(
               minimumSize: const Size(0, 42),
             ),
@@ -39,7 +41,7 @@ class RequiemPackagesPanel extends StatelessWidget {
           FilledButton.icon(
             onPressed: onInstall,
             icon: const Icon(Icons.install_desktop_rounded, size: 16),
-            label: const Text('INSTALAR'),
+            label: Text(t.actionInstall),
             style: FilledButton.styleFrom(
               minimumSize: const Size(0, 42),
             ),

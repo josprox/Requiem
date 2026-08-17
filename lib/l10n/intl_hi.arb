@@ -1,0 +1,623 @@
+{
+  "@@locale": "hi",
+  "renewalActive": "सक्रिय",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "अक्षम",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "एप्लिकेशन स्टैक",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "प्रोग्राम स्टैक (विंगेट)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "पता लगाना",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "सभी स्थापित करें",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} कार्यक्रम",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "विंगेट का उपयोग करके विंडोज़ के लिए आवश्यक विकास उपकरण स्थापित और अद्यतन करें।",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "कोई प्रोग्राम चयनित नहीं है.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "विंगेट के साथ कोई ज्ञात पैकेज नहीं पाया गया।",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "पता लगाए गए पैकेट: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "इंस्टालेशन मीडिया",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM का चयन करें",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "आईएसओ उत्पन्न करें",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "केवल इंस्टालेशन के लिए आईएसओ प्राप्त करें",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "बूट पर WIM का चयन करने के लिए आधार ISO प्राप्त करें, या एक स्व-निहित ISO बनाएं जिसमें पहले से ही आपकी Windows छवि शामिल हो।",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM को ISO में एकीकृत किया गया",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "छवि खोजी जा रही है...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "छवि का पता चला",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "छवि नहीं मिली",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "पुल तैयार करें और शुरू करें",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "पुल रुकना",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "WIM को केवल एक बार तैयार करें और इसे सीधे उसी नेटवर्क पर Requiem क्लाइंट तक पहुंचाएं। ग्राहक WIM को इंस्टाल करने से पहले सेव नहीं करते हैं।",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "वाई-फाई/लैन आईपीवी4 इंटरफ़ेस",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "HTTP पोर्ट 40124 · यूडीपी डिस्कवरी 40123। यदि विंडोज डिफेंडर पूछता है, तो निजी नेटवर्क पर पहुंच की अनुमति दें।",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "एक WIM और एक निजी IPv4 इंटरफ़ेस चुनें।",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "सिस्टम कंसोल",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "रिकार्ड कॉपी करें",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "साफ लॉग",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "कार्रवाई की प्रतीक्षा में...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "पुल की खोज नहीं की जा सकी: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "कनेक्ट नहीं हो सका: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "वाई-फ़ाई कनेक्ट करें",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "वाईफ़ाई पासवर्ड",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network} से जुड़ा।",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "वाई-फ़ाई से कनेक्ट नहीं हो सका: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "कोई उपलब्ध वाई-फ़ाई नेटवर्क नहीं मिला.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "इंस्टॉलर को वाई-फ़ाई से कनेक्ट करें",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "या Windows के लिए Requiem से तैयार इंस्टॉलेशन प्राप्त करें",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "लाइसेंस सक्रियण",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "वॉल्यूम सक्रियण (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "केएमएस सर्वर",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "सक्रिय करें",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "KMS सक्रिय करें",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "टास्क 160 दिन",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "स्वचालित नवीनीकरण",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "स्वचालित खिड़कियाँ",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "संस्करण और संगत GVLK का पता लगाता है",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "स्वचालित कार्यालय",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "पहले से स्थापित वॉल्यूम GVLK का उपयोग करें",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "त्रुटि: KMS होस्ट खाली है.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "कोई KMS उत्पाद चयनित नहीं है.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "{host}:1688 के साथ कनेक्टिविटी की जाँच की जा रही है...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "KMS त्रुटि: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "कार्यालय इंस्टॉलर",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "कार्यालय संस्करण",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "स्थापना कार्यालय",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "डाउनलोड + सक्रिय करें",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "ODT का उपयोग करके Microsoft Office LTSC या 365 को स्वचालित तरीके से परिनियोजित करें।",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} बिट्स। नवीनीकरण {status} रहता है।",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "प्रारूप एमबीआर (विरासत BIOS)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "डिस्क को वाइप करें और लीगेसी लेआउट बनाएं\nकेवल विंडोज़ (सी:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "मौजूदा विभाजनों का उपयोग करें",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "अस्वरूपित - W में प्रदर्शित होता है: जैसा है\nआप भागीदारी को मैन्युअल रूप से प्रबंधित करते हैं",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "वर्तमान समझौता: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "समर्थित मोड: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "डेटा नष्ट होने की पुष्टि करें",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "स्थापना की पुष्टि करें",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "चयनित डिस्क पूरी तरह से स्वरूपित हो जाएगी. सारा डेटा नष्ट हो जाएगा.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "विंडोज़ बिना फ़ॉर्मेटिंग के W:\\ पर तैनात होगी।",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "स्थापना की प्रगति",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "तैनाती प्रगति पर है",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "बिजली बंद न करें या इंस्टॉलेशन मीडिया को न हटाएं",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "विंडोज़ छवि का चयन करें",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "विंडोज़ इंस्टालेशन छवि का चयन करें",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "विंडोज़ इंस्टॉलेशन छवि प्रदान करें (install.wim या install.swm)\nUSB ड्राइव या किसी माउंटेड मीडिया से।",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "छवि खोजी जा रही है...",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "छवि मिली",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "कोई छवि नहीं मिली",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "अपनी WIM फ़ाइल को मैन्युअल रूप से ढूंढने के लिए \"ब्राउज़ करें\" का उपयोग करें।",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": ".wim या .swm फ़ाइल चुनें",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "चयनित: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "यह फ़ोल्डर खाली है",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "अमान्य मार्ग: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "फ़िल्टर करें...",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "एक स्तर ऊपर जाओ",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "इकाइयों",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "इंस्टालेशन IPv4 ब्रिज",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "रिक्विम ब्रिज आईपी",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "कोई पुल नहीं मिला. आईपी ​​मैनुअल आज़माएं.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "appTitleInstaller": "Requiem इंस्टालर",
+  "@appTitleInstaller": {
+    "description": "Título de la ventana en el instalador Live Linux."
+  },
+  "appTitleTools": "Requiem उपकरण",
+  "@appTitleTools": {
+    "description": "Título de la ventana en modo herramientas de escritorio."
+  },
+  "start": "शुरू",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "सिस्टम लॉग",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "स्थिर संस्करण v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "सुरक्षित बूट समर्थित",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "जॉस द्वारा डिज़ाइन किया गया",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "अगली पीढ़ी का OS परिनियोजन",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "उच्च-प्रदर्शन वातावरण के लिए उच्च-परिशुद्धता विंडोज इंस्टॉलर। प्रत्यक्ष डीआईएसएम ऑर्केस्ट्रेशन और स्वचालित सिस्टम अनुकूलन के साथ तेजी से तैनाती का अनुभव करें।",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "रद्द करना",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "जारी रखना",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "पुष्टि करना",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "स्थापित करना",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "अद्यतन",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "जोड़ना",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "सिस्टम को रीबूट करें",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "चुनना",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "देखो के लिए",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "परिवर्तन",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "ड्राइव को दोबारा स्कैन करें",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "नाइट क्लब प्रबंधन",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "गंतव्य डिस्क का चयन करें",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "वह भौतिक ड्राइव चुनें जहां विंडोज़ स्थापित की जाएगी।",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "स्थापना प्रारंभ करें",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "install.wim का पता चलने की प्रतीक्षा की जा रही है...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "कोई भौतिक डिस्क नहीं मिली",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "प्रणाली",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "विभाजन मोड",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "जीपीटी प्रारूप (अनुशंसित)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "डिस्को साफ़ करें और UEFI लेआउट बनाएं\nईएफआई (एस:) + विंडोज (डब्ल्यू:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "logsCopied": "रिकॉर्ड्स को क्लिपबोर्ड पर कॉपी किया गया।",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "अद्यतन आवश्यक है",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Requiem Tools का उपयोग जारी रखने के लिए नवीनतम संस्करण में अपडेट करना आवश्यक है।",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "उपलब्ध संस्करण: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "यह अद्यतन अनिवार्य है और इसे छोड़ा नहीं जा सकता।",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "इंस्टॉलर डाउनलोड करें (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "पोर्टेबल डाउनलोड करें (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "एक त्रुटि उत्पन्न हुई: {error}",
+  "@errorGeneric": {
+    "description": "Mensaje genérico de error.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyWindows": "यह सुविधा केवल विंडोज़ पर उपलब्ध है।",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "संपादन का पता चला: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "एक अजनबी",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "विंगेट स्थापित नहीं है या PATH में नहीं है.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

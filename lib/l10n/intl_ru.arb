@@ -1,0 +1,623 @@
+{
+  "@@locale": "ru",
+  "formatMbr": "Формирование MBR (наследственный BIOS)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Освободите дискотеку и создайте дизайн по наследству\nИндивидуальные окна (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Использование существующих разделов",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nИспользуйте руководство по управлению участниками",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Фактическая дата: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Совместимость с модом: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Подтвердить уничтожение данных",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Подтвердите установку",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "Выбранная дискотека полностью отформатирована. Если вы потеряли все данные.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows удаляется из W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Ход установки",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Десплиг в курсе",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Не отключайте питание и не вынимайте средство установки.",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Выбор изображения Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Выбор образа установки Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Пропорция образа установки Windows (install.wim или install.swm)\nот универсального USB-устройства или другого устройства Medio Montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Изображение Бускандо…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Изображение Encontrada",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Изображение не обнаружено",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Используйте «Buscar» для ручной локализации архива WIM.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Выбор архива .wim или .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Выбрано: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Эта ковровая дорожка está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Недействительный статус: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Фильтрар…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Юнидадес",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Возможность установки IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "ИП дель Пуэнте Реквием",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Ничего не встретишь. Пруэбе с руководством по IP.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "logsCopied": "Журналы копируются в портативные устройства.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Требуемая актуализация",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Чтобы продолжить использование Requiem Tools, необходимо актуализировать более свежую версию.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Доступная версия: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Эта актуализация обязательна и не может быть пропущена.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Скачать программу установки (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Скачать портативную версию (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Произошла ошибка: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Эта функция доступна только в Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Обнаруженное образование: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Десконосидо",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "Winget не установлен или не установлен в PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "bridgeSearchError": "Я не могу ехать в пуэнте: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Не могу подключиться: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Конектар Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Контрасенья Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Подключитесь к {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Невозможно подключиться к Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Не используйте доступный Wi-Fi.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Подключитесь к установщику Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Получите подготовку к установке Desde Requiem для Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Активация лицензий",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Активация громкости (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Сервисор КМС",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Активар",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Активар КМС",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Тарея 160 дней",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Автоматический ремонт",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows автоматически",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Совместимость с Detecta edición и GVLK",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Автоматический офис",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Используйте GVLK для установки",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Ошибка: хост KMS удален.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Нет выбранных продуктов KMS.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Comprobando conectividad con {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Ошибка KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Монтажник офиса",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Версия Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Офис установки",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Декаргар + активар",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Использование Microsoft Office LTSC или 365 способов автоматизации с использованием ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} бит. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "appTitleInstaller": "Установщик Реквиема",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Инструменты Реквиема",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Эмпезар",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Журналы системы",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Установленная версия v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Совместимость с безопасной загрузкой",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Дизайн от Джосса",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Описание SO ближайшего поколения",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Высокоточная установка окон для высокого уровня отображения. Поэкспериментируйте с быстрым выполнением прямого запроса DISM и автоматической оптимизацией системы.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Отмена",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Продолжить",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Подтвердить",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Инсталар",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Актуализар",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Конектар",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Рейничная система",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Выбор",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Бускар",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Камбьяр",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Администрация дискотек",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Выбор дискотеки судьбы",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Элия имеет физическое единство, когда устанавливает Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Начальная установка",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Эсперандо обнаружения install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Нет обнаружения физических дискотек",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "АФК «Система»",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Режим участия",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Форматировать GPT (рекомендуется)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Освободите дискотеку и создайте дизайн UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "renewalActive": "Актива",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Деактивация",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Стек приложений",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Стек программ (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Детектор",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Установить задачу",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} программ",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Установите и актуализируйте специальные элементы для Windows на среднем крыле.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Никаких выбранных программ.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Не обнаруживайте пакеты с крылышками.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Обнаруженные пакеты: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Средство установки",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Выбор WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Общий ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Получить ISO для одиночной установки",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Получите базу ISO для выбора WIM-файла или создайте автономный ISO-образ, который включается в образ Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "Интеграция WIM в ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Бускандо изображение...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Изображение обнаружено",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Imagen no encontrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Подготовьтесь к началу работы",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Детенер пуэнте",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Подготовьте WIM для одного и передайте прямо клиентам Requiem de la misma red. Клиенты не охраняют WIM перед установкой.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Интерфаз Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Путь HTTP 40124 · Описан UDP 40123. Если в Защитнике Windows есть доступ, разрешите доступ к личным данным.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Выберите WIM и частный интерфейс IPv4.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Консоль системы",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Копирование журналов",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Прозрачные бревна",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Эсперандо за действие...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  }
+}

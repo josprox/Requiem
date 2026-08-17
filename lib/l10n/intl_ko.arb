@@ -1,0 +1,623 @@
+{
+  "@@locale": "ko",
+  "appTitleInstaller": "레퀴엠 설치 프로그램",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "레퀴엠 도구",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "엠페자르",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "로그 델 시스템",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "안정적인 버전 v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "보안 부팅과 호환 가능",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Joss의 디자인",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "SO de próxima generación의 Despliegue",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "알토 렌디미엔토를 위한 알타 정밀 Windows 설치. DISM 방향을 탐색하고 시스템 자동화를 최적화하는 빠른 속도를 실험해 보세요.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "취소",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "계속",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "확인",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "설치",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "실제화",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "커넥타",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Reiniciar 시스템",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "선택",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "버스카르",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "캠비아",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "디스코 관리",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "디스코 드 목적지 선택",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Elija la unidad física donde se installará Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "초기 설치",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "디스코드 físicos를 탐지하는 것은 아닙니다.",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "시스테마",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "참여 방식",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "포맷어 GPT(권장)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco y crea diseño UEFI\nEFI(S:) + Windows(W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "formatMbr": "MBR 포맷(BIOS heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco y crea diseño heredado\n솔로 윈도우(C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Usar는 존재합니다.",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nUsted gestiona las particiones manualmente",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "실제 Arranque: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modo 호환 가능: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "데이터 파괴 확인",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "설치 확인",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "디스코를 선택하여 형식을 완료하세요. Se perderán todos los datos.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows는 W:\\ 형식으로 되어 있습니다.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "설치 진행",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "No desconecte la energía ni 은퇴 el medio de installación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Windows 이미지 선택",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Windows 설치 이미지 선택",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Windows 설치 이미지 비율(install.wim 또는 install.swm)\nUSB 또는 USB 장치를 통합하여 사용할 수 있습니다.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "부스칸도 이미지…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Imagen encontrada",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "No se detector ninguna imagen",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "WIM 설명서 보관소에 있는 \"Buscar\" para localizar를 사용하십시오.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": ".wim o .swm 아카이브 선택",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "선택 항목: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Esta Carpeta está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "유효하지 않은 기본 정보: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "필터…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "수비르 유엔 니벨",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "유니다데스",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "IPv4 설치가 완료되었습니다.",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP 델 푸엔테 레퀴엠",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "No se encontró ningún puente. Pruebe con la IP 매뉴얼.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "renewalActive": "액티바",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Desactivada",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "응용 프로그램 스택",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "스택 드 프로그래밍(Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "탐지기",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "설치 할 일",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} 프로그램",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Windows 중앙 날개에 필요한 장치를 실제로 설치합니다.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "선택과 같은 건초 프로그램은 없습니다.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "탐지기는 날개와 함께 conocidos를 포장하지 않습니다.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "감지 패키지: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "설치 미디어",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM 선택",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "일반 ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "ISO 파라멘타 설치 솔루션 확보",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "WIM을 선택하여 ISO 기반을 선택하면 Windows 이미지가 포함된 ISO 자동 기능이 제공됩니다.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "ISO에 WIM 통합",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "부스칸도 이미지...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "이미지 감지",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "반대하지 않는 이미지",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "초기 과정 준비",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "디테너 푸엔테",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "WIM을 준비하여 고객에게 Requiem de la misma red를 직접 전송하세요. 클라이언트에는 WIM 설치 비용에 대한 보호가 없습니다.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaz Wi-Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · descubrimiento UDP 40123. Si Windows Defender는 사전에 개인 정보 액세스를 허용합니다.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "WIM 및 인터페이스 IPv4 개인 정보 보호를 선택하세요.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "콘솔라 델 시스테마",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "복사 로그",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Limpiar 로그",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "에스페란도 또는 어쿠션...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "아니 se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "더 이상 연결하지 마세요: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "커넥타 Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "콘트라세냐 Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network}에 연결하세요.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Wi-Fi에 연결하지 마세요: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "더 이상 Wi-Fi를 무시할 수 없습니다.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Wi-Fi를 설치하는 연결",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Windows에서 레퀴엠을 준비하기 위해 설치를 완료하세요.",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "라이센스 활성화",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "볼륨 활성화(KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "서비스 제공자 KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "액티바",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "액티바 KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "타레아 160일",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "자동 혁신",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows 자동",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "GVLK 호환 버전 감지",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "사무실 자동화",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Usa la GVLK de Volumen ya instalada",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "오류: 호스트 KMS가 비어 있습니다.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "KMS 선택 건초 제품은 없습니다.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "{host}:1688 연결 연결...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "오류 KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "사무실 설치",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Office 버전",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "설치 사무실",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "다운로드 + 액티바",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Microsoft Office LTSC는 ODT를 사용하여 365개 자동 자동화 기능을 제공합니다.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} 비트. La renovación queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "logsCopied": "copiados al portapapeles를 기록합니다.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "실제 요구 사항",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "계속해서 Requiem Tools를 사용하려면 최신 버전으로 현실화해야 합니다.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "버전: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "의무사항이 실제로 실현되면 생략할 필요가 없습니다.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "다운로드 설치 프로그램(.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "휴대용 다운로드(.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "오류 발생: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Windows에서 단독으로 사용할 수 있습니다.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "감지된 편집: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "데스코노시도",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "PATH에 설치하지 마십시오.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

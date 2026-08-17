@@ -1,0 +1,623 @@
+{
+  "@@locale": "th",
+  "renewalActive": "ใช้งานอยู่",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "ปิดการใช้งาน",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "สแต็คแอปพลิเคชัน",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "โปรแกรมสแต็ค (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "ตรวจจับ",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "ติดตั้งทั้งหมด",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} โปรแกรม",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "ติดตั้งและอัปเดตเครื่องมือการพัฒนาที่จำเป็นสำหรับ Windows โดยใช้ Winget",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "ไม่มีโปรแกรมที่เลือก",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "ไม่พบแพ็คเกจที่รู้จักกับ Winget",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "แพ็กเก็ตที่ตรวจพบ: {count}",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "สื่อการติดตั้ง",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "เลือก WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "สร้าง ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "รับ ISO สำหรับการติดตั้งเท่านั้น",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "รับ ISO พื้นฐานเพื่อเลือก WIM ขณะบูต หรือสร้าง ISO ที่มีอยู่ในตัวเองซึ่งมีอิมเมจ Windows ของคุณอยู่แล้ว",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "WIM รวมอยู่ใน ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "กำลังค้นหาภาพ...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "ตรวจพบรูปภาพ",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "ไม่พบรูปภาพ",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "เตรียมและเริ่มสะพาน",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "หยุดสะพาน",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "เตรียม WIM เพียงครั้งเดียว และส่งโดยตรงไปยังไคลเอนต์ Requiem บนเครือข่ายเดียวกัน ไคลเอนต์ไม่บันทึก WIM ก่อนที่จะทำการติดตั้ง",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "อินเทอร์เฟซ Wi-Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "พอร์ต HTTP 40124 · การค้นพบ UDP 40123 หาก Windows Defender ถาม ให้อนุญาตการเข้าถึงบนเครือข่ายส่วนตัว",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "เลือก WIM และอินเทอร์เฟซ IPv4 ส่วนตัว",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "คอนโซลระบบ",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "คัดลอกบันทึก",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "บันทึกการทำความสะอาด",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "กำลังรอการดำเนินการ...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "bridgeSearchError": "ไม่สามารถค้นหาสะพาน: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "ไม่สามารถเชื่อมต่อ: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "เชื่อมต่อ Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "รหัสผ่าน Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "เชื่อมต่อกับ {network}",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "ไม่สามารถเชื่อมต่อ Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "ไม่พบเครือข่าย Wi-Fi ที่ใช้งานได้",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "เชื่อมต่อตัวติดตั้งกับ Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "หรือรับการติดตั้งพร้อมจาก Requiem สำหรับ Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "การเปิดใช้งานใบอนุญาต",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "การเปิดใช้งานแบบหลายเครื่อง (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "เซิร์ฟเวอร์ KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "เปิดใช้งาน",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "เปิดใช้งาน KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "ภารกิจ 160 วัน",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "ต่ออายุอัตโนมัติ",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "หน้าต่างอัตโนมัติ",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "ตรวจจับรุ่นและ GVLK ที่เข้ากันได้",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "สำนักงานอัตโนมัติ",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "ใช้โวลุ่ม GVLK ที่ติดตั้งไว้แล้ว",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "ข้อผิดพลาด: โฮสต์ KMS ว่างเปล่า",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "ไม่มีผลิตภัณฑ์ KMS ที่เลือก",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "กำลังตรวจสอบการเชื่อมต่อกับ {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "ข้อผิดพลาด KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "ช่างติดตั้งสำนักงาน",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "รุ่นสำนักงาน",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "สำนักงานติดตั้ง",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "ดาวน์โหลด + เปิดใช้งาน",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "ปรับใช้ Microsoft Office LTSC หรือ 365 ในลักษณะอัตโนมัติโดยใช้ ODT",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} บิต การต่ออายุยังคงอยู่ {status}",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "รูปแบบ MBR (BIOS ดั้งเดิม)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "ล้างดิสก์และสร้างเค้าโครงดั้งเดิม\nวินโดวส์เท่านั้น (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "ใช้พาร์ติชันที่มีอยู่",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "ไม่ฟอร์แมต — แสดงใน W: ตามที่เป็นอยู่\nคุณจัดการการเข้าร่วมด้วยตนเอง",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "ข้อตกลงปัจจุบัน: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "โหมดที่รองรับ: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "ยืนยันการทำลายข้อมูล",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "ยืนยันการติดตั้ง",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "ดิสก์ที่เลือกจะถูกฟอร์แมตอย่างสมบูรณ์ ข้อมูลทั้งหมดจะหายไป",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows จะปรับใช้กับ W:\\ โดยไม่ต้องฟอร์แมต",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "ความคืบหน้าการติดตั้ง",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "อยู่ระหว่างดำเนินการปรับใช้",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "อย่าปิดเครื่องหรือถอดสื่อการติดตั้งออก",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "เลือกอิมเมจของ Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "เลือกอิมเมจการติดตั้ง Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "จัดเตรียมอิมเมจการติดตั้ง Windows (install.wim หรือ install.swm)\nจากไดรฟ์ USB หรือสื่อที่ติดตั้งไว้",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "กำลังค้นหาภาพ...",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "พบรูปภาพแล้ว",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "ไม่พบภาพ",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "ใช้ \"เรียกดู\" เพื่อค้นหาไฟล์ WIM ของคุณด้วยตนเอง",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "เลือกไฟล์ .wim หรือ .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "เลือกแล้ว: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "โฟลเดอร์นี้ว่างเปล่า",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "เส้นทางไม่ถูกต้อง: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "ตัวกรอง…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "ขึ้นไปอีกระดับหนึ่ง",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "หน่วย",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "การติดตั้งบริดจ์ IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP สะพานบังสุกุล",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "ไม่พบสะพาน ลองใช้คู่มือ IP",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "appTitleInstaller": "ตัวติดตั้งบังสุกุล",
+  "@appTitleInstaller": {
+    "description": "Título de la ventana en el instalador Live Linux."
+  },
+  "appTitleTools": "เครื่องมือบังสุกุล",
+  "@appTitleTools": {
+    "description": "Título de la ventana en modo herramientas de escritorio."
+  },
+  "start": "เริ่มต้นเลย",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "บันทึกของระบบ",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "เวอร์ชันเสถียร v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "รองรับการบูตอย่างปลอดภัย",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "ออกแบบโดยจอส",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "การปรับใช้ระบบปฏิบัติการรุ่นต่อไป",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "ตัวติดตั้ง Windows ที่มีความแม่นยำสูงสำหรับสภาพแวดล้อมที่มีประสิทธิภาพสูง สัมผัสประสบการณ์การใช้งานที่รวดเร็วด้วยการจัดการ DISM โดยตรงและการเพิ่มประสิทธิภาพระบบอัตโนมัติ",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "ยกเลิก",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "ดำเนินการต่อ",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "ยืนยัน",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "ติดตั้ง",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "อัปเดต",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "เชื่อมต่อ",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "รีบูทระบบ",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "เลือก",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "ค้นหา",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "เปลี่ยน",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "สแกนไดรฟ์อีกครั้ง",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "การจัดการไนท์คลับ",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "เลือกดิสก์ปลายทาง",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "เลือกฟิสิคัลไดรฟ์ที่จะติดตั้ง Windows",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "เริ่มการติดตั้ง",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "กำลังรอการตรวจจับ install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "ไม่พบฟิสิคัลดิสก์",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "ระบบ",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "โหมดพาร์ติชัน",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "รูปแบบ GPT (แนะนำ)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "ทำความสะอาดดิสโก้และสร้างเค้าโครง UEFI\nEFI (S:) + Windows (W :)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "logsCopied": "บันทึกคัดลอกไปยังคลิปบอร์ดแล้ว",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "จำเป็นต้องอัปเดต",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "หากต้องการใช้ Requiem Tools ต่อไป จำเป็นต้องอัปเดตเป็นเวอร์ชันล่าสุด",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "รุ่นที่มีจำหน่าย: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "การอัปเดตนี้เป็นข้อบังคับและไม่สามารถข้ามได้",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "ดาวน์โหลดตัวติดตั้ง (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "ดาวน์โหลดแบบพกพา (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "เกิดข้อผิดพลาด: {error}",
+  "@errorGeneric": {
+    "description": "Mensaje genérico de error.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyWindows": "คุณลักษณะนี้มีเฉพาะใน Windows เท่านั้น",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "ตรวจพบการแก้ไข: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "ไม่ทราบ",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "ไม่ได้ติดตั้ง Winget หรือไม่ได้อยู่ใน PATH",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

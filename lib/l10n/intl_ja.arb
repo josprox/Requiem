@@ -1,0 +1,623 @@
+{
+  "@@locale": "ja",
+  "appTitleInstaller": "レクイエムインストーラー",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "レクイエムツール",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "エンペザール",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "システムのログ",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "安定バージョン v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "セキュアブートとの互換性",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "ジョスのディセニャド",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "近い将来の世代の決定",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "高度な管理を行うための Windows の高度なインストール。 DISM の直接的な制御を迅速に実験し、システムの自動化を最適化します。",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "キャンセラー",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "継続的",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "確認者",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "インスタラー",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "現実化",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "コネクタ",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "特定システム",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "選択",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "バスカー",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "カンビア",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "エスカニア ユニダーデス デ ヌエボ",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "ディスコの管理",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "デスティノの選択",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Windows をインストールできるようになります。",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "最初のインスタレーション",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "install.wim を検出する方法...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "ディスコフィケーションを検出する必要はありません",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "システマ",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "参加方法",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT (推奨)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "リンピア エル ディスコとクレア ディセーニョ UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "formatMbr": "Formatear MBR (BIOS の情報)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "リンピア エル ディスコとクレア ディセーニョ ヘレダド\nソロウィンドウ (C:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "存在するユーザーのパーティション",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\n説明書を使用する",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "実際のアランク: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Modo 互換性: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "データ破壊の確認",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "設置の確認",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "完全な形式のディスコ選択。セ・ペルデラン・トドス・ロス・ダトス。",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows では W:\\ 形式のファイルをダウンロードします。",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "インスタレーションの進捗状況",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "デスプリーグ・アン・カーソ",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "インスタレーションの引退時にエネルギーを遮断する必要はありません",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Windows の選択可能なイメージ",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Windows のインストール イメージの選択",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Windows のインストールイメージ (install.wim または install.swm)\nUSB を使用して、メディア モンタドを簡単に操作できます。",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "バスカンドのイメージ…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "イマージェン・エンコントラーダ",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "No se detectó ninguna imagen",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "WIM マニュアルのローカライズには「Buscar」を使用してください。",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": ".wim または .swm のアーカイブを選択してください",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "選択: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "エスタ カーペット エスタ ヴァシア",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "無効なルタ: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "フィルター…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "スビル・アン・ニベル",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "ウニダデス",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "IPv4 のインストール手順",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP デル プエンテ レクイエム",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "何も操作する必要はありません。 Pruebe con la IP マニュアル。",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "bridgeSearchError": "いいえ、バスカー エル プエンテ: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "いいえ、プドー コネクタ: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "コネクタ Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "コントラセーニャ Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network} のコネクタード。",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Wi-Fi に接続しないでください: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Wi-Fi を管理する必要はありません。",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Wi-Fi をインストールするコネクタ",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Windows でのレクイエムの準備を整えてください",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "ライセンス認証",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "ボリュームのアクティベーション (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "サーバーKMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "アクティバー",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "アクティバーKMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "タレア 160 ディアス",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "自動改修",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows 自動化",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Detecta エディションと GVLK 互換",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "オフィスオートマチック",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "GVLK を大量にインストールできるようになりました",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "エラー: ホスト KMS が保存されています。",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "KMS セレクシオナドの干し草製品はありません。",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Comprobando conectividad con {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "エラー KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "オフィスの設置",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "オフィスのバージョン",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "オフィスの設置",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "ダウンロード + アクティバー",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Microsoft Office LTSC または 365 日自動操作 ODT を使用できます。",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} ビット。改装工事{status}。",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "renewalActive": "アクティバ",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "非アクティブ化",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "アプリケーションを積み重ねる",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "プログラムのスタック (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "探知機",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "todo をインストールする",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} プログラム",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Windows 中央の Winget の実際の機能をインストールします。",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "選択的な干し草プログラムはありません。",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "パケットを検出することはできません。",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "検出パケット: {count}。",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "メディオ デ インスタレーション",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "選択された WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "一般 ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "ISO パラシオンを取得する",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Windows のイメージを含めて、ISO ベースの選択を WIM の管理下で行うことができ、ISO の自動化を行うことができます。",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "ISO 版の WIM 統合",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "バスカンドイメージン...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "画像検出器",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "イマージェン・ノー・エンコントラーダ",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "最初の準備をする",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "デテナー・プエンテ",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "顧客からの直接の送信を準備して、ミスマレッドのレクイエムを送信してください。 WIM をインストールする前にクライアントを保護する必要はありません。",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "インターファズ Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "プエルト HTTP 40124 · UDP 40123 の説明。 Windows Defender は事前にプライバシーを許可されています。",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "WIM とインターフェイスの IPv4 プライバシーを選択します。",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "コンソーラ デル システマ",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "コピーログ",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "リンピアの丸太",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "エスペランドウナアクシオン...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "logsCopied": "コピアドス・アル・ポルタパペレスのログ。",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "要求の現実化",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "レクイエム ツールは、実際のバージョンに必要なものを継続的に使用します。",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "必要なバージョン: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "現実化は義務であり、省略はありません。",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "インストーラ（.exe）をダウンロード",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "ダウンロードポータブル (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "エラー発生時: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Windows では単独でのエスタ機能が利用可能です。",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "検出された編集: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "デスコノシド",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "WINGET のインストール先が PATH にありません。",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

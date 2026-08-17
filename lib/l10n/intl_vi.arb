@@ -1,0 +1,623 @@
+{
+  "@@locale": "vi",
+  "appTitleInstaller": "Trình cài đặt cầu nguyện",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Công cụ cầu hồn",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Nhật ký của hệ thống",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Phiên bản estable v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Tương thích với Secure Boot",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Diseñado bởi Joss",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Giải mã SO của thế hệ sản phẩm",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Cài đặt Windows chính xác cao nhất cho các kết xuất khác. Thử nghiệm giải pháp nhanh chóng với yêu cầu trực tiếp về DISM và tối ưu hóa tự động hóa hệ thống.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "Hủy bỏ",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Tiếp tục",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "xác nhận",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "cài đặt",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Cập nhật",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "kết nối",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Hệ thống tái tạo",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "lựa chọn",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Xe buýt",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "cambiar",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Thoát khỏi sự thống nhất mới",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Quản lý vũ trường",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Lựa chọn vũ trường định mệnh",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Đây là cách duy nhất để cài đặt Windows.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Cài đặt ban đầu",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Không có phát hiện vũ trường físico nào",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "hệ thống",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Phương thức phân vùng",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Định dạng GPT (được khuyến nghị)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Âm nhạc nhẹ nhàng và tạo ra âm thanh UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "bridgeSearchError": "No se pudo buscar el puente: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Không có kết nối nào: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Kết nối Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Tương phản Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "Kết nối với {network}.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Bạn không thể kết nối Wi-Fi: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "No se encontraron làm lại các thiết bị Wi-Fi.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Kết nối cài đặt Wi-Fi",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Hoặc chuẩn bị cài đặt Requiem cho Windows",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Kích hoạt giấy phép",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Kích hoạt âm lượng (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Nhà cung cấp KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "kích hoạt",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Kích hoạt KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 ngày",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Đổi mới tự động",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows tự động",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Phát hiện phiên bản tương thích với GVLK",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Văn phòng tự động",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Sử dụng GVLK để cài đặt khối lượng",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Lỗi: máy chủ KMS bị trống.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "Không có sản phẩm hay lựa chọn KMS.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "Hãy kết hợp với {host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Lỗi KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Cài đặt văn phòng",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Phiên bản Office",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Văn phòng cài đặt",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "Tải xuống + kích hoạt",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Despliega Microsoft Office LTSC hoặc 365 cách tự động hóa sử dụng ODT.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bit. Quá trình cải tạo đang diễn ra {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "Định dạng MBR (BIOS heredado)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco và crea diseño heredado\nWindows đơn (C :)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Sự tham gia của người dùng tồn tại",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nHướng dẫn sử dụng các bước tham gia được sử dụng",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Sắp xếp thực tế: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Tương thích với mod: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Xác nhận việc hủy dữ liệu",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Xác nhận cài đặt",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "Lựa chọn vũ trường sẽ được định dạng để hoàn thành. Hãy làm tất cả những gì có thể mất dữ liệu.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows sẽ được gỡ bỏ khỏi W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Tiến trình cài đặt",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Lời nguyền và lời nguyền",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Không cần tiết kiệm năng lượng khi nghỉ hưu phương tiện cài đặt",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Chọn hình ảnh Windows",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Chọn hình ảnh cài đặt Windows",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Tỷ lệ hình ảnh cài đặt Windows (install.wim hoặc install.swm)\ncó một USB đơn nhất hoặc một thiết bị thông thường.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Hình ảnh Buscando…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Hình ảnh tương phản",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Không có hình ảnh nào được phát hiện",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "Sử dụng \"Buscar\" để bản địa hóa tài liệu hướng dẫn lưu trữ WIM.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "Chọn một kho lưu trữ .wim hoặc .swm",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Lựa chọn: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Đây là thảm está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Ruta không hợp lệ: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Bộ lọc…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Subir un nivel",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidades",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "Điểm cài đặt IPv4",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP cuối cùng Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Không có điều gì có thể xảy ra. Pruebe con la IP manual.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "renewalActive": "kích hoạt",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Hủy kích hoạt",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Xếp chồng các ứng dụng",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Xếp chồng các chương trình (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Máy dò",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "cài đặt việc cần làm",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} chương trình",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Cài đặt và hiện thực hóa các công cụ thiết yếu cho Windows trung gian.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Không có chương trình chọn lọc hay.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Không có gì có thể phát hiện ra các gói conocidos con winget.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Số gói được phát hiện: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Phương tiện cài đặt",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "Lựa chọn WIM",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "ISO chung",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Người nhận ISO để cài đặt dễ dàng",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Lấy cơ sở ISO để chọn WIM cho thiết lập, hoặc tạo một tự động ISO mà bạn bao gồm hình ảnh của Windows.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "Tích hợp WIM theo ISO",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Hình ảnh Buscando...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Phát hiện hình ảnh",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Hình ảnh không có encontrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Chuẩn bị và bắt đầu",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "chất giam giữ",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "Chuẩn bị WIM một cách dễ dàng và truyền tải trực tiếp đến khách hàng Requiem de la misma red. Khách hàng không được bảo vệ WIM trước khi cài đặt.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Interfaz Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · giải mã UDP 40123. Nếu Windows Defender được cung cấp, hãy cho phép truy cập và bảo vệ quyền riêng tư.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Chọn WIM và giao tiếp riêng tư với IPv4.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Sự an ủi của hệ thống",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Sao chép nhật ký",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Nhật ký Limpiar",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Esperando một hành động...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "logsCopied": "Nhật ký sao chép các cổng.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Yêu cầu hiện thực hóa",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Để tiếp tục sử dụng Requiem Tools, đây là điều cần thiết để hiện thực hóa phiên bản mới nhất.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Phiên bản được cung cấp: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Đây là hiện thực hóa nghĩa vụ và không thể bỏ qua.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Gỡ cài đặt (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Tải xuống di động (.zip)",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Xảy ra lỗi: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Chức năng này chỉ có thể được cung cấp trên Windows.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Phiên bản được phát hiện: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "Winget không được cài đặt hoặc không được cài đặt trên PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  }
+}

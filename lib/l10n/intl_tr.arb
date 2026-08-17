@@ -1,0 +1,623 @@
+{
+  "@@locale": "tr",
+  "renewalActive": "Aktif",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Devre Dışı Bırak",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "Uygulama yığını",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "Program yığını (Winget)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "Dedektör",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "Yapılacak yükleme",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} programlar",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "Windows medya kanadı için gerekli kurtarma sistemlerini yükleyin ve etkinleştirin.",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "Seçilen saman programı yok.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "Kanatlarla ilgili paketler algılanamıyor.",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "Algılanan paket sayısı: {count}.",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "Kurulum ortamı",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM seçimi",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "Genel ISO",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "Ücretsiz kurulum için ISO edinin",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "Düzenlemek için bir WIM seçmek için ISO tabanını edinin veya Windows görüntüsünü ekleyecek bir ISO otomatik oluşturun.",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "ISO ile entegre WIM",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "Buscando görseli...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "Görüntü algılaması",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "Görüntü yok",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "Hazırlan ve başla",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "Sabitleyici puente",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "WIM'i tek başına hazırlayın ve müşterilerinize doğrudan mesaj gönderin. İstemciler yüklemeden önce WIM'i koruyamıyor.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "Arayüz Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "Puerto HTTP 40124 · UDP 40123 açıklaması. Windows Defender önceden, gizli erişime izin verir.",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "Bir WIM ve özel bir IPv4 arayüzü seçin.",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "Sistem Konsolu",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "Günlükleri kopyala",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "Limpiar günlükleri",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "Bir işlem yapın...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "formatMbr": "Formatear MBR (BIOS burada)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Diskoyu temizleyin ve bu dünyayı yaratın\nYalnız Windows (C :)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "Kullanıcı bölümleri mevcut",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "Sin formatear — despliega en W: tal cual\nKullanılan manuel partisyonlar",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "Gerçek düzenleme: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "Mod uyumlu: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "Verilerin yok edilmesini onaylayın",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "Kurulumu onaylayın",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "Seçilen disk tamamen formatlanır. Tüm verileri kapattınız.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "Windows, W:\\ formatından kaldırılır.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "Kurulum ilerlemesi",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Tek kelimeyle despliegue",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "Enerjiyi kesmeyin veya kurulum ortamını kapatmayın",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "Windows'tan seçilmiş görüntü",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "Windows kurulum görüntüsünü seçin",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "Windows kurulum görüntüsünün oranı (install.wim veya install.swm)\ntek bir USB veya daha basit bir ortam montajı var.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "Buscando resmi…",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "Görüntüler",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "Yeni resim algılanamadı",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "WIM dosyasını manuel olarak yerelleştirmek için \"Buscar\"ı kullanın.",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": ".wim veya .swm dosyasını seçin",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "Seçim: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "Bu halı boş",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "Geçersiz kural: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "Filtrele…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "Bir seviyeyi geç",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "Unidadlar",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "IPv4 kurulumunu gerçekleştirin",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "Gereksinim IP'si",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "Hiçbir şekilde kontrol edilemedi. IP kılavuzunu kullanın.",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  },
+  "bridgeSearchError": "Şu adrese erişilemiyor: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "Bağlantı yok: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "Bağlantı Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "Contraseña Wi-Fi",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network} numaralı telefona bağlanın.",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Wi-Fi'a bağlanılamıyor: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "Wi-Fi erişimine izin verilmez.",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "Kurulumu Wi-Fi'a bağlayın",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "Windows için gerekli kurulumu hazırlamak için geri ödeme yapın",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "Lisansların Etkinleştirilmesi",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "Ses düzeyinin etkinleştirilmesi (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "Sunucu KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "Aktivar",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "Activar KMS",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 gün",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "Otomatik yenileme",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "Windows otomatik",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "Düzenlemeyi ve GVLK uyumluluğunu tespit etme",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "Ofis otomatikleri",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "Yüklediğiniz GVLK hacmini kullanın",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "Hata: Ana bilgisayar KMS'si boş.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "KMS'de seçilen saman ürünü yok.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "{host}:1688 ile birleşik bağlantı",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "Hata KMS'si: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "Office Kurulumu",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "Office Sürümü",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "Kurulum Ofisi",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "İndir + etkinleştir",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "Microsoft Office LTSC veya 365'i ODT kullanarak otomatikleştirme yöntemiyle kullanın.",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} bit. Yenileme {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "logsCopied": "Kopyalanan dosyaları günlüğe kaydeder.",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "Gerçekleştirme gerekli",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "Requiem Tools'u kullanmaya devam etmek için, daha önce öğrendiğimiz sürümün çalıştırılması gerekir.",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "Mevcut sürüm: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Bu işlemin gerçekleştirilmesi zorunludur ve ihmal edilemez.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "Yükleyiciyi indirin (.exe)",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "Taşınabilir (.zip) indir",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "Bir hata oluştu: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "Bu işlev yalnızca Windows'ta kullanılabilir.",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "Algılanan Edici: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "Desconocido",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "kanat kurulu değil veya PATH'de değil.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "appTitleInstaller": "Requiem Yükleyicisi",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Requiem Araçları",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "Empezar",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "Sistem günlükleri",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "Sürüm kararlı v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "Uyumlu Güvenli Önyükleme",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Joss tarafından tasarlandı",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Yakın Üretim SO'sunun Açıklaması",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "Daha fazla veri aktarımı için yüksek hassasiyette Windows kurulumu. Doğrudan DISM düzenlemesi ve sistemin otomatik optimizasyonu ile hızlı bir dağıtım deneyin.",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "İptal",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "Devam",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "Onayla",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "Kurulum",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "Gerçekleştirme",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "Bağlayıcı",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "Sistemin yeniden başlatılması",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "Seçici",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "Otobüs",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "Kambiar",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Yeni birimlere geçiş",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "Disko yönetimi",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "Hedef disko seçimi",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "Fiziki birim Windows'u yükledi.",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "Kurulumu başlat",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Install.wim algılaması yapıldı...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "Disko fiziğini tespit edemiyoruz",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "Sistema",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "Katılım modu",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "GPT'yi biçimlendirin (önerilir)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Diski silin ve UEFI diski oluşturun\nEFI (S:) + Windows (W :)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  }
+}

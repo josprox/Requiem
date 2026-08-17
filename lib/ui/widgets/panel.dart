@@ -65,7 +65,7 @@ class RequiemPanel extends StatelessWidget {
                   ),
                 ),
               ),
-              if (trailing != null) trailing!,
+              ?trailing,
             ],
           ),
           const SizedBox(height: 20),
@@ -138,7 +138,7 @@ class RequiemSwitchTile extends StatelessWidget {
           Switch(
             value: value, 
             onChanged: onChanged,
-            activeColor: color,
+            activeThumbColor: color,
           ),
         ],
       ),
@@ -200,7 +200,7 @@ class RequiemProductSelector extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<KmsProduct>(
-            value: value,
+            initialValue: value,
             isExpanded: true,
             decoration: InputDecoration(
               labelText: enabledLabel,

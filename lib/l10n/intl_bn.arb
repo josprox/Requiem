@@ -1,0 +1,623 @@
+{
+  "@@locale": "bn",
+  "appTitleInstaller": "Requiem ইনস্টলার",
+  "@appTitleInstaller": {
+    "description": "appTitleInstaller"
+  },
+  "appTitleTools": "Requiem টুলস",
+  "@appTitleTools": {
+    "description": "appTitleTools"
+  },
+  "start": "এমপেজার",
+  "@start": {
+    "description": "start"
+  },
+  "systemLogs": "সিস্টেম লগ",
+  "@systemLogs": {
+    "description": "systemLogs"
+  },
+  "stableVersion": "সংস্করণ স্থাপিত v1.0.0",
+  "@stableVersion": {
+    "description": "stableVersion"
+  },
+  "secureBootCompatible": "সুরক্ষিত বুট সঙ্গে সামঞ্জস্যপূর্ণ",
+  "@secureBootCompatible": {
+    "description": "secureBootCompatible"
+  },
+  "designedBy": "Joss এর জন্য ডিজাইন করুন",
+  "@designedBy": {
+    "description": "designedBy"
+  },
+  "nextGenerationDeployment": "Despliegue de SO de proxima generación",
+  "@nextGenerationDeployment": {
+    "description": "nextGenerationDeployment"
+  },
+  "landingDescription": "সর্বোত্তম প্রদর্শনের জন্য উইন্ডোজ ইনস্টল করুন। ডিআইএসএম এবং অপ্টিমাইজেশন অটোমেটিজাদা ডেল সিস্টেমে অর্কোয়েস্টেশনের নির্দেশনা নিয়ে পরীক্ষা-নিরীক্ষা।",
+  "@landingDescription": {
+    "description": "landingDescription"
+  },
+  "actionCancel": "বাতিল",
+  "@actionCancel": {
+    "description": "actionCancel"
+  },
+  "actionContinue": "কন্টিনিউয়ার",
+  "@actionContinue": {
+    "description": "actionContinue"
+  },
+  "actionConfirm": "কনফার্মার",
+  "@actionConfirm": {
+    "description": "actionConfirm"
+  },
+  "actionInstall": "ইনস্টল করুন",
+  "@actionInstall": {
+    "description": "actionInstall"
+  },
+  "actionRefresh": "বাস্তবিক",
+  "@actionRefresh": {
+    "description": "actionRefresh"
+  },
+  "actionConnect": "কানেক্টার",
+  "@actionConnect": {
+    "description": "actionConnect"
+  },
+  "actionRestartSystem": "রেইনিসিয়ার সিস্টেম",
+  "@actionRestartSystem": {
+    "description": "actionRestartSystem"
+  },
+  "actionSelect": "নির্বাচন করুন",
+  "@actionSelect": {
+    "description": "actionSelect"
+  },
+  "actionSearch": "বাসকার",
+  "@actionSearch": {
+    "description": "actionSearch"
+  },
+  "actionChange": "ক্যাম্বিয়ার",
+  "@actionChange": {
+    "description": "actionChange"
+  },
+  "actionScanAgain": "Escanear unidades de nuevo",
+  "@actionScanAgain": {
+    "description": "actionScanAgain"
+  },
+  "diskManagement": "ডিস্কোর প্রশাসন",
+  "@diskManagement": {
+    "description": "diskManagement"
+  },
+  "selectDestinationDisk": "ডিস্কো ডিস্টিনো নির্বাচন করুন",
+  "@selectDestinationDisk": {
+    "description": "selectDestinationDisk"
+  },
+  "destinationDiskDescription": "এলিজা লা ইউনিডাড ফিসিকা ডন্ডে উইন্ডোজ ইনস্টল করুন।",
+  "@destinationDiskDescription": {
+    "description": "destinationDiskDescription"
+  },
+  "startInstallation": "প্রাথমিক ইনস্টলেশন",
+  "@startInstallation": {
+    "description": "startInstallation"
+  },
+  "waitingForWim": "Esperando la detección de install.wim...",
+  "@waitingForWim": {
+    "description": "waitingForWim"
+  },
+  "noPhysicalDisks": "কোনো ডিসকোস ফিসিকোস ডিটেকশন নেই",
+  "@noPhysicalDisks": {
+    "description": "noPhysicalDisks"
+  },
+  "systemDisk": "সিস্টেম",
+  "@systemDisk": {
+    "description": "systemDisk"
+  },
+  "partitionMode": "মোড ডি পার্টিসিয়ন",
+  "@partitionMode": {
+    "description": "partitionMode"
+  },
+  "formatGpt": "Formatear GPT (প্রস্তাবিত)",
+  "@formatGpt": {
+    "description": "formatGpt"
+  },
+  "formatGptDescription": "Limpia el disco y creat design UEFI\nEFI (S:) + Windows (W:)",
+  "@formatGptDescription": {
+    "description": "formatGptDescription"
+  },
+  "renewalActive": "অ্যাক্টিভা",
+  "@renewalActive": {
+    "description": "renewalActive"
+  },
+  "renewalDisabled": "Desactivada",
+  "@renewalDisabled": {
+    "description": "renewalDisabled"
+  },
+  "applicationStack": "প্রয়োগের স্ট্যাক",
+  "@applicationStack": {
+    "description": "applicationStack"
+  },
+  "packageStack": "স্ট্যাক ডি প্রোগ্রাম (উইংগেট)",
+  "@packageStack": {
+    "description": "packageStack"
+  },
+  "detect": "ডিটেক্টর",
+  "@detect": {
+    "description": "detect"
+  },
+  "installAll": "করণীয় ইনস্টল করুন",
+  "@installAll": {
+    "description": "installAll"
+  },
+  "applicationsCount": "{count} প্রোগ্রাম",
+  "@applicationsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "applicationsCount"
+  },
+  "applicationStackDescription": "উইন্ডোজ মিডিয়ান্ট উইংগেট এর জন্য বাস্তবিক হেরামিয়েন্টাস ডি ডেসাররোলো ইন্সটল করুন।",
+  "@applicationStackDescription": {
+    "description": "applicationStackDescription"
+  },
+  "noProgramsSelected": "কোন খড় প্রোগ্রাম নির্বাচনী.",
+  "@noProgramsSelected": {
+    "description": "noProgramsSelected"
+  },
+  "noWingetPackages": "নো সে ডিটেটারন প্যাকেটিস কনোসিডোস কন উইনগেট।",
+  "@noWingetPackages": {
+    "description": "noWingetPackages"
+  },
+  "packagesDetected": "প্যাকেট সনাক্তকরণ: {count}।",
+  "@packagesDetected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "packagesDetected"
+  },
+  "mediaInstallation": "ইনস্টলেশনের মিডিয়া",
+  "@mediaInstallation": {
+    "description": "mediaInstallation"
+  },
+  "selectWim": "WIM নির্বাচন করুন",
+  "@selectWim": {
+    "description": "selectWim"
+  },
+  "generateIso": "জেনারার আইএসও",
+  "@generateIso": {
+    "description": "generateIso"
+  },
+  "getInstallOnlyIso": "ইনস্টলেশনের জন্য আইএসও নির্দেশক",
+  "@getInstallOnlyIso": {
+    "description": "getInstallOnlyIso"
+  },
+  "isoDescription": "আইএসও বেস প্যারা সিলেকসিওনার আন ডব্লিউআইএম আল অ্যারানকার, ও ক্রি ইউনা আইএসও স্বয়ংক্রিয়ভাবে উইন্ডোজ এর ইমেজ অন্তর্ভুক্ত করে।",
+  "@isoDescription": {
+    "description": "isoDescription"
+  },
+  "wimIntegrated": "আইএসওতে WIM ইন্টিগ্রেড",
+  "@wimIntegrated": {
+    "description": "wimIntegrated"
+  },
+  "imageSearching": "বাসক্যান্ডো ছবি...",
+  "@imageSearching": {
+    "description": "imageSearching"
+  },
+  "imageDetected": "চিত্র সনাক্তকরণ",
+  "@imageDetected": {
+    "description": "imageDetected"
+  },
+  "imageNotFound": "ইমেজ কোন encontrada",
+  "@imageNotFound": {
+    "description": "imageNotFound"
+  },
+  "prepareBridge": "প্রস্তুতি এবং প্রাথমিক পুয়েন্টি",
+  "@prepareBridge": {
+    "description": "prepareBridge"
+  },
+  "stopBridge": "ডিটেনার পুয়েন্টে",
+  "@stopBridge": {
+    "description": "stopBridge"
+  },
+  "bridgeDescription": "WIM una sola vez y lo transmite directamente a los clientes Requiem de la misma red প্রস্তুতির জন্য। লোস ক্লায়েন্টদের কোন গার্ডেন el WIM ইনস্টল করার আগে.",
+  "@bridgeDescription": {
+    "description": "bridgeDescription"
+  },
+  "networkInterface": "ইন্টারফ্যাজ Wi‑Fi/LAN IPv4",
+  "@networkInterface": {
+    "description": "networkInterface"
+  },
+  "bridgePorts": "পুয়ের্তো এইচটিটিপি 40124 · ইউডিপি 40123 ডিস্কুব্রিমিয়েন্ট। আপনি উইন্ডোজ ডিফেন্ডারের জন্য প্রয়োজন, প্রাইভেট এবং রিডেস অ্যাকসেস করতে পারবেন।",
+  "@bridgePorts": {
+    "description": "bridgePorts"
+  },
+  "selectWimFirst": "আইপিভি 4 ব্যক্তিগত আন্তঃফ্যাজ এবং WIM নির্বাচন করুন।",
+  "@selectWimFirst": {
+    "description": "selectWimFirst"
+  },
+  "systemConsole": "কনসোলা ডেল সিস্টেম",
+  "@systemConsole": {
+    "description": "systemConsole"
+  },
+  "copyLogs": "কপিয়ার লগ",
+  "@copyLogs": {
+    "description": "copyLogs"
+  },
+  "clearLogs": "লিম্পিয়ার লগ",
+  "@clearLogs": {
+    "description": "clearLogs"
+  },
+  "waitingAction": "এস্পেরান্দো উনা অ্যাকশন...",
+  "@waitingAction": {
+    "description": "waitingAction"
+  },
+  "logsCopied": "লগ কপিএডোস আল পোর্টাপ্যাপেলস।",
+  "@logsCopied": {
+    "description": "logsCopied"
+  },
+  "updateRequired": "বাস্তবতা প্রয়োজন",
+  "@updateRequired": {
+    "description": "updateRequired"
+  },
+  "updateDescription": "প্যারা ক্রমাগত ব্যবহার করার জন্য প্রয়োজনীয় সরঞ্জামগুলিকে বাস্তবে রূপান্তরিত করার জন্য প্রয়োজনীয়।",
+  "@updateDescription": {
+    "description": "updateDescription"
+  },
+  "availableVersion": "সংস্করণ প্রদানযোগ্য: {version}",
+  "@availableVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "availableVersion"
+  },
+  "mandatoryUpdate": "Esta actualización es obligatoria y no puede omitirse.",
+  "@mandatoryUpdate": {
+    "description": "mandatoryUpdate"
+  },
+  "downloadInstaller": "ইনস্টলার (.exe) ডাউনলোড করুন",
+  "@downloadInstaller": {
+    "description": "downloadInstaller"
+  },
+  "downloadPortable": "পোর্টেবল (.zip) ডাউনলোড করুন",
+  "@downloadPortable": {
+    "description": "downloadPortable"
+  },
+  "errorGeneric": "ত্রুটির ঘটনা: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "errorGeneric"
+  },
+  "onlyWindows": "উইন্ডোজ-এ এককভাবে সুবিধাজনক কাজ।",
+  "@onlyWindows": {
+    "description": "onlyWindows"
+  },
+  "editionDetected": "তথ্য সনাক্তকরণ: {name} ({edition})",
+  "@editionDetected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      }
+    },
+    "description": "editionDetected"
+  },
+  "unknown": "ডেসকোনোসিডো",
+  "@unknown": {
+    "description": "unknown"
+  },
+  "wingetUnavailable": "winget no está instalado o no está en PATH.",
+  "@wingetUnavailable": {
+    "description": "wingetUnavailable"
+  },
+  "bridgeSearchError": "কোন সে পুডো বাসকার এল পুয়েন্তে: {error}",
+  "@bridgeSearchError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeSearchError"
+  },
+  "bridgeConnectError": "কোন সংযোগ নেই: {error}",
+  "@bridgeConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "bridgeConnectError"
+  },
+  "connectWifi": "সংযোগকারী Wi-Fi",
+  "@connectWifi": {
+    "description": "connectWifi"
+  },
+  "wifiPassword": "কনট্রাসেনা ওয়াই-ফাই",
+  "@wifiPassword": {
+    "description": "wifiPassword"
+  },
+  "wifiConnected": "{network} এর সাথে যোগাযোগ করুন।",
+  "@wifiConnected": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnected"
+  },
+  "wifiConnectError": "Wi-Fi এর সাথে কোন সংযোগ নেই: {error}",
+  "@wifiConnectError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifiConnectError"
+  },
+  "noWifiNetworks": "ওয়াই-ফাই ডিসপোনিবলগুলিকে নতুন করে সাজাতে হবে না।",
+  "@noWifiNetworks": {
+    "description": "noWifiNetworks"
+  },
+  "connectInstallerWifi": "একটি Wi-Fi ইনস্টল করার জন্য সংযোগ করুন",
+  "@connectInstallerWifi": {
+    "description": "connectInstallerWifi"
+  },
+  "receiveInstallation": "উইন্ডোজ এর জন্য প্রয়োজনীয় ইনস্টলেশনের জন্য প্রস্তুত করুন",
+  "@receiveInstallation": {
+    "description": "receiveInstallation"
+  },
+  "licenseActivation": "লাইসেন্সের সক্রিয়তা",
+  "@licenseActivation": {
+    "description": "licenseActivation"
+  },
+  "kmsVolumeActivation": "অ্যাক্টিভেশন ডি ভলিউমেন (KMS)",
+  "@kmsVolumeActivation": {
+    "description": "kmsVolumeActivation"
+  },
+  "kmsServer": "সেবাদাতা KMS",
+  "@kmsServer": {
+    "description": "kmsServer"
+  },
+  "activate": "অ্যাক্টিভার",
+  "@activate": {
+    "description": "activate"
+  },
+  "activateKms": "অ্যাক্টিভার কেএমএস",
+  "@activateKms": {
+    "description": "activateKms"
+  },
+  "kmsTask160Days": "Tarea 160 días",
+  "@kmsTask160Days": {
+    "description": "kmsTask160Days"
+  },
+  "automaticRenewal": "সংস্কার স্বয়ংক্রিয়তা",
+  "@automaticRenewal": {
+    "description": "automaticRenewal"
+  },
+  "automaticWindows": "উইন্ডোজ স্বয়ংক্রিয়",
+  "@automaticWindows": {
+    "description": "automaticWindows"
+  },
+  "automaticWindowsDescription": "শনাক্তকরণ সংস্করণ এবং GVLK সামঞ্জস্যপূর্ণ",
+  "@automaticWindowsDescription": {
+    "description": "automaticWindowsDescription"
+  },
+  "automaticOffice": "অফিস স্বয়ংক্রিয়",
+  "@automaticOffice": {
+    "description": "automaticOffice"
+  },
+  "automaticOfficeDescription": "GVLK এর ভলিউম ইনস্টল করা হয়েছে",
+  "@automaticOfficeDescription": {
+    "description": "automaticOfficeDescription"
+  },
+  "kmsHostEmpty": "ত্রুটি: el host KMS está vacío.",
+  "@kmsHostEmpty": {
+    "description": "kmsHostEmpty"
+  },
+  "noKmsProducts": "কোন খড় পণ্য KMS নির্বাচন.",
+  "@noKmsProducts": {
+    "description": "noKmsProducts"
+  },
+  "checkingKms": "{host}:1688...",
+  "@checkingKms": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "checkingKms"
+  },
+  "kmsError": "ত্রুটি KMS: {error}",
+  "@kmsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "kmsError"
+  },
+  "officeInstaller": "অফিসে ইনস্টল করুন",
+  "@officeInstaller": {
+    "description": "officeInstaller"
+  },
+  "officeVersion": "অফিসের সংস্করণ",
+  "@officeVersion": {
+    "description": "officeVersion"
+  },
+  "installOffice": "অফিস ইনস্টল করুন",
+  "@installOffice": {
+    "description": "installOffice"
+  },
+  "downloadAndActivate": "ডাউনলোড করুন + অ্যাক্টিভার",
+  "@downloadAndActivate": {
+    "description": "downloadAndActivate"
+  },
+  "officeInstallDescription": "মাইক্রোসফ্ট অফিস LTSC বা 365 ডি মানে স্বয়ংক্রিয়ভাবে ODT ব্যবহার করে।",
+  "@officeInstallDescription": {
+    "description": "officeInstallDescription"
+  },
+  "officeRenewalStatus": "{product} / {channel} / {edition} বিট। La renovacion queda {status}.",
+  "@officeRenewalStatus": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "channel": {
+        "type": "String"
+      },
+      "edition": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    },
+    "description": "officeRenewalStatus"
+  },
+  "formatMbr": "ফরমেটার এমবিআর (BIOS হেরেডাডো)",
+  "@formatMbr": {
+    "description": "formatMbr"
+  },
+  "formatMbrDescription": "Limpia el disco y crea diseño heredado\nএকক উইন্ডোজ (সি:)",
+  "@formatMbrDescription": {
+    "description": "formatMbrDescription"
+  },
+  "useExistingPartitions": "ব্যবহারকারীদের বিভক্তি বিদ্যমান",
+  "@useExistingPartitions": {
+    "description": "useExistingPartitions"
+  },
+  "useExistingPartitionsDescription": "সিন ফরমেটার — despliega en W: tal cual\nগর্ভাবস্থার লস পার্টিশন ম্যানুয়ালমেন্ট ব্যবহার করা হয়েছে",
+  "@useExistingPartitionsDescription": {
+    "description": "useExistingPartitionsDescription"
+  },
+  "bootCurrent": "অ্যারাঙ্ক প্রকৃত: {firmware}",
+  "@bootCurrent": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "bootCurrent"
+  },
+  "compatibleMode": "মোডো সামঞ্জস্যপূর্ণ: {mode}",
+  "@compatibleMode": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    },
+    "description": "compatibleMode"
+  },
+  "confirmDataDestruction": "নিশ্চিত করুন destrucción de datos",
+  "@confirmDataDestruction": {
+    "description": "confirmDataDestruction"
+  },
+  "confirmInstallation": "ইনস্টলেশন নিশ্চিত করুন",
+  "@confirmInstallation": {
+    "description": "confirmInstallation"
+  },
+  "formatWarning": "El disco seleccionado se formateará por completo. Se perderán todos los datos.",
+  "@formatWarning": {
+    "description": "formatWarning"
+  },
+  "noFormatWarning": "উইন্ডোজ থেকে desplegará en W:\\ sin formatear.",
+  "@noFormatWarning": {
+    "description": "noFormatWarning"
+  },
+  "installationProgress": "ইনস্টলেশনের অগ্রগতি",
+  "@installationProgress": {
+    "description": "installationProgress"
+  },
+  "deploymentInProgress": "Despliegue en curso",
+  "@deploymentInProgress": {
+    "description": "deploymentInProgress"
+  },
+  "doNotDisconnect": "কোন desconecte la energía ni retire el media de instalación",
+  "@doNotDisconnect": {
+    "description": "doNotDisconnect"
+  },
+  "selectWindowsImage": "উইন্ডোজ ইমেজ নির্বাচন করুন",
+  "@selectWindowsImage": {
+    "description": "selectWindowsImage"
+  },
+  "selectWindowsImageFull": "উইন্ডোজ ইনস্টল করার জন্য ছবি নির্বাচন করুন",
+  "@selectWindowsImageFull": {
+    "description": "selectWindowsImageFull"
+  },
+  "provideWindowsImage": "উইন্ডোজ ইন্সটল করার ইমেজ (install.wim o install.swm)\ndesde una unidad USB o cualquier medio montado.",
+  "@provideWindowsImage": {
+    "description": "provideWindowsImage"
+  },
+  "searchingImage": "বাসক্যান্ডো ছবি...",
+  "@searchingImage": {
+    "description": "searchingImage"
+  },
+  "imageFound": "ইমেজ encontrada",
+  "@imageFound": {
+    "description": "imageFound"
+  },
+  "noImageDetected": "কোন ইমেজ সনাক্ত করতে পারে না",
+  "@noImageDetected": {
+    "description": "noImageDetected"
+  },
+  "manualWimHint": "WIM ম্যানুয়ালমেন্টের জন্য স্থানীয়করণের জন্য \"Buscar\" ব্যবহার করুন।",
+  "@manualWimHint": {
+    "description": "manualWimHint"
+  },
+  "selectFileHint": "আর্কাইভ .wim o .swm নির্বাচন করুন",
+  "@selectFileHint": {
+    "description": "selectFileHint"
+  },
+  "selectedFile": "নির্বাচন: {file}",
+  "@selectedFile": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    },
+    "description": "selectedFile"
+  },
+  "emptyFolder": "এস্টা কার্পেটা está vacía",
+  "@emptyFolder": {
+    "description": "emptyFolder"
+  },
+  "invalidPath": "রুটা ইনভালিডা: {path}",
+  "@invalidPath": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "invalidPath"
+  },
+  "filter": "ফিল্টার…",
+  "@filter": {
+    "description": "filter"
+  },
+  "goUpOneLevel": "সুবীর আন নিভেল",
+  "@goUpOneLevel": {
+    "description": "goUpOneLevel"
+  },
+  "drives": "ইউনিডেস",
+  "@drives": {
+    "description": "drives"
+  },
+  "networkBridge": "আইপিভি 4 ইনস্টলেশনের জন্য পুয়েন্টি",
+  "@networkBridge": {
+    "description": "networkBridge"
+  },
+  "bridgeIp": "IP del puente Requiem",
+  "@bridgeIp": {
+    "description": "bridgeIp"
+  },
+  "noBridgeFound": "কোন সে encontró ningún puente. প্রুবে কন লা আইপি ম্যানুয়াল।",
+  "@noBridgeFound": {
+    "description": "noBridgeFound"
+  }
+}
