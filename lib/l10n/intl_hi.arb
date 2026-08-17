@@ -619,5 +619,954 @@
   "wingetUnavailable": "विंगेट स्थापित नहीं है या PATH में नहीं है.",
   "@wingetUnavailable": {
     "description": "wingetUnavailable"
+  },
+  "office_pkg_desc_2024": "चैनल PerpetualVL2024 के साथ वॉल्यूम पर क्लिक करें और चलाएं",
+  "@office_pkg_desc_2024": {
+    "description": "office_pkg_desc_2024"
+  },
+  "office_pkg_name_2021": "एलटीएससी प्रो प्लस ऑफिस 2021",
+  "@office_pkg_name_2021": {
+    "description": "office_pkg_name_2021"
+  },
+  "office_pkg_desc_2021": "चैनल PerpetualVL2021 के साथ वॉल्यूम पर क्लिक करें और चलाएं",
+  "@office_pkg_desc_2021": {
+    "description": "office_pkg_desc_2021"
+  },
+  "office_pkg_name_2019": "ऑफिस प्रो प्लस 2019",
+  "@office_pkg_name_2019": {
+    "description": "office_pkg_name_2019"
+  },
+  "office_pkg_desc_2019": "चैनल PerpetualVL2019 के साथ वॉल्यूम पर क्लिक करें और चलाएं",
+  "@office_pkg_desc_2019": {
+    "description": "office_pkg_desc_2019"
+  },
+  "pkg_cat_editor": "संपादक",
+  "@pkg_cat_editor": {
+    "description": "pkg_cat_editor"
+  },
+  "pkg_cat_control_de_versiones": "संस्करण नियंत्रण",
+  "@pkg_cat_control_de_versiones": {
+    "description": "pkg_cat_control_de_versiones"
+  },
+  "pkg_cat_javascript": "जावास्क्रिप्ट",
+  "@pkg_cat_javascript": {
+    "description": "pkg_cat_javascript"
+  },
+  "pkg_cat_python_3": "पायथन 3",
+  "@pkg_cat_python_3": {
+    "description": "pkg_cat_python_3"
+  },
+  "pkg_cat_runtime_php": "रनटाइम पर PHP",
+  "@pkg_cat_runtime_php": {
+    "description": "pkg_cat_runtime_php"
+  },
+  "pkg_cat_servidor_db": "डीबी सर्वर",
+  "@pkg_cat_servidor_db": {
+    "description": "pkg_cat_servidor_db"
+  },
+  "pkg_cat_golang": "गोलांग",
+  "@pkg_cat_golang": {
+    "description": "pkg_cat_golang"
+  },
+  "pkg_cat_rustup": "ज़ंग खाया हुआ",
+  "@pkg_cat_rustup": {
+    "description": "pkg_cat_rustup"
+  },
+  "pkg_cat_temurin_21": "तेमुरिन 21",
+  "@pkg_cat_temurin_21": {
+    "description": "pkg_cat_temurin_21"
+  },
+  "pkg_cat_desktop": "मेज़",
+  "@pkg_cat_desktop": {
+    "description": "pkg_cat_desktop"
+  },
+  "kms_product_windows_terminal": "विंडोज़ टर्मिनल",
+  "@kms_product_windows_terminal": {
+    "description": "kms_product_windows_terminal"
+  },
+  "pkg_cat_terminal_moderno": "आधुनिक टर्मिनल",
+  "@pkg_cat_terminal_moderno": {
+    "description": "pkg_cat_terminal_moderno"
+  },
+  "pkg_cat_subsistema_linux": "लिनक्स सबसिस्टम",
+  "@pkg_cat_subsistema_linux": {
+    "description": "pkg_cat_subsistema_linux"
+  },
+  "kms_product_windows_subsystem_for_linux": "लिनक्स के लिए विंडोज़ सबसिस्टम",
+  "@kms_product_windows_subsystem_for_linux": {
+    "description": "kms_product_windows_subsystem_for_linux"
+  },
+  "pkg_cat_distro_wsl": "डब्ल्यूएसएल वितरण",
+  "@pkg_cat_distro_wsl": {
+    "description": "pkg_cat_distro_wsl"
+  },
+  "pkg_cat_navegador": "ब्राउज़र",
+  "@pkg_cat_navegador": {
+    "description": "pkg_cat_navegador"
+  },
+  "pkg_cat_ide_android": "आईडीईएंड्रॉइड",
+  "@pkg_cat_ide_android": {
+    "description": "pkg_cat_ide_android"
+  },
+  "pkg_cat_ide_completo": "पूर्ण आईडीई",
+  "@pkg_cat_ide_completo": {
+    "description": "pkg_cat_ide_completo"
+  },
+  "pkg_cat_compiladores_c": "सी++ कंपाइलर",
+  "@pkg_cat_compiladores_c": {
+    "description": "pkg_cat_compiladores_c"
+  },
+  "pkg_cat_sdk__net": ".नेट एसडीके",
+  "@pkg_cat_sdk__net": {
+    "description": "pkg_cat_sdk__net"
+  },
+  "pkg_cat_runtime_escritorio": "रनटाइम डेस्कटॉप",
+  "@pkg_cat_runtime_escritorio": {
+    "description": "pkg_cat_runtime_escritorio"
+  },
+  "pkg_cat_apache_php_mysql": "अपाचे पीएचपी MySQL",
+  "@pkg_cat_apache_php_mysql": {
+    "description": "pkg_cat_apache_php_mysql"
+  },
+  "pkg_cat_cliente_db": "ग्राहक डेटाबेस",
+  "@pkg_cat_cliente_db": {
+    "description": "pkg_cat_cliente_db"
+  },
+  "pkg_cat_cliente_api": "क्लाइंट एपीआई",
+  "@pkg_cat_cliente_api": {
+    "description": "pkg_cat_cliente_api"
+  },
+  "pkg_cat_ssh_clasico": "क्लासिक एसएसएच",
+  "@pkg_cat_ssh_clasico": {
+    "description": "pkg_cat_ssh_clasico"
+  },
+  "app_title_installer": "Requiem इंस्टालर",
+  "@app_title_installer": {
+    "description": "app_title_installer"
+  },
+  "app_title_tools": "Requiem उपकरण",
+  "@app_title_tools": {
+    "description": "app_title_tools"
+  },
+  "kms_product_windows_8_1_pro": "विंडोज 8.1 प्रो",
+  "@kms_product_windows_8_1_pro": {
+    "description": "kms_product_windows_8_1_pro"
+  },
+  "kms_product_windows_8_1_enterprise": "विंडोज़ 8.1 एंटरप्राइज़",
+  "@kms_product_windows_8_1_enterprise": {
+    "description": "kms_product_windows_8_1_enterprise"
+  },
+  "kms_product_windows_8_pro": "विंडोज 8 प्रो",
+  "@kms_product_windows_8_pro": {
+    "description": "kms_product_windows_8_pro"
+  },
+  "kms_product_windows_8_enterprise": "विंडोज 8 बिजनेस",
+  "@kms_product_windows_8_enterprise": {
+    "description": "kms_product_windows_8_enterprise"
+  },
+  "kms_product_windows_server_2025_standard": "विंडोज़ सर्वर 2025 मानक",
+  "@kms_product_windows_server_2025_standard": {
+    "description": "kms_product_windows_server_2025_standard"
+  },
+  "kms_product_windows_server_2025_datacenter": "विंडोज़ सर्वर 2025 डेटा सेंटर",
+  "@kms_product_windows_server_2025_datacenter": {
+    "description": "kms_product_windows_server_2025_datacenter"
+  },
+  "kms_product_windows_server_2022_standard": "विंडोज़ सर्वर 2022 मानक",
+  "@kms_product_windows_server_2022_standard": {
+    "description": "kms_product_windows_server_2022_standard"
+  },
+  "kms_product_windows_server_2022_datacenter": "विंडोज़ सर्वर 2022 डेटा सेंटर",
+  "@kms_product_windows_server_2022_datacenter": {
+    "description": "kms_product_windows_server_2022_datacenter"
+  },
+  "kms_product_windows_server_2019_standard": "विंडोज सर्वर स्टैंडर्ड 2019",
+  "@kms_product_windows_server_2019_standard": {
+    "description": "kms_product_windows_server_2019_standard"
+  },
+  "kms_product_windows_server_2019_datacenter": "विंडोज सर्वर 2019 डेटा सेंटर",
+  "@kms_product_windows_server_2019_datacenter": {
+    "description": "kms_product_windows_server_2019_datacenter"
+  },
+  "kms_product_windows_10_11_pro": "विंडोज़ 10/11 प्रो",
+  "@kms_product_windows_10_11_pro": {
+    "description": "kms_product_windows_10_11_pro"
+  },
+  "kms_product_windows_10_11_pro_n": "विंडोज़ 10/11 प्रो एन",
+  "@kms_product_windows_10_11_pro_n": {
+    "description": "kms_product_windows_10_11_pro_n"
+  },
+  "kms_product_windows_10_11_pro_for_workstations": "वर्कस्टेशन के लिए विंडोज 10/11 प्रो",
+  "@kms_product_windows_10_11_pro_for_workstations": {
+    "description": "kms_product_windows_10_11_pro_for_workstations"
+  },
+  "kms_product_windows_10_11_pro_education": "विंडोज़ 10/11 प्रो एजुकेशन",
+  "@kms_product_windows_10_11_pro_education": {
+    "description": "kms_product_windows_10_11_pro_education"
+  },
+  "kms_product_windows_10_11_education": "विंडोज़ 10/11 शिक्षा",
+  "@kms_product_windows_10_11_education": {
+    "description": "kms_product_windows_10_11_education"
+  },
+  "kms_product_windows_10_11_education_n": "विंडोज़ 10/11 शिक्षा एन",
+  "@kms_product_windows_10_11_education_n": {
+    "description": "kms_product_windows_10_11_education_n"
+  },
+  "kms_product_windows_10_11_enterprise": "विंडोज़ 10/11 व्यवसाय",
+  "@kms_product_windows_10_11_enterprise": {
+    "description": "kms_product_windows_10_11_enterprise"
+  },
+  "kms_product_windows_10_11_enterprise_n": "विंडोज़ 10/11 एंटरप्राइज़ एन",
+  "@kms_product_windows_10_11_enterprise_n": {
+    "description": "kms_product_windows_10_11_enterprise_n"
+  },
+  "kms_product_windows_10_11_enterprise_g": "विंडोज़ 10/11 एंटरप्राइज़ जी",
+  "@kms_product_windows_10_11_enterprise_g": {
+    "description": "kms_product_windows_10_11_enterprise_g"
+  },
+  "kms_product_windows_10_11_enterprise_g_n": "विंडोज़ 10/11 एंटरप्राइज़ जी एन",
+  "@kms_product_windows_10_11_enterprise_g_n": {
+    "description": "kms_product_windows_10_11_enterprise_g_n"
+  },
+  "kms_product_windows_10_11_pro_workstations": "विंडोज़ 10/11 प्रो वर्कस्टेशन",
+  "@kms_product_windows_10_11_pro_workstations": {
+    "description": "kms_product_windows_10_11_pro_workstations"
+  },
+  "kms_product_office_ltsc_professional_plus_2024": "एलटीएससी प्रोफेशनल प्लस ऑफिस 2024",
+  "@kms_product_office_ltsc_professional_plus_2024": {
+    "description": "kms_product_office_ltsc_professional_plus_2024"
+  },
+  "kms_product_office_ltsc_professional_plus_2021": "एलटीएससी प्रोफेशनल प्लस ऑफिस 2021",
+  "@kms_product_office_ltsc_professional_plus_2021": {
+    "description": "kms_product_office_ltsc_professional_plus_2021"
+  },
+  "kms_product_office_professional_plus_2019": "प्रोफेशनल ऑफिस प्लस 2019",
+  "@kms_product_office_professional_plus_2019": {
+    "description": "kms_product_office_professional_plus_2019"
+  },
+  "kms_product_office_professional_plus_2016": "ऑफिस प्रोफेशनल प्लस 2016",
+  "@kms_product_office_professional_plus_2016": {
+    "description": "kms_product_office_professional_plus_2016"
+  },
+  "kms_product_office_professional_plus_2013": "ऑफिस प्रोफेशनल प्लस 2013",
+  "@kms_product_office_professional_plus_2013": {
+    "description": "kms_product_office_professional_plus_2013"
+  },
+  "kms_product_office_standard_2013": "कार्यालय मानक 2013",
+  "@kms_product_office_standard_2013": {
+    "description": "kms_product_office_standard_2013"
+  },
+  "office_pkg_name_2024": "एलटीएससी प्रो प्लस ऑफिस 2024",
+  "@office_pkg_name_2024": {
+    "description": "office_pkg_name_2024"
+  },
+  "tools_badge_package_count": "{count} कार्यक्रम",
+  "@tools_badge_package_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_badge_package_count"
+  },
+  "tools_button_install_all_packages": "सभी स्थापित करें",
+  "@tools_button_install_all_packages": {
+    "description": "tools_button_install_all_packages"
+  },
+  "tools_section_iso_title": "आईएसओ और लाल डिस्प्ले",
+  "@tools_section_iso_title": {
+    "description": "tools_section_iso_title"
+  },
+  "tools_section_iso_desc": "एकीकृत WIM के साथ स्टैंड-अलोन मीडिया बनाएं या सीधे IPv4 पर इंस्टॉलेशन वितरित करें।",
+  "@tools_section_iso_desc": {
+    "description": "tools_section_iso_desc"
+  },
+  "tools_badge_iso_compatibility": "BIOS + UEFI रूढ़िवादी",
+  "@tools_badge_iso_compatibility": {
+    "description": "tools_badge_iso_compatibility"
+  },
+  "tools_sidebar_app_name": "Requiem",
+  "@tools_sidebar_app_name": {
+    "description": "tools_sidebar_app_name"
+  },
+  "tools_sidebar_tab_kms": "केएमएस सक्रियण",
+  "@tools_sidebar_tab_kms": {
+    "description": "tools_sidebar_tab_kms"
+  },
+  "tools_sidebar_tab_office": "कार्यालय स्थापना",
+  "@tools_sidebar_tab_office": {
+    "description": "tools_sidebar_tab_office"
+  },
+  "tools_sidebar_tab_packages": "ढेर कार्यक्रम",
+  "@tools_sidebar_tab_packages": {
+    "description": "tools_sidebar_tab_packages"
+  },
+  "tools_sidebar_tab_iso": "आईएसओ और ब्रिज",
+  "@tools_sidebar_tab_iso": {
+    "description": "tools_sidebar_tab_iso"
+  },
+  "tools_sidebar_mode_badge": "स्थानीय उपकरण मोड",
+  "@tools_sidebar_mode_badge": {
+    "description": "tools_sidebar_mode_badge"
+  },
+  "wim_bridge_searching": "स्थानीय IPv4 नेटवर्क पर Requiem ब्रिज की खोज की जा रही है...",
+  "@wim_bridge_searching": {
+    "description": "wim_bridge_searching"
+  },
+  "wim_bridge_not_found": "कोई पुल नहीं मिला. आईपी ​​मैनुअल आज़माएं.",
+  "@wim_bridge_not_found": {
+    "description": "wim_bridge_not_found"
+  },
+  "wim_bridge_search_error": "पुल की खोज नहीं की जा सकी: {error}",
+  "@wim_bridge_search_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_search_error"
+  },
+  "wim_bridge_ip_dialog_title": "रिक्विम ब्रिज आईपी",
+  "@wim_bridge_ip_dialog_title": {
+    "description": "wim_bridge_ip_dialog_title"
+  },
+  "wim_bridge_ip_placeholder": "192.168.1.20",
+  "@wim_bridge_ip_placeholder": {
+    "description": "wim_bridge_ip_placeholder"
+  },
+  "common_connect": "जोड़ना",
+  "@common_connect": {
+    "description": "common_connect"
+  },
+  "wim_bridge_connection_error": "कनेक्ट नहीं हो सका: {error}",
+  "@wim_bridge_connection_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_connection_error"
+  },
+  "wifi_scanning": "उपलब्ध वाई-फाई नेटवर्क की खोज की जा रही है...",
+  "@wifi_scanning": {
+    "description": "wifi_scanning"
+  },
+  "wifi_none_found": "कोई उपलब्ध वाई-फ़ाई नेटवर्क नहीं मिला.",
+  "@wifi_none_found": {
+    "description": "wifi_none_found"
+  },
+  "wifi_dialog_title": "इंस्टॉलर को वाई-फ़ाई से कनेक्ट करें",
+  "@wifi_dialog_title": {
+    "description": "wifi_dialog_title"
+  },
+  "wifi_item_signal_security": "{signal}% · {security}",
+  "@wifi_item_signal_security": {
+    "placeholders": {
+      "signal": {
+        "type": "String"
+      },
+      "security": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_item_signal_security"
+  },
+  "wifi_password_hint": "वाईफ़ाई पासवर्ड",
+  "@wifi_password_hint": {
+    "description": "wifi_password_hint"
+  },
+  "wifi_connected_log": "वाई-फ़ाई {ssid} से कनेक्ट है। {result}",
+  "@wifi_connected_log": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      },
+      "result": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_log"
+  },
+  "wifi_connected_status": "{ssid} से जुड़ा।",
+  "@wifi_connected_status": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_status"
+  },
+  "wifi_connect_error": "वाई-फ़ाई से कनेक्ट नहीं हो सका: {error}",
+  "@wifi_connect_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connect_error"
+  },
+  "wim_picker_title": "विंडोज़ छवि का चयन करें",
+  "@wim_picker_title": {
+    "description": "wim_picker_title"
+  },
+  "wim_picker_description": "Windows इंस्टॉलेशन छवि (install.wim या install.swm) प्रदान करें\\n",
+  "@wim_picker_description": {
+    "description": "wim_picker_description"
+  },
+  "wim_status_searching": "छवि खोजी जा रही है...",
+  "@wim_status_searching": {
+    "description": "wim_status_searching"
+  },
+  "wim_status_found": "छवि मिली",
+  "@wim_status_found": {
+    "description": "wim_status_found"
+  },
+  "pkg_cat_ssh_moderno": "आधुनिक एसएसएच",
+  "@pkg_cat_ssh_moderno": {
+    "description": "pkg_cat_ssh_moderno"
+  },
+  "pkg_cat_modelos_locales": "स्थानीय मॉडल",
+  "@pkg_cat_modelos_locales": {
+    "description": "pkg_cat_modelos_locales"
+  },
+  "pkg_cat_gpu_compute": "जीपीयू कंप्यूटिंग",
+  "@pkg_cat_gpu_compute": {
+    "description": "pkg_cat_gpu_compute"
+  },
+  "pkg_cat_compresor": "कंप्रेसर",
+  "@pkg_cat_compresor": {
+    "description": "pkg_cat_compresor"
+  },
+  "pkg_cat_instaladores": "इंस्टॉलर",
+  "@pkg_cat_instaladores": {
+    "description": "pkg_cat_instaladores"
+  },
+  "pkg_cat_limpieza": "सफाई",
+  "@pkg_cat_limpieza": {
+    "description": "pkg_cat_limpieza"
+  },
+  "pkg_cat_diagramas": "चित्र",
+  "@pkg_cat_diagramas": {
+    "description": "pkg_cat_diagramas"
+  },
+  "pkg_cat_ide_ai": "आईडीई आईए",
+  "@pkg_cat_ide_ai": {
+    "description": "pkg_cat_ide_ai"
+  },
+  "pkg_cat_comunicacion": "संचार",
+  "@pkg_cat_comunicacion": {
+    "description": "pkg_cat_comunicacion"
+  },
+  "pkg_cat_grabacion": "रिकॉर्डिंग",
+  "@pkg_cat_grabacion": {
+    "description": "pkg_cat_grabacion"
+  },
+  "pkg_cat_bi_desktop": "बीआई डेस्कटॉप",
+  "@pkg_cat_bi_desktop": {
+    "description": "pkg_cat_bi_desktop"
+  },
+  "pkg_cat_runtime_juegos": "रनटाइम गेम",
+  "@pkg_cat_runtime_juegos": {
+    "description": "pkg_cat_runtime_juegos"
+  },
+  "pkg_cat_runtime_c": "सी++ रनटाइम",
+  "@pkg_cat_runtime_c": {
+    "description": "pkg_cat_runtime_c"
+  },
+  "disk_management_appbar_title": "डिस्क प्रबंधन",
+  "@disk_management_appbar_title": {
+    "description": "disk_management_appbar_title"
+  },
+  "common_refresh": "अद्यतन",
+  "@common_refresh": {
+    "description": "common_refresh"
+  },
+  "disk_selection_title": "गंतव्य डिस्क का चयन करें",
+  "@disk_selection_title": {
+    "description": "disk_selection_title"
+  },
+  "disk_selection_desc": "वह भौतिक ड्राइव चुनें जहां विंडोज़ स्थापित की जाएगी।",
+  "@disk_selection_desc": {
+    "description": "disk_selection_desc"
+  },
+  "disk_selection_button_start": "इंस्टालेशन प्रारंभ करें",
+  "@disk_selection_button_start": {
+    "description": "disk_selection_button_start"
+  },
+  "disk_waiting_wim_hint": "install.wim का पता चलने की प्रतीक्षा की जा रही है...",
+  "@disk_waiting_wim_hint": {
+    "description": "disk_waiting_wim_hint"
+  },
+  "disk_dialog_confirm_destruction_title": "डेटा विनाश की पुष्टि करें",
+  "@disk_dialog_confirm_destruction_title": {
+    "description": "disk_dialog_confirm_destruction_title"
+  },
+  "disk_dialog_confirm_install_title": "स्थापना की पुष्टि करें",
+  "@disk_dialog_confirm_install_title": {
+    "description": "disk_dialog_confirm_install_title"
+  },
+  "disk_dialog_format_warning": "चयनित डिस्क पूरी तरह से स्वरूपित हो जाएगी. सारा डेटा नष्ट हो जाएगा.",
+  "@disk_dialog_format_warning": {
+    "description": "disk_dialog_format_warning"
+  },
+  "disk_dialog_existing_notice": "विंडोज़ बिना फ़ॉर्मेटिंग के W:\\\\ पर तैनात होगी।",
+  "@disk_dialog_existing_notice": {
+    "description": "disk_dialog_existing_notice"
+  },
+  "common_label_disk": "डिस्क",
+  "@common_label_disk": {
+    "description": "common_label_disk"
+  },
+  "common_label_mode": "तरीका",
+  "@common_label_mode": {
+    "description": "common_label_mode"
+  },
+  "common_label_image": "छवि",
+  "@common_label_image": {
+    "description": "common_label_image"
+  },
+  "common_cancel": "रद्द करना",
+  "@common_cancel": {
+    "description": "common_cancel"
+  },
+  "disk_button_confirm_and_install": "पुष्टि करें और इंस्टॉल करें",
+  "@disk_button_confirm_and_install": {
+    "description": "disk_button_confirm_and_install"
+  },
+  "progress_header_badge": "तैनाती प्रगति पर है",
+  "@progress_header_badge": {
+    "description": "progress_header_badge"
+  },
+  "progress_footer_warning": "बिजली डिस्कनेक्ट न करें या इंस्टालेशन मीडिया न हटाएं",
+  "@progress_footer_warning": {
+    "description": "progress_footer_warning"
+  },
+  "disk_partition_gpt_uefi": "जीपीटी/यूईएफआई",
+  "@disk_partition_gpt_uefi": {
+    "description": "disk_partition_gpt_uefi"
+  },
+  "disk_partition_mbr_bios": "एमबीआर/बीआईओएस",
+  "@disk_partition_mbr_bios": {
+    "description": "disk_partition_mbr_bios"
+  },
+  "disk_boot_firmware_label": "वर्तमान समझौता: {firmware}",
+  "@disk_boot_firmware_label": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "disk_boot_firmware_label"
+  },
+  "disk_recommended_mode_label": "समर्थित मोड: {recommended}",
+  "@disk_recommended_mode_label": {
+    "placeholders": {
+      "recommended": {
+        "type": "String"
+      }
+    },
+    "description": "disk_recommended_mode_label"
+  },
+  "disk_empty_list": "कोई भौतिक डिस्क नहीं मिली",
+  "@disk_empty_list": {
+    "description": "disk_empty_list"
+  },
+  "disk_badge_system": "प्रणाली",
+  "@disk_badge_system": {
+    "description": "disk_badge_system"
+  },
+  "disk_item_header": "डिस्क {diskNumber} · {mediaType} · {busType}",
+  "@disk_item_header": {
+    "placeholders": {
+      "diskNumber": {
+        "type": "String"
+      },
+      "mediaType": {
+        "type": "String"
+      },
+      "busType": {
+        "type": "String"
+      }
+    },
+    "description": "disk_item_header"
+  },
+  "disk_size_gb": "{sizeGB} ES",
+  "@disk_size_gb": {
+    "placeholders": {
+      "sizeGB": {
+        "type": "String"
+      }
+    },
+    "description": "disk_size_gb"
+  },
+  "iso_bridge_list_interfaces_error": "IPv4 इंटरफ़ेस की गणना नहीं की जा सकी: {error}",
+  "@iso_bridge_list_interfaces_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_list_interfaces_error"
+  },
+  "iso_bridge_generic_error": "त्रुटि: {error}",
+  "@iso_bridge_generic_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_generic_error"
+  },
+  "iso_bridge_select_wim_dialog": "Windows WIM छवि का चयन करें",
+  "@iso_bridge_select_wim_dialog": {
+    "description": "iso_bridge_select_wim_dialog"
+  },
+  "iso_bridge_wim_selected_log": "चयनित WIM: {path}",
+  "@iso_bridge_wim_selected_log": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_wim_selected_log"
+  },
+  "iso_bridge_save_simple_iso_dialog": "सरल Requiem आईएसओ सहेजें",
+  "@iso_bridge_save_simple_iso_dialog": {
+    "description": "iso_bridge_save_simple_iso_dialog"
+  },
+  "iso_bridge_simple_iso_filename": "Requiem-इंस्टॉलर-Simple.iso",
+  "@iso_bridge_simple_iso_filename": {
+    "description": "iso_bridge_simple_iso_filename"
+  },
+  "iso_bridge_save_wim_iso_dialog": "WIM के साथ Requiem ISO सहेजें",
+  "@iso_bridge_save_wim_iso_dialog": {
+    "description": "iso_bridge_save_wim_iso_dialog"
+  },
+  "iso_bridge_start_validation_error": "एक WIM और एक निजी IPv4 इंटरफ़ेस चुनें।",
+  "@iso_bridge_start_validation_error": {
+    "description": "iso_bridge_start_validation_error"
+  },
+  "iso_panel_title_media": "इंस्टालेशन मीडिया",
+  "@iso_panel_title_media": {
+    "description": "iso_panel_title_media"
+  },
+  "iso_panel_desc_media": "बूट पर WIM का चयन करने के लिए आधार ISO प्राप्त करें, या एक स्व-निहित ISO बनाएं जिसमें पहले से ही आपकी Windows छवि शामिल हो।",
+  "@iso_panel_desc_media": {
+    "description": "iso_panel_desc_media"
+  },
+  "iso_panel_button_simple_iso": "केवल इंस्टालेशन के लिए आईएसओ प्राप्त करें",
+  "@iso_panel_button_simple_iso": {
+    "description": "iso_panel_button_simple_iso"
+  },
+  "iso_panel_button_select_wim": "विम का चयन करें",
+  "@iso_panel_button_select_wim": {
+    "description": "iso_panel_button_select_wim"
+  },
+  "iso_panel_button_generate_iso": "आईएसओ जनरेट करें",
+  "@iso_panel_button_generate_iso": {
+    "description": "iso_panel_button_generate_iso"
+  },
+  "iso_panel_title_bridge": "इंस्टालेशन IPv4 ब्रिज",
+  "@iso_panel_title_bridge": {
+    "description": "iso_panel_title_bridge"
+  },
+  "iso_bridge_clients_count": "{clients} कनेक्शन",
+  "@iso_bridge_clients_count": {
+    "placeholders": {
+      "clients": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_clients_count"
+  },
+  "iso_bridge_desc": "WIM को केवल एक बार तैयार करें और इसे सीधे उसी नेटवर्क पर Requiem क्लाइंट तक पहुंचाएं। ग्राहक WIM को इंस्टाल करने से पहले सेव नहीं करते हैं।",
+  "@iso_bridge_desc": {
+    "description": "iso_bridge_desc"
+  },
+  "office_odt_panel_title": "कार्यालय परिनियोजन उपकरण",
+  "@office_odt_panel_title": {
+    "description": "office_odt_panel_title"
+  },
+  "office_odt_kms_badge": "ओडीटी + केएमएस",
+  "@office_odt_kms_badge": {
+    "description": "office_odt_kms_badge"
+  },
+  "progress_button_reboot": "सिस्टम रीसेट",
+  "@progress_button_reboot": {
+    "description": "progress_button_reboot"
+  },
+  "landing_title_installer": "इंस्टॉलर की मांग करें",
+  "@landing_title_installer": {
+    "description": "landing_title_installer"
+  },
+  "landing_title_tools": "उपकरण की मांग करें",
+  "@landing_title_tools": {
+    "description": "landing_title_tools"
+  },
+  "landing_subtitle": "अगली पीढ़ी का ओएस परिनियोजन",
+  "@landing_subtitle": {
+    "description": "landing_subtitle"
+  },
+  "landing_description_part1": "उच्च-प्रदर्शन वातावरण के लिए उच्च-परिशुद्धता विंडोज इंस्टॉलर।",
+  "@landing_description_part1": {
+    "description": "landing_description_part1"
+  },
+  "landing_description_part2": "प्रत्यक्ष डीआईएसएम ऑर्केस्ट्रेशन और स्वचालित सिस्टम अनुकूलन के साथ तेजी से तैनाती का अनुभव करें।",
+  "@landing_description_part2": {
+    "description": "landing_description_part2"
+  },
+  "landing_button_start": "शुरू",
+  "@landing_button_start": {
+    "description": "landing_button_start"
+  },
+  "landing_button_logs": "सिस्टम लॉग",
+  "@landing_button_logs": {
+    "description": "landing_button_logs"
+  },
+  "landing_badge_version": "स्थिर संस्करण",
+  "@landing_badge_version": {
+    "description": "landing_badge_version"
+  },
+  "landing_badge_secure_boot": "सुरक्षित बूट संगत",
+  "@landing_badge_secure_boot": {
+    "description": "landing_badge_secure_boot"
+  },
+  "landing_badge_author": "जॉस द्वारा डिज़ाइन किया गया",
+  "@landing_badge_author": {
+    "description": "landing_badge_author"
+  },
+  "tools_kms_empty_host_error": "त्रुटि: KMS होस्ट खाली है.",
+  "@tools_kms_empty_host_error": {
+    "description": "tools_kms_empty_host_error"
+  },
+  "tools_log_format": "[{time}] {message}",
+  "@tools_log_format": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    },
+    "description": "tools_log_format"
+  },
+  "tools_kms_no_products_selected": "कोई KMS उत्पाद चयनित नहीं है.",
+  "@tools_kms_no_products_selected": {
+    "description": "tools_kms_no_products_selected"
+  },
+  "tools_kms_checking_connectivity": "{host}:1688 के साथ कनेक्टिविटी की जाँच की जा रही है...",
+  "@tools_kms_checking_connectivity": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_checking_connectivity"
+  },
+  "tools_kms_error_log": "किलोमीटर त्रुटि: {error}",
+  "@tools_kms_error_log": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_error_log"
+  },
+  "tools_packages_none_selected": "कोई प्रोग्राम चयनित नहीं है.",
+  "@tools_packages_none_selected": {
+    "description": "tools_packages_none_selected"
+  },
+  "tools_packages_none_detected": "विंगेट के साथ कोई ज्ञात पैकेज नहीं पाया गया।",
+  "@tools_packages_none_detected": {
+    "description": "tools_packages_none_detected"
+  },
+  "tools_packages_detected_count": "पता लगाए गए पैकेट: {count}.",
+  "@tools_packages_detected_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_packages_detected_count"
+  },
+  "tools_logs_copied_snackbar": "रिकॉर्ड्स को क्लिपबोर्ड पर कॉपी किया गया।",
+  "@tools_logs_copied_snackbar": {
+    "description": "tools_logs_copied_snackbar"
+  },
+  "tools_header_title": "प्रवासन उपकरण की मांग करें",
+  "@tools_header_title": {
+    "description": "tools_header_title"
+  },
+  "tools_section_activation_title": "लाइसेंस सक्रियण",
+  "@tools_section_activation_title": {
+    "description": "tools_section_activation_title"
+  },
+  "tools_section_activation_desc": "Windows और Office को सक्रिय करने के लिए स्थानीय या दूरस्थ KMS सर्वर कॉन्फ़िगर करें।",
+  "@tools_section_activation_desc": {
+    "description": "tools_section_activation_desc"
+  },
+  "tools_badge_kms_pending": "लंबित KMS",
+  "@tools_badge_kms_pending": {
+    "description": "tools_badge_kms_pending"
+  },
+  "tools_button_activate_kms": "किलोमीटर सक्रिय करें",
+  "@tools_button_activate_kms": {
+    "description": "tools_button_activate_kms"
+  },
+  "tools_section_office_title": "कार्यालय इंस्टॉलर",
+  "@tools_section_office_title": {
+    "description": "tools_section_office_title"
+  },
+  "tools_section_office_desc": "ODT का उपयोग करके Microsoft Office LTSC या 365 को स्वचालित तरीके से परिनियोजित करें।",
+  "@tools_section_office_desc": {
+    "description": "tools_section_office_desc"
+  },
+  "tools_button_install_office": "स्थापना कार्यालय",
+  "@tools_button_install_office": {
+    "description": "tools_button_install_office"
+  },
+  "tools_section_packages_title": "एप्लिकेशन स्टैक",
+  "@tools_section_packages_title": {
+    "description": "tools_section_packages_title"
+  },
+  "tools_section_packages_desc": "विंगेट का उपयोग करके विंडोज़ के लिए आवश्यक विकास उपकरण स्थापित और अद्यतन करें।",
+  "@tools_section_packages_desc": {
+    "description": "tools_section_packages_desc"
+  },
+  "wim_status_not_found": "कोई छवि नहीं मिली",
+  "@wim_status_not_found": {
+    "description": "wim_status_not_found"
+  },
+  "wim_manual_search_hint": "अपनी WIM फ़ाइल को मैन्युअल रूप से ढूंढने के लिए \"ब्राउज़ करें\" का उपयोग करें।",
+  "@wim_manual_search_hint": {
+    "description": "wim_manual_search_hint"
+  },
+  "wim_button_change_file": "फ़ाइल बदलें",
+  "@wim_button_change_file": {
+    "description": "wim_button_change_file"
+  },
+  "common_search": "देखो के लिए",
+  "@common_search": {
+    "description": "common_search"
+  },
+  "common_continue": "जारी रखना",
+  "@common_continue": {
+    "description": "common_continue"
+  },
+  "wim_button_rescan": "ड्राइव को दोबारा स्कैन करें",
+  "@wim_button_rescan": {
+    "description": "wim_button_rescan"
+  },
+  "wim_bridge_section_header": "या Windows के लिए Requiem से तैयार इंस्टॉलेशन प्राप्त करें",
+  "@wim_bridge_section_header": {
+    "description": "wim_bridge_section_header"
+  },
+  "wim_button_connect_wifi": "वाई-फ़ाई कनेक्ट करें",
+  "@wim_button_connect_wifi": {
+    "description": "wim_button_connect_wifi"
+  },
+  "wim_button_search_bridge": "पुल खोजें",
+  "@wim_button_search_bridge": {
+    "description": "wim_button_search_bridge"
+  },
+  "wim_button_manual_ip": "आईपी ​​उपयोग मैनुअल",
+  "@wim_button_manual_ip": {
+    "description": "wim_button_manual_ip"
+  },
+  "console_title": "सिस्टम कंसोल",
+  "@console_title": {
+    "description": "console_title"
+  },
+  "console_tooltip_copy": "रिकार्ड कॉपी करें",
+  "@console_tooltip_copy": {
+    "description": "console_tooltip_copy"
+  },
+  "console_tooltip_clear": "साफ लॉग",
+  "@console_tooltip_clear": {
+    "description": "console_tooltip_clear"
+  },
+  "console_waiting_action": "कार्रवाई की प्रतीक्षा में...",
+  "@console_waiting_action": {
+    "description": "console_waiting_action"
+  },
+  "file_explorer_default_title": "Windows इंस्टालेशन छवि का चयन करें",
+  "@file_explorer_default_title": {
+    "description": "file_explorer_default_title"
+  },
+  "file_explorer_read_error": "निर्देशिका की सामग्री नहीं पढ़ सका.\\n{error}",
+  "@file_explorer_read_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_read_error"
+  },
+  "file_explorer_drives_header": "इकाइयां",
+  "@file_explorer_drives_header": {
+    "description": "file_explorer_drives_header"
+  },
+  "file_explorer_filter_hint": "फ़िल्टर करें...",
+  "@file_explorer_filter_hint": {
+    "description": "file_explorer_filter_hint"
+  },
+  "file_explorer_go_up_tooltip": "एक स्तर ऊपर जाओ",
+  "@file_explorer_go_up_tooltip": {
+    "description": "file_explorer_go_up_tooltip"
+  },
+  "file_explorer_invalid_path_error": "अमान्य मार्ग: {val}",
+  "@file_explorer_invalid_path_error": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_invalid_path_error"
+  },
+  "file_explorer_empty_folder": "यह फ़ोल्डर खाली है",
+  "@file_explorer_empty_folder": {
+    "description": "file_explorer_empty_folder"
+  },
+  "file_explorer_selected_file": "चयनित: {path}",
+  "@file_explorer_selected_file": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_selected_file"
+  },
+  "file_explorer_select_file_hint": ".wim या .swm फ़ाइल चुनें",
+  "@file_explorer_select_file_hint": {
+    "description": "file_explorer_select_file_hint"
+  },
+  "common_select": "चुनना",
+  "@common_select": {
+    "description": "common_select"
+  },
+  "disk_wim_integrated_source": "WIM को ISO में एकीकृत किया गया",
+  "@disk_wim_integrated_source": {
+    "description": "disk_wim_integrated_source"
+  },
+  "disk_wim_bridge_source": "ब्रिज: ${controller.bridgeAnnouncement?.imageName ??",
+  "@disk_wim_bridge_source": {
+    "description": "disk_wim_bridge_source"
+  },
+  "wim_status_searching_alt": "छवि खोजी जा रही है...",
+  "@wim_status_searching_alt": {
+    "description": "wim_status_searching_alt"
+  },
+  "disk_wim_detected": "छवि का पता चला",
+  "@disk_wim_detected": {
+    "description": "disk_wim_detected"
+  },
+  "disk_wim_not_found": "छवि नहीं मिली",
+  "@disk_wim_not_found": {
+    "description": "disk_wim_not_found"
+  },
+  "common_change": "परिवर्तन",
+  "@common_change": {
+    "description": "common_change"
   }
 }

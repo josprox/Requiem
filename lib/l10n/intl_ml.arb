@@ -619,5 +619,954 @@
   "wingetUnavailable": "വിന്ഗെറ്റ് നോ എസ്റ്റേറ്റ് ഇൻസ്‌റ്റാലാഡോ അല്ലെങ്കിൽ എസ്റ്റ എൻ പാത്ത്.",
   "@wingetUnavailable": {
     "description": "wingetUnavailable"
+  },
+  "app_title_installer": "Requiem ഇൻസ്റ്റാളർ",
+  "@app_title_installer": {
+    "description": "app_title_installer"
+  },
+  "app_title_tools": "റിക്വിയം ടൂളുകൾ",
+  "@app_title_tools": {
+    "description": "app_title_tools"
+  },
+  "kms_product_windows_8_1_pro": "വിൻഡോസ് 8.1 പ്രോ",
+  "@kms_product_windows_8_1_pro": {
+    "description": "kms_product_windows_8_1_pro"
+  },
+  "kms_product_windows_8_1_enterprise": "വിൻഡോസ് 8.1 എൻ്റർപ്രൈസ്",
+  "@kms_product_windows_8_1_enterprise": {
+    "description": "kms_product_windows_8_1_enterprise"
+  },
+  "kms_product_windows_8_pro": "വിൻഡോസ് 8 പ്രോ",
+  "@kms_product_windows_8_pro": {
+    "description": "kms_product_windows_8_pro"
+  },
+  "kms_product_windows_8_enterprise": "വിൻഡോസ് 8 എൻ്റർപ്രൈസ്",
+  "@kms_product_windows_8_enterprise": {
+    "description": "kms_product_windows_8_enterprise"
+  },
+  "kms_product_windows_server_2025_standard": "വിൻഡോസ് സെർവർ 2025 സ്റ്റാൻഡേർഡ്",
+  "@kms_product_windows_server_2025_standard": {
+    "description": "kms_product_windows_server_2025_standard"
+  },
+  "kms_product_windows_server_2025_datacenter": "വിൻഡോസ് സെർവർ 2025 ഡാറ്റാസെൻ്റർ",
+  "@kms_product_windows_server_2025_datacenter": {
+    "description": "kms_product_windows_server_2025_datacenter"
+  },
+  "kms_product_windows_server_2022_standard": "വിൻഡോസ് സെർവർ 2022 സ്റ്റാൻഡേർഡ്",
+  "@kms_product_windows_server_2022_standard": {
+    "description": "kms_product_windows_server_2022_standard"
+  },
+  "kms_product_windows_server_2022_datacenter": "വിൻഡോസ് സെർവർ 2022 ഡാറ്റാസെൻ്റർ",
+  "@kms_product_windows_server_2022_datacenter": {
+    "description": "kms_product_windows_server_2022_datacenter"
+  },
+  "kms_product_windows_server_2019_standard": "വിൻഡോസ് സെർവർ 2019 സ്റ്റാൻഡേർഡ്",
+  "@kms_product_windows_server_2019_standard": {
+    "description": "kms_product_windows_server_2019_standard"
+  },
+  "kms_product_windows_server_2019_datacenter": "വിൻഡോസ് സെർവർ 2019 ഡാറ്റാസെൻ്റർ",
+  "@kms_product_windows_server_2019_datacenter": {
+    "description": "kms_product_windows_server_2019_datacenter"
+  },
+  "kms_product_windows_10_11_pro": "വിൻഡോസ് 10/11 പ്രോ",
+  "@kms_product_windows_10_11_pro": {
+    "description": "kms_product_windows_10_11_pro"
+  },
+  "kms_product_windows_10_11_pro_n": "വിൻഡോസ് 10/11 പ്രോ എൻ",
+  "@kms_product_windows_10_11_pro_n": {
+    "description": "kms_product_windows_10_11_pro_n"
+  },
+  "kms_product_windows_10_11_pro_for_workstations": "വർക്ക്സ്റ്റേഷനുകൾക്കായുള്ള Windows 10/11 Pro",
+  "@kms_product_windows_10_11_pro_for_workstations": {
+    "description": "kms_product_windows_10_11_pro_for_workstations"
+  },
+  "kms_product_windows_10_11_pro_education": "വിൻഡോസ് 10/11 പ്രോ വിദ്യാഭ്യാസം",
+  "@kms_product_windows_10_11_pro_education": {
+    "description": "kms_product_windows_10_11_pro_education"
+  },
+  "kms_product_windows_10_11_education": "Windows 10/11 വിദ്യാഭ്യാസം",
+  "@kms_product_windows_10_11_education": {
+    "description": "kms_product_windows_10_11_education"
+  },
+  "kms_product_windows_10_11_education_n": "വിൻഡോസ് 10/11 വിദ്യാഭ്യാസം എൻ",
+  "@kms_product_windows_10_11_education_n": {
+    "description": "kms_product_windows_10_11_education_n"
+  },
+  "kms_product_windows_10_11_enterprise": "വിൻഡോസ് 10/11 എൻ്റർപ്രൈസ്",
+  "@kms_product_windows_10_11_enterprise": {
+    "description": "kms_product_windows_10_11_enterprise"
+  },
+  "kms_product_windows_10_11_enterprise_n": "വിൻഡോസ് 10/11 എൻ്റർപ്രൈസ് എൻ",
+  "@kms_product_windows_10_11_enterprise_n": {
+    "description": "kms_product_windows_10_11_enterprise_n"
+  },
+  "kms_product_windows_10_11_enterprise_g": "വിൻഡോസ് 10/11 എൻ്റർപ്രൈസ് ജി",
+  "@kms_product_windows_10_11_enterprise_g": {
+    "description": "kms_product_windows_10_11_enterprise_g"
+  },
+  "kms_product_windows_10_11_enterprise_g_n": "വിൻഡോസ് 10/11 എൻ്റർപ്രൈസ് ജി എൻ",
+  "@kms_product_windows_10_11_enterprise_g_n": {
+    "description": "kms_product_windows_10_11_enterprise_g_n"
+  },
+  "kms_product_windows_10_11_pro_workstations": "Windows 10/11 Pro വർക്ക്സ്റ്റേഷനുകൾ",
+  "@kms_product_windows_10_11_pro_workstations": {
+    "description": "kms_product_windows_10_11_pro_workstations"
+  },
+  "kms_product_office_ltsc_professional_plus_2024": "ഓഫീസ് LTSC പ്രൊഫഷണൽ പ്ലസ് 2024",
+  "@kms_product_office_ltsc_professional_plus_2024": {
+    "description": "kms_product_office_ltsc_professional_plus_2024"
+  },
+  "kms_product_office_ltsc_professional_plus_2021": "ഓഫീസ് LTSC പ്രൊഫഷണൽ പ്ലസ് 2021",
+  "@kms_product_office_ltsc_professional_plus_2021": {
+    "description": "kms_product_office_ltsc_professional_plus_2021"
+  },
+  "kms_product_office_professional_plus_2019": "ഓഫീസ് പ്രൊഫഷണൽ പ്ലസ് 2019",
+  "@kms_product_office_professional_plus_2019": {
+    "description": "kms_product_office_professional_plus_2019"
+  },
+  "kms_product_office_professional_plus_2016": "ഓഫീസ് പ്രൊഫഷണൽ പ്ലസ് 2016",
+  "@kms_product_office_professional_plus_2016": {
+    "description": "kms_product_office_professional_plus_2016"
+  },
+  "kms_product_office_professional_plus_2013": "ഓഫീസ് പ്രൊഫഷണൽ പ്ലസ് 2013",
+  "@kms_product_office_professional_plus_2013": {
+    "description": "kms_product_office_professional_plus_2013"
+  },
+  "kms_product_office_standard_2013": "ഓഫീസ് സ്റ്റാൻഡേർഡ് 2013",
+  "@kms_product_office_standard_2013": {
+    "description": "kms_product_office_standard_2013"
+  },
+  "office_pkg_name_2024": "ഓഫീസ് LTSC പ്രോ പ്ലസ് 2024",
+  "@office_pkg_name_2024": {
+    "description": "office_pkg_name_2024"
+  },
+  "pkg_cat_ssh_moderno": "SSH മോഡേണോ",
+  "@pkg_cat_ssh_moderno": {
+    "description": "pkg_cat_ssh_moderno"
+  },
+  "pkg_cat_modelos_locales": "മോഡൽ ലോക്കലുകൾ",
+  "@pkg_cat_modelos_locales": {
+    "description": "pkg_cat_modelos_locales"
+  },
+  "pkg_cat_gpu_compute": "ജിപിയു കമ്പ്യൂട്ട്",
+  "@pkg_cat_gpu_compute": {
+    "description": "pkg_cat_gpu_compute"
+  },
+  "pkg_cat_compresor": "കംപ്രസർ",
+  "@pkg_cat_compresor": {
+    "description": "pkg_cat_compresor"
+  },
+  "pkg_cat_instaladores": "ഇൻസ്റ്റലഡോർസ്",
+  "@pkg_cat_instaladores": {
+    "description": "pkg_cat_instaladores"
+  },
+  "pkg_cat_limpieza": "ലിംപിസ",
+  "@pkg_cat_limpieza": {
+    "description": "pkg_cat_limpieza"
+  },
+  "pkg_cat_diagramas": "ഡയഗ്രമുകൾ",
+  "@pkg_cat_diagramas": {
+    "description": "pkg_cat_diagramas"
+  },
+  "pkg_cat_ide_ai": "IDE AI",
+  "@pkg_cat_ide_ai": {
+    "description": "pkg_cat_ide_ai"
+  },
+  "pkg_cat_comunicacion": "ആശയവിനിമയം",
+  "@pkg_cat_comunicacion": {
+    "description": "pkg_cat_comunicacion"
+  },
+  "pkg_cat_grabacion": "ഗ്രബാസിയോൺ",
+  "@pkg_cat_grabacion": {
+    "description": "pkg_cat_grabacion"
+  },
+  "pkg_cat_bi_desktop": "BI ഡെസ്ക്ടോപ്പ്",
+  "@pkg_cat_bi_desktop": {
+    "description": "pkg_cat_bi_desktop"
+  },
+  "pkg_cat_runtime_juegos": "റൺടൈം ജൂഗോസ്",
+  "@pkg_cat_runtime_juegos": {
+    "description": "pkg_cat_runtime_juegos"
+  },
+  "pkg_cat_runtime_c": "റൺടൈം C++",
+  "@pkg_cat_runtime_c": {
+    "description": "pkg_cat_runtime_c"
+  },
+  "disk_management_appbar_title": "അഡ്മിനിസ്ട്രേഷൻ ഡി ഡിസ്‌കോസ്",
+  "@disk_management_appbar_title": {
+    "description": "disk_management_appbar_title"
+  },
+  "common_refresh": "ആക്ച്വലിസർ",
+  "@common_refresh": {
+    "description": "common_refresh"
+  },
+  "disk_selection_title": "ഡിസ്കോ ഡി ഡെസ്റ്റിനോയെ തിരഞ്ഞെടുത്തു",
+  "@disk_selection_title": {
+    "description": "disk_selection_title"
+  },
+  "disk_selection_desc": "Elija la unidad física donde se installará Windows.",
+  "@disk_selection_desc": {
+    "description": "disk_selection_desc"
+  },
+  "disk_selection_button_start": "ഇനിസിയർ ഇൻസ്റ്റലേഷൻ",
+  "@disk_selection_button_start": {
+    "description": "disk_selection_button_start"
+  },
+  "disk_waiting_wim_hint": "Esperando la detección de install.wim...",
+  "@disk_waiting_wim_hint": {
+    "description": "disk_waiting_wim_hint"
+  },
+  "disk_dialog_confirm_destruction_title": "ഡേറ്റോസ് നശിപ്പിക്കുന്നത് സ്ഥിരീകരിക്കുക",
+  "@disk_dialog_confirm_destruction_title": {
+    "description": "disk_dialog_confirm_destruction_title"
+  },
+  "disk_dialog_confirm_install_title": "ഇൻസ്റ്റാളേഷൻ സ്ഥിരീകരിക്കുക",
+  "@disk_dialog_confirm_install_title": {
+    "description": "disk_dialog_confirm_install_title"
+  },
+  "disk_dialog_format_warning": "എൽ ഡിസ്കോ തിരഞ്ഞെടുക്കൽ ഫോർമാറ്റ് പൂർണ്ണമായി. ടോഡോസ് ലോസ് ഡാറ്റകൾ കാണുക.",
+  "@disk_dialog_format_warning": {
+    "description": "disk_dialog_format_warning"
+  },
+  "disk_dialog_existing_notice": "Windows se desplegará en W:\\\\ sin formatear.",
+  "@disk_dialog_existing_notice": {
+    "description": "disk_dialog_existing_notice"
+  },
+  "common_label_disk": "ഡിസ്ക്",
+  "@common_label_disk": {
+    "description": "common_label_disk"
+  },
+  "common_label_mode": "മോഡ്",
+  "@common_label_mode": {
+    "description": "common_label_mode"
+  },
+  "common_label_image": "ചിത്രം",
+  "@common_label_image": {
+    "description": "common_label_image"
+  },
+  "common_cancel": "ക്യാൻസലാർ",
+  "@common_cancel": {
+    "description": "common_cancel"
+  },
+  "disk_button_confirm_and_install": "സ്ഥിരീകരിക്കുക ഇ ഇൻസ്റ്റാൾ ചെയ്യുക",
+  "@disk_button_confirm_and_install": {
+    "description": "disk_button_confirm_and_install"
+  },
+  "progress_header_badge": "DESPLIEGUE EN CURSO",
+  "@progress_header_badge": {
+    "description": "progress_header_badge"
+  },
+  "progress_footer_warning": "ഡെസ്‌കോനെക്റ്റ് ലാ എനർഗ നി റിട്ടയർ എൽ മീഡിയോ ഡി ഇൻസ്റ്റാളേഷൻ",
+  "@progress_footer_warning": {
+    "description": "progress_footer_warning"
+  },
+  "office_pkg_desc_2024": "ക്ലിക്ക്-ടു-റൺ ഡി വോളിയം കോൺ കനാൽ PerpetualVL2024",
+  "@office_pkg_desc_2024": {
+    "description": "office_pkg_desc_2024"
+  },
+  "office_pkg_name_2021": "ഓഫീസ് LTSC പ്രോ പ്ലസ് 2021",
+  "@office_pkg_name_2021": {
+    "description": "office_pkg_name_2021"
+  },
+  "office_pkg_desc_2021": "ക്ലിക്ക്-ടു-റൺ ഡി വോളിയം കോൺ കനാൽ PerpetualVL2021",
+  "@office_pkg_desc_2021": {
+    "description": "office_pkg_desc_2021"
+  },
+  "office_pkg_name_2019": "ഓഫീസ് പ്രോ പ്ലസ് 2019",
+  "@office_pkg_name_2019": {
+    "description": "office_pkg_name_2019"
+  },
+  "office_pkg_desc_2019": "ക്ലിക്ക്-ടു-റൺ ഡി വോളിയം കോൺ കനാൽ PerpetualVL2019",
+  "@office_pkg_desc_2019": {
+    "description": "office_pkg_desc_2019"
+  },
+  "pkg_cat_editor": "എഡിറ്റർ",
+  "@pkg_cat_editor": {
+    "description": "pkg_cat_editor"
+  },
+  "pkg_cat_control_de_versiones": "പതിപ്പുകൾ നിയന്ത്രിക്കുക",
+  "@pkg_cat_control_de_versiones": {
+    "description": "pkg_cat_control_de_versiones"
+  },
+  "pkg_cat_javascript": "ജാവാസ്ക്രിപ്റ്റ്",
+  "@pkg_cat_javascript": {
+    "description": "pkg_cat_javascript"
+  },
+  "pkg_cat_python_3": "പൈത്തൺ 3",
+  "@pkg_cat_python_3": {
+    "description": "pkg_cat_python_3"
+  },
+  "pkg_cat_runtime_php": "റൺടൈം PHP",
+  "@pkg_cat_runtime_php": {
+    "description": "pkg_cat_runtime_php"
+  },
+  "pkg_cat_servidor_db": "സെർവിഡർ ഡിബി",
+  "@pkg_cat_servidor_db": {
+    "description": "pkg_cat_servidor_db"
+  },
+  "pkg_cat_golang": "ഗോലാങ്",
+  "@pkg_cat_golang": {
+    "description": "pkg_cat_golang"
+  },
+  "pkg_cat_rustup": "റസ്റ്റപ്പ്",
+  "@pkg_cat_rustup": {
+    "description": "pkg_cat_rustup"
+  },
+  "pkg_cat_temurin_21": "ടെമുറിൻ 21",
+  "@pkg_cat_temurin_21": {
+    "description": "pkg_cat_temurin_21"
+  },
+  "pkg_cat_desktop": "ഡെസ്ക്ടോപ്പ്",
+  "@pkg_cat_desktop": {
+    "description": "pkg_cat_desktop"
+  },
+  "kms_product_windows_terminal": "വിൻഡോസ് ടെർമിനൽ",
+  "@kms_product_windows_terminal": {
+    "description": "kms_product_windows_terminal"
+  },
+  "pkg_cat_terminal_moderno": "ടെർമിനൽ മോഡേണോ",
+  "@pkg_cat_terminal_moderno": {
+    "description": "pkg_cat_terminal_moderno"
+  },
+  "pkg_cat_subsistema_linux": "സബ്സിസ്റ്റമ ലിനക്സ്",
+  "@pkg_cat_subsistema_linux": {
+    "description": "pkg_cat_subsistema_linux"
+  },
+  "kms_product_windows_subsystem_for_linux": "ലിനക്സിനുള്ള വിൻഡോസ് സബ്സിസ്റ്റം",
+  "@kms_product_windows_subsystem_for_linux": {
+    "description": "kms_product_windows_subsystem_for_linux"
+  },
+  "pkg_cat_distro_wsl": "ഡിസ്ട്രോ ഡബ്ല്യുഎസ്എൽ",
+  "@pkg_cat_distro_wsl": {
+    "description": "pkg_cat_distro_wsl"
+  },
+  "pkg_cat_navegador": "നവഗദോർ",
+  "@pkg_cat_navegador": {
+    "description": "pkg_cat_navegador"
+  },
+  "pkg_cat_ide_android": "IDE ആൻഡ്രോയിഡ്",
+  "@pkg_cat_ide_android": {
+    "description": "pkg_cat_ide_android"
+  },
+  "pkg_cat_ide_completo": "IDE പൂർത്തിയായി",
+  "@pkg_cat_ide_completo": {
+    "description": "pkg_cat_ide_completo"
+  },
+  "pkg_cat_compiladores_c": "കമ്പൈലഡോർസ് C++",
+  "@pkg_cat_compiladores_c": {
+    "description": "pkg_cat_compiladores_c"
+  },
+  "pkg_cat_sdk__net": "SDK .NET",
+  "@pkg_cat_sdk__net": {
+    "description": "pkg_cat_sdk__net"
+  },
+  "pkg_cat_runtime_escritorio": "റൺടൈം എസ്ക്രിറ്റോറിയോ",
+  "@pkg_cat_runtime_escritorio": {
+    "description": "pkg_cat_runtime_escritorio"
+  },
+  "pkg_cat_apache_php_mysql": "അപ്പാച്ചെ PHP MySQL",
+  "@pkg_cat_apache_php_mysql": {
+    "description": "pkg_cat_apache_php_mysql"
+  },
+  "pkg_cat_cliente_db": "ക്ലയൻ്റ് ഡിബി",
+  "@pkg_cat_cliente_db": {
+    "description": "pkg_cat_cliente_db"
+  },
+  "pkg_cat_cliente_api": "ക്ലയൻ്റ് API",
+  "@pkg_cat_cliente_api": {
+    "description": "pkg_cat_cliente_api"
+  },
+  "pkg_cat_ssh_clasico": "SSH ക്ലാസിക്കോ",
+  "@pkg_cat_ssh_clasico": {
+    "description": "pkg_cat_ssh_clasico"
+  },
+  "progress_button_reboot": "റെനിസിയർ സിസ്റ്റം",
+  "@progress_button_reboot": {
+    "description": "progress_button_reboot"
+  },
+  "landing_title_installer": "REQUIEM ഇൻസ്റ്റാളർ",
+  "@landing_title_installer": {
+    "description": "landing_title_installer"
+  },
+  "landing_title_tools": "REQUIEM ടൂളുകൾ",
+  "@landing_title_tools": {
+    "description": "landing_title_tools"
+  },
+  "landing_subtitle": "ഡിസ്പ്ലേഗ് ഡി സോ ഡി പ്രോക്‌സിമ ജനറഷ്യൻ",
+  "@landing_subtitle": {
+    "description": "landing_subtitle"
+  },
+  "landing_description_part1": "വിൻഡോസ് കൂടുതൽ കൃത്യതയോടെ ഇൻസ്റ്റാൾ ചെയ്യുക.",
+  "@landing_description_part1": {
+    "description": "landing_description_part1"
+  },
+  "landing_description_part2": "ഡിഐഎസ്എം വൈ ഒപ്റ്റിമൈസേഷൻ ഓട്ടോമാറ്റിസാഡ ഡെൽ സിസ്റ്റമയുടെ ഓർക്വെസ്‌റ്റേഷ്യൻ ഡയറക്‌ട ഡെസ്‌പ്ലൈഗ് റാപ്പിഡോ എക്‌സ്‌പെരിമെൻ്റ് അൺ ഡെസ്‌പ്ലീഗ്.",
+  "@landing_description_part2": {
+    "description": "landing_description_part2"
+  },
+  "landing_button_start": "എംപസർ",
+  "@landing_button_start": {
+    "description": "landing_button_start"
+  },
+  "landing_button_logs": "ലോഗ്സ് ഡെൽ സിസ്റ്റം",
+  "@landing_button_logs": {
+    "description": "landing_button_logs"
+  },
+  "landing_badge_version": "വേർസിയൻ എസ്റ്റാബിൾ",
+  "@landing_badge_version": {
+    "description": "landing_badge_version"
+  },
+  "landing_badge_secure_boot": "അനുയോജ്യമായ കോൺ സെക്യുർ ബൂട്ട്",
+  "@landing_badge_secure_boot": {
+    "description": "landing_badge_secure_boot"
+  },
+  "landing_badge_author": "ഡിസിയാഡോ പോർ ജോസ്",
+  "@landing_badge_author": {
+    "description": "landing_badge_author"
+  },
+  "tools_kms_empty_host_error": "പിശക്: എൽ ഹോസ്റ്റ് KMS ഈസ്റ്റാ വാസിയോ.",
+  "@tools_kms_empty_host_error": {
+    "description": "tools_kms_empty_host_error"
+  },
+  "tools_log_format": "[{time}] {message}",
+  "@tools_log_format": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    },
+    "description": "tools_log_format"
+  },
+  "tools_kms_no_products_selected": "കെഎംഎസ് തിരഞ്ഞെടുത്ത പുല്ലു ഉൽപ്പന്നങ്ങളൊന്നുമില്ല.",
+  "@tools_kms_no_products_selected": {
+    "description": "tools_kms_no_products_selected"
+  },
+  "tools_kms_checking_connectivity": "Comprobando conectividad con {host}:1688...",
+  "@tools_kms_checking_connectivity": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_checking_connectivity"
+  },
+  "tools_kms_error_log": "പിശക് KMS: {error}",
+  "@tools_kms_error_log": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_error_log"
+  },
+  "tools_packages_none_selected": "തിരഞ്ഞെടുത്ത പ്രോഗ്രാമുകൾ ഇല്ല.",
+  "@tools_packages_none_selected": {
+    "description": "tools_packages_none_selected"
+  },
+  "tools_packages_none_detected": "നോ സെ ഡിറ്റക്റ്ററോൺ പാക്വെറ്റ്സ് കോണോസിഡോസ് കോൺ വിംഗറ്റ്.",
+  "@tools_packages_none_detected": {
+    "description": "tools_packages_none_detected"
+  },
+  "tools_packages_detected_count": "പാക്വെറ്റ്സ് ഡിറ്റക്റ്റഡോസ്: {count}.",
+  "@tools_packages_detected_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_packages_detected_count"
+  },
+  "tools_logs_copied_snackbar": "കോപ്പിയാഡോസ് അൽ പോർട്ടപ്പേലെസ് ലോഗുകൾ.",
+  "@tools_logs_copied_snackbar": {
+    "description": "tools_logs_copied_snackbar"
+  },
+  "tools_header_title": "റിക്വയീം മൈഗ്രേഷൻ ടൂളുകൾ",
+  "@tools_header_title": {
+    "description": "tools_header_title"
+  },
+  "tools_section_activation_title": "ആക്ടിവേഷൻ ഡി ലൈസൻസ്",
+  "@tools_section_activation_title": {
+    "description": "tools_section_activation_title"
+  },
+  "tools_section_activation_desc": "വിൻഡോസ് വൈ ഓഫീസിനായി കെഎംഎസ് ലോക്കൽ അല്ലെങ്കിൽ റിമോട്ടോ ക്രമീകരിക്കുക.",
+  "@tools_section_activation_desc": {
+    "description": "tools_section_activation_desc"
+  },
+  "tools_badge_kms_pending": "കെഎംഎസ് പെൻഡെൻ്റ്",
+  "@tools_badge_kms_pending": {
+    "description": "tools_badge_kms_pending"
+  },
+  "tools_button_activate_kms": "ആക്ടിവർ KMS",
+  "@tools_button_activate_kms": {
+    "description": "tools_button_activate_kms"
+  },
+  "tools_section_office_title": "ഓഫീസ് ഇൻസ്റ്റാൾ ചെയ്യുക",
+  "@tools_section_office_title": {
+    "description": "tools_section_office_title"
+  },
+  "tools_section_office_desc": "മൈക്രോസോഫ്റ്റ് ഓഫീസ് എൽടിഎസ്‌സി അല്ലെങ്കിൽ 365 ഡെസ്‌പ്ലീഗ ഓട്ടോമാറ്റിസാഡ യുസാൻഡോ ഒഡിടി.",
+  "@tools_section_office_desc": {
+    "description": "tools_section_office_desc"
+  },
+  "tools_button_install_office": "ഇൻസ്റ്റാൾ ഓഫീസ്",
+  "@tools_button_install_office": {
+    "description": "tools_button_install_office"
+  },
+  "tools_section_packages_title": "സ്റ്റാക്ക് ഡി ആപ്ലിക്കേഷനുകൾ",
+  "@tools_section_packages_title": {
+    "description": "tools_section_packages_title"
+  },
+  "tools_section_packages_desc": "വിൻഡോസ് മീഡിയൻ്റ് വിംഗെറ്റിന് വേണ്ടി ഡീസാറോളോ എസൻസിയേൽസ് ഇൻസ്റ്റാൾ ചെയ്യുക.",
+  "@tools_section_packages_desc": {
+    "description": "tools_section_packages_desc"
+  },
+  "wim_status_not_found": "കണ്ടുപിടിക്കാൻ കഴിയില്ല",
+  "@wim_status_not_found": {
+    "description": "wim_status_not_found"
+  },
+  "wim_manual_search_hint": "ആർക്കൈവോ WIM മാനുവൽമെൻ്റിനായി പ്രാദേശികവൽക്കരിക്കാൻ \"Buscar\" ഉപയോഗിക്കുക.",
+  "@wim_manual_search_hint": {
+    "description": "wim_manual_search_hint"
+  },
+  "wim_button_change_file": "CAMBIAR ആർക്കൈവോ",
+  "@wim_button_change_file": {
+    "description": "wim_button_change_file"
+  },
+  "common_search": "BUSCAR",
+  "@common_search": {
+    "description": "common_search"
+  },
+  "common_continue": "തുടർച്ചയായി",
+  "@common_continue": {
+    "description": "common_continue"
+  },
+  "wim_button_rescan": "Escanear unidades de nuevo",
+  "@wim_button_rescan": {
+    "description": "wim_button_rescan"
+  },
+  "wim_bridge_section_header": "വിന്ഡോസിനുള്ള അഭ്യർത്ഥന തയ്യാറാക്കുക",
+  "@wim_bridge_section_header": {
+    "description": "wim_bridge_section_header"
+  },
+  "wim_button_connect_wifi": "കണക്ടർ വൈ-ഫൈ",
+  "@wim_button_connect_wifi": {
+    "description": "wim_button_connect_wifi"
+  },
+  "wim_button_search_bridge": "BUSCAR PUENTE",
+  "@wim_button_search_bridge": {
+    "description": "wim_button_search_bridge"
+  },
+  "wim_button_manual_ip": "USAR IP മാനുവൽ",
+  "@wim_button_manual_ip": {
+    "description": "wim_button_manual_ip"
+  },
+  "console_title": "കൺസോള ഡെൽ സിസ്റ്റമ",
+  "@console_title": {
+    "description": "console_title"
+  },
+  "console_tooltip_copy": "കോപ്പിയർ ലോഗുകൾ",
+  "@console_tooltip_copy": {
+    "description": "console_tooltip_copy"
+  },
+  "console_tooltip_clear": "ലിംപിയർ ലോഗുകൾ",
+  "@console_tooltip_clear": {
+    "description": "console_tooltip_clear"
+  },
+  "console_waiting_action": "Esperando una acción...",
+  "@console_waiting_action": {
+    "description": "console_waiting_action"
+  },
+  "file_explorer_default_title": "വിൻഡോസിൻ്റെ ഇൻസ്റ്റാളേഷൻ ഇമേജ് തിരഞ്ഞെടുക്കുക",
+  "@file_explorer_default_title": {
+    "description": "file_explorer_default_title"
+  },
+  "file_explorer_read_error": "നോ സെ പുഡോ ലീർ എൽ കോണ്ടെനിഡോ ഡെൽ ഡയറക്ടറിയോ.\\n{error}",
+  "@file_explorer_read_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_read_error"
+  },
+  "file_explorer_drives_header": "UNIDADES",
+  "@file_explorer_drives_header": {
+    "description": "file_explorer_drives_header"
+  },
+  "file_explorer_filter_hint": "ഫിൽട്രർ…",
+  "@file_explorer_filter_hint": {
+    "description": "file_explorer_filter_hint"
+  },
+  "file_explorer_go_up_tooltip": "സുബീർ ഉൻ നിവേൽ",
+  "@file_explorer_go_up_tooltip": {
+    "description": "file_explorer_go_up_tooltip"
+  },
+  "file_explorer_invalid_path_error": "റൂട്ട ഇൻവാലിഡ: {val}",
+  "@file_explorer_invalid_path_error": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_invalid_path_error"
+  },
+  "file_explorer_empty_folder": "എസ്റ്റ കാർപെറ്റ എസ്റ്റ വാസിയ",
+  "@file_explorer_empty_folder": {
+    "description": "file_explorer_empty_folder"
+  },
+  "file_explorer_selected_file": "തിരഞ്ഞെടുത്തത്: {path}",
+  "@file_explorer_selected_file": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_selected_file"
+  },
+  "file_explorer_select_file_hint": "Seleccione un archivo .wim o .swm",
+  "@file_explorer_select_file_hint": {
+    "description": "file_explorer_select_file_hint"
+  },
+  "common_select": "സെലക്‌ഷനർ",
+  "@common_select": {
+    "description": "common_select"
+  },
+  "disk_wim_integrated_source": "WIM ഇൻ്റഗ്രാഡോ en la ISO",
+  "@disk_wim_integrated_source": {
+    "description": "disk_wim_integrated_source"
+  },
+  "disk_wim_bridge_source": "Puente: ${controller.bridgeAnnouncement?.imageName ??",
+  "@disk_wim_bridge_source": {
+    "description": "disk_wim_bridge_source"
+  },
+  "wim_status_searching_alt": "ബസ്‌കാൻഡോ ചിത്രം...",
+  "@wim_status_searching_alt": {
+    "description": "wim_status_searching_alt"
+  },
+  "disk_wim_detected": "ഇമേജ് ഡിറ്റക്റ്റഡ",
+  "@disk_wim_detected": {
+    "description": "disk_wim_detected"
+  },
+  "disk_wim_not_found": "ഇമേജ് എൻകോൺട്രാഡ ഇല്ല",
+  "@disk_wim_not_found": {
+    "description": "disk_wim_not_found"
+  },
+  "common_change": "CAMBIAR",
+  "@common_change": {
+    "description": "common_change"
+  },
+  "disk_partition_gpt_uefi": "GPT / UEFI",
+  "@disk_partition_gpt_uefi": {
+    "description": "disk_partition_gpt_uefi"
+  },
+  "disk_partition_mbr_bios": "MBR / BIOS",
+  "@disk_partition_mbr_bios": {
+    "description": "disk_partition_mbr_bios"
+  },
+  "disk_boot_firmware_label": "യഥാർത്ഥമായത്: {firmware}",
+  "@disk_boot_firmware_label": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "disk_boot_firmware_label"
+  },
+  "disk_recommended_mode_label": "മോഡോ അനുയോജ്യം: {recommended}",
+  "@disk_recommended_mode_label": {
+    "placeholders": {
+      "recommended": {
+        "type": "String"
+      }
+    },
+    "description": "disk_recommended_mode_label"
+  },
+  "disk_empty_list": "ഡിറ്റക്റ്ററോൺ ഡിസ്കോസ് ഫിസിക്കോസ് ഇല്ല",
+  "@disk_empty_list": {
+    "description": "disk_empty_list"
+  },
+  "disk_badge_system": "സിസ്റ്റം",
+  "@disk_badge_system": {
+    "description": "disk_badge_system"
+  },
+  "disk_item_header": "ഡിസ്ക് {diskNumber} · {mediaType} · {busType}",
+  "@disk_item_header": {
+    "placeholders": {
+      "diskNumber": {
+        "type": "String"
+      },
+      "mediaType": {
+        "type": "String"
+      },
+      "busType": {
+        "type": "String"
+      }
+    },
+    "description": "disk_item_header"
+  },
+  "disk_size_gb": "{sizeGB} GB",
+  "@disk_size_gb": {
+    "placeholders": {
+      "sizeGB": {
+        "type": "String"
+      }
+    },
+    "description": "disk_size_gb"
+  },
+  "iso_bridge_list_interfaces_error": "IPv4: {error}",
+  "@iso_bridge_list_interfaces_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_list_interfaces_error"
+  },
+  "iso_bridge_generic_error": "പിശക്: {error}",
+  "@iso_bridge_generic_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_generic_error"
+  },
+  "iso_bridge_select_wim_dialog": "വിൻഡോസിൻ്റെ WIM ഇമേജ് തിരഞ്ഞെടുക്കുക",
+  "@iso_bridge_select_wim_dialog": {
+    "description": "iso_bridge_select_wim_dialog"
+  },
+  "iso_bridge_wim_selected_log": "WIM തിരഞ്ഞെടുത്തത്: {path}",
+  "@iso_bridge_wim_selected_log": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_wim_selected_log"
+  },
+  "iso_bridge_save_simple_iso_dialog": "ഗാർഡർ ഐഎസ്ഒ സിമ്പിൾ ഡി റിക്വിയം",
+  "@iso_bridge_save_simple_iso_dialog": {
+    "description": "iso_bridge_save_simple_iso_dialog"
+  },
+  "iso_bridge_simple_iso_filename": "Requiem-Installer-Simple.iso",
+  "@iso_bridge_simple_iso_filename": {
+    "description": "iso_bridge_simple_iso_filename"
+  },
+  "iso_bridge_save_wim_iso_dialog": "Guardar ISO de Requiem con WIM",
+  "@iso_bridge_save_wim_iso_dialog": {
+    "description": "iso_bridge_save_wim_iso_dialog"
+  },
+  "iso_bridge_start_validation_error": "IPv4 സ്വകാര്യത തിരഞ്ഞെടുക്കുക.",
+  "@iso_bridge_start_validation_error": {
+    "description": "iso_bridge_start_validation_error"
+  },
+  "iso_panel_title_media": "ഇടത്തരം ഇൻസ്റ്റാളേഷൻ",
+  "@iso_panel_title_media": {
+    "description": "iso_panel_title_media"
+  },
+  "iso_panel_desc_media": "ഒബ്‌റ്റെംഗ ലാ ഐഎസ്ഒ ബേസ് സെലക്‌സിയോണർ അൺ വിഐഎം അൽ അരാങ്കാർ, ഓ ക്രീ യുന ഐഎസ്ഒ ഓട്ടോനോമ ക്യൂ യാ സു ഇമേജൻ ഡി വിൻഡോസ്.",
+  "@iso_panel_desc_media": {
+    "description": "iso_panel_desc_media"
+  },
+  "iso_panel_button_simple_iso": "ഒബ്‌ടെനർ ISO പാരാ ഇൻസ്റ്റാളേഷൻ സോളമെൻ്റെ",
+  "@iso_panel_button_simple_iso": {
+    "description": "iso_panel_button_simple_iso"
+  },
+  "iso_panel_button_select_wim": "സെലക്‌ഷൻ വിം",
+  "@iso_panel_button_select_wim": {
+    "description": "iso_panel_button_select_wim"
+  },
+  "iso_panel_button_generate_iso": "ജനറർ ഐഎസ്ഒ",
+  "@iso_panel_button_generate_iso": {
+    "description": "iso_panel_button_generate_iso"
+  },
+  "iso_panel_title_bridge": "IPv4 ഇൻസ്റ്റാൾ ചെയ്യുക",
+  "@iso_panel_title_bridge": {
+    "description": "iso_panel_title_bridge"
+  },
+  "iso_bridge_clients_count": "{clients} കോൺക്‌സിയോണുകൾ",
+  "@iso_bridge_clients_count": {
+    "placeholders": {
+      "clients": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_clients_count"
+  },
+  "iso_bridge_desc": "എൽ WIM ഉന സോളാ വെസ് വൈ ലോ ട്രാൻസ്മിറ്റ് ഡയറക്‌ടമെൻ്റെ എ ലോസ് ക്ലയൻ്റസ് റെക്വിഎം ഡി ലാ മിസ്മ റെഡ് തയ്യാറാക്കുക. ലോസ് ക്ലയൻ്റുകൾക്ക് ഒരു ഗാർഡൻ എൽ WIM ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല.",
+  "@iso_bridge_desc": {
+    "description": "iso_bridge_desc"
+  },
+  "office_odt_panel_title": "ഓഫീസ് വിന്യാസ ഉപകരണം",
+  "@office_odt_panel_title": {
+    "description": "office_odt_panel_title"
+  },
+  "office_odt_kms_badge": "ODT + KMS",
+  "@office_odt_kms_badge": {
+    "description": "office_odt_kms_badge"
+  },
+  "tools_badge_package_count": "{count} പ്രോഗ്രാമുകൾ",
+  "@tools_badge_package_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_badge_package_count"
+  },
+  "tools_button_install_all_packages": "TODO ഇൻസ്റ്റാൾ ചെയ്യുക",
+  "@tools_button_install_all_packages": {
+    "description": "tools_button_install_all_packages"
+  },
+  "tools_section_iso_title": "ISO y despliegue por red",
+  "@tools_section_iso_title": {
+    "description": "tools_section_iso_title"
+  },
+  "tools_section_iso_desc": "ക്രീ മീഡിയോസ് ഓട്ടോനോമോസ് കോൺ അൺ WIM സംയോജനം അല്ലെങ്കിൽ വിതരണ സംവിധാനം ഒരു ഇൻസ്റ്റാളേഷൻ ഡയറക്‌ടമെൻ്റിൽ IPv4.",
+  "@tools_section_iso_desc": {
+    "description": "tools_section_iso_desc"
+  },
+  "tools_badge_iso_compatibility": "ബയോസ് + യുഇഎഫ്ഐ പ്രിസർവേഡോസ്",
+  "@tools_badge_iso_compatibility": {
+    "description": "tools_badge_iso_compatibility"
+  },
+  "tools_sidebar_app_name": "REQUIEM",
+  "@tools_sidebar_app_name": {
+    "description": "tools_sidebar_app_name"
+  },
+  "tools_sidebar_tab_kms": "സജീവമാക്കൽ KMS",
+  "@tools_sidebar_tab_kms": {
+    "description": "tools_sidebar_tab_kms"
+  },
+  "tools_sidebar_tab_office": "ഇൻസ്റ്റലേഷൻ ഓഫീസ്",
+  "@tools_sidebar_tab_office": {
+    "description": "tools_sidebar_tab_office"
+  },
+  "tools_sidebar_tab_packages": "സ്റ്റാക്ക് പ്രോഗ്രാമുകൾ",
+  "@tools_sidebar_tab_packages": {
+    "description": "tools_sidebar_tab_packages"
+  },
+  "tools_sidebar_tab_iso": "ISO y Puente",
+  "@tools_sidebar_tab_iso": {
+    "description": "tools_sidebar_tab_iso"
+  },
+  "tools_sidebar_mode_badge": "ലോക്കൽ ടൂൾസ് മോഡ്",
+  "@tools_sidebar_mode_badge": {
+    "description": "tools_sidebar_mode_badge"
+  },
+  "wim_bridge_searching": "പ്രാദേശിക IPv4 നെറ്റ്‌വർക്കിൽ Requiem ബ്രിഡ്ജുകൾക്കായി തിരയുന്നു...",
+  "@wim_bridge_searching": {
+    "description": "wim_bridge_searching"
+  },
+  "wim_bridge_not_found": "ഇല്ല. Pruebe con la IP മാനുവൽ.",
+  "@wim_bridge_not_found": {
+    "description": "wim_bridge_not_found"
+  },
+  "wim_bridge_search_error": "നോ സെ പുഡോ ബസ്കാർ എൽ പ്യൂൻ്റെ: {error}",
+  "@wim_bridge_search_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_search_error"
+  },
+  "wim_bridge_ip_dialog_title": "ഐപി ഡെൽ പ്യൂൻ്റെ റിക്വിയം",
+  "@wim_bridge_ip_dialog_title": {
+    "description": "wim_bridge_ip_dialog_title"
+  },
+  "wim_bridge_ip_placeholder": "192.168.1.20",
+  "@wim_bridge_ip_placeholder": {
+    "description": "wim_bridge_ip_placeholder"
+  },
+  "common_connect": "കണക്ടർ",
+  "@common_connect": {
+    "description": "common_connect"
+  },
+  "wim_bridge_connection_error": "നോ സെ പുഡോ കണക്ടർ: {error}",
+  "@wim_bridge_connection_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_connection_error"
+  },
+  "wifi_scanning": "ലഭ്യമായ Wi-Fi നെറ്റ്‌വർക്കുകൾ സ്കാൻ ചെയ്യുന്നു...",
+  "@wifi_scanning": {
+    "description": "wifi_scanning"
+  },
+  "wifi_none_found": "നോ സെ എൻകോൺട്രാറോൺ വൈ-ഫൈ ഡിസ്‌പോണിബിളുകൾ മാറ്റുന്നു.",
+  "@wifi_none_found": {
+    "description": "wifi_none_found"
+  },
+  "wifi_dialog_title": "ഒരു Wi-Fi ഇൻസ്റ്റാൾ ചെയ്യുക",
+  "@wifi_dialog_title": {
+    "description": "wifi_dialog_title"
+  },
+  "wifi_item_signal_security": "{signal}% · {security}",
+  "@wifi_item_signal_security": {
+    "placeholders": {
+      "signal": {
+        "type": "String"
+      },
+      "security": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_item_signal_security"
+  },
+  "wifi_password_hint": "Contraseña Wi-Fi",
+  "@wifi_password_hint": {
+    "description": "wifi_password_hint"
+  },
+  "wifi_connected_log": "Wi-Fi {ssid}-ലേക്ക് കണക്റ്റുചെയ്‌തു. {result}",
+  "@wifi_connected_log": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      },
+      "result": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_log"
+  },
+  "wifi_connected_status": "Conectado a {ssid}.",
+  "@wifi_connected_status": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_status"
+  },
+  "wifi_connect_error": "വൈഫൈയിൽ പുഡോ കണക്ടർ ഇല്ല: {error}",
+  "@wifi_connect_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connect_error"
+  },
+  "wim_picker_title": "വിൻഡോസ് ഇമേജ് തിരഞ്ഞെടുക്കുക",
+  "@wim_picker_title": {
+    "description": "wim_picker_title"
+  },
+  "wim_picker_description": "വിൻഡോസിൻ്റെ ഇൻസ്റ്റാളേഷൻ ഇമേജ് പ്രൊപ്പോർഷ്യൻ (install.wim അല്ലെങ്കിൽ install.swm)\\n",
+  "@wim_picker_description": {
+    "description": "wim_picker_description"
+  },
+  "wim_status_searching": "ബുസ്കാൻഡോ ഇമേജൻ…",
+  "@wim_status_searching": {
+    "description": "wim_status_searching"
+  },
+  "wim_status_found": "ഇമേജൻ എൻകോൺട്രാഡ",
+  "@wim_status_found": {
+    "description": "wim_status_found"
   }
 }

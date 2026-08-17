@@ -619,5 +619,954 @@
   "formatGptDescription": "Limpia el disco a crea diseño UEFI\nEFI (S:) + Windows (W:)",
   "@formatGptDescription": {
     "description": "formatGptDescription"
+  },
+  "app_title_installer": "Instalační program Requiem",
+  "@app_title_installer": {
+    "description": "app_title_installer"
+  },
+  "app_title_tools": "Nástroje Requiem",
+  "@app_title_tools": {
+    "description": "app_title_tools"
+  },
+  "kms_product_windows_8_1_pro": "Windows 8.1 Pro",
+  "@kms_product_windows_8_1_pro": {
+    "description": "kms_product_windows_8_1_pro"
+  },
+  "kms_product_windows_8_1_enterprise": "Windows 8.1 Enterprise",
+  "@kms_product_windows_8_1_enterprise": {
+    "description": "kms_product_windows_8_1_enterprise"
+  },
+  "kms_product_windows_8_pro": "Windows 8 Pro",
+  "@kms_product_windows_8_pro": {
+    "description": "kms_product_windows_8_pro"
+  },
+  "kms_product_windows_8_enterprise": "Windows 8 Enterprise",
+  "@kms_product_windows_8_enterprise": {
+    "description": "kms_product_windows_8_enterprise"
+  },
+  "kms_product_windows_server_2025_standard": "Windows Server 2025 Standard",
+  "@kms_product_windows_server_2025_standard": {
+    "description": "kms_product_windows_server_2025_standard"
+  },
+  "kms_product_windows_server_2025_datacenter": "Windows Server 2025 Datacenter",
+  "@kms_product_windows_server_2025_datacenter": {
+    "description": "kms_product_windows_server_2025_datacenter"
+  },
+  "kms_product_windows_server_2022_standard": "Windows Server 2022 Standard",
+  "@kms_product_windows_server_2022_standard": {
+    "description": "kms_product_windows_server_2022_standard"
+  },
+  "kms_product_windows_server_2022_datacenter": "Windows Server 2022 Datacenter",
+  "@kms_product_windows_server_2022_datacenter": {
+    "description": "kms_product_windows_server_2022_datacenter"
+  },
+  "kms_product_windows_server_2019_standard": "Windows Server 2019 Standard",
+  "@kms_product_windows_server_2019_standard": {
+    "description": "kms_product_windows_server_2019_standard"
+  },
+  "kms_product_windows_server_2019_datacenter": "Windows Server 2019 Datacenter",
+  "@kms_product_windows_server_2019_datacenter": {
+    "description": "kms_product_windows_server_2019_datacenter"
+  },
+  "kms_product_windows_10_11_pro": "Windows 10/11 Pro",
+  "@kms_product_windows_10_11_pro": {
+    "description": "kms_product_windows_10_11_pro"
+  },
+  "kms_product_windows_10_11_pro_n": "Windows 10/11 Pro N",
+  "@kms_product_windows_10_11_pro_n": {
+    "description": "kms_product_windows_10_11_pro_n"
+  },
+  "kms_product_windows_10_11_pro_for_workstations": "Windows 10/11 Pro pro pracovní stanice",
+  "@kms_product_windows_10_11_pro_for_workstations": {
+    "description": "kms_product_windows_10_11_pro_for_workstations"
+  },
+  "kms_product_windows_10_11_pro_education": "Windows 10/11 Pro Education",
+  "@kms_product_windows_10_11_pro_education": {
+    "description": "kms_product_windows_10_11_pro_education"
+  },
+  "kms_product_windows_10_11_education": "Windows 10/11 Education",
+  "@kms_product_windows_10_11_education": {
+    "description": "kms_product_windows_10_11_education"
+  },
+  "kms_product_windows_10_11_education_n": "Windows 10/11 Education N",
+  "@kms_product_windows_10_11_education_n": {
+    "description": "kms_product_windows_10_11_education_n"
+  },
+  "kms_product_windows_10_11_enterprise": "Windows 10/11 Enterprise",
+  "@kms_product_windows_10_11_enterprise": {
+    "description": "kms_product_windows_10_11_enterprise"
+  },
+  "kms_product_windows_10_11_enterprise_n": "Windows 10/11 Enterprise N",
+  "@kms_product_windows_10_11_enterprise_n": {
+    "description": "kms_product_windows_10_11_enterprise_n"
+  },
+  "kms_product_windows_10_11_enterprise_g": "Windows 10/11 Enterprise G",
+  "@kms_product_windows_10_11_enterprise_g": {
+    "description": "kms_product_windows_10_11_enterprise_g"
+  },
+  "kms_product_windows_10_11_enterprise_g_n": "Windows 10/11 Enterprise G N",
+  "@kms_product_windows_10_11_enterprise_g_n": {
+    "description": "kms_product_windows_10_11_enterprise_g_n"
+  },
+  "kms_product_windows_10_11_pro_workstations": "Pracovní stanice Windows 10/11 Pro",
+  "@kms_product_windows_10_11_pro_workstations": {
+    "description": "kms_product_windows_10_11_pro_workstations"
+  },
+  "kms_product_office_ltsc_professional_plus_2024": "Office LTSC Professional Plus 2024",
+  "@kms_product_office_ltsc_professional_plus_2024": {
+    "description": "kms_product_office_ltsc_professional_plus_2024"
+  },
+  "kms_product_office_ltsc_professional_plus_2021": "Office LTSC Professional Plus 2021",
+  "@kms_product_office_ltsc_professional_plus_2021": {
+    "description": "kms_product_office_ltsc_professional_plus_2021"
+  },
+  "kms_product_office_professional_plus_2019": "Office Professional Plus 2019",
+  "@kms_product_office_professional_plus_2019": {
+    "description": "kms_product_office_professional_plus_2019"
+  },
+  "kms_product_office_professional_plus_2016": "Office Professional Plus 2016",
+  "@kms_product_office_professional_plus_2016": {
+    "description": "kms_product_office_professional_plus_2016"
+  },
+  "kms_product_office_professional_plus_2013": "Office Professional Plus 2013",
+  "@kms_product_office_professional_plus_2013": {
+    "description": "kms_product_office_professional_plus_2013"
+  },
+  "kms_product_office_standard_2013": "Office Standard 2013",
+  "@kms_product_office_standard_2013": {
+    "description": "kms_product_office_standard_2013"
+  },
+  "office_pkg_name_2024": "Office LTSC Pro Plus 2024",
+  "@office_pkg_name_2024": {
+    "description": "office_pkg_name_2024"
+  },
+  "pkg_cat_ssh_moderno": "Moderní SSH",
+  "@pkg_cat_ssh_moderno": {
+    "description": "pkg_cat_ssh_moderno"
+  },
+  "pkg_cat_modelos_locales": "Modelová národní prostředí",
+  "@pkg_cat_modelos_locales": {
+    "description": "pkg_cat_modelos_locales"
+  },
+  "pkg_cat_gpu_compute": "výpočet GPU",
+  "@pkg_cat_gpu_compute": {
+    "description": "pkg_cat_gpu_compute"
+  },
+  "pkg_cat_compresor": "Kompresor",
+  "@pkg_cat_compresor": {
+    "description": "pkg_cat_compresor"
+  },
+  "pkg_cat_instaladores": "Instaladores",
+  "@pkg_cat_instaladores": {
+    "description": "pkg_cat_instaladores"
+  },
+  "pkg_cat_limpieza": "Limpieza",
+  "@pkg_cat_limpieza": {
+    "description": "pkg_cat_limpieza"
+  },
+  "pkg_cat_diagramas": "Diagramy",
+  "@pkg_cat_diagramas": {
+    "description": "pkg_cat_diagramas"
+  },
+  "pkg_cat_ide_ai": "IDE AI",
+  "@pkg_cat_ide_ai": {
+    "description": "pkg_cat_ide_ai"
+  },
+  "pkg_cat_comunicacion": "Komunikace",
+  "@pkg_cat_comunicacion": {
+    "description": "pkg_cat_comunicacion"
+  },
+  "pkg_cat_grabacion": "Grabacion",
+  "@pkg_cat_grabacion": {
+    "description": "pkg_cat_grabacion"
+  },
+  "pkg_cat_bi_desktop": "BI Desktop",
+  "@pkg_cat_bi_desktop": {
+    "description": "pkg_cat_bi_desktop"
+  },
+  "pkg_cat_runtime_juegos": "Runtime juegos",
+  "@pkg_cat_runtime_juegos": {
+    "description": "pkg_cat_runtime_juegos"
+  },
+  "pkg_cat_runtime_c": "Runtime C++",
+  "@pkg_cat_runtime_c": {
+    "description": "pkg_cat_runtime_c"
+  },
+  "disk_management_appbar_title": "ADMINISTRACIÓN DE DISCOS",
+  "@disk_management_appbar_title": {
+    "description": "disk_management_appbar_title"
+  },
+  "common_refresh": "AKTUALIZÁR",
+  "@common_refresh": {
+    "description": "common_refresh"
+  },
+  "disk_selection_title": "Výběr Disco de Destino",
+  "@disk_selection_title": {
+    "description": "disk_selection_title"
+  },
+  "disk_selection_desc": "Elija la unidad física donde se instaluje Windows.",
+  "@disk_selection_desc": {
+    "description": "disk_selection_desc"
+  },
+  "disk_selection_button_start": "POČÁTEČNÍ INSTALACE",
+  "@disk_selection_button_start": {
+    "description": "disk_selection_button_start"
+  },
+  "disk_waiting_wim_hint": "Esperando la detección de install.wim...",
+  "@disk_waiting_wim_hint": {
+    "description": "disk_waiting_wim_hint"
+  },
+  "disk_dialog_confirm_destruction_title": "POTVRĎTE DESTRUCCIÓN DE DATOS",
+  "@disk_dialog_confirm_destruction_title": {
+    "description": "disk_dialog_confirm_destruction_title"
+  },
+  "disk_dialog_confirm_install_title": "POTVRĎTE INSTALACI",
+  "@disk_dialog_confirm_install_title": {
+    "description": "disk_dialog_confirm_install_title"
+  },
+  "disk_dialog_format_warning": "El disco seleccionado se formateará por completo. Se perderán todos los datos.",
+  "@disk_dialog_format_warning": {
+    "description": "disk_dialog_format_warning"
+  },
+  "disk_dialog_existing_notice": "Windows se desplegará en W:\\\\ sin formatear.",
+  "@disk_dialog_existing_notice": {
+    "description": "disk_dialog_existing_notice"
+  },
+  "common_label_disk": "DISK",
+  "@common_label_disk": {
+    "description": "common_label_disk"
+  },
+  "common_label_mode": "MODE",
+  "@common_label_mode": {
+    "description": "common_label_mode"
+  },
+  "common_label_image": "OBRÁZEK",
+  "@common_label_image": {
+    "description": "common_label_image"
+  },
+  "common_cancel": "ZRUŠIT",
+  "@common_cancel": {
+    "description": "common_cancel"
+  },
+  "disk_button_confirm_and_install": "POTVRĎTE A INSTALACI",
+  "@disk_button_confirm_and_install": {
+    "description": "disk_button_confirm_and_install"
+  },
+  "progress_header_badge": "DESPLIEGUE EN CURSO",
+  "@progress_header_badge": {
+    "description": "progress_header_badge"
+  },
+  "progress_footer_warning": "NO DESCONECTE LA ENERGÍA NI RETIRE EL MEDIO DE INSTALACIÓN",
+  "@progress_footer_warning": {
+    "description": "progress_footer_warning"
+  },
+  "tools_badge_package_count": "{count} programů",
+  "@tools_badge_package_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_badge_package_count"
+  },
+  "tools_button_install_all_packages": "INSTALOVAT TODO",
+  "@tools_button_install_all_packages": {
+    "description": "tools_button_install_all_packages"
+  },
+  "tools_section_iso_title": "ISO y despliegue por red",
+  "@tools_section_iso_title": {
+    "description": "tools_section_iso_title"
+  },
+  "tools_section_iso_desc": "Cree medios autonomos con un WIM integrado nebo distribuy a instalaceón directamente por IPv4.",
+  "@tools_section_iso_desc": {
+    "description": "tools_section_iso_desc"
+  },
+  "tools_badge_iso_compatibility": "BIOS + ochrana UEFI",
+  "@tools_badge_iso_compatibility": {
+    "description": "tools_badge_iso_compatibility"
+  },
+  "tools_sidebar_app_name": "REQUIEM",
+  "@tools_sidebar_app_name": {
+    "description": "tools_sidebar_app_name"
+  },
+  "tools_sidebar_tab_kms": "Aktivace KMS",
+  "@tools_sidebar_tab_kms": {
+    "description": "tools_sidebar_tab_kms"
+  },
+  "tools_sidebar_tab_office": "Kancelář instalace",
+  "@tools_sidebar_tab_office": {
+    "description": "tools_sidebar_tab_office"
+  },
+  "tools_sidebar_tab_packages": "Zásobník programů",
+  "@tools_sidebar_tab_packages": {
+    "description": "tools_sidebar_tab_packages"
+  },
+  "tools_sidebar_tab_iso": "ISO a Puente",
+  "@tools_sidebar_tab_iso": {
+    "description": "tools_sidebar_tab_iso"
+  },
+  "tools_sidebar_mode_badge": "Režim místních nástrojů",
+  "@tools_sidebar_mode_badge": {
+    "description": "tools_sidebar_mode_badge"
+  },
+  "wim_bridge_searching": "Vyhledávání mostů Requiem v místní síti IPv4...",
+  "@wim_bridge_searching": {
+    "description": "wim_bridge_searching"
+  },
+  "wim_bridge_not_found": "No se encontró ningún puente. Pruebe con la IP manuál.",
+  "@wim_bridge_not_found": {
+    "description": "wim_bridge_not_found"
+  },
+  "wim_bridge_search_error": "No se pudo buscar el puente: {error}",
+  "@wim_bridge_search_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_search_error"
+  },
+  "wim_bridge_ip_dialog_title": "IP del puente Requiem",
+  "@wim_bridge_ip_dialog_title": {
+    "description": "wim_bridge_ip_dialog_title"
+  },
+  "wim_bridge_ip_placeholder": "192.168.1.20",
+  "@wim_bridge_ip_placeholder": {
+    "description": "wim_bridge_ip_placeholder"
+  },
+  "common_connect": "CONECTAR",
+  "@common_connect": {
+    "description": "common_connect"
+  },
+  "wim_bridge_connection_error": "No se pudo conectar: {error}",
+  "@wim_bridge_connection_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_connection_error"
+  },
+  "wifi_scanning": "Prohledávání dostupných sítí Wi-Fi...",
+  "@wifi_scanning": {
+    "description": "wifi_scanning"
+  },
+  "wifi_none_found": "Žádné protikladné možnosti Wi-Fi.",
+  "@wifi_none_found": {
+    "description": "wifi_none_found"
+  },
+  "wifi_dialog_title": "Připojte se k Wi-Fi",
+  "@wifi_dialog_title": {
+    "description": "wifi_dialog_title"
+  },
+  "wifi_item_signal_security": "{signal}% · {security}",
+  "@wifi_item_signal_security": {
+    "placeholders": {
+      "signal": {
+        "type": "String"
+      },
+      "security": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_item_signal_security"
+  },
+  "wifi_password_hint": "Kontraseña Wi-Fi",
+  "@wifi_password_hint": {
+    "description": "wifi_password_hint"
+  },
+  "wifi_connected_log": "Wi-Fi připojeno k {ssid}. {result}",
+  "@wifi_connected_log": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      },
+      "result": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_log"
+  },
+  "wifi_connected_status": "Připojte se k {ssid}.",
+  "@wifi_connected_status": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_status"
+  },
+  "wifi_connect_error": "Žádné připojení k Wi-Fi: {error}",
+  "@wifi_connect_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connect_error"
+  },
+  "wim_picker_title": "Výběr obrázku systému Windows",
+  "@wim_picker_title": {
+    "description": "wim_picker_title"
+  },
+  "wim_picker_description": "Proporcione la imagen de instalación Windows (install.wim or install.swm)\\n",
+  "@wim_picker_description": {
+    "description": "wim_picker_description"
+  },
+  "wim_status_searching": "Obrázek Buscando…",
+  "@wim_status_searching": {
+    "description": "wim_status_searching"
+  },
+  "wim_status_found": "Imagen encontrada",
+  "@wim_status_found": {
+    "description": "wim_status_found"
+  },
+  "office_pkg_desc_2024": "Klikni a spusť objemový kanál PerpetualVL2024",
+  "@office_pkg_desc_2024": {
+    "description": "office_pkg_desc_2024"
+  },
+  "office_pkg_name_2021": "Office LTSC Pro Plus 2021",
+  "@office_pkg_name_2021": {
+    "description": "office_pkg_name_2021"
+  },
+  "office_pkg_desc_2021": "Klikni a spusť objemový kanál PerpetualVL2021",
+  "@office_pkg_desc_2021": {
+    "description": "office_pkg_desc_2021"
+  },
+  "office_pkg_name_2019": "Office Pro Plus 2019",
+  "@office_pkg_name_2019": {
+    "description": "office_pkg_name_2019"
+  },
+  "office_pkg_desc_2019": "Klikni a spusť objemový kanál PerpetualVL2019",
+  "@office_pkg_desc_2019": {
+    "description": "office_pkg_desc_2019"
+  },
+  "pkg_cat_editor": "redaktor",
+  "@pkg_cat_editor": {
+    "description": "pkg_cat_editor"
+  },
+  "pkg_cat_control_de_versiones": "Kontrola verzí",
+  "@pkg_cat_control_de_versiones": {
+    "description": "pkg_cat_control_de_versiones"
+  },
+  "pkg_cat_javascript": "JavaScript",
+  "@pkg_cat_javascript": {
+    "description": "pkg_cat_javascript"
+  },
+  "pkg_cat_python_3": "Python 3",
+  "@pkg_cat_python_3": {
+    "description": "pkg_cat_python_3"
+  },
+  "pkg_cat_runtime_php": "Runtime PHP",
+  "@pkg_cat_runtime_php": {
+    "description": "pkg_cat_runtime_php"
+  },
+  "pkg_cat_servidor_db": "Servid DB",
+  "@pkg_cat_servidor_db": {
+    "description": "pkg_cat_servidor_db"
+  },
+  "pkg_cat_golang": "Golang",
+  "@pkg_cat_golang": {
+    "description": "pkg_cat_golang"
+  },
+  "pkg_cat_rustup": "Rustup",
+  "@pkg_cat_rustup": {
+    "description": "pkg_cat_rustup"
+  },
+  "pkg_cat_temurin_21": "Temurin 21",
+  "@pkg_cat_temurin_21": {
+    "description": "pkg_cat_temurin_21"
+  },
+  "pkg_cat_desktop": "Desktop",
+  "@pkg_cat_desktop": {
+    "description": "pkg_cat_desktop"
+  },
+  "kms_product_windows_terminal": "Terminál Windows",
+  "@kms_product_windows_terminal": {
+    "description": "kms_product_windows_terminal"
+  },
+  "pkg_cat_terminal_moderno": "Terminál moderno",
+  "@pkg_cat_terminal_moderno": {
+    "description": "pkg_cat_terminal_moderno"
+  },
+  "pkg_cat_subsistema_linux": "Subsystém Linux",
+  "@pkg_cat_subsistema_linux": {
+    "description": "pkg_cat_subsistema_linux"
+  },
+  "kms_product_windows_subsystem_for_linux": "Subsystém Windows pro Linux",
+  "@kms_product_windows_subsystem_for_linux": {
+    "description": "kms_product_windows_subsystem_for_linux"
+  },
+  "pkg_cat_distro_wsl": "Distro WSL",
+  "@pkg_cat_distro_wsl": {
+    "description": "pkg_cat_distro_wsl"
+  },
+  "pkg_cat_navegador": "Navegador",
+  "@pkg_cat_navegador": {
+    "description": "pkg_cat_navegador"
+  },
+  "pkg_cat_ide_android": "IDE Android",
+  "@pkg_cat_ide_android": {
+    "description": "pkg_cat_ide_android"
+  },
+  "pkg_cat_ide_completo": "IDE kompletní",
+  "@pkg_cat_ide_completo": {
+    "description": "pkg_cat_ide_completo"
+  },
+  "pkg_cat_compiladores_c": "Kompilátory C++",
+  "@pkg_cat_compiladores_c": {
+    "description": "pkg_cat_compiladores_c"
+  },
+  "pkg_cat_sdk__net": "SDK .NET",
+  "@pkg_cat_sdk__net": {
+    "description": "pkg_cat_sdk__net"
+  },
+  "pkg_cat_runtime_escritorio": "Runtime escritorio",
+  "@pkg_cat_runtime_escritorio": {
+    "description": "pkg_cat_runtime_escritorio"
+  },
+  "pkg_cat_apache_php_mysql": "Apache PHP MySQL",
+  "@pkg_cat_apache_php_mysql": {
+    "description": "pkg_cat_apache_php_mysql"
+  },
+  "pkg_cat_cliente_db": "Klientská DB",
+  "@pkg_cat_cliente_db": {
+    "description": "pkg_cat_cliente_db"
+  },
+  "pkg_cat_cliente_api": "Klientské rozhraní API",
+  "@pkg_cat_cliente_api": {
+    "description": "pkg_cat_cliente_api"
+  },
+  "pkg_cat_ssh_clasico": "Klasika SSH",
+  "@pkg_cat_ssh_clasico": {
+    "description": "pkg_cat_ssh_clasico"
+  },
+  "progress_button_reboot": "REINICIÁRNÍ SYSTÉM",
+  "@progress_button_reboot": {
+    "description": "progress_button_reboot"
+  },
+  "landing_title_installer": "VYŽÁDEJTE INSTALATORA",
+  "@landing_title_installer": {
+    "description": "landing_title_installer"
+  },
+  "landing_title_tools": "VYŽADOVAT NÁSTROJE",
+  "@landing_title_tools": {
+    "description": "landing_title_tools"
+  },
+  "landing_subtitle": "DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN",
+  "@landing_subtitle": {
+    "description": "landing_subtitle"
+  },
+  "landing_description_part1": "Instalace Windows s vyšší přesností pro vyšší verzi.",
+  "@landing_description_part1": {
+    "description": "landing_description_part1"
+  },
+  "landing_description_part2": "Experimente un despliegue rápido con orquestación directa de DISM y optimalización automatizada del sistema.",
+  "@landing_description_part2": {
+    "description": "landing_description_part2"
+  },
+  "landing_button_start": "EMPEZAR",
+  "@landing_button_start": {
+    "description": "landing_button_start"
+  },
+  "landing_button_logs": "LOGS DEL SISTEMA",
+  "@landing_button_logs": {
+    "description": "landing_button_logs"
+  },
+  "landing_badge_version": "STABILNÍ VERZE",
+  "@landing_badge_version": {
+    "description": "landing_badge_version"
+  },
+  "landing_badge_secure_boot": "KOMPATIBILNÍ ZABEZPEČENÁ BOTA",
+  "@landing_badge_secure_boot": {
+    "description": "landing_badge_secure_boot"
+  },
+  "landing_badge_author": "DISEÑADO POR JOSS",
+  "@landing_badge_author": {
+    "description": "landing_badge_author"
+  },
+  "tools_kms_empty_host_error": "CHYBA: el host KMS esta vacio.",
+  "@tools_kms_empty_host_error": {
+    "description": "tools_kms_empty_host_error"
+  },
+  "tools_log_format": "[{time}] {message}",
+  "@tools_log_format": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    },
+    "description": "tools_log_format"
+  },
+  "tools_kms_no_products_selected": "Žádné produkty sena KMS seleccionados.",
+  "@tools_kms_no_products_selected": {
+    "description": "tools_kms_no_products_selected"
+  },
+  "tools_kms_checking_connectivity": "Kombinované připojení s {host}:1688...",
+  "@tools_kms_checking_connectivity": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_checking_connectivity"
+  },
+  "tools_kms_error_log": "CHYBA KMS: {error}",
+  "@tools_kms_error_log": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_error_log"
+  },
+  "tools_packages_none_selected": "Žádné seno programy jako seleccionados.",
+  "@tools_packages_none_selected": {
+    "description": "tools_packages_none_selected"
+  },
+  "tools_packages_none_detected": "No se detectaron paquetes conocidos con winget.",
+  "@tools_packages_none_detected": {
+    "description": "tools_packages_none_detected"
+  },
+  "tools_packages_detected_count": "Paquetes detectados: {count}.",
+  "@tools_packages_detected_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_packages_detected_count"
+  },
+  "tools_logs_copied_snackbar": "Záznamy kopií al portapapeles.",
+  "@tools_logs_copied_snackbar": {
+    "description": "tools_logs_copied_snackbar"
+  },
+  "tools_header_title": "VYŽADOVAT NÁSTROJE PRO MIGRACI",
+  "@tools_header_title": {
+    "description": "tools_header_title"
+  },
+  "tools_section_activation_title": "Activación de Licencias",
+  "@tools_section_activation_title": {
+    "description": "tools_section_activation_title"
+  },
+  "tools_section_activation_desc": "Konfigurace místního nebo vzdáleného serveru KMS pro Windows a Office.",
+  "@tools_section_activation_desc": {
+    "description": "tools_section_activation_desc"
+  },
+  "tools_badge_kms_pending": "KMS pendiente",
+  "@tools_badge_kms_pending": {
+    "description": "tools_badge_kms_pending"
+  },
+  "tools_button_activate_kms": "ACTIVAR KMS",
+  "@tools_button_activate_kms": {
+    "description": "tools_button_activate_kms"
+  },
+  "tools_section_office_title": "Instalatér Office",
+  "@tools_section_office_title": {
+    "description": "tools_section_office_title"
+  },
+  "tools_section_office_desc": "Despliega Microsoft Office LTSC nebo 365 výrobní automatizace pomocí ODT.",
+  "@tools_section_office_desc": {
+    "description": "tools_section_office_desc"
+  },
+  "tools_button_install_office": "INSTALAČNÍ KANCELÁŘ",
+  "@tools_button_install_office": {
+    "description": "tools_button_install_office"
+  },
+  "tools_section_packages_title": "Stack de Aplicaciones",
+  "@tools_section_packages_title": {
+    "description": "tools_section_packages_title"
+  },
+  "tools_section_packages_desc": "Nainstalujte a aktualizujte herramentas desarrollo esenciales pro Windows mediante winget.",
+  "@tools_section_packages_desc": {
+    "description": "tools_section_packages_desc"
+  },
+  "wim_status_not_found": "Nebyl nalezen žádný obrázek",
+  "@wim_status_not_found": {
+    "description": "wim_status_not_found"
+  },
+  "wim_manual_search_hint": "Použijte \"Buscar\" pro lokalizaci a archivaci WIM manuálu.",
+  "@wim_manual_search_hint": {
+    "description": "wim_manual_search_hint"
+  },
+  "wim_button_change_file": "CAMBIAR ARCHIVO",
+  "@wim_button_change_file": {
+    "description": "wim_button_change_file"
+  },
+  "common_search": "BUSKAR",
+  "@common_search": {
+    "description": "common_search"
+  },
+  "common_continue": "POKRAČOVAT",
+  "@common_continue": {
+    "description": "common_continue"
+  },
+  "wim_button_rescan": "Escanear unidades de nuevo",
+  "@wim_button_rescan": {
+    "description": "wim_button_rescan"
+  },
+  "wim_bridge_section_header": "O reciba la instalación preparada desde Requiem para Windows",
+  "@wim_bridge_section_header": {
+    "description": "wim_bridge_section_header"
+  },
+  "wim_button_connect_wifi": "CONECTAR WI-FI",
+  "@wim_button_connect_wifi": {
+    "description": "wim_button_connect_wifi"
+  },
+  "wim_button_search_bridge": "BUSCAR PUENTE",
+  "@wim_button_search_bridge": {
+    "description": "wim_button_search_bridge"
+  },
+  "wim_button_manual_ip": "USAR IP MANUÁL",
+  "@wim_button_manual_ip": {
+    "description": "wim_button_manual_ip"
+  },
+  "console_title": "Consola del Sistema",
+  "@console_title": {
+    "description": "console_title"
+  },
+  "console_tooltip_copy": "Kopie protokoly",
+  "@console_tooltip_copy": {
+    "description": "console_tooltip_copy"
+  },
+  "console_tooltip_clear": "Limpiarské kulatiny",
+  "@console_tooltip_clear": {
+    "description": "console_tooltip_clear"
+  },
+  "console_waiting_action": "Esperando una acción...",
+  "@console_waiting_action": {
+    "description": "console_waiting_action"
+  },
+  "file_explorer_default_title": "Vyberte obrázek instalace systému Windows",
+  "@file_explorer_default_title": {
+    "description": "file_explorer_default_title"
+  },
+  "file_explorer_read_error": "Žádný seznam není v adresáři.\\n{error}",
+  "@file_explorer_read_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_read_error"
+  },
+  "file_explorer_drives_header": "UNIDADES",
+  "@file_explorer_drives_header": {
+    "description": "file_explorer_drives_header"
+  },
+  "file_explorer_filter_hint": "Filtrační…",
+  "@file_explorer_filter_hint": {
+    "description": "file_explorer_filter_hint"
+  },
+  "file_explorer_go_up_tooltip": "Subir un nivel",
+  "@file_explorer_go_up_tooltip": {
+    "description": "file_explorer_go_up_tooltip"
+  },
+  "file_explorer_invalid_path_error": "Ruta inválida: {val}",
+  "@file_explorer_invalid_path_error": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_invalid_path_error"
+  },
+  "file_explorer_empty_folder": "Esta carpeta está vacía",
+  "@file_explorer_empty_folder": {
+    "description": "file_explorer_empty_folder"
+  },
+  "file_explorer_selected_file": "Výběr: {path}",
+  "@file_explorer_selected_file": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_selected_file"
+  },
+  "file_explorer_select_file_hint": "Seleccione un archivo .wim o .swm",
+  "@file_explorer_select_file_hint": {
+    "description": "file_explorer_select_file_hint"
+  },
+  "common_select": "SELECCIONAR",
+  "@common_select": {
+    "description": "common_select"
+  },
+  "disk_wim_integrated_source": "Integrace WIM do ISO",
+  "@disk_wim_integrated_source": {
+    "description": "disk_wim_integrated_source"
+  },
+  "disk_wim_bridge_source": "Puente: ${controller.bridgeAnnouncement?.imageName ??",
+  "@disk_wim_bridge_source": {
+    "description": "disk_wim_bridge_source"
+  },
+  "wim_status_searching_alt": "Obrázek Buscando...",
+  "@wim_status_searching_alt": {
+    "description": "wim_status_searching_alt"
+  },
+  "disk_wim_detected": "Obrazová detekce",
+  "@disk_wim_detected": {
+    "description": "disk_wim_detected"
+  },
+  "disk_wim_not_found": "Imagen no contrada",
+  "@disk_wim_not_found": {
+    "description": "disk_wim_not_found"
+  },
+  "common_change": "CAMBIAR",
+  "@common_change": {
+    "description": "common_change"
+  },
+  "disk_partition_gpt_uefi": "GPT / UEFI",
+  "@disk_partition_gpt_uefi": {
+    "description": "disk_partition_gpt_uefi"
+  },
+  "disk_partition_mbr_bios": "MBR / BIOS",
+  "@disk_partition_mbr_bios": {
+    "description": "disk_partition_mbr_bios"
+  },
+  "disk_boot_firmware_label": "Skutečná objednávka: {firmware}",
+  "@disk_boot_firmware_label": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "disk_boot_firmware_label"
+  },
+  "disk_recommended_mode_label": "Kompatibilní s režimem: {recommended}",
+  "@disk_recommended_mode_label": {
+    "placeholders": {
+      "recommended": {
+        "type": "String"
+      }
+    },
+    "description": "disk_recommended_mode_label"
+  },
+  "disk_empty_list": "No se detectaron discos fisicos",
+  "@disk_empty_list": {
+    "description": "disk_empty_list"
+  },
+  "disk_badge_system": "SYSTÉM",
+  "@disk_badge_system": {
+    "description": "disk_badge_system"
+  },
+  "disk_item_header": "DISK {diskNumber} · {mediaType} · {busType}",
+  "@disk_item_header": {
+    "placeholders": {
+      "diskNumber": {
+        "type": "String"
+      },
+      "mediaType": {
+        "type": "String"
+      },
+      "busType": {
+        "type": "String"
+      }
+    },
+    "description": "disk_item_header"
+  },
+  "disk_size_gb": "{sizeGB} GB",
+  "@disk_size_gb": {
+    "placeholders": {
+      "sizeGB": {
+        "type": "String"
+      }
+    },
+    "description": "disk_size_gb"
+  },
+  "iso_bridge_list_interfaces_error": "Žádné výčet IPv4 rozhraní: {error}",
+  "@iso_bridge_list_interfaces_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_list_interfaces_error"
+  },
+  "iso_bridge_generic_error": "CHYBA: {error}",
+  "@iso_bridge_generic_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_generic_error"
+  },
+  "iso_bridge_select_wim_dialog": "Vyberte obrázek WIM systému Windows",
+  "@iso_bridge_select_wim_dialog": {
+    "description": "iso_bridge_select_wim_dialog"
+  },
+  "iso_bridge_wim_selected_log": "Výběr WIM: {path}",
+  "@iso_bridge_wim_selected_log": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_wim_selected_log"
+  },
+  "iso_bridge_save_simple_iso_dialog": "Guardar ISO simple de Requiem",
+  "@iso_bridge_save_simple_iso_dialog": {
+    "description": "iso_bridge_save_simple_iso_dialog"
+  },
+  "iso_bridge_simple_iso_filename": "Requiem-Installer-Simple.iso",
+  "@iso_bridge_simple_iso_filename": {
+    "description": "iso_bridge_simple_iso_filename"
+  },
+  "iso_bridge_save_wim_iso_dialog": "Strážce ISO de Requiem s WIM",
+  "@iso_bridge_save_wim_iso_dialog": {
+    "description": "iso_bridge_save_wim_iso_dialog"
+  },
+  "iso_bridge_start_validation_error": "Vyberte WIM a rozhraní IPv4.",
+  "@iso_bridge_start_validation_error": {
+    "description": "iso_bridge_start_validation_error"
+  },
+  "iso_panel_title_media": "Medio de instalace",
+  "@iso_panel_title_media": {
+    "description": "iso_panel_title_media"
+  },
+  "iso_panel_desc_media": "Získání základny ISO pro výběr WIM v systému Windows, který je automatickým systémem ISO, který je součástí obrazu systému Windows.",
+  "@iso_panel_desc_media": {
+    "description": "iso_panel_desc_media"
+  },
+  "iso_panel_button_simple_iso": "OBTENER ISO PARA INSTALACIÓN SOLAMENTE",
+  "@iso_panel_button_simple_iso": {
+    "description": "iso_panel_button_simple_iso"
+  },
+  "iso_panel_button_select_wim": "SELECCIONAR WIM",
+  "@iso_panel_button_select_wim": {
+    "description": "iso_panel_button_select_wim"
+  },
+  "iso_panel_button_generate_iso": "GENERÁRNÍ ISO",
+  "@iso_panel_button_generate_iso": {
+    "description": "iso_panel_button_generate_iso"
+  },
+  "iso_panel_title_bridge": "Puente IPv4 instalace",
+  "@iso_panel_title_bridge": {
+    "description": "iso_panel_title_bridge"
+  },
+  "iso_bridge_clients_count": "{clients} připojení",
+  "@iso_bridge_clients_count": {
+    "placeholders": {
+      "clients": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_clients_count"
+  },
+  "iso_bridge_desc": "Připravte se na WIM tak, abyste předali přímou cestu pro klienty Requiem de la misma red. Klienti nejsou chráněni před instalací WIM.",
+  "@iso_bridge_desc": {
+    "description": "iso_bridge_desc"
+  },
+  "office_odt_panel_title": "Nástroj Office Deployment Tool",
+  "@office_odt_panel_title": {
+    "description": "office_odt_panel_title"
+  },
+  "office_odt_kms_badge": "ODT + KMS",
+  "@office_odt_kms_badge": {
+    "description": "office_odt_kms_badge"
   }
 }

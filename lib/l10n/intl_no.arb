@@ -619,5 +619,954 @@
   "wingetUnavailable": "Winget er ikke installert eller er ikke i PATH.",
   "@wingetUnavailable": {
     "description": "wingetUnavailable"
+  },
+  "office_pkg_desc_2024": "Klikk og kjør volumet med kanalen PerpetualVL2024",
+  "@office_pkg_desc_2024": {
+    "description": "office_pkg_desc_2024"
+  },
+  "office_pkg_name_2021": "LTSC Pro Plus Office 2021",
+  "@office_pkg_name_2021": {
+    "description": "office_pkg_name_2021"
+  },
+  "office_pkg_desc_2021": "Klikk og kjør volum med kanalen PerpetualVL2021",
+  "@office_pkg_desc_2021": {
+    "description": "office_pkg_desc_2021"
+  },
+  "office_pkg_name_2019": "Office Pro Plus 2019",
+  "@office_pkg_name_2019": {
+    "description": "office_pkg_name_2019"
+  },
+  "office_pkg_desc_2019": "Klikk og kjør volumet med kanalen PerpetualVL2019",
+  "@office_pkg_desc_2019": {
+    "description": "office_pkg_desc_2019"
+  },
+  "pkg_cat_editor": "Redaktør",
+  "@pkg_cat_editor": {
+    "description": "pkg_cat_editor"
+  },
+  "pkg_cat_control_de_versiones": "Versjonskontroll",
+  "@pkg_cat_control_de_versiones": {
+    "description": "pkg_cat_control_de_versiones"
+  },
+  "pkg_cat_javascript": "javascript",
+  "@pkg_cat_javascript": {
+    "description": "pkg_cat_javascript"
+  },
+  "pkg_cat_python_3": "Python 3",
+  "@pkg_cat_python_3": {
+    "description": "pkg_cat_python_3"
+  },
+  "pkg_cat_runtime_php": "PHP under kjøring",
+  "@pkg_cat_runtime_php": {
+    "description": "pkg_cat_runtime_php"
+  },
+  "pkg_cat_servidor_db": "DB server",
+  "@pkg_cat_servidor_db": {
+    "description": "pkg_cat_servidor_db"
+  },
+  "pkg_cat_golang": "golang",
+  "@pkg_cat_golang": {
+    "description": "pkg_cat_golang"
+  },
+  "pkg_cat_rustup": "rusten",
+  "@pkg_cat_rustup": {
+    "description": "pkg_cat_rustup"
+  },
+  "pkg_cat_temurin_21": "Temurin 21",
+  "@pkg_cat_temurin_21": {
+    "description": "pkg_cat_temurin_21"
+  },
+  "pkg_cat_desktop": "Skrivebord",
+  "@pkg_cat_desktop": {
+    "description": "pkg_cat_desktop"
+  },
+  "kms_product_windows_terminal": "Windows-terminal",
+  "@kms_product_windows_terminal": {
+    "description": "kms_product_windows_terminal"
+  },
+  "pkg_cat_terminal_moderno": "moderne terminal",
+  "@pkg_cat_terminal_moderno": {
+    "description": "pkg_cat_terminal_moderno"
+  },
+  "pkg_cat_subsistema_linux": "linux undersystem",
+  "@pkg_cat_subsistema_linux": {
+    "description": "pkg_cat_subsistema_linux"
+  },
+  "kms_product_windows_subsystem_for_linux": "Windows-undersystem for Linux",
+  "@kms_product_windows_subsystem_for_linux": {
+    "description": "kms_product_windows_subsystem_for_linux"
+  },
+  "pkg_cat_distro_wsl": "WSL distribusjon",
+  "@pkg_cat_distro_wsl": {
+    "description": "pkg_cat_distro_wsl"
+  },
+  "pkg_cat_navegador": "Nettleser",
+  "@pkg_cat_navegador": {
+    "description": "pkg_cat_navegador"
+  },
+  "pkg_cat_ide_android": "IDAndroid",
+  "@pkg_cat_ide_android": {
+    "description": "pkg_cat_ide_android"
+  },
+  "pkg_cat_ide_completo": "Fullfør IDE",
+  "@pkg_cat_ide_completo": {
+    "description": "pkg_cat_ide_completo"
+  },
+  "pkg_cat_compiladores_c": "C++ kompilatorer",
+  "@pkg_cat_compiladores_c": {
+    "description": "pkg_cat_compiladores_c"
+  },
+  "pkg_cat_sdk__net": ".NET SDK",
+  "@pkg_cat_sdk__net": {
+    "description": "pkg_cat_sdk__net"
+  },
+  "pkg_cat_runtime_escritorio": "Runtime Desktop",
+  "@pkg_cat_runtime_escritorio": {
+    "description": "pkg_cat_runtime_escritorio"
+  },
+  "pkg_cat_apache_php_mysql": "Apache PHP MySQL",
+  "@pkg_cat_apache_php_mysql": {
+    "description": "pkg_cat_apache_php_mysql"
+  },
+  "pkg_cat_cliente_db": "Kundedatabase",
+  "@pkg_cat_cliente_db": {
+    "description": "pkg_cat_cliente_db"
+  },
+  "pkg_cat_cliente_api": "Client API",
+  "@pkg_cat_cliente_api": {
+    "description": "pkg_cat_cliente_api"
+  },
+  "pkg_cat_ssh_clasico": "klassisk SSH",
+  "@pkg_cat_ssh_clasico": {
+    "description": "pkg_cat_ssh_clasico"
+  },
+  "app_title_installer": "Requiem Installer",
+  "@app_title_installer": {
+    "description": "app_title_installer"
+  },
+  "app_title_tools": "Requiem-verktøy",
+  "@app_title_tools": {
+    "description": "app_title_tools"
+  },
+  "kms_product_windows_8_1_pro": "Windows 8.1 Pro",
+  "@kms_product_windows_8_1_pro": {
+    "description": "kms_product_windows_8_1_pro"
+  },
+  "kms_product_windows_8_1_enterprise": "Windows 8.1 Enterprise",
+  "@kms_product_windows_8_1_enterprise": {
+    "description": "kms_product_windows_8_1_enterprise"
+  },
+  "kms_product_windows_8_pro": "Windows 8 Pro",
+  "@kms_product_windows_8_pro": {
+    "description": "kms_product_windows_8_pro"
+  },
+  "kms_product_windows_8_enterprise": "Windows 8 Business",
+  "@kms_product_windows_8_enterprise": {
+    "description": "kms_product_windows_8_enterprise"
+  },
+  "kms_product_windows_server_2025_standard": "Windows Server 2025 Standard",
+  "@kms_product_windows_server_2025_standard": {
+    "description": "kms_product_windows_server_2025_standard"
+  },
+  "kms_product_windows_server_2025_datacenter": "Windows Server 2025 Datasenter",
+  "@kms_product_windows_server_2025_datacenter": {
+    "description": "kms_product_windows_server_2025_datacenter"
+  },
+  "kms_product_windows_server_2022_standard": "Windows Server 2022 Standard",
+  "@kms_product_windows_server_2022_standard": {
+    "description": "kms_product_windows_server_2022_standard"
+  },
+  "kms_product_windows_server_2022_datacenter": "Windows Server 2022 Datasenter",
+  "@kms_product_windows_server_2022_datacenter": {
+    "description": "kms_product_windows_server_2022_datacenter"
+  },
+  "kms_product_windows_server_2019_standard": "Windows Server Standard 2019",
+  "@kms_product_windows_server_2019_standard": {
+    "description": "kms_product_windows_server_2019_standard"
+  },
+  "kms_product_windows_server_2019_datacenter": "Windows Server 2019 Datasenter",
+  "@kms_product_windows_server_2019_datacenter": {
+    "description": "kms_product_windows_server_2019_datacenter"
+  },
+  "kms_product_windows_10_11_pro": "Windows 10/11 Pro",
+  "@kms_product_windows_10_11_pro": {
+    "description": "kms_product_windows_10_11_pro"
+  },
+  "kms_product_windows_10_11_pro_n": "Windows 10/11 Pro N",
+  "@kms_product_windows_10_11_pro_n": {
+    "description": "kms_product_windows_10_11_pro_n"
+  },
+  "kms_product_windows_10_11_pro_for_workstations": "Windows 10/11 Pro for arbeidsstasjoner",
+  "@kms_product_windows_10_11_pro_for_workstations": {
+    "description": "kms_product_windows_10_11_pro_for_workstations"
+  },
+  "kms_product_windows_10_11_pro_education": "Windows 10/11 Pro Education",
+  "@kms_product_windows_10_11_pro_education": {
+    "description": "kms_product_windows_10_11_pro_education"
+  },
+  "kms_product_windows_10_11_education": "Windows 10/11 Education",
+  "@kms_product_windows_10_11_education": {
+    "description": "kms_product_windows_10_11_education"
+  },
+  "kms_product_windows_10_11_education_n": "Windows 10/11 Education N",
+  "@kms_product_windows_10_11_education_n": {
+    "description": "kms_product_windows_10_11_education_n"
+  },
+  "kms_product_windows_10_11_enterprise": "Windows 10/11 business",
+  "@kms_product_windows_10_11_enterprise": {
+    "description": "kms_product_windows_10_11_enterprise"
+  },
+  "kms_product_windows_10_11_enterprise_n": "Windows 10/11 Enterprise N",
+  "@kms_product_windows_10_11_enterprise_n": {
+    "description": "kms_product_windows_10_11_enterprise_n"
+  },
+  "kms_product_windows_10_11_enterprise_g": "Windows 10/11 Enterprise G",
+  "@kms_product_windows_10_11_enterprise_g": {
+    "description": "kms_product_windows_10_11_enterprise_g"
+  },
+  "kms_product_windows_10_11_enterprise_g_n": "Windows 10/11 Enterprise G N",
+  "@kms_product_windows_10_11_enterprise_g_n": {
+    "description": "kms_product_windows_10_11_enterprise_g_n"
+  },
+  "kms_product_windows_10_11_pro_workstations": "Windows 10/11 Pro arbeidsstasjoner",
+  "@kms_product_windows_10_11_pro_workstations": {
+    "description": "kms_product_windows_10_11_pro_workstations"
+  },
+  "kms_product_office_ltsc_professional_plus_2024": "LTSC Professional Plus Office 2024",
+  "@kms_product_office_ltsc_professional_plus_2024": {
+    "description": "kms_product_office_ltsc_professional_plus_2024"
+  },
+  "kms_product_office_ltsc_professional_plus_2021": "LTSC Professional Plus Office 2021",
+  "@kms_product_office_ltsc_professional_plus_2021": {
+    "description": "kms_product_office_ltsc_professional_plus_2021"
+  },
+  "kms_product_office_professional_plus_2019": "Professional Office Plus 2019",
+  "@kms_product_office_professional_plus_2019": {
+    "description": "kms_product_office_professional_plus_2019"
+  },
+  "kms_product_office_professional_plus_2016": "Office Professional Plus 2016",
+  "@kms_product_office_professional_plus_2016": {
+    "description": "kms_product_office_professional_plus_2016"
+  },
+  "kms_product_office_professional_plus_2013": "Office Professional Plus 2013",
+  "@kms_product_office_professional_plus_2013": {
+    "description": "kms_product_office_professional_plus_2013"
+  },
+  "kms_product_office_standard_2013": "Office Standard 2013",
+  "@kms_product_office_standard_2013": {
+    "description": "kms_product_office_standard_2013"
+  },
+  "office_pkg_name_2024": "LTSC Pro Plus Office 2024",
+  "@office_pkg_name_2024": {
+    "description": "office_pkg_name_2024"
+  },
+  "tools_badge_package_count": "{count} programmer",
+  "@tools_badge_package_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_badge_package_count"
+  },
+  "tools_button_install_all_packages": "INSTALLER ALT",
+  "@tools_button_install_all_packages": {
+    "description": "tools_button_install_all_packages"
+  },
+  "tools_section_iso_title": "ISO og rødt display",
+  "@tools_section_iso_title": {
+    "description": "tools_section_iso_title"
+  },
+  "tools_section_iso_desc": "Lag frittstående medier med en integrert WIM eller distribuer en installasjon direkte over IPv4.",
+  "@tools_section_iso_desc": {
+    "description": "tools_section_iso_desc"
+  },
+  "tools_badge_iso_compatibility": "BIOS + UEFI-konservative",
+  "@tools_badge_iso_compatibility": {
+    "description": "tools_badge_iso_compatibility"
+  },
+  "tools_sidebar_app_name": "REQUIEM",
+  "@tools_sidebar_app_name": {
+    "description": "tools_sidebar_app_name"
+  },
+  "tools_sidebar_tab_kms": "KMS-aktivering",
+  "@tools_sidebar_tab_kms": {
+    "description": "tools_sidebar_tab_kms"
+  },
+  "tools_sidebar_tab_office": "Office installasjon",
+  "@tools_sidebar_tab_office": {
+    "description": "tools_sidebar_tab_office"
+  },
+  "tools_sidebar_tab_packages": "Stable programmer",
+  "@tools_sidebar_tab_packages": {
+    "description": "tools_sidebar_tab_packages"
+  },
+  "tools_sidebar_tab_iso": "ISO og Bridge",
+  "@tools_sidebar_tab_iso": {
+    "description": "tools_sidebar_tab_iso"
+  },
+  "tools_sidebar_mode_badge": "Lokal verktøymodus",
+  "@tools_sidebar_mode_badge": {
+    "description": "tools_sidebar_mode_badge"
+  },
+  "wim_bridge_searching": "Søker etter Requiem-broer på det lokale IPv4-nettverket...",
+  "@wim_bridge_searching": {
+    "description": "wim_bridge_searching"
+  },
+  "wim_bridge_not_found": "Ingen bro ble funnet. Prøv IP-manualen.",
+  "@wim_bridge_not_found": {
+    "description": "wim_bridge_not_found"
+  },
+  "wim_bridge_search_error": "Kunne ikke søke etter bro: {error}",
+  "@wim_bridge_search_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_search_error"
+  },
+  "wim_bridge_ip_dialog_title": "Requiem Bridge IP",
+  "@wim_bridge_ip_dialog_title": {
+    "description": "wim_bridge_ip_dialog_title"
+  },
+  "wim_bridge_ip_placeholder": "192.168.1.20",
+  "@wim_bridge_ip_placeholder": {
+    "description": "wim_bridge_ip_placeholder"
+  },
+  "common_connect": "KOBLE TIL",
+  "@common_connect": {
+    "description": "common_connect"
+  },
+  "wim_bridge_connection_error": "Kunne ikke koble til: {error}",
+  "@wim_bridge_connection_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_connection_error"
+  },
+  "wifi_scanning": "Søker etter tilgjengelige Wi-Fi-nettverk...",
+  "@wifi_scanning": {
+    "description": "wifi_scanning"
+  },
+  "wifi_none_found": "Finner ingen tilgjengelige Wi-Fi-nettverk.",
+  "@wifi_none_found": {
+    "description": "wifi_none_found"
+  },
+  "wifi_dialog_title": "Koble installasjonsprogrammet til Wi-Fi",
+  "@wifi_dialog_title": {
+    "description": "wifi_dialog_title"
+  },
+  "wifi_item_signal_security": "{signal}% · {security}",
+  "@wifi_item_signal_security": {
+    "placeholders": {
+      "signal": {
+        "type": "String"
+      },
+      "security": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_item_signal_security"
+  },
+  "wifi_password_hint": "Wi-Fi-passord",
+  "@wifi_password_hint": {
+    "description": "wifi_password_hint"
+  },
+  "wifi_connected_log": "Wi-Fi koblet til {ssid}. {result}",
+  "@wifi_connected_log": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      },
+      "result": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_log"
+  },
+  "wifi_connected_status": "Koblet til {ssid}.",
+  "@wifi_connected_status": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_status"
+  },
+  "wifi_connect_error": "Kunne ikke koble til Wi-Fi: {error}",
+  "@wifi_connect_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connect_error"
+  },
+  "wim_picker_title": "Velg Windows Image",
+  "@wim_picker_title": {
+    "description": "wim_picker_title"
+  },
+  "wim_picker_description": "Oppgi Windows-installasjonsbildet (install.wim eller install.swm)\\n",
+  "@wim_picker_description": {
+    "description": "wim_picker_description"
+  },
+  "wim_status_searching": "Søker etter bilde …",
+  "@wim_status_searching": {
+    "description": "wim_status_searching"
+  },
+  "wim_status_found": "Bilde funnet",
+  "@wim_status_found": {
+    "description": "wim_status_found"
+  },
+  "pkg_cat_ssh_moderno": "Moderne SSH",
+  "@pkg_cat_ssh_moderno": {
+    "description": "pkg_cat_ssh_moderno"
+  },
+  "pkg_cat_modelos_locales": "Lokale modeller",
+  "@pkg_cat_modelos_locales": {
+    "description": "pkg_cat_modelos_locales"
+  },
+  "pkg_cat_gpu_compute": "GPU-databehandling",
+  "@pkg_cat_gpu_compute": {
+    "description": "pkg_cat_gpu_compute"
+  },
+  "pkg_cat_compresor": "kompressor",
+  "@pkg_cat_compresor": {
+    "description": "pkg_cat_compresor"
+  },
+  "pkg_cat_instaladores": "Installatører",
+  "@pkg_cat_instaladores": {
+    "description": "pkg_cat_instaladores"
+  },
+  "pkg_cat_limpieza": "rengjøring",
+  "@pkg_cat_limpieza": {
+    "description": "pkg_cat_limpieza"
+  },
+  "pkg_cat_diagramas": "diagrammer",
+  "@pkg_cat_diagramas": {
+    "description": "pkg_cat_diagramas"
+  },
+  "pkg_cat_ide_ai": "IDE IA",
+  "@pkg_cat_ide_ai": {
+    "description": "pkg_cat_ide_ai"
+  },
+  "pkg_cat_comunicacion": "kommunikasjon",
+  "@pkg_cat_comunicacion": {
+    "description": "pkg_cat_comunicacion"
+  },
+  "pkg_cat_grabacion": "Opptak",
+  "@pkg_cat_grabacion": {
+    "description": "pkg_cat_grabacion"
+  },
+  "pkg_cat_bi_desktop": "BI Desktop",
+  "@pkg_cat_bi_desktop": {
+    "description": "pkg_cat_bi_desktop"
+  },
+  "pkg_cat_runtime_juegos": "runtime spill",
+  "@pkg_cat_runtime_juegos": {
+    "description": "pkg_cat_runtime_juegos"
+  },
+  "pkg_cat_runtime_c": "C++ kjøretid",
+  "@pkg_cat_runtime_c": {
+    "description": "pkg_cat_runtime_c"
+  },
+  "disk_management_appbar_title": "DISKHÅNDTERING",
+  "@disk_management_appbar_title": {
+    "description": "disk_management_appbar_title"
+  },
+  "common_refresh": "OPPDATERING",
+  "@common_refresh": {
+    "description": "common_refresh"
+  },
+  "disk_selection_title": "Velg Destinasjonsdisk",
+  "@disk_selection_title": {
+    "description": "disk_selection_title"
+  },
+  "disk_selection_desc": "Velg den fysiske stasjonen der Windows skal installeres.",
+  "@disk_selection_desc": {
+    "description": "disk_selection_desc"
+  },
+  "disk_selection_button_start": "START INSTALLASJONEN",
+  "@disk_selection_button_start": {
+    "description": "disk_selection_button_start"
+  },
+  "disk_waiting_wim_hint": "Venter på oppdagelse av install.wim...",
+  "@disk_waiting_wim_hint": {
+    "description": "disk_waiting_wim_hint"
+  },
+  "disk_dialog_confirm_destruction_title": "BEKREFT DESTRUKSJON AV DATA",
+  "@disk_dialog_confirm_destruction_title": {
+    "description": "disk_dialog_confirm_destruction_title"
+  },
+  "disk_dialog_confirm_install_title": "BEKREFT INSTALLASJON",
+  "@disk_dialog_confirm_install_title": {
+    "description": "disk_dialog_confirm_install_title"
+  },
+  "disk_dialog_format_warning": "Den valgte disken vil bli fullstendig formatert. Alle data vil gå tapt.",
+  "@disk_dialog_format_warning": {
+    "description": "disk_dialog_format_warning"
+  },
+  "disk_dialog_existing_notice": "Windows vil distribuere til W:\\\\ uten formatering.",
+  "@disk_dialog_existing_notice": {
+    "description": "disk_dialog_existing_notice"
+  },
+  "common_label_disk": "DISC",
+  "@common_label_disk": {
+    "description": "common_label_disk"
+  },
+  "common_label_mode": "MODUS",
+  "@common_label_mode": {
+    "description": "common_label_mode"
+  },
+  "common_label_image": "BILDE",
+  "@common_label_image": {
+    "description": "common_label_image"
+  },
+  "common_cancel": "AVBRYT",
+  "@common_cancel": {
+    "description": "common_cancel"
+  },
+  "disk_button_confirm_and_install": "BEKREFT OG INSTALLER",
+  "@disk_button_confirm_and_install": {
+    "description": "disk_button_confirm_and_install"
+  },
+  "progress_header_badge": "UTSETTELSE PÅGÅR",
+  "@progress_header_badge": {
+    "description": "progress_header_badge"
+  },
+  "progress_footer_warning": "IKKE KOPPE STRØMEN ELLER FJERNE INSTALLASJONSMEDIER",
+  "@progress_footer_warning": {
+    "description": "progress_footer_warning"
+  },
+  "disk_partition_gpt_uefi": "GPT/UEFI",
+  "@disk_partition_gpt_uefi": {
+    "description": "disk_partition_gpt_uefi"
+  },
+  "disk_partition_mbr_bios": "MBR/BIOS",
+  "@disk_partition_mbr_bios": {
+    "description": "disk_partition_mbr_bios"
+  },
+  "disk_boot_firmware_label": "Gjeldende avtale: {firmware}",
+  "@disk_boot_firmware_label": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "disk_boot_firmware_label"
+  },
+  "disk_recommended_mode_label": "Støttet modus: {recommended}",
+  "@disk_recommended_mode_label": {
+    "placeholders": {
+      "recommended": {
+        "type": "String"
+      }
+    },
+    "description": "disk_recommended_mode_label"
+  },
+  "disk_empty_list": "Ingen fysiske disker oppdaget",
+  "@disk_empty_list": {
+    "description": "disk_empty_list"
+  },
+  "disk_badge_system": "SYSTEM",
+  "@disk_badge_system": {
+    "description": "disk_badge_system"
+  },
+  "disk_item_header": "DISK {diskNumber} · {mediaType} · {busType}",
+  "@disk_item_header": {
+    "placeholders": {
+      "diskNumber": {
+        "type": "String"
+      },
+      "mediaType": {
+        "type": "String"
+      },
+      "busType": {
+        "type": "String"
+      }
+    },
+    "description": "disk_item_header"
+  },
+  "disk_size_gb": "{sizeGB} ES",
+  "@disk_size_gb": {
+    "placeholders": {
+      "sizeGB": {
+        "type": "String"
+      }
+    },
+    "description": "disk_size_gb"
+  },
+  "iso_bridge_list_interfaces_error": "Kunne ikke telle opp IPv4-grensesnitt: {error}",
+  "@iso_bridge_list_interfaces_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_list_interfaces_error"
+  },
+  "iso_bridge_generic_error": "FEIL: {error}",
+  "@iso_bridge_generic_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_generic_error"
+  },
+  "iso_bridge_select_wim_dialog": "Velg Windows WIM-bilde",
+  "@iso_bridge_select_wim_dialog": {
+    "description": "iso_bridge_select_wim_dialog"
+  },
+  "iso_bridge_wim_selected_log": "Valgt WIM: {path}",
+  "@iso_bridge_wim_selected_log": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_wim_selected_log"
+  },
+  "iso_bridge_save_simple_iso_dialog": "Lagre Simple Requiem ISO",
+  "@iso_bridge_save_simple_iso_dialog": {
+    "description": "iso_bridge_save_simple_iso_dialog"
+  },
+  "iso_bridge_simple_iso_filename": "Requiem-Installer-Simple.iso",
+  "@iso_bridge_simple_iso_filename": {
+    "description": "iso_bridge_simple_iso_filename"
+  },
+  "iso_bridge_save_wim_iso_dialog": "Lagre Requiem ISO med WIM",
+  "@iso_bridge_save_wim_iso_dialog": {
+    "description": "iso_bridge_save_wim_iso_dialog"
+  },
+  "iso_bridge_start_validation_error": "Velg et WIM og et privat IPv4-grensesnitt.",
+  "@iso_bridge_start_validation_error": {
+    "description": "iso_bridge_start_validation_error"
+  },
+  "iso_panel_title_media": "Installasjonsmedier",
+  "@iso_panel_title_media": {
+    "description": "iso_panel_title_media"
+  },
+  "iso_panel_desc_media": "Få den grunnleggende ISO for å velge en WIM ved oppstart, eller lag en selvstendig ISO som allerede inkluderer Windows-bildet ditt.",
+  "@iso_panel_desc_media": {
+    "description": "iso_panel_desc_media"
+  },
+  "iso_panel_button_simple_iso": "FÅ ISO KUN FOR INSTALLASJON",
+  "@iso_panel_button_simple_iso": {
+    "description": "iso_panel_button_simple_iso"
+  },
+  "iso_panel_button_select_wim": "VELG WIM",
+  "@iso_panel_button_select_wim": {
+    "description": "iso_panel_button_select_wim"
+  },
+  "iso_panel_button_generate_iso": "ISO GENERER",
+  "@iso_panel_button_generate_iso": {
+    "description": "iso_panel_button_generate_iso"
+  },
+  "iso_panel_title_bridge": "Installasjon IPv4 Bridge",
+  "@iso_panel_title_bridge": {
+    "description": "iso_panel_title_bridge"
+  },
+  "iso_bridge_clients_count": "{clients} tilkoblinger",
+  "@iso_bridge_clients_count": {
+    "placeholders": {
+      "clients": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_clients_count"
+  },
+  "iso_bridge_desc": "Forbered WIM bare én gang og send den direkte til Requiem-klienter på samme nettverk. Klienter lagrer ikke WIM før de installerer den.",
+  "@iso_bridge_desc": {
+    "description": "iso_bridge_desc"
+  },
+  "office_odt_panel_title": "Office-distribusjonsverktøy",
+  "@office_odt_panel_title": {
+    "description": "office_odt_panel_title"
+  },
+  "office_odt_kms_badge": "ODT + KMS",
+  "@office_odt_kms_badge": {
+    "description": "office_odt_kms_badge"
+  },
+  "progress_button_reboot": "SYSTEM TILBAKESTILLING",
+  "@progress_button_reboot": {
+    "description": "progress_button_reboot"
+  },
+  "landing_title_installer": "REQUIEM INSTALLATØR",
+  "@landing_title_installer": {
+    "description": "landing_title_installer"
+  },
+  "landing_title_tools": "KRAV VERKTØY",
+  "@landing_title_tools": {
+    "description": "landing_title_tools"
+  },
+  "landing_subtitle": "NESTE GENERASJON OS INVESTERING",
+  "@landing_subtitle": {
+    "description": "landing_subtitle"
+  },
+  "landing_description_part1": "Høypresisjons Windows-installasjonsprogram for miljøer med høy ytelse.",
+  "@landing_description_part1": {
+    "description": "landing_description_part1"
+  },
+  "landing_description_part2": "Opplev rask distribusjon med direkte DISM-orkestrering og automatisert systemoptimalisering.",
+  "@landing_description_part2": {
+    "description": "landing_description_part2"
+  },
+  "landing_button_start": "KOM I GANG",
+  "@landing_button_start": {
+    "description": "landing_button_start"
+  },
+  "landing_button_logs": "SYSTEMLOGGER",
+  "@landing_button_logs": {
+    "description": "landing_button_logs"
+  },
+  "landing_badge_version": "STABIL VERSJON",
+  "@landing_badge_version": {
+    "description": "landing_badge_version"
+  },
+  "landing_badge_secure_boot": "SIKKER STØVEL KOMPATIBEL",
+  "@landing_badge_secure_boot": {
+    "description": "landing_badge_secure_boot"
+  },
+  "landing_badge_author": "DESIGNET AV JOSS",
+  "@landing_badge_author": {
+    "description": "landing_badge_author"
+  },
+  "tools_kms_empty_host_error": "FEIL: KMS-verten er tom.",
+  "@tools_kms_empty_host_error": {
+    "description": "tools_kms_empty_host_error"
+  },
+  "tools_log_format": "[{time}] {message}",
+  "@tools_log_format": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    },
+    "description": "tools_log_format"
+  },
+  "tools_kms_no_products_selected": "Det er ingen KMS-produkter valgt.",
+  "@tools_kms_no_products_selected": {
+    "description": "tools_kms_no_products_selected"
+  },
+  "tools_kms_checking_connectivity": "Sjekker tilkobling med {host}:1688...",
+  "@tools_kms_checking_connectivity": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_checking_connectivity"
+  },
+  "tools_kms_error_log": "KMS-FEIL: {error}",
+  "@tools_kms_error_log": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_error_log"
+  },
+  "tools_packages_none_selected": "Det er ingen programmer valgt.",
+  "@tools_packages_none_selected": {
+    "description": "tools_packages_none_selected"
+  },
+  "tools_packages_none_detected": "Ingen kjente pakker ble oppdaget med Winget.",
+  "@tools_packages_none_detected": {
+    "description": "tools_packages_none_detected"
+  },
+  "tools_packages_detected_count": "Oppdaget pakker: {count}.",
+  "@tools_packages_detected_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_packages_detected_count"
+  },
+  "tools_logs_copied_snackbar": "Oppføringer kopiert til utklippstavlen.",
+  "@tools_logs_copied_snackbar": {
+    "description": "tools_logs_copied_snackbar"
+  },
+  "tools_header_title": "REQUIEM MIGRASJONSVERKTØY",
+  "@tools_header_title": {
+    "description": "tools_header_title"
+  },
+  "tools_section_activation_title": "Lisensaktivering",
+  "@tools_section_activation_title": {
+    "description": "tools_section_activation_title"
+  },
+  "tools_section_activation_desc": "Konfigurer lokal eller ekstern KMS-server for å aktivere Windows og Office.",
+  "@tools_section_activation_desc": {
+    "description": "tools_section_activation_desc"
+  },
+  "tools_badge_kms_pending": "Venter på KMS",
+  "@tools_badge_kms_pending": {
+    "description": "tools_badge_kms_pending"
+  },
+  "tools_button_activate_kms": "AKTIVER KMS",
+  "@tools_button_activate_kms": {
+    "description": "tools_button_activate_kms"
+  },
+  "tools_section_office_title": "kontorinstallatør",
+  "@tools_section_office_title": {
+    "description": "tools_section_office_title"
+  },
+  "tools_section_office_desc": "Distribuer Microsoft Office LTSC eller 365 på en automatisert måte ved hjelp av ODT.",
+  "@tools_section_office_desc": {
+    "description": "tools_section_office_desc"
+  },
+  "tools_button_install_office": "INSTALLASJONSKONTOR",
+  "@tools_button_install_office": {
+    "description": "tools_button_install_office"
+  },
+  "tools_section_packages_title": "Søknadsstabel",
+  "@tools_section_packages_title": {
+    "description": "tools_section_packages_title"
+  },
+  "tools_section_packages_desc": "Installer og oppdater viktige utviklingsverktøy for Windows ved hjelp av Winget.",
+  "@tools_section_packages_desc": {
+    "description": "tools_section_packages_desc"
+  },
+  "wim_status_not_found": "Ingen bilde oppdaget",
+  "@wim_status_not_found": {
+    "description": "wim_status_not_found"
+  },
+  "wim_manual_search_hint": "Bruk \"Bla gjennom\" for å finne WIM-filen manuelt.",
+  "@wim_manual_search_hint": {
+    "description": "wim_manual_search_hint"
+  },
+  "wim_button_change_file": "ENDRE FIL",
+  "@wim_button_change_file": {
+    "description": "wim_button_change_file"
+  },
+  "common_search": "SØK",
+  "@common_search": {
+    "description": "common_search"
+  },
+  "common_continue": "FORTSETT",
+  "@common_continue": {
+    "description": "common_continue"
+  },
+  "wim_button_rescan": "Skann stasjoner på nytt",
+  "@wim_button_rescan": {
+    "description": "wim_button_rescan"
+  },
+  "wim_bridge_section_header": "Eller motta den ferdige installasjonen fra Requiem for Windows",
+  "@wim_bridge_section_header": {
+    "description": "wim_bridge_section_header"
+  },
+  "wim_button_connect_wifi": "KOBLE TIL WI-FI",
+  "@wim_button_connect_wifi": {
+    "description": "wim_button_connect_wifi"
+  },
+  "wim_button_search_bridge": "SØKE BRO",
+  "@wim_button_search_bridge": {
+    "description": "wim_button_search_bridge"
+  },
+  "wim_button_manual_ip": "IP BRUKERHÅNDBOK",
+  "@wim_button_manual_ip": {
+    "description": "wim_button_manual_ip"
+  },
+  "console_title": "systemkonsollen",
+  "@console_title": {
+    "description": "console_title"
+  },
+  "console_tooltip_copy": "Kopier poster",
+  "@console_tooltip_copy": {
+    "description": "console_tooltip_copy"
+  },
+  "console_tooltip_clear": "Rengjør vedkubber",
+  "@console_tooltip_clear": {
+    "description": "console_tooltip_clear"
+  },
+  "console_waiting_action": "Venter på en handling...",
+  "@console_waiting_action": {
+    "description": "console_waiting_action"
+  },
+  "file_explorer_default_title": "Velg Windows-installasjonsbilde",
+  "@file_explorer_default_title": {
+    "description": "file_explorer_default_title"
+  },
+  "file_explorer_read_error": "Kunne ikke lese innholdet i katalogen.\\n{error}",
+  "@file_explorer_read_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_read_error"
+  },
+  "file_explorer_drives_header": "ENHETER",
+  "@file_explorer_drives_header": {
+    "description": "file_explorer_drives_header"
+  },
+  "file_explorer_filter_hint": "Filtrer …",
+  "@file_explorer_filter_hint": {
+    "description": "file_explorer_filter_hint"
+  },
+  "file_explorer_go_up_tooltip": "Gå opp et nivå",
+  "@file_explorer_go_up_tooltip": {
+    "description": "file_explorer_go_up_tooltip"
+  },
+  "file_explorer_invalid_path_error": "Ugyldig rute: {val}",
+  "@file_explorer_invalid_path_error": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_invalid_path_error"
+  },
+  "file_explorer_empty_folder": "Denne mappen er tom",
+  "@file_explorer_empty_folder": {
+    "description": "file_explorer_empty_folder"
+  },
+  "file_explorer_selected_file": "Valgt: {path}",
+  "@file_explorer_selected_file": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_selected_file"
+  },
+  "file_explorer_select_file_hint": "Velg en .wim- eller .swm-fil",
+  "@file_explorer_select_file_hint": {
+    "description": "file_explorer_select_file_hint"
+  },
+  "common_select": "VELG",
+  "@common_select": {
+    "description": "common_select"
+  },
+  "disk_wim_integrated_source": "WIM integrert i ISO",
+  "@disk_wim_integrated_source": {
+    "description": "disk_wim_integrated_source"
+  },
+  "disk_wim_bridge_source": "Bro: ${controller.bridgeAnnouncement?.imageName ??",
+  "@disk_wim_bridge_source": {
+    "description": "disk_wim_bridge_source"
+  },
+  "wim_status_searching_alt": "Søker etter bilde...",
+  "@wim_status_searching_alt": {
+    "description": "wim_status_searching_alt"
+  },
+  "disk_wim_detected": "Bilde oppdaget",
+  "@disk_wim_detected": {
+    "description": "disk_wim_detected"
+  },
+  "disk_wim_not_found": "Finner ikke bilde",
+  "@disk_wim_not_found": {
+    "description": "disk_wim_not_found"
+  },
+  "common_change": "ENDRING",
+  "@common_change": {
+    "description": "common_change"
   }
 }

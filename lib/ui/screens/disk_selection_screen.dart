@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/main_controller.dart';
 import '../../services/disk_service.dart';
+import '../../core/localizations.dart';
 import '../widgets/disk_list_view.dart';
 import '../widgets/partition_mode_selector.dart';
 import '../widgets/disk_details_panel.dart';
@@ -34,6 +35,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
   Widget build(BuildContext context) {
     final controller = context.watch<MainController>();
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     final canStart =
         controller.selectedDisk != null &&
         controller.detectedWimPath != null &&
@@ -47,7 +49,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ADMINISTRACIÓN DE DISCOS'),
+        title: Text(t.diskManagement.toUpperCase()),
         centerTitle: false,
         actions: [
           Padding(
@@ -59,7 +61,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                 controller.autoDetectInstallWim();
               },
               icon: const Icon(Icons.refresh_rounded, size: 18),
-              label: const Text('ACTUALIZAR'),
+              label: Text(t.actionRefresh.toUpperCase()),
             ),
           ),
         ],
@@ -76,14 +78,14 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Seleccionar Disco de Destino',
+                    t.selectDestinationDisk,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Elija la unidad física donde se instalará Windows.',
+                    t.destinationDiskDescription,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.5),
                       fontSize: 14,
@@ -134,7 +136,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                           ? () => _showConfirmDialog(context, controller)
                           : null,
                       icon: const Icon(Icons.play_arrow_rounded),
-                      label: const Text('INICIAR INSTALACIÓN'),
+                      label: Text(t.startInstallation.toUpperCase()),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         textStyle: const TextStyle(
@@ -149,7 +151,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        'Esperando la detección de install.wim...',
+                        t.waitingForWim,
                         style: TextStyle(
                           color: scheme.error.withValues(alpha: 0.8),
                           fontSize: 12,
@@ -168,6 +170,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
 
   void _showConfirmDialog(BuildContext context, MainController controller) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     final willFormat = _selectedMode != PartitionMode.useExisting;
 
     showDialog(
@@ -180,21 +183,21 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
         iconColor: willFormat ? scheme.error : scheme.primary,
         title: Text(
           willFormat
-              ? 'CONFIRMAR DESTRUCCIÓN DE DATOS'
-              : 'CONFIRMAR INSTALACIÓN',
+              ? t.confirmDataDestruction.toUpperCase()
+              : t.confirmInstallation.toUpperCase(),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (willFormat)
-              const Text(
-                'El disco seleccionado se formateará por completo. Se perderán todos los datos.',
+              Text(
+                t.formatWarning,
                 textAlign: TextAlign.center,
               )
             else
-              const Text(
-                'Windows se desplegará en W:\\ sin formatear.',
+              Text(
+                t.noFormatWarning,
                 textAlign: TextAlign.center,
               ),
             const SizedBox(height: 16),
@@ -215,7 +218,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('CANCELAR'),
+            child: Text(t.actionCancel.toUpperCase()),
           ),
           FilledButton(
             onPressed: () {
@@ -234,7 +237,7 @@ class _DiskSelectionScreenState extends State<DiskSelectionScreen> {
                     foregroundColor: scheme.onError,
                   )
                 : null,
-            child: const Text('CONFIRMAR E INSTALAR'),
+            child: Text(t.actionConfirm.toUpperCase()),
           ),
         ],
       ),

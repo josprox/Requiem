@@ -4,6 +4,7 @@ import 'package:window_manager/window_manager.dart';
 import '../../services/main_controller.dart';
 import '../../services/bridge_discovery_service.dart';
 import '../../services/wifi_network_service.dart';
+import '../../core/localizations.dart';
 import 'disk_selection_screen.dart';
 import '../widgets/glass_backdrop.dart';
 
@@ -56,6 +57,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
   Future<void> _discoverBridge(MainController controller) async {
     if (_discoveringBridge) return;
     setState(() => _discoveringBridge = true);
+    final t = context.l10n;
     try {
       controller.addLog(
         'Searching for Requiem bridges on the local IPv4 network...',
@@ -64,9 +66,9 @@ class _WimPickerScreenState extends State<WimPickerScreen>
       if (!mounted) return;
       if (servers.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text(
-              'No se encontró ningún puente. Pruebe con la IP manual.',
+              t.noBridgeFound,
             ),
           ),
         );
@@ -76,7 +78,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No se pudo buscar el puente: $error')),
+          SnackBar(content: Text(t.bridgeSearchError(error.toString()))),
         );
       }
     } finally {
@@ -86,10 +88,11 @@ class _WimPickerScreenState extends State<WimPickerScreen>
 
   Future<void> _connectManualBridge(MainController controller) async {
     final textController = TextEditingController();
+    final t = context.l10n;
     final address = await showDialog<String>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('IP del puente Requiem'),
+        title: Text(t.bridgeIp),
         content: TextField(
           controller: textController,
           autofocus: true,
@@ -103,12 +106,12 @@ class _WimPickerScreenState extends State<WimPickerScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('CANCELAR'),
+            child: Text(t.actionCancel.toUpperCase()),
           ),
           FilledButton(
             onPressed: () =>
                 Navigator.pop(dialogContext, textController.text.trim()),
-            child: const Text('CONECTAR'),
+            child: Text(t.actionConnect.toUpperCase()),
           ),
         ],
       ),
@@ -123,7 +126,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('No se pudo conectar: $error')));
+        ).showSnackBar(SnackBar(content: Text(t.bridgeConnectError(error.toString()))));
       }
     } finally {
       if (mounted) setState(() => _discoveringBridge = false);
@@ -134,17 +137,18 @@ class _WimPickerScreenState extends State<WimPickerScreen>
     if (_connectingWifi) return;
     setState(() => _connectingWifi = true);
     final service = WifiNetworkService();
+    final t = context.l10n;
     try {
       controller.addLog('Scanning available Wi-Fi networks...');
       final networks = await service.scan();
       if (!mounted) return;
       if (networks.isEmpty) {
-        throw StateError('No se encontraron redes Wi-Fi disponibles.');
+        throw StateError(t.noWifiNetworks);
       }
       final network = await showDialog<WifiNetwork>(
         context: context,
         builder: (dialogContext) => SimpleDialog(
-          title: const Text('Conectar el instalador a Wi-Fi'),
+          title: Text(t.connectInstallerWifi),
           children: [
             for (final item in networks.take(12))
               SimpleDialogOption(
@@ -176,21 +180,21 @@ class _WimPickerScreenState extends State<WimPickerScreen>
               controller: passwordController,
               autofocus: true,
               obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Contraseña Wi-Fi',
-                prefixIcon: Icon(Icons.password_rounded),
+              decoration: InputDecoration(
+                labelText: t.wifiPassword,
+                prefixIcon: const Icon(Icons.password_rounded),
               ),
               onSubmitted: (value) => Navigator.pop(dialogContext, value),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(dialogContext),
-                child: const Text('CANCELAR'),
+                child: Text(t.actionCancel.toUpperCase()),
               ),
               FilledButton(
                 onPressed: () =>
                     Navigator.pop(dialogContext, passwordController.text),
-                child: const Text('CONECTAR'),
+                child: Text(t.actionConnect.toUpperCase()),
               ),
             ],
           ),
@@ -203,12 +207,12 @@ class _WimPickerScreenState extends State<WimPickerScreen>
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Conectado a ${network.ssid}.')));
+        ).showSnackBar(SnackBar(content: Text(t.wifiConnected(network.ssid))));
       }
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No se pudo conectar a Wi-Fi: $error')),
+          SnackBar(content: Text(t.wifiConnectError(error.toString()))),
         );
       }
     } finally {
@@ -220,6 +224,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
   Widget build(BuildContext context) {
     final ctrl = context.watch<MainController>();
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     final found = ctrl.detectedWimPath != null;
     final searching = ctrl.isSearchingWim;
@@ -280,7 +285,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                         const SizedBox(height: 48),
 
                         Text(
-                          'Seleccionar Imagen de Windows',
+                          t.selectWindowsImage,
                           style: Theme.of(context).textTheme.displaySmall
                               ?.copyWith(
                                 fontWeight: FontWeight.w900,
@@ -292,8 +297,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                         const SizedBox(height: 16),
 
                         Text(
-                          'Proporcione la imagen de instalación de Windows (install.wim o install.swm)\n'
-                          'desde una unidad USB o cualquier medio montado.',
+                          t.provideWindowsImage,
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.55),
                             fontSize: 17,
@@ -352,10 +356,10 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                                   children: [
                                     Text(
                                       searching
-                                          ? 'Buscando imagen…'
+                                          ? t.searchingImage
                                           : found
-                                          ? 'Imagen encontrada'
-                                          : 'No se detectó ninguna imagen',
+                                          ? t.imageFound
+                                          : t.noImageDetected,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
@@ -382,7 +386,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                                     ] else if (!searching) ...[
                                       const SizedBox(height: 4),
                                       Text(
-                                        'Use "Buscar" para localizar su archivo WIM manualmente.',
+                                        t.manualWimHint,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.white.withValues(
@@ -411,7 +415,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                                     : () => ctrl.pickWimFile(context),
                                 icon: const Icon(Icons.folder_open_rounded),
                                 label: Text(
-                                  found ? 'CAMBIAR ARCHIVO' : 'BUSCAR',
+                                  found ? t.actionChange.toUpperCase() : t.actionSearch.toUpperCase(),
                                 ),
                                 style: OutlinedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
@@ -449,7 +453,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                                     ? () => _proceed(context, ctrl)
                                     : null,
                                 icon: const Icon(Icons.arrow_forward_rounded),
-                                label: const Text('CONTINUAR'),
+                                label: Text(t.actionContinue.toUpperCase()),
                                 style: FilledButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20,
@@ -481,14 +485,14 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                               ? null
                               : () => ctrl.autoDetectInstallWim(force: true),
                           icon: const Icon(Icons.refresh_rounded, size: 16),
-                          label: const Text('Escanear unidades de nuevo'),
+                          label: Text(t.actionScanAgain),
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.white38,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          'O reciba la instalación preparada desde Requiem para Windows',
+                          t.receiveInstallation,
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.45),
                             fontSize: 12,
@@ -516,7 +520,7 @@ class _WimPickerScreenState extends State<WimPickerScreen>
                                       ),
                                     )
                                   : const Icon(Icons.wifi_rounded),
-                              label: const Text('CONECTAR WI-FI'),
+                              label: Text(t.connectWifi.toUpperCase()),
                             ),
                             FilledButton.tonalIcon(
                               onPressed: searching || _discoveringBridge

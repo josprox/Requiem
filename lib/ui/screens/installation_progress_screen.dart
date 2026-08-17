@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/main_controller.dart';
+import '../../core/localizations.dart';
 
 class InstallationProgressScreen extends StatefulWidget {
   const InstallationProgressScreen({super.key});
@@ -50,6 +51,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
   Widget build(BuildContext context) {
     final controller = context.watch<MainController>();
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     // Auto-scroll logs
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
@@ -68,7 +70,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'DESPLIEGUE EN CURSO',
+                      t.deploymentInProgress.toUpperCase(),
                       style: TextStyle(
                         color: scheme.primary,
                         fontWeight: FontWeight.w900,
@@ -207,7 +209,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'NO DESCONECTE LA ENERGÍA NI RETIRE EL MEDIO DE INSTALACIÓN',
+                  t.doNotDisconnect.toUpperCase(),
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.3),
                     fontSize: 12,
@@ -220,7 +222,7 @@ class _InstallationProgressScreenState extends State<InstallationProgressScreen>
                   FilledButton.icon(
                     onPressed: () => controller.reboot(),
                     icon: const Icon(Icons.restart_alt_rounded),
-                    label: const Text('REINICIAR SISTEMA'),
+                    label: Text(t.actionRestartSystem.toUpperCase()),
                   ),
               ],
             ),

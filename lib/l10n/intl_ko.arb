@@ -619,5 +619,954 @@
   "wingetUnavailable": "PATH에 설치하지 마십시오.",
   "@wingetUnavailable": {
     "description": "wingetUnavailable"
+  },
+  "app_title_installer": "레퀴엠 설치 프로그램",
+  "@app_title_installer": {
+    "description": "app_title_installer"
+  },
+  "app_title_tools": "레퀴엠 도구",
+  "@app_title_tools": {
+    "description": "app_title_tools"
+  },
+  "kms_product_windows_8_1_pro": "윈도우 8.1 프로",
+  "@kms_product_windows_8_1_pro": {
+    "description": "kms_product_windows_8_1_pro"
+  },
+  "kms_product_windows_8_1_enterprise": "윈도우 8.1 엔터프라이즈",
+  "@kms_product_windows_8_1_enterprise": {
+    "description": "kms_product_windows_8_1_enterprise"
+  },
+  "kms_product_windows_8_pro": "윈도우 8 프로",
+  "@kms_product_windows_8_pro": {
+    "description": "kms_product_windows_8_pro"
+  },
+  "kms_product_windows_8_enterprise": "윈도우 8 엔터프라이즈",
+  "@kms_product_windows_8_enterprise": {
+    "description": "kms_product_windows_8_enterprise"
+  },
+  "kms_product_windows_server_2025_standard": "윈도우 서버 2025 표준",
+  "@kms_product_windows_server_2025_standard": {
+    "description": "kms_product_windows_server_2025_standard"
+  },
+  "kms_product_windows_server_2025_datacenter": "윈도우 서버 2025 데이터센터",
+  "@kms_product_windows_server_2025_datacenter": {
+    "description": "kms_product_windows_server_2025_datacenter"
+  },
+  "kms_product_windows_server_2022_standard": "윈도우 서버 2022 표준",
+  "@kms_product_windows_server_2022_standard": {
+    "description": "kms_product_windows_server_2022_standard"
+  },
+  "kms_product_windows_server_2022_datacenter": "윈도우 서버 2022 데이터센터",
+  "@kms_product_windows_server_2022_datacenter": {
+    "description": "kms_product_windows_server_2022_datacenter"
+  },
+  "kms_product_windows_server_2019_standard": "윈도우 서버 2019 기준",
+  "@kms_product_windows_server_2019_standard": {
+    "description": "kms_product_windows_server_2019_standard"
+  },
+  "kms_product_windows_server_2019_datacenter": "윈도우 서버 2019 데이터 센터",
+  "@kms_product_windows_server_2019_datacenter": {
+    "description": "kms_product_windows_server_2019_datacenter"
+  },
+  "kms_product_windows_10_11_pro": "윈도우 10/11 프로",
+  "@kms_product_windows_10_11_pro": {
+    "description": "kms_product_windows_10_11_pro"
+  },
+  "kms_product_windows_10_11_pro_n": "윈도우 10/11 프로 N",
+  "@kms_product_windows_10_11_pro_n": {
+    "description": "kms_product_windows_10_11_pro_n"
+  },
+  "kms_product_windows_10_11_pro_for_workstations": "워크스테이션용 Windows 10/11 Pro",
+  "@kms_product_windows_10_11_pro_for_workstations": {
+    "description": "kms_product_windows_10_11_pro_for_workstations"
+  },
+  "kms_product_windows_10_11_pro_education": "윈도우 10/11 프로 교육",
+  "@kms_product_windows_10_11_pro_education": {
+    "description": "kms_product_windows_10_11_pro_education"
+  },
+  "kms_product_windows_10_11_education": "윈도우 10/11 교육",
+  "@kms_product_windows_10_11_education": {
+    "description": "kms_product_windows_10_11_education"
+  },
+  "kms_product_windows_10_11_education_n": "윈도우 10/11 교육 N",
+  "@kms_product_windows_10_11_education_n": {
+    "description": "kms_product_windows_10_11_education_n"
+  },
+  "kms_product_windows_10_11_enterprise": "윈도우 10/11 엔터프라이즈",
+  "@kms_product_windows_10_11_enterprise": {
+    "description": "kms_product_windows_10_11_enterprise"
+  },
+  "kms_product_windows_10_11_enterprise_n": "윈도우 10/11 엔터프라이즈 N",
+  "@kms_product_windows_10_11_enterprise_n": {
+    "description": "kms_product_windows_10_11_enterprise_n"
+  },
+  "kms_product_windows_10_11_enterprise_g": "윈도우 10/11 엔터프라이즈 G",
+  "@kms_product_windows_10_11_enterprise_g": {
+    "description": "kms_product_windows_10_11_enterprise_g"
+  },
+  "kms_product_windows_10_11_enterprise_g_n": "Windows 10/11 엔터프라이즈 G N",
+  "@kms_product_windows_10_11_enterprise_g_n": {
+    "description": "kms_product_windows_10_11_enterprise_g_n"
+  },
+  "kms_product_windows_10_11_pro_workstations": "Windows 10/11 Pro 워크스테이션",
+  "@kms_product_windows_10_11_pro_workstations": {
+    "description": "kms_product_windows_10_11_pro_workstations"
+  },
+  "kms_product_office_ltsc_professional_plus_2024": "오피스 LTSC 프로페셔널 플러스 2024",
+  "@kms_product_office_ltsc_professional_plus_2024": {
+    "description": "kms_product_office_ltsc_professional_plus_2024"
+  },
+  "kms_product_office_ltsc_professional_plus_2021": "오피스 LTSC 프로페셔널 플러스 2021",
+  "@kms_product_office_ltsc_professional_plus_2021": {
+    "description": "kms_product_office_ltsc_professional_plus_2021"
+  },
+  "kms_product_office_professional_plus_2019": "오피스 프로페셔널 플러스 2019",
+  "@kms_product_office_professional_plus_2019": {
+    "description": "kms_product_office_professional_plus_2019"
+  },
+  "kms_product_office_professional_plus_2016": "오피스 프로페셔널 플러스 2016",
+  "@kms_product_office_professional_plus_2016": {
+    "description": "kms_product_office_professional_plus_2016"
+  },
+  "kms_product_office_professional_plus_2013": "오피스 프로페셔널 플러스 2013",
+  "@kms_product_office_professional_plus_2013": {
+    "description": "kms_product_office_professional_plus_2013"
+  },
+  "kms_product_office_standard_2013": "오피스 스탠다드 2013",
+  "@kms_product_office_standard_2013": {
+    "description": "kms_product_office_standard_2013"
+  },
+  "office_pkg_name_2024": "오피스 LTSC 프로 플러스 2024",
+  "@office_pkg_name_2024": {
+    "description": "office_pkg_name_2024"
+  },
+  "office_pkg_desc_2024": "PerpetualVL2024를 통한 간편 실행 볼륨 관리",
+  "@office_pkg_desc_2024": {
+    "description": "office_pkg_desc_2024"
+  },
+  "office_pkg_name_2021": "오피스 LTSC 프로 플러스 2021",
+  "@office_pkg_name_2021": {
+    "description": "office_pkg_name_2021"
+  },
+  "office_pkg_desc_2021": "PerpetualVL2021 채널을 통한 간편 실행 볼륨",
+  "@office_pkg_desc_2021": {
+    "description": "office_pkg_desc_2021"
+  },
+  "office_pkg_name_2019": "오피스 프로 플러스 2019",
+  "@office_pkg_name_2019": {
+    "description": "office_pkg_name_2019"
+  },
+  "office_pkg_desc_2019": "PerpetualVL2019를 통한 볼륨 실행 간편 실행",
+  "@office_pkg_desc_2019": {
+    "description": "office_pkg_desc_2019"
+  },
+  "pkg_cat_editor": "편집자",
+  "@pkg_cat_editor": {
+    "description": "pkg_cat_editor"
+  },
+  "pkg_cat_control_de_versiones": "버전 제어",
+  "@pkg_cat_control_de_versiones": {
+    "description": "pkg_cat_control_de_versiones"
+  },
+  "pkg_cat_javascript": "자바스크립트",
+  "@pkg_cat_javascript": {
+    "description": "pkg_cat_javascript"
+  },
+  "pkg_cat_python_3": "파이썬 3",
+  "@pkg_cat_python_3": {
+    "description": "pkg_cat_python_3"
+  },
+  "pkg_cat_runtime_php": "런타임 PHP",
+  "@pkg_cat_runtime_php": {
+    "description": "pkg_cat_runtime_php"
+  },
+  "pkg_cat_servidor_db": "서비스 DB",
+  "@pkg_cat_servidor_db": {
+    "description": "pkg_cat_servidor_db"
+  },
+  "pkg_cat_golang": "골랑",
+  "@pkg_cat_golang": {
+    "description": "pkg_cat_golang"
+  },
+  "pkg_cat_rustup": "러스트업",
+  "@pkg_cat_rustup": {
+    "description": "pkg_cat_rustup"
+  },
+  "pkg_cat_temurin_21": "테무린 21",
+  "@pkg_cat_temurin_21": {
+    "description": "pkg_cat_temurin_21"
+  },
+  "pkg_cat_desktop": "데스크탑",
+  "@pkg_cat_desktop": {
+    "description": "pkg_cat_desktop"
+  },
+  "kms_product_windows_terminal": "윈도우 터미널",
+  "@kms_product_windows_terminal": {
+    "description": "kms_product_windows_terminal"
+  },
+  "pkg_cat_terminal_moderno": "터미널 모데르노",
+  "@pkg_cat_terminal_moderno": {
+    "description": "pkg_cat_terminal_moderno"
+  },
+  "pkg_cat_subsistema_linux": "서브시스템 리눅스",
+  "@pkg_cat_subsistema_linux": {
+    "description": "pkg_cat_subsistema_linux"
+  },
+  "kms_product_windows_subsystem_for_linux": "Linux용 Windows 하위 시스템",
+  "@kms_product_windows_subsystem_for_linux": {
+    "description": "kms_product_windows_subsystem_for_linux"
+  },
+  "pkg_cat_distro_wsl": "디스트로 WSL",
+  "@pkg_cat_distro_wsl": {
+    "description": "pkg_cat_distro_wsl"
+  },
+  "pkg_cat_navegador": "나베가도르",
+  "@pkg_cat_navegador": {
+    "description": "pkg_cat_navegador"
+  },
+  "pkg_cat_ide_android": "IDE 안드로이드",
+  "@pkg_cat_ide_android": {
+    "description": "pkg_cat_ide_android"
+  },
+  "pkg_cat_ide_completo": "IDE 완성",
+  "@pkg_cat_ide_completo": {
+    "description": "pkg_cat_ide_completo"
+  },
+  "pkg_cat_compiladores_c": "컴파일러 C++",
+  "@pkg_cat_compiladores_c": {
+    "description": "pkg_cat_compiladores_c"
+  },
+  "pkg_cat_sdk__net": "SDK .NET",
+  "@pkg_cat_sdk__net": {
+    "description": "pkg_cat_sdk__net"
+  },
+  "pkg_cat_runtime_escritorio": "런타임 기록",
+  "@pkg_cat_runtime_escritorio": {
+    "description": "pkg_cat_runtime_escritorio"
+  },
+  "pkg_cat_apache_php_mysql": "아파치 PHP MySQL",
+  "@pkg_cat_apache_php_mysql": {
+    "description": "pkg_cat_apache_php_mysql"
+  },
+  "pkg_cat_cliente_db": "클라이언트 DB",
+  "@pkg_cat_cliente_db": {
+    "description": "pkg_cat_cliente_db"
+  },
+  "pkg_cat_cliente_api": "클라이언트 API",
+  "@pkg_cat_cliente_api": {
+    "description": "pkg_cat_cliente_api"
+  },
+  "pkg_cat_ssh_clasico": "SSH 클라시코",
+  "@pkg_cat_ssh_clasico": {
+    "description": "pkg_cat_ssh_clasico"
+  },
+  "tools_badge_package_count": "{count} 프로그램",
+  "@tools_badge_package_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_badge_package_count"
+  },
+  "tools_button_install_all_packages": "설치 할 일",
+  "@tools_button_install_all_packages": {
+    "description": "tools_button_install_all_packages"
+  },
+  "tools_section_iso_title": "ISO y despligue por red",
+  "@tools_section_iso_title": {
+    "description": "tools_section_iso_title"
+  },
+  "tools_section_iso_desc": "WIM 통합을 통해 자동으로 IPv4를 설치하거나 배포할 수 있습니다.",
+  "@tools_section_iso_desc": {
+    "description": "tools_section_iso_desc"
+  },
+  "tools_badge_iso_compatibility": "BIOS + UEFI 보존",
+  "@tools_badge_iso_compatibility": {
+    "description": "tools_badge_iso_compatibility"
+  },
+  "tools_sidebar_app_name": "레퀴엠",
+  "@tools_sidebar_app_name": {
+    "description": "tools_sidebar_app_name"
+  },
+  "tools_sidebar_tab_kms": "KMS 활성화",
+  "@tools_sidebar_tab_kms": {
+    "description": "tools_sidebar_tab_kms"
+  },
+  "tools_sidebar_tab_office": "설치 사무실",
+  "@tools_sidebar_tab_office": {
+    "description": "tools_sidebar_tab_office"
+  },
+  "tools_sidebar_tab_packages": "스택 프로그램",
+  "@tools_sidebar_tab_packages": {
+    "description": "tools_sidebar_tab_packages"
+  },
+  "tools_sidebar_tab_iso": "ISO 및 푸엔테",
+  "@tools_sidebar_tab_iso": {
+    "description": "tools_sidebar_tab_iso"
+  },
+  "tools_sidebar_mode_badge": "로컬 도구 모드",
+  "@tools_sidebar_mode_badge": {
+    "description": "tools_sidebar_mode_badge"
+  },
+  "wim_bridge_searching": "로컬 IPv4 네트워크에서 레퀴엠 브리지를 검색하는 중...",
+  "@wim_bridge_searching": {
+    "description": "wim_bridge_searching"
+  },
+  "wim_bridge_not_found": "No se encontró ningún puente. Pruebe con la IP 매뉴얼.",
+  "@wim_bridge_not_found": {
+    "description": "wim_bridge_not_found"
+  },
+  "wim_bridge_search_error": "아니 se pudo buscar el puente: {error}",
+  "@wim_bridge_search_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_search_error"
+  },
+  "wim_bridge_ip_dialog_title": "IP 델 푸엔테 레퀴엠",
+  "@wim_bridge_ip_dialog_title": {
+    "description": "wim_bridge_ip_dialog_title"
+  },
+  "wim_bridge_ip_placeholder": "192.168.1.20",
+  "@wim_bridge_ip_placeholder": {
+    "description": "wim_bridge_ip_placeholder"
+  },
+  "common_connect": "커넥타",
+  "@common_connect": {
+    "description": "common_connect"
+  },
+  "wim_bridge_connection_error": "더 이상 연결하지 마세요: {error}",
+  "@wim_bridge_connection_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wim_bridge_connection_error"
+  },
+  "wifi_scanning": "사용 가능한 Wi-Fi 네트워크 검색 중...",
+  "@wifi_scanning": {
+    "description": "wifi_scanning"
+  },
+  "wifi_none_found": "더 이상 Wi-Fi를 무시할 수 없습니다.",
+  "@wifi_none_found": {
+    "description": "wifi_none_found"
+  },
+  "wifi_dialog_title": "Wi-Fi를 설치하는 연결",
+  "@wifi_dialog_title": {
+    "description": "wifi_dialog_title"
+  },
+  "wifi_item_signal_security": "{signal}% · {security}",
+  "@wifi_item_signal_security": {
+    "placeholders": {
+      "signal": {
+        "type": "String"
+      },
+      "security": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_item_signal_security"
+  },
+  "wifi_password_hint": "콘트라세냐 Wi-Fi",
+  "@wifi_password_hint": {
+    "description": "wifi_password_hint"
+  },
+  "wifi_connected_log": "{ssid}에 Wi-Fi가 연결되었습니다. {result}",
+  "@wifi_connected_log": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      },
+      "result": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_log"
+  },
+  "wifi_connected_status": "{ssid}에 연결하세요.",
+  "@wifi_connected_status": {
+    "placeholders": {
+      "ssid": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connected_status"
+  },
+  "wifi_connect_error": "Wi-Fi에 연결하지 마세요: {error}",
+  "@wifi_connect_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "wifi_connect_error"
+  },
+  "wim_picker_title": "Windows 이미지 선택",
+  "@wim_picker_title": {
+    "description": "wim_picker_title"
+  },
+  "wim_picker_description": "Windows 설치 이미지에 비례(install.wim 또는 install.swm)\\n",
+  "@wim_picker_description": {
+    "description": "wim_picker_description"
+  },
+  "wim_status_searching": "부스칸도 이미지…",
+  "@wim_status_searching": {
+    "description": "wim_status_searching"
+  },
+  "wim_status_found": "Imagen encontrada",
+  "@wim_status_found": {
+    "description": "wim_status_found"
+  },
+  "pkg_cat_ssh_moderno": "SSH 모던",
+  "@pkg_cat_ssh_moderno": {
+    "description": "pkg_cat_ssh_moderno"
+  },
+  "pkg_cat_modelos_locales": "모델 로케일",
+  "@pkg_cat_modelos_locales": {
+    "description": "pkg_cat_modelos_locales"
+  },
+  "pkg_cat_gpu_compute": "GPU 컴퓨팅",
+  "@pkg_cat_gpu_compute": {
+    "description": "pkg_cat_gpu_compute"
+  },
+  "pkg_cat_compresor": "압축기",
+  "@pkg_cat_compresor": {
+    "description": "pkg_cat_compresor"
+  },
+  "pkg_cat_instaladores": "인스탈라도레스",
+  "@pkg_cat_instaladores": {
+    "description": "pkg_cat_instaladores"
+  },
+  "pkg_cat_limpieza": "림피에자",
+  "@pkg_cat_limpieza": {
+    "description": "pkg_cat_limpieza"
+  },
+  "pkg_cat_diagramas": "다이어그램",
+  "@pkg_cat_diagramas": {
+    "description": "pkg_cat_diagramas"
+  },
+  "pkg_cat_ide_ai": "IDE AI",
+  "@pkg_cat_ide_ai": {
+    "description": "pkg_cat_ide_ai"
+  },
+  "pkg_cat_comunicacion": "의사소통",
+  "@pkg_cat_comunicacion": {
+    "description": "pkg_cat_comunicacion"
+  },
+  "pkg_cat_grabacion": "그라바시온",
+  "@pkg_cat_grabacion": {
+    "description": "pkg_cat_grabacion"
+  },
+  "pkg_cat_bi_desktop": "BI 데스크탑",
+  "@pkg_cat_bi_desktop": {
+    "description": "pkg_cat_bi_desktop"
+  },
+  "pkg_cat_runtime_juegos": "런타임 게임",
+  "@pkg_cat_runtime_juegos": {
+    "description": "pkg_cat_runtime_juegos"
+  },
+  "pkg_cat_runtime_c": "런타임 C++",
+  "@pkg_cat_runtime_c": {
+    "description": "pkg_cat_runtime_c"
+  },
+  "disk_management_appbar_title": "디스코시 관리",
+  "@disk_management_appbar_title": {
+    "description": "disk_management_appbar_title"
+  },
+  "common_refresh": "실제화",
+  "@common_refresh": {
+    "description": "common_refresh"
+  },
+  "disk_selection_title": "선택 가능한 디스코 데 데스티노(Disco de Destino)",
+  "@disk_selection_title": {
+    "description": "disk_selection_title"
+  },
+  "disk_selection_desc": "Elija la unidad física donde se installará Windows.",
+  "@disk_selection_desc": {
+    "description": "disk_selection_desc"
+  },
+  "disk_selection_button_start": "초기 설치",
+  "@disk_selection_button_start": {
+    "description": "disk_selection_button_start"
+  },
+  "disk_waiting_wim_hint": "Esperando la detección de install.wim...",
+  "@disk_waiting_wim_hint": {
+    "description": "disk_waiting_wim_hint"
+  },
+  "disk_dialog_confirm_destruction_title": "DESTRUCCIÓN DE DATOS 확인",
+  "@disk_dialog_confirm_destruction_title": {
+    "description": "disk_dialog_confirm_destruction_title"
+  },
+  "disk_dialog_confirm_install_title": "설치 확인",
+  "@disk_dialog_confirm_install_title": {
+    "description": "disk_dialog_confirm_install_title"
+  },
+  "disk_dialog_format_warning": "디스코를 선택하여 형식을 완료하세요. Se perderán todos los datos.",
+  "@disk_dialog_format_warning": {
+    "description": "disk_dialog_format_warning"
+  },
+  "disk_dialog_existing_notice": "Windows는 W:\\\\ 형식으로 되어 있습니다.",
+  "@disk_dialog_existing_notice": {
+    "description": "disk_dialog_existing_notice"
+  },
+  "common_label_disk": "디스크",
+  "@common_label_disk": {
+    "description": "common_label_disk"
+  },
+  "common_label_mode": "모드",
+  "@common_label_mode": {
+    "description": "common_label_mode"
+  },
+  "common_label_image": "이미지",
+  "@common_label_image": {
+    "description": "common_label_image"
+  },
+  "common_cancel": "취소",
+  "@common_cancel": {
+    "description": "common_cancel"
+  },
+  "disk_button_confirm_and_install": "설치 확인",
+  "@disk_button_confirm_and_install": {
+    "description": "disk_button_confirm_and_install"
+  },
+  "progress_header_badge": "DESPLIEGUE EN CURSO",
+  "@progress_header_badge": {
+    "description": "progress_header_badge"
+  },
+  "progress_footer_warning": "NO DESCONECTE LA ENERGÍA NI 은퇴 EL MEDIO DE INSTALACIÓN",
+  "@progress_footer_warning": {
+    "description": "progress_footer_warning"
+  },
+  "progress_button_reboot": "레이니시아르 시스테마",
+  "@progress_button_reboot": {
+    "description": "progress_button_reboot"
+  },
+  "landing_title_installer": "레퀴엠 설치 프로그램",
+  "@landing_title_installer": {
+    "description": "landing_title_installer"
+  },
+  "landing_title_tools": "레퀴엠 도구",
+  "@landing_title_tools": {
+    "description": "landing_title_tools"
+  },
+  "landing_subtitle": "DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN",
+  "@landing_subtitle": {
+    "description": "landing_subtitle"
+  },
+  "landing_description_part1": "알토 렌디미엔토를 위한 알타 정밀 Windows 설치.",
+  "@landing_description_part1": {
+    "description": "landing_description_part1"
+  },
+  "landing_description_part2": "DISM 방향을 탐색하고 시스템 자동화를 최적화하는 빠른 속도를 실험해 보세요.",
+  "@landing_description_part2": {
+    "description": "landing_description_part2"
+  },
+  "landing_button_start": "엠페자르",
+  "@landing_button_start": {
+    "description": "landing_button_start"
+  },
+  "landing_button_logs": "로그 델 시스테마",
+  "@landing_button_logs": {
+    "description": "landing_button_logs"
+  },
+  "landing_badge_version": "버전이 안정적임",
+  "@landing_badge_version": {
+    "description": "landing_badge_version"
+  },
+  "landing_badge_secure_boot": "보안 부팅과 호환 가능",
+  "@landing_badge_secure_boot": {
+    "description": "landing_badge_secure_boot"
+  },
+  "landing_badge_author": "DISEÑADO POR JOSS",
+  "@landing_badge_author": {
+    "description": "landing_badge_author"
+  },
+  "tools_kms_empty_host_error": "오류: 호스트 KMS가 vacio입니다.",
+  "@tools_kms_empty_host_error": {
+    "description": "tools_kms_empty_host_error"
+  },
+  "tools_log_format": "[{time}] {message}",
+  "@tools_log_format": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    },
+    "description": "tools_log_format"
+  },
+  "tools_kms_no_products_selected": "KMS 선택 건초 제품은 없습니다.",
+  "@tools_kms_no_products_selected": {
+    "description": "tools_kms_no_products_selected"
+  },
+  "tools_kms_checking_connectivity": "{host}:1688 연결 연결...",
+  "@tools_kms_checking_connectivity": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_checking_connectivity"
+  },
+  "tools_kms_error_log": "KMS 오류: {error}",
+  "@tools_kms_error_log": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "tools_kms_error_log"
+  },
+  "tools_packages_none_selected": "선택과 같은 건초 프로그램은 없습니다.",
+  "@tools_packages_none_selected": {
+    "description": "tools_packages_none_selected"
+  },
+  "tools_packages_none_detected": "탐지기는 날개와 함께 conocidos를 포장하지 않습니다.",
+  "@tools_packages_none_detected": {
+    "description": "tools_packages_none_detected"
+  },
+  "tools_packages_detected_count": "감지 패키지: {count}.",
+  "@tools_packages_detected_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    },
+    "description": "tools_packages_detected_count"
+  },
+  "tools_logs_copied_snackbar": "copiados al portapapeles를 기록합니다.",
+  "@tools_logs_copied_snackbar": {
+    "description": "tools_logs_copied_snackbar"
+  },
+  "tools_header_title": "REQUIEM 마이그레이션 도구",
+  "@tools_header_title": {
+    "description": "tools_header_title"
+  },
+  "tools_section_activation_title": "라이센스 활성화",
+  "@tools_section_activation_title": {
+    "description": "tools_section_activation_title"
+  },
+  "tools_section_activation_desc": "KMS 로컬 또는 원격 활성 Windows 및 Office 서비스를 구성합니다.",
+  "@tools_section_activation_desc": {
+    "description": "tools_section_activation_desc"
+  },
+  "tools_badge_kms_pending": "KMS 펜던트",
+  "@tools_badge_kms_pending": {
+    "description": "tools_badge_kms_pending"
+  },
+  "tools_button_activate_kms": "활성 KMS",
+  "@tools_button_activate_kms": {
+    "description": "tools_button_activate_kms"
+  },
+  "tools_section_office_title": "사무실 설치",
+  "@tools_section_office_title": {
+    "description": "tools_section_office_title"
+  },
+  "tools_section_office_desc": "Microsoft Office LTSC는 ODT를 사용하여 365개 자동 자동화 기능을 제공합니다.",
+  "@tools_section_office_desc": {
+    "description": "tools_section_office_desc"
+  },
+  "tools_button_install_office": "설치 사무실",
+  "@tools_button_install_office": {
+    "description": "tools_button_install_office"
+  },
+  "tools_section_packages_title": "스택 드 애플리카시오네스",
+  "@tools_section_packages_title": {
+    "description": "tools_section_packages_title"
+  },
+  "tools_section_packages_desc": "Windows 중앙 날개에 필요한 장치를 실제로 설치합니다.",
+  "@tools_section_packages_desc": {
+    "description": "tools_section_packages_desc"
+  },
+  "wim_status_not_found": "No se detector ninguna imagen",
+  "@wim_status_not_found": {
+    "description": "wim_status_not_found"
+  },
+  "wim_manual_search_hint": "WIM 설명서 보관소에 있는 \"Buscar\" para localizar를 사용하십시오.",
+  "@wim_manual_search_hint": {
+    "description": "wim_manual_search_hint"
+  },
+  "wim_button_change_file": "캠비아 아카이브",
+  "@wim_button_change_file": {
+    "description": "wim_button_change_file"
+  },
+  "common_search": "버스카",
+  "@common_search": {
+    "description": "common_search"
+  },
+  "common_continue": "계속",
+  "@common_continue": {
+    "description": "common_continue"
+  },
+  "wim_button_rescan": "Escanear unidades de nuevo",
+  "@wim_button_rescan": {
+    "description": "wim_button_rescan"
+  },
+  "wim_bridge_section_header": "Windows에서 레퀴엠을 준비하기 위해 설치를 완료하세요.",
+  "@wim_bridge_section_header": {
+    "description": "wim_bridge_section_header"
+  },
+  "wim_button_connect_wifi": "커넥타 Wi-Fi",
+  "@wim_button_connect_wifi": {
+    "description": "wim_button_connect_wifi"
+  },
+  "wim_button_search_bridge": "버스카르 푸엔테",
+  "@wim_button_search_bridge": {
+    "description": "wim_button_search_bridge"
+  },
+  "wim_button_manual_ip": "USAR IP 매뉴얼",
+  "@wim_button_manual_ip": {
+    "description": "wim_button_manual_ip"
+  },
+  "console_title": "콘솔라 델 시스테마",
+  "@console_title": {
+    "description": "console_title"
+  },
+  "console_tooltip_copy": "복사 로그",
+  "@console_tooltip_copy": {
+    "description": "console_tooltip_copy"
+  },
+  "console_tooltip_clear": "Limpiar 로그",
+  "@console_tooltip_clear": {
+    "description": "console_tooltip_clear"
+  },
+  "console_waiting_action": "에스페란도 또는 어쿠션...",
+  "@console_waiting_action": {
+    "description": "console_waiting_action"
+  },
+  "file_explorer_default_title": "Windows 설치 이미지 선택",
+  "@file_explorer_default_title": {
+    "description": "file_explorer_default_title"
+  },
+  "file_explorer_read_error": "디렉토리 내용이 무엇인지 확인하세요.\\n{error}",
+  "@file_explorer_read_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_read_error"
+  },
+  "file_explorer_drives_header": "유니다드",
+  "@file_explorer_drives_header": {
+    "description": "file_explorer_drives_header"
+  },
+  "file_explorer_filter_hint": "필터…",
+  "@file_explorer_filter_hint": {
+    "description": "file_explorer_filter_hint"
+  },
+  "file_explorer_go_up_tooltip": "수비르 유엔 니벨",
+  "@file_explorer_go_up_tooltip": {
+    "description": "file_explorer_go_up_tooltip"
+  },
+  "file_explorer_invalid_path_error": "유효하지 않은 기본 정보: {val}",
+  "@file_explorer_invalid_path_error": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_invalid_path_error"
+  },
+  "file_explorer_empty_folder": "Esta Carpeta está vacía",
+  "@file_explorer_empty_folder": {
+    "description": "file_explorer_empty_folder"
+  },
+  "file_explorer_selected_file": "선택 항목: {path}",
+  "@file_explorer_selected_file": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "file_explorer_selected_file"
+  },
+  "file_explorer_select_file_hint": ".wim o .swm 아카이브 선택",
+  "@file_explorer_select_file_hint": {
+    "description": "file_explorer_select_file_hint"
+  },
+  "common_select": "선택",
+  "@common_select": {
+    "description": "common_select"
+  },
+  "disk_wim_integrated_source": "ISO에 WIM 통합",
+  "@disk_wim_integrated_source": {
+    "description": "disk_wim_integrated_source"
+  },
+  "disk_wim_bridge_source": "푸엔테: ${controller.bridgeAnnouncement?.imageName ??",
+  "@disk_wim_bridge_source": {
+    "description": "disk_wim_bridge_source"
+  },
+  "wim_status_searching_alt": "부스칸도 이미지...",
+  "@wim_status_searching_alt": {
+    "description": "wim_status_searching_alt"
+  },
+  "disk_wim_detected": "이미지 감지",
+  "@disk_wim_detected": {
+    "description": "disk_wim_detected"
+  },
+  "disk_wim_not_found": "반대하지 않는 이미지",
+  "@disk_wim_not_found": {
+    "description": "disk_wim_not_found"
+  },
+  "common_change": "캠비아",
+  "@common_change": {
+    "description": "common_change"
+  },
+  "disk_partition_gpt_uefi": "GPT/UEFI",
+  "@disk_partition_gpt_uefi": {
+    "description": "disk_partition_gpt_uefi"
+  },
+  "disk_partition_mbr_bios": "MBR/바이오스",
+  "@disk_partition_mbr_bios": {
+    "description": "disk_partition_mbr_bios"
+  },
+  "disk_boot_firmware_label": "실제 Arranque: {firmware}",
+  "@disk_boot_firmware_label": {
+    "placeholders": {
+      "firmware": {
+        "type": "String"
+      }
+    },
+    "description": "disk_boot_firmware_label"
+  },
+  "disk_recommended_mode_label": "Modo 호환 가능: {recommended}",
+  "@disk_recommended_mode_label": {
+    "placeholders": {
+      "recommended": {
+        "type": "String"
+      }
+    },
+    "description": "disk_recommended_mode_label"
+  },
+  "disk_empty_list": "디스코드 físicos를 탐지하는 것은 아닙니다.",
+  "@disk_empty_list": {
+    "description": "disk_empty_list"
+  },
+  "disk_badge_system": "시스테마",
+  "@disk_badge_system": {
+    "description": "disk_badge_system"
+  },
+  "disk_item_header": "디스크 {diskNumber} · {mediaType} · {busType}",
+  "@disk_item_header": {
+    "placeholders": {
+      "diskNumber": {
+        "type": "String"
+      },
+      "mediaType": {
+        "type": "String"
+      },
+      "busType": {
+        "type": "String"
+      }
+    },
+    "description": "disk_item_header"
+  },
+  "disk_size_gb": "{sizeGB}GB",
+  "@disk_size_gb": {
+    "placeholders": {
+      "sizeGB": {
+        "type": "String"
+      }
+    },
+    "description": "disk_size_gb"
+  },
+  "iso_bridge_list_interfaces_error": "IPv4 인터페이스에 대한 열거형이 없습니다: {error}",
+  "@iso_bridge_list_interfaces_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_list_interfaces_error"
+  },
+  "iso_bridge_generic_error": "오류: {error}",
+  "@iso_bridge_generic_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_generic_error"
+  },
+  "iso_bridge_select_wim_dialog": "Windows WIM 이미지 선택",
+  "@iso_bridge_select_wim_dialog": {
+    "description": "iso_bridge_select_wim_dialog"
+  },
+  "iso_bridge_wim_selected_log": "WIM 선택: {path}",
+  "@iso_bridge_wim_selected_log": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_wim_selected_log"
+  },
+  "iso_bridge_save_simple_iso_dialog": "Guardar ISO 심플 드 레퀴엠",
+  "@iso_bridge_save_simple_iso_dialog": {
+    "description": "iso_bridge_save_simple_iso_dialog"
+  },
+  "iso_bridge_simple_iso_filename": "레퀴엠-설치 프로그램-Simple.iso",
+  "@iso_bridge_simple_iso_filename": {
+    "description": "iso_bridge_simple_iso_filename"
+  },
+  "iso_bridge_save_wim_iso_dialog": "Guardar ISO de Requiem con WIM",
+  "@iso_bridge_save_wim_iso_dialog": {
+    "description": "iso_bridge_save_wim_iso_dialog"
+  },
+  "iso_bridge_start_validation_error": "WIM 및 인터페이스 IPv4 개인 정보 보호를 선택하세요.",
+  "@iso_bridge_start_validation_error": {
+    "description": "iso_bridge_start_validation_error"
+  },
+  "iso_panel_title_media": "설치 미디어",
+  "@iso_panel_title_media": {
+    "description": "iso_panel_title_media"
+  },
+  "iso_panel_desc_media": "WIM을 선택하여 ISO 기반을 선택하면 Windows 이미지가 포함된 ISO 자동 기능이 제공됩니다.",
+  "@iso_panel_desc_media": {
+    "description": "iso_panel_desc_media"
+  },
+  "iso_panel_button_simple_iso": "OBTENER ISO PARA INSTALACIÓN SOLAMENTE",
+  "@iso_panel_button_simple_iso": {
+    "description": "iso_panel_button_simple_iso"
+  },
+  "iso_panel_button_select_wim": "선택형 WIM",
+  "@iso_panel_button_select_wim": {
+    "description": "iso_panel_button_select_wim"
+  },
+  "iso_panel_button_generate_iso": "일반 ISO",
+  "@iso_panel_button_generate_iso": {
+    "description": "iso_panel_button_generate_iso"
+  },
+  "iso_panel_title_bridge": "IPv4 설치가 완료되었습니다.",
+  "@iso_panel_title_bridge": {
+    "description": "iso_panel_title_bridge"
+  },
+  "iso_bridge_clients_count": "{clients} 연결",
+  "@iso_bridge_clients_count": {
+    "placeholders": {
+      "clients": {
+        "type": "String"
+      }
+    },
+    "description": "iso_bridge_clients_count"
+  },
+  "iso_bridge_desc": "WIM을 준비하여 고객에게 Requiem de la misma red를 직접 전송하세요. 클라이언트에는 WIM 설치 비용에 대한 보호가 없습니다.",
+  "@iso_bridge_desc": {
+    "description": "iso_bridge_desc"
+  },
+  "office_odt_panel_title": "Office 배포 도구",
+  "@office_odt_panel_title": {
+    "description": "office_odt_panel_title"
+  },
+  "office_odt_kms_badge": "ODT + KMS",
+  "@office_odt_kms_badge": {
+    "description": "office_odt_kms_badge"
   }
 }

@@ -25,7 +25,9 @@ Este documento sirve como guía técnica obligatoria para cualquier agente de IA
 Requiem/
 ├── lib/
 │   ├── main.dart                               # Punto de entrada y detector de entorno
-│   ├── core/                                   # Estilos, constantes y temas UI
+│   ├── core/                                   # Estilos, constantes y temas UI (localizations.dart)
+│   ├── l10n/                                   # Archivos de localización intl_*.arb y translation_history.json
+│   ├── generated/                              # Clases generadas de localización (l10n.dart e intl/)
 │   ├── models/                                 # Modelos de datos (Discos, Particiones, Progreso)
 │   ├── services/
 │   │   ├── main_controller.dart                # Controlador central de estado (Provider)

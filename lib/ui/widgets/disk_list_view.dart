@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/disk_service.dart';
+import '../../core/localizations.dart';
 
 class DiskListView extends StatelessWidget {
   final List<PhysicalDisk> disks;
@@ -18,6 +19,7 @@ class DiskListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     if (isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -34,9 +36,9 @@ class DiskListView extends StatelessWidget {
               color: scheme.primary.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'No se detectaron discos físicos',
-              style: TextStyle(fontSize: 18),
+            Text(
+              t.noPhysicalDisks,
+              style: const TextStyle(fontSize: 18),
             ),
           ],
         ),
@@ -124,7 +126,7 @@ class DiskListView extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
-                                    'SISTEMA',
+                                    t.systemDisk.toUpperCase(),
                                     style: TextStyle(
                                       fontSize: 10,
                                       color: scheme.error,

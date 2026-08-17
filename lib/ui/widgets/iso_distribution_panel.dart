@@ -6,6 +6,7 @@ import 'package:path/path.dart' as p;
 
 import '../../services/bridge_server_service.dart';
 import '../../services/iso_packaging_service.dart';
+import '../../core/localizations.dart';
 import 'panel.dart';
 
 class IsoDistributionPanel extends StatefulWidget {
@@ -47,7 +48,9 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
         _selectedAddress = addresses.isEmpty ? null : addresses.first;
       });
     } catch (error) {
-      widget.onLog('No se pudieron enumerar las interfaces IPv4: $error');
+      if (mounted) {
+        widget.onLog(context.l10n.iso_bridge_list_interfaces_error(error.toString()));
+      }
     }
   }
 
@@ -81,21 +84,23 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
   }
 
   Future<void> _pickWim() async {
+    final t = context.l10n;
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: const ['wim'],
-      dialogTitle: 'Seleccionar imagen WIM de Windows',
+      dialogTitle: t.iso_bridge_select_wim_dialog,
     );
     final path = result?.files.single.path;
     if (path == null || !mounted) return;
     setState(() => _wimPath = path);
-    widget.onLog('WIM seleccionado: $path');
+    widget.onLog(t.iso_bridge_wim_selected_log(path));
   }
 
   Future<void> _downloadSimpleIso() async {
+    final t = context.l10n;
     final destination = await FilePicker.platform.saveFile(
-      dialogTitle: 'Guardar ISO simple de Requiem',
-      fileName: 'Requiem-Installer-Simple.iso',
+      dialogTitle: t.iso_bridge_save_simple_iso_dialog,
+      fileName: t.iso_bridge_simple_iso_filename,
       type: FileType.custom,
       allowedExtensions: const ['iso'],
     );
@@ -108,13 +113,14 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
   }
 
   Future<void> _packageWim() async {
+    final t = context.l10n;
     final wimPath = _wimPath;
     if (wimPath == null) {
       await _pickWim();
       if (_wimPath == null) return;
     }
     final destination = await FilePicker.platform.saveFile(
-      dialogTitle: 'Guardar ISO de Requiem con WIM',
+      dialogTitle: t.iso_bridge_save_wim_iso_dialog,
       fileName: 'Requiem-Windows-${p.basenameWithoutExtension(_wimPath!)}.iso',
       type: FileType.custom,
       allowedExtensions: const ['iso'],
@@ -129,6 +135,7 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
   }
 
   Future<void> _toggleBridge() async {
+    final t = context.l10n;
     if (_bridgeService.isRunning) {
       await _bridgeService.stop(onLog: widget.onLog);
       if (mounted) setState(() {});
@@ -137,7 +144,7 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
     if (_wimPath == null) await _pickWim();
     final address = _selectedAddress;
     if (_wimPath == null || address == null) {
-      throw StateError('Seleccione un WIM y una interfaz IPv4 privada.');
+      throw StateError(t.iso_bridge_start_validation_error);
     }
     await _bridgeService.start(
       sourceWimPath: _wimPath!,
@@ -156,6 +163,7 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     return Column(
       children: [
         if (_busy) ...[
@@ -165,12 +173,12 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
         RequiemPanel(
           icon: Icons.album_rounded,
           accent: scheme.tertiary,
-          title: 'Medio de instalación',
+          title: t.iso_panel_title_media,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Obtenga la ISO base para seleccionar un WIM al arrancar, o cree una ISO autónoma que ya incluya su imagen de Windows.',
+              Text(
+                t.iso_panel_desc_media,
               ),
               const SizedBox(height: 18),
               Wrap(
@@ -180,17 +188,17 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
                   OutlinedButton.icon(
                     onPressed: _busy ? null : () => _run(_downloadSimpleIso),
                     icon: const Icon(Icons.download_rounded),
-                    label: const Text('OBTENER ISO PARA INSTALACIÓN SOLAMENTE'),
+                    label: Text(t.iso_panel_button_simple_iso),
                   ),
                   OutlinedButton.icon(
                     onPressed: _busy ? null : _pickWim,
                     icon: const Icon(Icons.folder_open_rounded),
-                    label: const Text('SELECCIONAR WIM'),
+                    label: Text(t.iso_panel_button_select_wim),
                   ),
                   FilledButton.icon(
                     onPressed: _busy ? null : () => _run(_packageWim),
                     icon: const Icon(Icons.inventory_2_rounded),
-                    label: const Text('GENERAR ISO'),
+                    label: Text(t.iso_panel_button_generate_iso),
                   ),
                 ],
               ),
@@ -209,7 +217,7 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
         RequiemPanel(
           icon: Icons.wifi_tethering_rounded,
           accent: scheme.secondary,
-          title: 'Puente IPv4 de instalación',
+          title: t.iso_panel_title_bridge,
           trailing: _bridgeService.isRunning
               ? Chip(
                   avatar: const Icon(
@@ -217,21 +225,21 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
                     size: 10,
                     color: Colors.greenAccent,
                   ),
-                  label: Text('${_bridgeService.servedClients} conexiones'),
+                  label: Text(t.iso_bridge_clients_count('${_bridgeService.servedClients}')),
                 )
               : null,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Prepara el WIM una sola vez y lo transmite directamente a los clientes Requiem de la misma red. Los clientes no guardan el WIM antes de instalar.',
+              Text(
+                t.iso_bridge_desc,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<InternetAddress>(
                 initialValue: _selectedAddress,
-                decoration: const InputDecoration(
-                  labelText: 'Interfaz Wi‑Fi/LAN IPv4',
-                  prefixIcon: Icon(Icons.lan_rounded),
+                decoration: InputDecoration(
+                  labelText: t.networkInterface,
+                  prefixIcon: const Icon(Icons.lan_rounded),
                 ),
                 items: [
                   for (final address in _addresses)
@@ -254,13 +262,13 @@ class _IsoDistributionPanelState extends State<IsoDistributionPanel> {
                 ),
                 label: Text(
                   _bridgeService.isRunning
-                      ? 'DETENER PUENTE'
-                      : 'PREPARAR E INICIAR PUENTE',
+                      ? t.stopBridge.toUpperCase()
+                      : t.prepareBridge.toUpperCase(),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                'Puerto HTTP 40124 · descubrimiento UDP 40123. Si Windows Defender pregunta, permita acceso en redes privadas.',
+                t.bridgePorts,
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.45),
                   fontSize: 12,

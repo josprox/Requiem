@@ -34,24 +34,74 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(mode) => "Съвместим с Modo: ${mode}";
 
-  static String m7(name, edition) => "Открито издание: ${name} (${edition})";
+  static String m7(firmware) => "Актуална аранжировка: ${firmware}";
 
-  static String m8(error) => "Възникна грешка: ${error}";
+  static String m8(diskNumber, mediaType, busType) =>
+      "ДИСК ${diskNumber} · ${mediaType} · ${busType}";
 
-  static String m9(path) => "Инвалиден път: ${path}";
+  static String m9(recommended) => "Съвместим с Modo: ${recommended}";
 
-  static String m10(error) => "Грешка KMS: ${error}";
+  static String m10(sizeGB) => "${sizeGB} ГБ";
 
-  static String m11(product, channel, edition, status) =>
+  static String m11(imageName) =>
+      "Пуенте: \${controller.bridgeAnnouncement?.imageName ??";
+
+  static String m12(name, edition) => "Открито издание: ${name} (${edition})";
+
+  static String m13(error) => "Възникна грешка: ${error}";
+
+  static String m14(val) => "Инвалиден път: ${val}";
+
+  static String m15(error) =>
+      "No se pudo leer el contenido del directorio.\\n${error}";
+
+  static String m16(path) => "Избор: ${path}";
+
+  static String m17(path) => "Инвалиден път: ${path}";
+
+  static String m18(clients) => "${clients} конексиони";
+
+  static String m19(error) => "ГРЕШКА: ${error}";
+
+  static String m20(error) =>
+      "Не можете да изброите IPv4 интерфейсите: ${error}";
+
+  static String m21(path) => "Избран WIM: ${path}";
+
+  static String m22(error) => "Грешка KMS: ${error}";
+
+  static String m23(product, channel, edition, status) =>
       "${product} / ${channel} / ${edition} бита. La renovación queda ${status}.";
 
-  static String m12(count) => "Открити пакети: ${count}.";
+  static String m24(count) => "Открити пакети: ${count}.";
 
-  static String m13(file) => "Избор: ${file}";
+  static String m25(file) => "Избор: ${file}";
 
-  static String m14(error) => "Не можете да се свържете с Wi-Fi: ${error}";
+  static String m26(count) => "${count} програми";
 
-  static String m15(network) => "Свържете се с ${network}.";
+  static String m27(host) => "Comprobando conectividad con ${host}:1688...";
+
+  static String m28(error) => "ГРЕШКА KMS: ${error}";
+
+  static String m29(time, message) => "[${time}] ${message}";
+
+  static String m30(count) => "Открити пакети: ${count}.";
+
+  static String m31(error) => "Не можете да се свържете с Wi-Fi: ${error}";
+
+  static String m32(network) => "Свържете се с ${network}.";
+
+  static String m33(error) => "Не можете да се свържете с Wi-Fi: ${error}";
+
+  static String m34(ssid, result) => "Wi-Fi свързан към ${ssid}. ${result}";
+
+  static String m35(ssid) => "Свържете се с ${ssid}.";
+
+  static String m36(signal, security) => "${signal}% · ${security}";
+
+  static String m37(error) => "No se pudo conectar: ${error}";
+
+  static String m38(error) => "No se pudo buscar el puente: ${error}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -76,6 +126,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Инсталатор на Requiem",
     ),
     "appTitleTools": MessageLookupByLibrary.simpleMessage(
+      "Инструменти за Реквием",
+    ),
+    "app_title_installer": MessageLookupByLibrary.simpleMessage(
+      "Инсталатор на Requiem",
+    ),
+    "app_title_tools": MessageLookupByLibrary.simpleMessage(
       "Инструменти за Реквием",
     ),
     "applicationStack": MessageLookupByLibrary.simpleMessage(
@@ -111,6 +167,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "bridgeSearchError": m4,
     "checkingKms": m5,
     "clearLogs": MessageLookupByLibrary.simpleMessage("Лимпиарски трупи"),
+    "common_cancel": MessageLookupByLibrary.simpleMessage("ОТМЕНЯ"),
+    "common_change": MessageLookupByLibrary.simpleMessage("КАМБИАР"),
+    "common_connect": MessageLookupByLibrary.simpleMessage("КОНЕКТАР"),
+    "common_continue": MessageLookupByLibrary.simpleMessage("ПРОДЪЛЖАВАНЕ"),
+    "common_label_disk": MessageLookupByLibrary.simpleMessage("ДИСК"),
+    "common_label_image": MessageLookupByLibrary.simpleMessage("ИЗОБРАЖЕНИЕ"),
+    "common_label_mode": MessageLookupByLibrary.simpleMessage("РЕЖИМ"),
+    "common_refresh": MessageLookupByLibrary.simpleMessage("АКТУАЛИЗИРАНЕ"),
+    "common_search": MessageLookupByLibrary.simpleMessage("БУСКАР"),
+    "common_select": MessageLookupByLibrary.simpleMessage("СЕЛЕКЦИОНАР"),
     "compatibleMode": m6,
     "confirmDataDestruction": MessageLookupByLibrary.simpleMessage(
       "Потвърдете унищожаването на данните",
@@ -122,6 +188,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "Свържете се с инсталирането на Wi-Fi",
     ),
     "connectWifi": MessageLookupByLibrary.simpleMessage("Свързване с Wi-Fi"),
+    "console_title": MessageLookupByLibrary.simpleMessage(
+      "Consola del Sistema",
+    ),
+    "console_tooltip_clear": MessageLookupByLibrary.simpleMessage(
+      "Лимпиарски трупи",
+    ),
+    "console_tooltip_copy": MessageLookupByLibrary.simpleMessage(
+      "Copiar регистрационни файлове",
+    ),
+    "console_waiting_action": MessageLookupByLibrary.simpleMessage(
+      "Esperando una ación...",
+    ),
     "copyLogs": MessageLookupByLibrary.simpleMessage(
       "Copiar регистрационни файлове",
     ),
@@ -136,6 +214,61 @@ class MessageLookup extends MessageLookupByLibrary {
     "diskManagement": MessageLookupByLibrary.simpleMessage(
       "Администрация на дискотеки",
     ),
+    "disk_badge_system": MessageLookupByLibrary.simpleMessage("СИСТЕМА"),
+    "disk_boot_firmware_label": m7,
+    "disk_button_confirm_and_install": MessageLookupByLibrary.simpleMessage(
+      "ПОТВЪРДЕТЕ И ИНСТАЛИРАНЕТО",
+    ),
+    "disk_dialog_confirm_destruction_title":
+        MessageLookupByLibrary.simpleMessage(
+          "ПОТВЪРЖДЕНИЕ НА УНИЩОЖАВАНЕТО НА ДАННИТЕ",
+        ),
+    "disk_dialog_confirm_install_title": MessageLookupByLibrary.simpleMessage(
+      "ПОТВЪРЖДЕНИЕ НА ИНСТАЛАЦИЯТА",
+    ),
+    "disk_dialog_existing_notice": MessageLookupByLibrary.simpleMessage(
+      "Windows се премахва в W:\\\\ без форматиране.",
+    ),
+    "disk_dialog_format_warning": MessageLookupByLibrary.simpleMessage(
+      "El disco seleccionado se formateará por completo. Se perderán todos los datos.",
+    ),
+    "disk_empty_list": MessageLookupByLibrary.simpleMessage(
+      "No se detectaron discos físicos",
+    ),
+    "disk_item_header": m8,
+    "disk_management_appbar_title": MessageLookupByLibrary.simpleMessage(
+      "ADMINISTRACIÓN DE DISCOS",
+    ),
+    "disk_partition_gpt_uefi": MessageLookupByLibrary.simpleMessage(
+      "GPT / UEFI",
+    ),
+    "disk_partition_mbr_bios": MessageLookupByLibrary.simpleMessage(
+      "MBR / BIOS",
+    ),
+    "disk_recommended_mode_label": m9,
+    "disk_selection_button_start": MessageLookupByLibrary.simpleMessage(
+      "ПЪРВОНАЧАЛЕН ИНСТАЛАЦИОН",
+    ),
+    "disk_selection_desc": MessageLookupByLibrary.simpleMessage(
+      "Elija la unidad física donde se инсталира Windows.",
+    ),
+    "disk_selection_title": MessageLookupByLibrary.simpleMessage(
+      "Selectionar Disco de Destino",
+    ),
+    "disk_size_gb": m10,
+    "disk_waiting_wim_hint": MessageLookupByLibrary.simpleMessage(
+      "Esperando la detección de install.wim...",
+    ),
+    "disk_wim_bridge_source": m11,
+    "disk_wim_detected": MessageLookupByLibrary.simpleMessage(
+      "Разпознато изображение",
+    ),
+    "disk_wim_integrated_source": MessageLookupByLibrary.simpleMessage(
+      "WIM е интегриран в ISO",
+    ),
+    "disk_wim_not_found": MessageLookupByLibrary.simpleMessage(
+      "Imagen no encontrada",
+    ),
     "doNotDisconnect": MessageLookupByLibrary.simpleMessage(
       "No desconecte la energía ni retire el medio de instalación",
     ),
@@ -149,11 +282,32 @@ class MessageLookup extends MessageLookupByLibrary {
       "Изтеглете преносим (.zip)",
     ),
     "drives": MessageLookupByLibrary.simpleMessage("Unidades"),
-    "editionDetected": m7,
+    "editionDetected": m12,
     "emptyFolder": MessageLookupByLibrary.simpleMessage(
       "Esta carpeta está vacía",
     ),
-    "errorGeneric": m8,
+    "errorGeneric": m13,
+    "file_explorer_default_title": MessageLookupByLibrary.simpleMessage(
+      "Избор на изображения за инсталиране на Windows",
+    ),
+    "file_explorer_drives_header": MessageLookupByLibrary.simpleMessage(
+      "UNIDADES",
+    ),
+    "file_explorer_empty_folder": MessageLookupByLibrary.simpleMessage(
+      "Esta carpeta está vacía",
+    ),
+    "file_explorer_filter_hint": MessageLookupByLibrary.simpleMessage(
+      "Филтър…",
+    ),
+    "file_explorer_go_up_tooltip": MessageLookupByLibrary.simpleMessage(
+      "Subir un nivel",
+    ),
+    "file_explorer_invalid_path_error": m14,
+    "file_explorer_read_error": m15,
+    "file_explorer_select_file_hint": MessageLookupByLibrary.simpleMessage(
+      "Изберете архив .wim или .swm",
+    ),
+    "file_explorer_selected_file": m16,
     "filter": MessageLookupByLibrary.simpleMessage("Филтър…"),
     "formatGpt": MessageLookupByLibrary.simpleMessage(
       "Форматиране на GPT (препоръчително)",
@@ -192,11 +346,51 @@ class MessageLookup extends MessageLookupByLibrary {
     "installationProgress": MessageLookupByLibrary.simpleMessage(
       "Прогрес на инсталацията",
     ),
-    "invalidPath": m9,
+    "invalidPath": m17,
     "isoDescription": MessageLookupByLibrary.simpleMessage(
       "Изтеглете ISO базата за избор на WIM като устройство, или създайте един ISO автоном, който включва изображението на Windows.",
     ),
-    "kmsError": m10,
+    "iso_bridge_clients_count": m18,
+    "iso_bridge_desc": MessageLookupByLibrary.simpleMessage(
+      "Prepara el WIM una sola vez y lo transmite directamente a los clientes Requiem de la misma red. Клиентите не пазят WIM преди инсталирането.",
+    ),
+    "iso_bridge_generic_error": m19,
+    "iso_bridge_list_interfaces_error": m20,
+    "iso_bridge_save_simple_iso_dialog": MessageLookupByLibrary.simpleMessage(
+      "Guardar ISO simple de Requiem",
+    ),
+    "iso_bridge_save_wim_iso_dialog": MessageLookupByLibrary.simpleMessage(
+      "Пазете ISO от Requiem с WIM",
+    ),
+    "iso_bridge_select_wim_dialog": MessageLookupByLibrary.simpleMessage(
+      "Избор на WIM изображение на Windows",
+    ),
+    "iso_bridge_simple_iso_filename": MessageLookupByLibrary.simpleMessage(
+      "Requiem-Installer-Simple.iso",
+    ),
+    "iso_bridge_start_validation_error": MessageLookupByLibrary.simpleMessage(
+      "Изберете WIM и поверителен IPv4 интерфейс.",
+    ),
+    "iso_bridge_wim_selected_log": m21,
+    "iso_panel_button_generate_iso": MessageLookupByLibrary.simpleMessage(
+      "GENERAR ISO",
+    ),
+    "iso_panel_button_select_wim": MessageLookupByLibrary.simpleMessage(
+      "СЕЛЕКЦИОНАР WIM",
+    ),
+    "iso_panel_button_simple_iso": MessageLookupByLibrary.simpleMessage(
+      "OBTENER ISO PARA INSTALACIÓN SOLAMENTE",
+    ),
+    "iso_panel_desc_media": MessageLookupByLibrary.simpleMessage(
+      "Изтеглете ISO базата за избор на WIM като устройство, или създайте един ISO автоном, който включва изображението на Windows.",
+    ),
+    "iso_panel_title_bridge": MessageLookupByLibrary.simpleMessage(
+      "Пуенте IPv4 на инсталацията",
+    ),
+    "iso_panel_title_media": MessageLookupByLibrary.simpleMessage(
+      "Медио де инсталация",
+    ),
+    "kmsError": m22,
     "kmsHostEmpty": MessageLookupByLibrary.simpleMessage(
       "Грешка: хостът KMS е ваканционен.",
     ),
@@ -205,8 +399,117 @@ class MessageLookup extends MessageLookupByLibrary {
     "kmsVolumeActivation": MessageLookupByLibrary.simpleMessage(
       "Activación de volume (KMS)",
     ),
+    "kms_product_office_ltsc_professional_plus_2021":
+        MessageLookupByLibrary.simpleMessage(
+          "Office LTSC Professional Plus 2021",
+        ),
+    "kms_product_office_ltsc_professional_plus_2024":
+        MessageLookupByLibrary.simpleMessage(
+          "Office LTSC Professional Plus 2024",
+        ),
+    "kms_product_office_professional_plus_2013":
+        MessageLookupByLibrary.simpleMessage("Office Professional Plus 2013"),
+    "kms_product_office_professional_plus_2016":
+        MessageLookupByLibrary.simpleMessage("Office Professional Plus 2016"),
+    "kms_product_office_professional_plus_2019":
+        MessageLookupByLibrary.simpleMessage("Office Professional Plus 2019"),
+    "kms_product_office_standard_2013": MessageLookupByLibrary.simpleMessage(
+      "Office Standard 2013",
+    ),
+    "kms_product_windows_10_11_education": MessageLookupByLibrary.simpleMessage(
+      "Образование за Windows 10/11",
+    ),
+    "kms_product_windows_10_11_education_n":
+        MessageLookupByLibrary.simpleMessage("Windows 10/11 Education N"),
+    "kms_product_windows_10_11_enterprise":
+        MessageLookupByLibrary.simpleMessage("Windows 10/11 Enterprise"),
+    "kms_product_windows_10_11_enterprise_g":
+        MessageLookupByLibrary.simpleMessage("Windows 10/11 Enterprise G"),
+    "kms_product_windows_10_11_enterprise_g_n":
+        MessageLookupByLibrary.simpleMessage("Windows 10/11 Enterprise G N"),
+    "kms_product_windows_10_11_enterprise_n":
+        MessageLookupByLibrary.simpleMessage("Windows 10/11 Enterprise N"),
+    "kms_product_windows_10_11_pro": MessageLookupByLibrary.simpleMessage(
+      "Windows 10/11 Pro",
+    ),
+    "kms_product_windows_10_11_pro_education":
+        MessageLookupByLibrary.simpleMessage("Windows 10/11 Pro Education"),
+    "kms_product_windows_10_11_pro_for_workstations":
+        MessageLookupByLibrary.simpleMessage(
+          "Windows 10/11 Pro за работни станции",
+        ),
+    "kms_product_windows_10_11_pro_n": MessageLookupByLibrary.simpleMessage(
+      "Windows 10/11 Pro N",
+    ),
+    "kms_product_windows_10_11_pro_workstations":
+        MessageLookupByLibrary.simpleMessage(
+          "Работни станции с Windows 10/11 Pro",
+        ),
+    "kms_product_windows_8_1_enterprise": MessageLookupByLibrary.simpleMessage(
+      "Windows 8.1 Enterprise",
+    ),
+    "kms_product_windows_8_1_pro": MessageLookupByLibrary.simpleMessage(
+      "Windows 8.1 Pro",
+    ),
+    "kms_product_windows_8_enterprise": MessageLookupByLibrary.simpleMessage(
+      "Windows 8 Enterprise",
+    ),
+    "kms_product_windows_8_pro": MessageLookupByLibrary.simpleMessage(
+      "Windows 8 Pro",
+    ),
+    "kms_product_windows_server_2019_datacenter":
+        MessageLookupByLibrary.simpleMessage(
+          "Център за данни на Windows Server 2019",
+        ),
+    "kms_product_windows_server_2019_standard":
+        MessageLookupByLibrary.simpleMessage("Windows Server 2019 Standard"),
+    "kms_product_windows_server_2022_datacenter":
+        MessageLookupByLibrary.simpleMessage(
+          "Център за данни на Windows Server 2022",
+        ),
+    "kms_product_windows_server_2022_standard":
+        MessageLookupByLibrary.simpleMessage("Windows Server 2022 Standard"),
+    "kms_product_windows_server_2025_datacenter":
+        MessageLookupByLibrary.simpleMessage(
+          "Център за данни на Windows Server 2025",
+        ),
+    "kms_product_windows_server_2025_standard":
+        MessageLookupByLibrary.simpleMessage("Windows Server 2025 Standard"),
+    "kms_product_windows_subsystem_for_linux":
+        MessageLookupByLibrary.simpleMessage("Подсистема Windows за Linux"),
+    "kms_product_windows_terminal": MessageLookupByLibrary.simpleMessage(
+      "Терминал на Windows",
+    ),
     "landingDescription": MessageLookupByLibrary.simpleMessage(
       "Instalador de Windows de alta precisión para entornos de alto rendimiento. Experimente un despliegue rápido with orquestación directa de DISM y optimización automatizada del sistema.",
+    ),
+    "landing_badge_author": MessageLookupByLibrary.simpleMessage(
+      "DISEÑADO POR JOSS",
+    ),
+    "landing_badge_secure_boot": MessageLookupByLibrary.simpleMessage(
+      "СЪВМЕСТИМ CON SECURE BOOT",
+    ),
+    "landing_badge_version": MessageLookupByLibrary.simpleMessage(
+      "УСТАНОВЕНА ВЕРСИЯ",
+    ),
+    "landing_button_logs": MessageLookupByLibrary.simpleMessage(
+      "ЛОГИ ДЕЛ СИСТЕМА",
+    ),
+    "landing_button_start": MessageLookupByLibrary.simpleMessage("ЕМПЕЗАР"),
+    "landing_description_part1": MessageLookupByLibrary.simpleMessage(
+      "Instalador de Windows de alta precisión para entornos de alto rendimiento.",
+    ),
+    "landing_description_part2": MessageLookupByLibrary.simpleMessage(
+      "Experimente un despliegue rápido with orquestación directa de DISM y optimización automatizada del sistema.",
+    ),
+    "landing_subtitle": MessageLookupByLibrary.simpleMessage(
+      "DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN",
+    ),
+    "landing_title_installer": MessageLookupByLibrary.simpleMessage(
+      "ИЗИСКВАН ИНСТАЛАТОР",
+    ),
+    "landing_title_tools": MessageLookupByLibrary.simpleMessage(
+      "REQUIEM ИНСТРУМЕНТИ",
     ),
     "licenseActivation": MessageLookupByLibrary.simpleMessage(
       "Activación de licencias",
@@ -262,18 +565,121 @@ class MessageLookup extends MessageLookupByLibrary {
     "officeInstaller": MessageLookupByLibrary.simpleMessage(
       "Инсталатор на офис",
     ),
-    "officeRenewalStatus": m11,
+    "officeRenewalStatus": m23,
     "officeVersion": MessageLookupByLibrary.simpleMessage("Версия на Office"),
+    "office_odt_kms_badge": MessageLookupByLibrary.simpleMessage("ODT + KMS"),
+    "office_odt_panel_title": MessageLookupByLibrary.simpleMessage(
+      "Инструмент за внедряване на Office",
+    ),
+    "office_pkg_desc_2019": MessageLookupByLibrary.simpleMessage(
+      "Click-to-Run de volume con canal PerpetualVL2019",
+    ),
+    "office_pkg_desc_2021": MessageLookupByLibrary.simpleMessage(
+      "Click-to-Run за обем с канал PerpetualVL2021",
+    ),
+    "office_pkg_desc_2024": MessageLookupByLibrary.simpleMessage(
+      "Click-to-Run за обем с канал PerpetualVL2024",
+    ),
+    "office_pkg_name_2019": MessageLookupByLibrary.simpleMessage(
+      "Office Pro Plus 2019",
+    ),
+    "office_pkg_name_2021": MessageLookupByLibrary.simpleMessage(
+      "Office LTSC Pro Plus 2021",
+    ),
+    "office_pkg_name_2024": MessageLookupByLibrary.simpleMessage(
+      "Office LTSC Pro Plus 2024",
+    ),
     "onlyWindows": MessageLookupByLibrary.simpleMessage(
       "Тази самостоятелна функция е налична в Windows.",
     ),
     "packageStack": MessageLookupByLibrary.simpleMessage(
       "Стек от програми (Winget)",
     ),
-    "packagesDetected": m12,
+    "packagesDetected": m24,
     "partitionMode": MessageLookupByLibrary.simpleMessage("Начин на участие"),
+    "pkg_cat_apache_php_mysql": MessageLookupByLibrary.simpleMessage(
+      "Apache PHP MySQL",
+    ),
+    "pkg_cat_bi_desktop": MessageLookupByLibrary.simpleMessage(
+      "BI работен плот",
+    ),
+    "pkg_cat_cliente_api": MessageLookupByLibrary.simpleMessage(
+      "Клиентски API",
+    ),
+    "pkg_cat_cliente_db": MessageLookupByLibrary.simpleMessage(
+      "Клиентска база данни",
+    ),
+    "pkg_cat_compiladores_c": MessageLookupByLibrary.simpleMessage(
+      "Компилатори на C++",
+    ),
+    "pkg_cat_compresor": MessageLookupByLibrary.simpleMessage("Компресор"),
+    "pkg_cat_comunicacion": MessageLookupByLibrary.simpleMessage(
+      "Comunicacion",
+    ),
+    "pkg_cat_control_de_versiones": MessageLookupByLibrary.simpleMessage(
+      "Контрол на версиите",
+    ),
+    "pkg_cat_desktop": MessageLookupByLibrary.simpleMessage("Работен плот"),
+    "pkg_cat_diagramas": MessageLookupByLibrary.simpleMessage("Диаграми"),
+    "pkg_cat_distro_wsl": MessageLookupByLibrary.simpleMessage(
+      "Дистрибуция WSL",
+    ),
+    "pkg_cat_editor": MessageLookupByLibrary.simpleMessage("редактор"),
+    "pkg_cat_golang": MessageLookupByLibrary.simpleMessage("Голанг"),
+    "pkg_cat_gpu_compute": MessageLookupByLibrary.simpleMessage(
+      "GPU изчисление",
+    ),
+    "pkg_cat_grabacion": MessageLookupByLibrary.simpleMessage("Грабасион"),
+    "pkg_cat_ide_ai": MessageLookupByLibrary.simpleMessage("IDE AI"),
+    "pkg_cat_ide_android": MessageLookupByLibrary.simpleMessage("IDE Android"),
+    "pkg_cat_ide_completo": MessageLookupByLibrary.simpleMessage("Пълен IDE"),
+    "pkg_cat_instaladores": MessageLookupByLibrary.simpleMessage(
+      "Instaladores",
+    ),
+    "pkg_cat_javascript": MessageLookupByLibrary.simpleMessage("JavaScript"),
+    "pkg_cat_limpieza": MessageLookupByLibrary.simpleMessage("Лимпиеза"),
+    "pkg_cat_modelos_locales": MessageLookupByLibrary.simpleMessage(
+      "Modelos locales",
+    ),
+    "pkg_cat_navegador": MessageLookupByLibrary.simpleMessage("Навегадор"),
+    "pkg_cat_python_3": MessageLookupByLibrary.simpleMessage("Python 3"),
+    "pkg_cat_runtime_c": MessageLookupByLibrary.simpleMessage(
+      "Време за изпълнение C++",
+    ),
+    "pkg_cat_runtime_escritorio": MessageLookupByLibrary.simpleMessage(
+      "Ескриторио по време на изпълнение",
+    ),
+    "pkg_cat_runtime_juegos": MessageLookupByLibrary.simpleMessage(
+      "Игра по време на изпълнение",
+    ),
+    "pkg_cat_runtime_php": MessageLookupByLibrary.simpleMessage(
+      "Изпълнение на PHP",
+    ),
+    "pkg_cat_rustup": MessageLookupByLibrary.simpleMessage("Ръстъп"),
+    "pkg_cat_sdk__net": MessageLookupByLibrary.simpleMessage("SDK .NET"),
+    "pkg_cat_servidor_db": MessageLookupByLibrary.simpleMessage(
+      "DB на сървъра",
+    ),
+    "pkg_cat_ssh_clasico": MessageLookupByLibrary.simpleMessage("SSH класико"),
+    "pkg_cat_ssh_moderno": MessageLookupByLibrary.simpleMessage("Модерен SSH"),
+    "pkg_cat_subsistema_linux": MessageLookupByLibrary.simpleMessage(
+      "Подсистема Linux",
+    ),
+    "pkg_cat_temurin_21": MessageLookupByLibrary.simpleMessage("Темурин 21"),
+    "pkg_cat_terminal_moderno": MessageLookupByLibrary.simpleMessage(
+      "Модерен терминал",
+    ),
     "prepareBridge": MessageLookupByLibrary.simpleMessage(
       "Preparar e iniciar puente",
+    ),
+    "progress_button_reboot": MessageLookupByLibrary.simpleMessage(
+      "REINICIAR SISTEMA",
+    ),
+    "progress_footer_warning": MessageLookupByLibrary.simpleMessage(
+      "NO DESCONECTE LA ENERGÍA NI RETIRE EL MEDIO DE INSTALACIÓN",
+    ),
+    "progress_header_badge": MessageLookupByLibrary.simpleMessage(
+      "DESPLIEGUE EN CURSO",
     ),
     "provideWindowsImage": MessageLookupByLibrary.simpleMessage(
       "Пропорция за изображението на инсталацията на Windows (install.wim или install.swm)\ndesde una unidad USB or cualquier medio montado.",
@@ -305,7 +711,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectWindowsImageFull": MessageLookupByLibrary.simpleMessage(
       "Изберете изображение за инсталация на Windows",
     ),
-    "selectedFile": m13,
+    "selectedFile": m25,
     "stableVersion": MessageLookupByLibrary.simpleMessage(
       "Стабилна версия v1.0.0",
     ),
@@ -319,6 +725,84 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "systemDisk": MessageLookupByLibrary.simpleMessage("Система"),
     "systemLogs": MessageLookupByLibrary.simpleMessage("Дневници на системата"),
+    "tools_badge_iso_compatibility": MessageLookupByLibrary.simpleMessage(
+      "Запазване на BIOS + UEFI",
+    ),
+    "tools_badge_kms_pending": MessageLookupByLibrary.simpleMessage(
+      "KMS висулка",
+    ),
+    "tools_badge_package_count": m26,
+    "tools_button_activate_kms": MessageLookupByLibrary.simpleMessage(
+      "АКТИВАР KMS",
+    ),
+    "tools_button_install_all_packages": MessageLookupByLibrary.simpleMessage(
+      "ИНСТАЛИРАНЕ НА ЗАДАЧА",
+    ),
+    "tools_button_install_office": MessageLookupByLibrary.simpleMessage(
+      "ИНСТАЛИРАНЕ НА ОФИС",
+    ),
+    "tools_header_title": MessageLookupByLibrary.simpleMessage(
+      "REQUIEM ИНСТРУМЕНТИ ЗА МИГРАЦИЯ",
+    ),
+    "tools_kms_checking_connectivity": m27,
+    "tools_kms_empty_host_error": MessageLookupByLibrary.simpleMessage(
+      "ГРЕШКА: KMS хостът е ваканционен.",
+    ),
+    "tools_kms_error_log": m28,
+    "tools_kms_no_products_selected": MessageLookupByLibrary.simpleMessage(
+      "Няма избрани продукти за сено KMS.",
+    ),
+    "tools_log_format": m29,
+    "tools_logs_copied_snackbar": MessageLookupByLibrary.simpleMessage(
+      "Logs copiados al portapapeles.",
+    ),
+    "tools_packages_detected_count": m30,
+    "tools_packages_none_detected": MessageLookupByLibrary.simpleMessage(
+      "No se detectaron paquetes conocidos con winget.",
+    ),
+    "tools_packages_none_selected": MessageLookupByLibrary.simpleMessage(
+      "Няма избрани програми.",
+    ),
+    "tools_section_activation_desc": MessageLookupByLibrary.simpleMessage(
+      "Конфигурирайте KMS сървър локално или отдалечено за активиране на Windows и Office.",
+    ),
+    "tools_section_activation_title": MessageLookupByLibrary.simpleMessage(
+      "Activación de Licencias",
+    ),
+    "tools_section_iso_desc": MessageLookupByLibrary.simpleMessage(
+      "Cree medios autonomos con un WIM интегриран за разпространение на директна инсталация за IPv4.",
+    ),
+    "tools_section_iso_title": MessageLookupByLibrary.simpleMessage(
+      "ISO y despliegue por red",
+    ),
+    "tools_section_office_desc": MessageLookupByLibrary.simpleMessage(
+      "Дезактивиране на Microsoft Office LTSC или 365 автоматизиран начин чрез ODT.",
+    ),
+    "tools_section_office_title": MessageLookupByLibrary.simpleMessage(
+      "Инсталатор на офис",
+    ),
+    "tools_section_packages_desc": MessageLookupByLibrary.simpleMessage(
+      "Инсталирайте и актуализирайте елементите на esenciales desarrollo за Windows mediante winget.",
+    ),
+    "tools_section_packages_title": MessageLookupByLibrary.simpleMessage(
+      "Стек на приложенията",
+    ),
+    "tools_sidebar_app_name": MessageLookupByLibrary.simpleMessage("РЕКВИЕМ"),
+    "tools_sidebar_mode_badge": MessageLookupByLibrary.simpleMessage(
+      "Режим на локални инструменти",
+    ),
+    "tools_sidebar_tab_iso": MessageLookupByLibrary.simpleMessage(
+      "ISO y Puente",
+    ),
+    "tools_sidebar_tab_kms": MessageLookupByLibrary.simpleMessage(
+      "Активиране на KMS",
+    ),
+    "tools_sidebar_tab_office": MessageLookupByLibrary.simpleMessage(
+      "Инсталационен офис",
+    ),
+    "tools_sidebar_tab_packages": MessageLookupByLibrary.simpleMessage(
+      "Стек програми",
+    ),
     "unknown": MessageLookupByLibrary.simpleMessage("Десконоцидо"),
     "updateDescription": MessageLookupByLibrary.simpleMessage(
       "За да продължите да използвате Requiem Tools, е необходимо актуализиране на версията, която е научена.",
@@ -338,11 +822,78 @@ class MessageLookup extends MessageLookupByLibrary {
     "waitingForWim": MessageLookupByLibrary.simpleMessage(
       "Esperando la detección de install.wim...",
     ),
-    "wifiConnectError": m14,
-    "wifiConnected": m15,
+    "wifiConnectError": m31,
+    "wifiConnected": m32,
     "wifiPassword": MessageLookupByLibrary.simpleMessage("Contraseña Wi-Fi"),
+    "wifi_connect_error": m33,
+    "wifi_connected_log": m34,
+    "wifi_connected_status": m35,
+    "wifi_dialog_title": MessageLookupByLibrary.simpleMessage(
+      "Свържете се с инсталирането на Wi-Fi",
+    ),
+    "wifi_item_signal_security": m36,
+    "wifi_none_found": MessageLookupByLibrary.simpleMessage(
+      "Няма проблеми с наличния Wi-Fi.",
+    ),
+    "wifi_password_hint": MessageLookupByLibrary.simpleMessage(
+      "Contraseña Wi-Fi",
+    ),
+    "wifi_scanning": MessageLookupByLibrary.simpleMessage(
+      "Сканират се налични Wi-Fi мрежи...",
+    ),
     "wimIntegrated": MessageLookupByLibrary.simpleMessage(
       "WIM е интегриран в ISO",
+    ),
+    "wim_bridge_connection_error": m37,
+    "wim_bridge_ip_dialog_title": MessageLookupByLibrary.simpleMessage(
+      "IP del puente Requiem",
+    ),
+    "wim_bridge_ip_placeholder": MessageLookupByLibrary.simpleMessage(
+      "192.168.1.20",
+    ),
+    "wim_bridge_not_found": MessageLookupByLibrary.simpleMessage(
+      "No se encontró ningún puente. Прегледайте ръководството за IP.",
+    ),
+    "wim_bridge_search_error": m38,
+    "wim_bridge_searching": MessageLookupByLibrary.simpleMessage(
+      "Търсене на Requiem мостове в локалната IPv4 мрежа...",
+    ),
+    "wim_bridge_section_header": MessageLookupByLibrary.simpleMessage(
+      "O reciba la instalación parada desde Requiem за Windows",
+    ),
+    "wim_button_change_file": MessageLookupByLibrary.simpleMessage(
+      "CAMBIAR АРХИВ",
+    ),
+    "wim_button_connect_wifi": MessageLookupByLibrary.simpleMessage(
+      "КОНЕКТАР WI-FI",
+    ),
+    "wim_button_manual_ip": MessageLookupByLibrary.simpleMessage(
+      "USAR IP РЪКОВОДСТВО",
+    ),
+    "wim_button_rescan": MessageLookupByLibrary.simpleMessage(
+      "Escanear unidades de nuevo",
+    ),
+    "wim_button_search_bridge": MessageLookupByLibrary.simpleMessage(
+      "БУСКАР ПУЕНТЕ",
+    ),
+    "wim_manual_search_hint": MessageLookupByLibrary.simpleMessage(
+      "Използвайте \"Buscar\" за локализиране на ръководството за WIM архив.",
+    ),
+    "wim_picker_description": MessageLookupByLibrary.simpleMessage(
+      "Пропорционално изображение на инсталацията на Windows (install.wim или install.swm)\\n",
+    ),
+    "wim_picker_title": MessageLookupByLibrary.simpleMessage(
+      "Избор на изображения на Windows",
+    ),
+    "wim_status_found": MessageLookupByLibrary.simpleMessage("Imagen contrada"),
+    "wim_status_not_found": MessageLookupByLibrary.simpleMessage(
+      "Не се открива изображение",
+    ),
+    "wim_status_searching": MessageLookupByLibrary.simpleMessage(
+      "Buscando изображение…",
+    ),
+    "wim_status_searching_alt": MessageLookupByLibrary.simpleMessage(
+      "Buscando изображение...",
     ),
     "wingetUnavailable": MessageLookupByLibrary.simpleMessage(
       "winget no está instalado или no está en PATH.",

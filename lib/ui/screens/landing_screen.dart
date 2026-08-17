@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'disk_selection_screen.dart';
 import 'wim_picker_screen.dart';
 import '../../services/main_controller.dart';
+import '../../core/localizations.dart';
 
 import '../widgets/glass_backdrop.dart';
 
@@ -44,6 +45,7 @@ class _LandingScreenState extends State<LandingScreen>
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     return Scaffold(
       body: GlassBackdrop(
@@ -91,8 +93,8 @@ class _LandingScreenState extends State<LandingScreen>
 
                       Text(
                         Platform.isLinux
-                            ? 'REQUIEM INSTALLER'
-                            : 'REQUIEM TOOLS',
+                            ? t.appTitleInstaller.toUpperCase()
+                            : t.appTitleTools.toUpperCase(),
                         style: Theme.of(context).textTheme.displayLarge
                             ?.copyWith(
                               color: Colors.white,
@@ -110,7 +112,7 @@ class _LandingScreenState extends State<LandingScreen>
                           ),
                           const SizedBox(width: 16),
                           Text(
-                            'DESPLIEGUE DE SO DE PRÓXIMA GENERACIÓN',
+                            t.nextGenerationDeployment.toUpperCase(),
                             style: Theme.of(context).textTheme.headlineSmall
                                 ?.copyWith(
                                   color: scheme.primary,
@@ -125,8 +127,7 @@ class _LandingScreenState extends State<LandingScreen>
                       SizedBox(
                         width: 650,
                         child: Text(
-                          'Instalador de Windows de alta precisión para entornos de alto rendimiento. '
-                          'Experimente un despliegue rápido con orquestación directa de DISM y optimización automatizada del sistema.',
+                          t.landingDescription,
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.6),
                             fontSize: 20,
@@ -168,9 +169,9 @@ class _LandingScreenState extends State<LandingScreen>
                                 alpha: 0.5,
                               ),
                             ),
-                            child: const Text(
-                              'EMPEZAR',
-                              style: TextStyle(
+                            child: Text(
+                              t.start.toUpperCase(),
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -192,9 +193,9 @@ class _LandingScreenState extends State<LandingScreen>
                                 width: 2,
                               ),
                             ),
-                            child: const Text(
-                              'LOGS DEL SISTEMA',
-                              style: TextStyle(
+                            child: Text(
+                              t.systemLogs.toUpperCase(),
+                              style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.white70,
                               ),
@@ -212,16 +213,16 @@ class _LandingScreenState extends State<LandingScreen>
                           children: [
                             _buildFooterItem(
                               Icons.verified_user_rounded,
-                              'VERSIÓN ESTABLE v1.0.0',
+                              t.stableVersion.toUpperCase(),
                             ),
                             const SizedBox(width: 48),
                             _buildFooterItem(
                               Icons.security_rounded,
-                              'COMPATIBLE CON SECURE BOOT',
+                              t.secureBootCompatible.toUpperCase(),
                             ),
                             const Spacer(),
                             Text(
-                              'DISEÑADO POR JOSS',
+                              t.designedBy.toUpperCase(),
                               style: TextStyle(
                                 color: Colors.white.withValues(alpha: 0.1),
                                 fontWeight: FontWeight.bold,

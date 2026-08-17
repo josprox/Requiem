@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
+import '../../core/localizations.dart';
 
 class CustomFileExplorer extends StatefulWidget {
   final List<String> allowedExtensions;
-  final String title;
+  final String? title;
 
   const CustomFileExplorer({
     super.key,
     this.allowedExtensions = const ['wim', 'swm'],
-    this.title = 'Seleccionar Imagen de Instalación de Windows',
+    this.title,
   });
 
   @override
@@ -172,6 +173,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     final isRoot = _currentDir.path == _currentDir.parent.path;
 
     return Dialog(
@@ -201,9 +203,9 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                     children: [
                       Icon(Icons.storage_rounded, color: scheme.primary, size: 20),
                       const SizedBox(width: 8),
-                      const Text(
-                        'UNIDADES',
-                        style: TextStyle(
+                      Text(
+                        t.drives.toUpperCase(),
+                        style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 13,
                           letterSpacing: 1.5,
@@ -287,7 +289,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                     child: Row(
                       children: [
                         Text(
-                          widget.title,
+                          widget.title ?? t.selectWindowsImageFull,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -303,7 +305,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                             onChanged: _filterEntities,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                              hintText: 'Filtrar…',
+                              hintText: t.filter,
                               prefixIcon: const Icon(Icons.search_rounded, size: 16, color: Colors.white38),
                               fillColor: Colors.white.withValues(alpha: 0.03),
                             ),
@@ -322,7 +324,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                         IconButton(
                           onPressed: isRoot ? null : _goUp,
                           icon: const Icon(Icons.arrow_upward_rounded),
-                          tooltip: 'Subir un nivel',
+                          tooltip: t.goUpOneLevel,
                           style: IconButton.styleFrom(
                             backgroundColor: Colors.white.withValues(alpha: 0.05),
                             disabledBackgroundColor: Colors.transparent,
@@ -353,7 +355,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                                   _navigateTo(d);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Ruta inválida: $val')),
+                                    SnackBar(content: Text(t.invalidPath(val))),
                                   );
                                 }
                               },
@@ -403,8 +405,8 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                                           Icon(Icons.folder_open_rounded, color: Colors.white24, size: 48),
                                           const SizedBox(height: 12),
                                           Text(
-                                            'Esta carpeta está vacía',
-                                            style: TextStyle(color: Colors.white38),
+                                            t.emptyFolder,
+                                            style: const TextStyle(color: Colors.white38),
                                           ),
                                         ],
                                       ),
@@ -475,8 +477,8 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                         Expanded(
                           child: Text(
                             _selectedFilePath != null
-                                ? 'Seleccionado: ${p.basename(_selectedFilePath!)}'
-                                : 'Seleccione un archivo .wim o .swm',
+                                ? t.selectedFile(p.basename(_selectedFilePath!))
+                                : t.selectFileHint,
                             style: TextStyle(
                               color: _selectedFilePath != null ? Colors.white70 : Colors.white38,
                               fontSize: 13,
@@ -490,7 +492,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                           ),
-                          child: const Text('CANCELAR'),
+                          child: Text(t.actionCancel.toUpperCase()),
                         ),
                         const SizedBox(width: 12),
                         FilledButton(
@@ -502,7 +504,7 @@ class _CustomFileExplorerState extends State<CustomFileExplorer> {
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
-                          child: const Text('SELECCIONAR'),
+                          child: Text(t.actionSelect.toUpperCase()),
                         ),
                       ],
                     ),

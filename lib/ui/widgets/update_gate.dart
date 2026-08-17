@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../services/update_service.dart';
+import '../../core/localizations.dart';
 
 /// Widget raíz que verifica actualizaciones antes de mostrar el contenido
 /// principal. Solo activo en Windows (Modo Tools).
@@ -120,6 +121,7 @@ class _UpdateOverlay extends StatelessWidget {
   Widget _buildCard(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final cardWidth = (size.width * 0.46).clamp(400.0, 580.0);
+    final t = context.l10n;
 
     return Container(
       width: cardWidth,
@@ -165,7 +167,7 @@ class _UpdateOverlay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Actualización requerida',
+                    t.updateRequired,
                     style: GoogleFonts.outfit(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -196,7 +198,7 @@ class _UpdateOverlay extends StatelessWidget {
 
           // Descripción
           Text(
-            'Para continuar usando Requiem Tools es necesario actualizar a la versión más reciente.',
+            t.updateDescription,
             style: GoogleFonts.outfit(
               fontSize: 14,
               color: Colors.white.withValues(alpha: 0.65),
@@ -220,7 +222,7 @@ class _UpdateOverlay extends StatelessWidget {
                     size: 16, color: Color(0xFF30D158)),
                 const SizedBox(width: 8),
                 Text(
-                  'Versión disponible:  ',
+                  '${t.availableVersion}  ',
                   style: GoogleFonts.outfit(
                     fontSize: 13,
                     color: Colors.white.withValues(alpha: 0.45),
@@ -254,7 +256,7 @@ class _UpdateOverlay extends StatelessWidget {
           // Nota inferior
           Center(
             child: Text(
-              'Esta actualización es obligatoria y no puede omitirse.',
+              t.mandatoryUpdate,
               style: GoogleFonts.outfit(
                 fontSize: 11,
                 color: Colors.white.withValues(alpha: 0.3),
@@ -296,6 +298,8 @@ class _DownloadButtonState extends State<_DownloadButton> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.l10n;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
@@ -333,8 +337,8 @@ class _DownloadButtonState extends State<_DownloadButton> {
                   const SizedBox(width: 10),
                   Text(
                     widget.installMode == InstallMode.installed
-                        ? 'Descargar instalador (.exe)'
-                        : 'Descargar portable (.zip)',
+                        ? t.downloadInstaller
+                        : t.downloadPortable,
                     style: GoogleFonts.outfit(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,

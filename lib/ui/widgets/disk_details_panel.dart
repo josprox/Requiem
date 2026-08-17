@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/main_controller.dart';
 import '../../services/disk_service.dart';
 import '../../models/installation_source.dart';
+import '../../core/localizations.dart';
 
 class WimStatusCard extends StatelessWidget {
   final MainController controller;
@@ -10,10 +11,11 @@ class WimStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     final found = controller.detectedWimPath != null;
     final searching = controller.isSearchingWim;
     final sourceLabel = switch (controller.installationSourceKind) {
-      InstallationSourceKind.embedded => 'WIM integrado en la ISO',
+      InstallationSourceKind.embedded => t.wimIntegrated,
       InstallationSourceKind.bridge =>
         'Puente: ${controller.bridgeAnnouncement?.imageName ?? 'WIM remoto'}',
       InstallationSourceKind.local => controller.detectedWimPath ?? '',
@@ -59,10 +61,10 @@ class WimStatusCard extends StatelessWidget {
               children: [
                 Text(
                   searching
-                      ? 'Buscando imagen...'
+                      ? t.imageSearching
                       : found
-                      ? 'Imagen detectada'
-                      : 'Imagen no encontrada',
+                      ? t.imageDetected
+                      : t.imageNotFound,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
@@ -95,7 +97,7 @@ class WimStatusCard extends StatelessWidget {
                 color: found ? Colors.greenAccent : scheme.error,
               ),
               label: Text(
-                found ? 'CAMBIAR' : 'BUSCAR',
+                found ? t.actionChange.toUpperCase() : t.actionSearch.toUpperCase(),
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -129,6 +131,7 @@ class FirmwareStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     final detected = controller.bootedInUefi != null;
     final recommended =
         controller.recommendedPartitionMode == PartitionMode.formatGpt
@@ -155,7 +158,7 @@ class FirmwareStatusCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Arranque actual: ${controller.bootFirmwareLabel}',
+                  t.bootCurrent(controller.bootFirmwareLabel),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
@@ -163,7 +166,7 @@ class FirmwareStatusCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Modo compatible: $recommended',
+                  t.compatibleMode(recommended),
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.white.withValues(alpha: 0.48),

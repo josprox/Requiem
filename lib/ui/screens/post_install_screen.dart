@@ -4,6 +4,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../models/post_install_config.dart';
 import '../../services/post_install_service.dart';
+import '../../core/localizations.dart';
 import '../widgets/glass_backdrop.dart';
 import '../widgets/section_header.dart';
 import '../widgets/console_panel.dart';
@@ -307,19 +308,20 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
 
   Widget _mainContent() {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
     Widget currentPanel;
     Widget currentHeader;
 
     if (_navIndex == 0) {
       currentHeader = RequiemHeader(
-        title: 'Activación de Licencias',
+        title: t.tools_section_activation_title,
         description:
-            'Configura el servidor KMS local o remoto para activar Windows y Office.',
+            t.tools_section_activation_desc,
         statusPills: [
           RequiemStatusPill(
             icon: Icons.dns_rounded,
             label: _kmsHostController.text.trim().isEmpty
-                ? 'KMS pendiente'
+                ? t.tools_badge_kms_pending
                 : _kmsHostController.text.trim(),
             color: scheme.secondary,
           ),
@@ -338,7 +340,7 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                     ),
                   )
                 : const Icon(Icons.play_arrow_rounded),
-            label: const Text('ACTIVAR KMS'),
+            label: Text(t.tools_button_activate_kms),
           ),
         ),
       );
@@ -354,9 +356,9 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
       );
     } else if (_navIndex == 1) {
       currentHeader = RequiemHeader(
-        title: 'Instalador de Office',
+        title: t.tools_section_office_title,
         description:
-            'Despliega Microsoft Office LTSC o 365 de manera automatizada usando ODT.',
+            t.tools_section_office_desc,
         statusPills: [
           RequiemStatusPill(
             icon: Icons.apps_rounded,
@@ -378,7 +380,7 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                     ),
                   )
                 : const Icon(Icons.download_rounded),
-            label: const Text('INSTALAR OFFICE'),
+            label: Text(t.tools_button_install_office),
           ),
         ),
       );
@@ -397,13 +399,13 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
       );
     } else if (_navIndex == 2) {
       currentHeader = RequiemHeader(
-        title: 'Stack de Aplicaciones',
+        title: t.tools_section_packages_title,
         description:
-            'Instala y actualiza herramientas de desarrollo esenciales para Windows mediante winget.',
+            t.tools_section_packages_desc,
         statusPills: [
           RequiemStatusPill(
             icon: Icons.inventory_2_rounded,
-            label: '${_selectedPackages.length} programas',
+            label: t.tools_badge_package_count('${_selectedPackages.length}'),
             color: scheme.secondary,
           ),
         ],
@@ -421,7 +423,7 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
                     ),
                   )
                 : const Icon(Icons.install_desktop_rounded),
-            label: const Text('INSTALAR TODO'),
+            label: Text(t.tools_button_install_all_packages),
           ),
         ),
       );
@@ -441,13 +443,13 @@ class _PostInstallScreenState extends State<PostInstallScreen> {
       );
     } else {
       currentHeader = RequiemHeader(
-        title: 'ISO y despliegue por red',
+        title: t.tools_section_iso_title,
         description:
-            'Cree medios autónomos con un WIM integrado o distribuya una instalación directamente por IPv4.',
+            t.tools_section_iso_desc,
         statusPills: [
           RequiemStatusPill(
             icon: Icons.security_rounded,
-            label: 'BIOS + UEFI preservados',
+            label: t.tools_badge_iso_compatibility,
             color: scheme.secondary,
           ),
         ],
@@ -479,6 +481,7 @@ class _Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final t = context.l10n;
 
     return Container(
       width: 220,
@@ -521,9 +524,9 @@ class _Sidebar extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'REQUIEM',
-                  style: TextStyle(
+                Text(
+                  t.tools_sidebar_app_name,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
@@ -543,7 +546,7 @@ class _Sidebar extends StatelessWidget {
                     index: 0,
                     icon: Icons.verified_user_outlined,
                     selectedIcon: Icons.verified_user_rounded,
-                    title: 'Activación KMS',
+                    title: t.tools_sidebar_tab_kms,
                     scheme: scheme,
                   ),
                   const SizedBox(height: 8),
@@ -551,7 +554,7 @@ class _Sidebar extends StatelessWidget {
                     index: 1,
                     icon: Icons.apps_outlined,
                     selectedIcon: Icons.apps_rounded,
-                    title: 'Instalación Office',
+                    title: t.tools_sidebar_tab_office,
                     scheme: scheme,
                   ),
                   const SizedBox(height: 8),
@@ -559,7 +562,7 @@ class _Sidebar extends StatelessWidget {
                     index: 2,
                     icon: Icons.terminal_outlined,
                     selectedIcon: Icons.terminal_rounded,
-                    title: 'Stack Programas',
+                    title: t.tools_sidebar_tab_packages,
                     scheme: scheme,
                   ),
                   const SizedBox(height: 8),
@@ -567,7 +570,7 @@ class _Sidebar extends StatelessWidget {
                     index: 3,
                     icon: Icons.album_outlined,
                     selectedIcon: Icons.album_rounded,
-                    title: 'ISO y Puente',
+                    title: t.tools_sidebar_tab_iso,
                     scheme: scheme,
                   ),
                 ],
@@ -586,7 +589,7 @@ class _Sidebar extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Local Tools Mode',
+                  t.tools_sidebar_mode_badge,
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.white.withValues(alpha: 0.3),

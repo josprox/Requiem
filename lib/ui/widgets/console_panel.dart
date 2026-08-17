@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/localizations.dart';
 
 class RequiemConsolePanel extends StatelessWidget {
   final List<String> logs;
@@ -18,6 +19,7 @@ class RequiemConsolePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.l10n;
     return Container(
       decoration: BoxDecoration(
         color: Colors.black.withValues(alpha: 0.15),
@@ -40,24 +42,24 @@ class RequiemConsolePanel extends StatelessWidget {
                   color: busy ? Colors.amberAccent : Colors.tealAccent,
                 ),
                 const SizedBox(width: 10),
-                const Expanded(
+                Expanded(
                   child: Text(
-                    'Consola del Sistema',
-                    style: TextStyle(
+                    t.systemConsole,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       letterSpacing: -0.2,
                     ),
                   ),
                 ),
                 Tooltip(
-                  message: 'Copiar logs',
+                  message: t.copyLogs,
                   child: IconButton(
                     onPressed: logs.isEmpty ? null : onCopy,
                     icon: const Icon(Icons.copy_all_rounded, size: 20),
                   ),
                 ),
                 Tooltip(
-                  message: 'Limpiar logs',
+                  message: t.clearLogs,
                   child: IconButton(
                     onPressed: logs.isEmpty ? null : onClear,
                     icon: const Icon(Icons.clear_all_rounded, size: 20),
@@ -81,7 +83,7 @@ class RequiemConsolePanel extends StatelessWidget {
               child: logs.isEmpty
                   ? Center(
                       child: Text(
-                        'Esperando una acción...',
+                        t.waitingAction,
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.3),
                           fontWeight: FontWeight.bold,
