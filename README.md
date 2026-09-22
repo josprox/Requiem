@@ -1,4 +1,4 @@
-# Requiem Installer
+﻿# Requiem Installer
 
 > [!NOTE]
 > **Requiem Installer** es una solución avanzada de despliegue e instalación de Windows multi-plataforma desarrollada con **Flutter Desktop**. El proyecto cuenta con dos modos principales de operación: el **Modo ISO** (una distribución autónoma de Linux Live basada en Debian Bookworm optimizada exclusivamente para instalar imágenes Windows `.wim`/`.swm` sin depender de WinPE) y el **Modo Tools** (una herramienta utilitaria de post-instalación para la activación KMS, personalización OEM e instalación masiva de programas en Windows).
@@ -119,3 +119,11 @@ Software protegido bajo la **Requiem Installer Public License** (consulte [`lice
 
 **Desarrollado por**:
 Melchor Estrada José Luis — Joss Red — [joss.red](https://joss.red) (web) — [josprox.com](https://josprox.com) (web)
+
+---
+
+## ☕ Apoya el proyecto / Support
+
+Si este proyecto te ha sido de utilidad o deseas apoyar mi trabajo, ¡puedes invitarme un café!
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Fitted?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black&color=FFDD00)](https://buymeacoffee.com/jossestrely)
